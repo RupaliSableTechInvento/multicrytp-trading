@@ -1,0 +1,63 @@
+.div-registraion{
+	margin-left:10%;
+	margin-top:40px;
+}
+.lbl_reg{
+	font-size:28px;
+	font-weight:bold;
+	color:black;
+}
+.div-lbl{
+	margin-top:10px;
+}
+.div-lblinput{
+	margin-top:5px;
+}
+.lbl2_reg{
+	font-size:17px;
+	color:black;
+}
+.div-lbluser{
+	margin-top:5px;
+}
+.lbl{
+	font-size:16px;
+	font-weight:bold;
+	color:black;
+}
+.lbl2{
+		color:#63646E;
+	font-size:17px;
+}
+.lbl21{
+	color:#6E82FA;
+	font-size:17px;
+}
+.div-btn_login{
+	margin-top:10px;
+}
+.btncorners{
+    border-radius: 3px; 
+	color:white;
+	font-weight:bold;
+	font-size:14px;
+	background:#5CB85C;
+	border: 2px solid #5CB85C;
+    padding: 7px; 
+}
+.rcorner{
+    border-radius: 3px;
+	background: #FFFFFF;
+	border: 2px solid #DEDEDE;
+    padding: 7px; 
+    width:30%;   
+}
+input:focus { 
+	background: #FAFFBD;
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 8px #719ECE;
+}
+.div-bottom{
+	margin-top:8px;
+}
