@@ -1,0 +1,408 @@
+.flex-container{
+  display:flex;
+   height:80px;
+  background-color:#667BFA;
+  justify-content: center;
+  align-items: center;
+}
+.remark_logo{
+height:30px;
+}
+.flex_sub1{
+	padding-left:10px;
+	min-width:75%
+}
+.remark{
+	color:white;
+	font-size:21px;
+	font-weight:bold;
+	margin-left:10px;
+	position: absolute;
+	margin-top: 1px;
+}
+.round-img 
+{
+  height:30px;
+  border-radius: 50%;
+}
+.div-online{
+	
+	display: inline-block;
+	width: 20px; 
+	margin-top:15px
+}
+.online{
+	height:10px;
+	width:10px;
+	margin-left: -10px;
+}
+.div-notification{
+	
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	position: relative;
+}
+.notification{
+	position: absolute;
+	margin-top: 1px;
+height:20px;
+margin-left: 20px;
+}
+.rcorner{
+    border-radius: 500px;
+    background: red;
+    width: 20px;
+    height: 20px;    
+}
+.notfication_lable{
+	color: white;
+    font-size: 11px;
+    position: absolute;
+    margin-top: -4px;
+    padding: 3px;
+	text-align:center;
+	margin-left:31px;
+    background: red;
+    border-radius: 10px;
+    width: 12px
+}
+.div-msg{
+	
+	display: inline-block;
+	height: 20px; 
+	width: 20px;
+	position: relative;
+}
+.msg{
+	position: absolute;
+	margin-top: 1px;
+	height:20px;
+	margin-left: 50px;
+}
+.msg_lable{
+	color: white;
+    font-size: 11px;
+    position: absolute;
+    margin-top: -4px;
+    padding: 3px;
+	margin-left:61px;
+    background: green;
+    border-radius: 10px;
+    width: 12px
+	text-align:center;
+	
+}
+.div-chat{
+	display: inline-block;
+	height: 20px; 
+	width: 20px;
+}
+.chat{
+	position: absolute;
+	margin-top: 1px;
+	height:20px;
+	margin-left: 80px;
+}
+.flex-container_sec{
+  display:flex;
+  height:60px;
+  background-color:#FFFFFF;
+  align-items: center;
+  box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.2);
+}
+.logo{
+	height:40px;
+	margin-left:35px;
+}
+.arrow{
+	height:13px;
+}
+.arrow_margin{
+	margin-top:4px;
+	margin-left:131px;
+}
+.arrow_margin2{
+	margin-top:4px;
+	margin-left:138px;
+}
+.arrow_margin3{
+	margin-top:4px;
+	margin-left:90px;
+}
+.div-bitcoin_logo{
+	margin-left:20px;
+}
+.bitcoin_txt{
+	color:#6E82FA;
+}
+.lable_txt{
+	color:#63646E;
+}
+.logo_label{
+	font-size:18px;
+	font-weight:bold;
+	margin-left:10px;
+	position: absolute;
+	margin-top: -10px;
+}
+.last_div{
+	background-color:#F2F4F5;
+    margin-top: 2px;
+    padding: 20px;
+}
+.internal{
+		background-color:#FFFFFF;
+		align:center;
+		padding: 30px;
+	    margin-left: 16px;
+		margin-right: 16px;
+}
+.internal_sub{
+	margin:10px;
+}
+.btn_txt{
+		color:#F2F4F5;
+}
+.remark-div{
+	min-width:81%; margin-left:-85px
+}
+.flag-div{
+	float: right;
+}
+
+ul {
+	
+    list-style-type: none;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0
+}
+
+li {
+    float: left;
+	text-align: right;
+    border: 1px solid black;
+	flex: 1;
+}
+
+.li-a_quick_buy{
+	font-size: 15px;
+	font-weight:bold;
+	text-align: right;
+	color:#63646E;
+}
+.li-a_quick_sell{
+		text-align: left;
+		font-weight:bold;
+		font-size: 15px;
+		color:#6E82FA;
+}
+li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.li-quick_buy{
+	text-align: right;
+	border: 2px solid #6E82FA; 
+	border-bottom: none;
+	border-right:none;
+}
+.li-quick_sell{
+	border-bottom: 2px solid #6E82FA;
+	border-left: 2px solid #6E82FA;
+	border-top:none;
+	border-right:none;
+}
+.div-tab{
+
+}
+.div-txt_amt{
+	margin-left:40px;
+}
+.div-content{
+	padding-top: 40px;
+    border: 2px solid #6E82FA;
+    border-top: none;
+	padding-bottom:40px;
+}
+.rcorners{
+    border-radius: 5px;
+	border: 2px solid #6E82FA;
+    padding: 5px; 
+    width: 120px;
+    height: 10px; 
+}
+.tab_content_txt{
+color:#9a9cad;
+font-weight:bold;
+}
+
+.select_one{
+	color:#9a9cad;
+	font-weight:bold;
+	border-radius: 5px;
+	border: 2px solid #6E82FA;
+	padding:8px;
+	width:120px;
+}
+.select_country{
+	color:#9a9cad;
+	font-weight:bold;
+	border-radius: 5px;
+	border: 2px solid #6E82FA;
+	padding:8px;
+	width: 400px;;
+}
+.select_offers{
+	color:#9a9cad;
+	font-weight:bold;
+	border-radius: 5px;
+	border: 2px solid #6E82FA;
+	padding:8px;
+	width:450px;
+}
+.search_btn{
+	color:#ef6a6a;
+	font-weight:bold;
+	border-radius: 5px;
+	background:white;
+	border: 2px solid #efc1c1;
+	padding:8px;
+	width:80px;
+}
+.div-heading{
+	margin-top:30px;
+}
+.heading{
+	color:#1e203e;
+	font-size:30px;
+	font-weight:bold;
+}
+.div-flex_heading{
+    border: 2px solid #F2F4F5;
+	margin-top:10px;
+	 border-right:none;
+	 border-bottom:none;
+	 border-left:none;
+}
+.div-flexheading1{
+	 display:flex;
+	 padding:3px;
+	 border: 2px solid #DEDEDE;
+	 border-top:none;
+	 border-left:none;
+	 border-right:none;
+	 background-color:#F9F9F9;
+
+}
+.title1{
+	padding-left:10px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-weight:bold;
+	font-size:14px;
+	color:#1e203e;
+	 flex: 2;
+}
+.title2{
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-weight:bold;
+	font-size:14px;
+	color:#1e203e;
+	 flex: 2;
+}.title3{
+
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-weight:bold;
+	font-size:14px;
+	color:#1e203e;
+	 flex: 1;
+}.title4{
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-weight:bold;
+	font-size:14px;
+	color:#1e203e;
+	 flex: 1;
+}
+.title5{
+    margin-right: 82px;;
+	font-weight:bold;
+	font-size:14px;
+	color:#1e203e;
+	 flex: 0;
+}
+.flex_row21{
+	padding:10px;
+	padding-left:0px;
+	font-weight:bold;
+	font-size:14px;
+	color:#6E82FA;
+	 flex: 2;/
+}
+.flex_row211{
+	padding-left:10px;
+	
+}
+.flex_row22{
+		padding:10px;
+	padding-left:0px;
+	font-weight:bold;
+	font-size:14px;
+	color:#6E82FA;
+	 flex: 2;
+}
+.flex_row23{
+	padding:10px;
+	padding-left:0px;
+	font-weight:bold;
+	font-size:14px;
+	color:#6E82FA;
+	 flex: 1;
+}
+.flex_row24{
+	margin:5px;
+	font-weight:bold;
+	font-size:14px;
+	color:#6E82FA;
+	 flex: 0;
+}
+.div-flex2{
+	display:flex;
+	 border: 2px solid #DEDEDE;
+	 border-top:none;
+	 border-left:none;
+	 border-right:none;
+	 background:#EFEFFF;
+	 justify-content: center;
+	   align-items: center;
+	flex-direction: row;
+}
+.flex_heading_sub{
+	flex:1;
+	display:flex;
+	color:green;
+	font-size:18px;
+	font-weight:bold;
+	flex-direction: column;
+}
+.btncorners{
+	
+    border-radius: 4px; 
+	color:#1e203e;
+	font-weight:bold;
+	font-size:14px;
+	background:white;
+	border: 2px solid #DEDEDE;
+    padding: 15px; 
+    width: 70px;
+  
+}
+.txt{
+	color:
+}
