@@ -33,3 +33,7 @@
 [0317/141827.585:ERROR:persistent_memory_allocator.cc(738)] Corruption detected in shared-memory segment.
 [0317/141827.587:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\temp\settings.dat: Access is denied. (0x5)
 [0317/141827.592:ERROR:registration_protocol_win.cc(83)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0317/173300.800:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\temp\settings.dat: Access is denied. (0x5)
+[0317/173300.896:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files (x86)\temp\settings.dat: Access is denied. (0x5)
+[0317/173300.899:ERROR:registration_protocol_win.cc(83)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0317/173301.213:ERROR:crashpad_win.cc(223)] Crashpad handler failed to start, crash reporting disabled

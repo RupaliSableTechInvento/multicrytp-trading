@@ -219,6 +219,10 @@ li a {
 .div-tab{
 
 }
+.amt{
+	padding: 12px;
+	width: 198px;
+}
 .div-txt_amt{
 	margin-left:40px;
 }
@@ -231,8 +235,6 @@ li a {
 .rcorners{
     border-radius: 5px;
 	border: 2px solid #6E82FA;
-    padding: 5px; 
-    width: 120px;
     height: 10px; 
 }
 .tab_content_txt{
@@ -254,7 +256,7 @@ font-weight:bold;
 	border-radius: 5px;
 	border: 2px solid #6E82FA;
 	padding:8px;
-	width: 400px;;
+	width: 383px;;
 }
 .select_offers{
 	color:#9a9cad;
@@ -262,7 +264,7 @@ font-weight:bold;
 	border-radius: 5px;
 	border: 2px solid #6E82FA;
 	padding:8px;
-	width:450px;
+	width:335px;
 }
 .search_btn{
 	color:#ef6a6a;
@@ -288,7 +290,7 @@ font-weight:bold;
 	 border-bottom:none;
 	 border-left:none;
 }
-.div-flexheading1{
+.div-flexheadingSub{
 	 display:flex;
 	 padding:3px;
 	 border: 2px solid #DEDEDE;
@@ -300,40 +302,40 @@ font-weight:bold;
 }
 .title1{
 	padding-left:10px;
-	padding-top: 7px;
-	padding-bottom: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#1e203e;
 	 flex: 2;
 }
 .title2{
-	padding-top: 7px;
-	padding-bottom: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:16px;
 	color:#1e203e;
 	 flex: 2;
 }.title3{
 
-	padding-top: 7px;
-	padding-bottom: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#1e203e;
 	 flex: 1;
 }.title4{
-	padding-top: 7px;
-	padding-bottom: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#1e203e;
 	 flex: 1;
 }
 .title5{
     margin-right: 82px;;
 	font-weight:bold;
-	font-size:14px;
+	font-size:16px;
 	color:#1e203e;
 	 flex: 0;
 }
@@ -341,9 +343,9 @@ font-weight:bold;
 	padding:10px;
 	padding-left:0px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#6E82FA;
-	 flex: 2;/
+	 flex: 2;
 }
 .flex_row211{
 	padding-left:10px;
@@ -353,7 +355,7 @@ font-weight:bold;
 		padding:10px;
 	padding-left:0px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#6E82FA;
 	 flex: 2;
 }
@@ -361,18 +363,18 @@ font-weight:bold;
 	padding:10px;
 	padding-left:0px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#6E82FA;
 	 flex: 1;
 }
 .flex_row24{
 	margin:5px;
 	font-weight:bold;
-	font-size:14px;
+	font-size:15px;
 	color:#6E82FA;
 	 flex: 0;
 }
-.div-flex2{
+.div-flexrow{
 	display:flex;
 	 border: 2px solid #DEDEDE;
 	 border-top:none;

@@ -3,7 +3,7 @@
 	margin-top:40px;
 }
 .lbl_reg{
-	font-size:28px;
+	font-size:25px;
 	font-weight:bold;
 	color:black;
 }
@@ -14,24 +14,24 @@
 	margin-top:5px;
 }
 .lbl2_reg{
-	font-size:17px;
+	font-size :15px;
 	color:black;
 }
 .div-lbluser{
 	margin-top:5px;
 }
 .lbl{
-	font-size:16px;
+	font-size:14px;
 	font-weight:bold;
 	color:black;
 }
 .lbl2{
 		color:#63646E;
-	font-size:17px;
+	font-size:14px;
 }
 .lbl21{
 	color:#6E82FA;
-	font-size:17px;
+	font-size:14px;
 }
 .div-btn_login{
 	margin-top:10px;
@@ -49,8 +49,8 @@
     border-radius: 3px;
 	background: #FFFFFF;
 	border: 2px solid #DEDEDE;
-    padding: 7px; 
-    width:30%;   
+    padding: 4px; 
+    width:42%;   
 }
 input:focus { 
 	background: #FAFFBD;
