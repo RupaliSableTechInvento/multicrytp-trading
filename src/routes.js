@@ -7,19 +7,19 @@ const routes = (route) => {
     });
 
     route.route('/login')
-        .post(authController.login);
+    .get(authController.login); 
 
     route.route('/register')
-        .post(authController.register);
+    .post(authController.register);
 
     route.route('/users')
-        .get(usersController.getAll)
-        .post(usersController.create);
+    .get(usersController.getAll)
+    .post(usersController.create);
 
     route.route('/users/:id')
-        .get(usersController.getOne)
-        .put(usersController.update)
-        .delete(usersController.delete)
+    .get(usersController.getOne)
+    .put(usersController.update)
+    .delete(usersController.delete)
 };
 
 export default routes;

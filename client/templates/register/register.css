@@ -61,3 +61,8 @@ input:focus {
 .div-bottom{
 	margin-top:8px;
 }
+.error{
+	border: 1px solid red;
+	background:#e5d2d2 ;
+	color: red;
+}

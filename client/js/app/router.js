@@ -10,7 +10,7 @@
     });
 	
 	   this.get('#/login', function(context){
-     Login.init();
+       Login.init();
     });
 
     this.get('#/register', function(context){

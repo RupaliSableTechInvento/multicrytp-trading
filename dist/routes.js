@@ -23,7 +23,7 @@ var routes = function routes(route) {
         res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
     });
 
-    route.route('/login').post(_authController2.default.login);
+    route.route('/login').get(_authController2.default.login);
 
     route.route('/register').post(_authController2.default.register);
 
