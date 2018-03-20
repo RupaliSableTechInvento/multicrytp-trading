@@ -34,6 +34,9 @@ var usersSchema = new _mongoose2.default.Schema({
     index: true,
     unique: true,
     required: true
+  },
+  trade_info: {
+    type: String
   }
 });
 var sellerSchema = new _mongoose2.default.Schema({

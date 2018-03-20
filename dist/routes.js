@@ -30,13 +30,17 @@ var routes = function routes(route) {
 
     route.route('/register').post(_authController2.default.register);
 
-    route.route('/users').get(_usersController2.default.getAll).post(_usersController2.default.create);
+    route.route('/users').get(_usersController2.default.getAll).put(_usersController2.default.update);
 
-    route.route('/users/:id').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
+    route.route('/users/changePassword').post(_usersController2.default.changePassword);
+
+    route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
+
+    route.route('/users/:id').get(_usersController2.default.getOne).delete(_usersController2.default.delete);
 
     route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
 
-    route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create);
+    route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create).patch(_tradeController2.default.update);
 };
 
 exports.default = routes;

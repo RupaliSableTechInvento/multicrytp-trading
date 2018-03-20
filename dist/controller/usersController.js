@@ -16,6 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+var mongoose = require('mongoose');
 var usersController = {
 
     getAll: function () {
@@ -43,6 +44,7 @@ var usersController = {
     }(),
 
     getOne: function getOne(req, res, next) {
+        console.log("------------");
         _usersModel2.default.findById(req.params.id, function (err, user) {
             res.json(user || {});
         });
@@ -56,7 +58,8 @@ var usersController = {
     },
 
     update: function update(req, res, next) {
-        _usersModel2.default.findOneAndUpdate(req.params.id, req.body, { new: true }, function (err, user) {
+        // var id = mongoose.Types.ObjectId(req.body.id);
+        _usersModel2.default.findOneAndUpdate({ '_id': req.body.id }, req.body, { new: true }, function (err, user) {
             if (err) return res.json(err);
             res.json(user);
         });
@@ -67,6 +70,26 @@ var usersController = {
             if (err) return res.json(err);
         });
         res.json(true);
+    },
+    changePassword: function changePassword(req, res, next) {
+        _usersModel2.default.findOneAndUpdate({ $and: [{ "password": req.body.password }, { "email": req.body.email }] }, {
+            $set: { "password": req.body.new_password }
+        }, function (err, user) {
+            if (err) return res.json(err);
+            res.json(user);
+        });
+    },
+    changeEmail: function changeEmail(req, res, next) {
+        if (req.body.new_email) {
+            _usersModel2.default.findOneAndUpdate({ $and: [{ "password": req.body.password }, { "email": req.body.email }] }, {
+                $set: { "email": req.body.new_email }
+            }, function (err, user) {
+                if (err) return res.json(err);
+                res.json(user);
+            });
+        } else {
+            res.json("NULL");
+        }
     }
 };
 
