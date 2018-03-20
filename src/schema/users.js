@@ -19,6 +19,9 @@ const usersSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  trade_info:{
+    type: String,
+  }
 });
 const sellerSchema = new mongoose.Schema({
   user: {

@@ -1,4 +1,8 @@
 import postatrade from '../models/postatrade'
+import tradeMoreInfo from '../models/tradeMoreInfo'
+import usersModel from '../models/usersModel'
+
+var mongoose = require('mongoose');
 
 const tradeController = {
 
@@ -18,7 +22,17 @@ const tradeController = {
     create: (req, res, next) => {
         postatrade.create(req.body, function (err, trade) {
             if (err) return res.json(err);
-            res.json(trade)
+            else{
+              tradeMoreInfo.create({'trade_id':trade._id,'user_id':trade.user},function (err, tradeInfo) {
+                if (err) return res.json(err);
+                else{
+                  usersModel.findOneAndUpdate({'_id':tradeInfo.user_id},{"trade_info":tradeInfo._id},function (err, UpdateUser) {
+                    if (err) return res.json(err);
+                    res.json(UpdateUser)
+                  })
+                }
+              })
+            }
         })
     },
 
@@ -34,7 +48,15 @@ const tradeController = {
             if (err) return res.json(err);
         });
         res.json(true)
-    }
+    },
+
+    update: (req, res, next) => {
+      var id = mongoose.Types.ObjectId(req.body.id);
+        postatrade.findOneAndUpdate({'_id':id}, req.body, {new: true}, (err, user) => {
+            if (err) return res.json(err);
+            res.json(user)
+        });
+    },
 };
 
 export default tradeController;

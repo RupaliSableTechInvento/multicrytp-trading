@@ -14,11 +14,16 @@ const routes = (route) => {
 
     route.route('/users')
     .get(usersController.getAll)
-    .post(usersController.create);
+    .put(usersController.update);
+
+    route.route('/users/changePassword')
+    .post(usersController.changePassword);
+
+    route.route('/users/changeEmail')
+    .post(usersController.changeEmail);
 
     route.route('/users/:id')
     .get(usersController.getOne)
-    .put(usersController.update)
     .delete(usersController.delete);
 
     route.route('/seller')
@@ -28,7 +33,8 @@ const routes = (route) => {
 
     route.route('/trade')
     .get(tradeController.getAll)
-    .post(tradeController.create);
+    .post(tradeController.create)
+    .patch(tradeController.update);
 
 };
 
