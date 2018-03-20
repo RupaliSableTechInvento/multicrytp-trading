@@ -4,7 +4,7 @@ import env from "../env";
 
 const authController = {
     login: (req, res, next) => {
-        const credential = req.query;
+        const credential = req.body;
         usersModel.findOne({email: credential.email, password: credential.password}, (err, user) => {
             if (err) res.json(err);
             if (user !== null) {
