@@ -1,4 +1,5 @@
 import usersModel from '../models/usersModel'
+import postatrade from '../models/postatrade'
 
 const usersController = {
 

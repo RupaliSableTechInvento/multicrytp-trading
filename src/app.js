@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('client'))
 app.use('/users', authenticated);
-
 routes(app);
 
 app.listen(env.Api_port, () => {
