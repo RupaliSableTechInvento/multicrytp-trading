@@ -32,7 +32,6 @@ app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
 app.use(_express2.default.static('client'));
 app.use('/users', _authenticated2.default);
-
 (0, _routes2.default)(app);
 
 app.listen(_env2.default.Api_port, function () {

@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _mongoose = require('mongoose');
@@ -19,22 +19,42 @@ var _mongooseAutoIncrement2 = _interopRequireDefault(_mongooseAutoIncrement);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var usersSchema = new _mongoose2.default.Schema({
-    first_name: {
-        type: String
-    },
-    last_name: {
-        type: String
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        index: true,
-        unique: true,
-        required: true
-    }
+  first_name: {
+    type: String
+  },
+  last_name: {
+    type: String
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    index: true,
+    unique: true,
+    required: true
+  }
+});
+var sellerSchema = new _mongoose2.default.Schema({
+  user: {
+    type: String
+  },
+  payment_method: {
+    type: String
+  },
+  price_btc: {
+    type: Number
+  },
+  currency: {
+    type: String
+  },
+  limit_from: {
+    type: Number
+  },
+  limit_to: {
+    type: Number
+  }
 });
 
 usersSchema.plugin(_mongooseUniqueValidator2.default);

@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _usersModel = require('../models/usersModel');
-
-var _usersModel2 = _interopRequireDefault(_usersModel);
-
 var _postatrade = require('../models/postatrade');
 
 var _postatrade2 = _interopRequireDefault(_postatrade);
@@ -16,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var usersController = {
+var tradeController = {
 
     getAll: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {
@@ -24,9 +20,9 @@ var usersController = {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            _usersModel2.default.find({}, function (err, users) {
+                            _postatrade2.default.find({}, function (err, trade) {
                                 if (err) return res.json(err);
-                                res.json(users);
+                                res.json(trade);
                             });
 
                         case 1:
@@ -43,32 +39,32 @@ var usersController = {
     }(),
 
     getOne: function getOne(req, res, next) {
-        _usersModel2.default.findById(req.params.id, function (err, user) {
-            res.json(user || {});
+        _postatrade2.default.findById(req.params.id, function (err, trade) {
+            res.json(trade || {});
         });
     },
 
     create: function create(req, res, next) {
-        _usersModel2.default.create(req.body, function (err, user) {
+        _postatrade2.default.create(req.body, function (err, trade) {
             if (err) return res.json(err);
-            res.json(user);
+            res.json(trade);
         });
     },
 
     update: function update(req, res, next) {
-        _usersModel2.default.findOneAndUpdate(req.params.id, req.body, { new: true }, function (err, user) {
+        _postatrade2.default.findOneAndUpdate(req.params.id, req.body, { new: true }, function (err, trade) {
             if (err) return res.json(err);
-            res.json(user);
+            res.json(trade);
         });
     },
 
     delete: function _delete(req, res, next) {
-        _usersModel2.default.remove({ _id: req.params.id }, function (err, ok) {
+        _postatrade2.default.remove({ _id: req.params.id }, function (err, ok) {
             if (err) return res.json(err);
         });
         res.json(true);
     }
 };
 
-exports.default = usersController;
-//# sourceMappingURL=usersController.js.map
+exports.default = tradeController;
+//# sourceMappingURL=tradeController.js.map

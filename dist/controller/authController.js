@@ -20,7 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var authController = {
     login: function login(req, res, next) {
-        var credential = req.body;
+        var credential = req.query;
         _usersModel2.default.findOne({ email: credential.email, password: credential.password }, function (err, user) {
             if (err) res.json(err);
             if (user !== null) {
