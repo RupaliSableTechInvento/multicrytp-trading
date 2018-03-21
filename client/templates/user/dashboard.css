@@ -7,6 +7,7 @@
     margin-left: 10px;
     margin-right: 10px;
     display: flex;
+ 
     flex-direction: column; 
 }
 .div-dashboard-frame{
@@ -19,39 +20,79 @@
     padding: 20px;
     background: #FCFCFC;
 }
+.nav-title-newuser{
+    margin-top: 5px;
+}
+.img-trade{
+    display:inline-block;
+}
+.trade-title{
+    font-size: 20px;
+    color: white;
+}
+.lbl-balag{
+    font-weight: bold;
+    font-size: 18px;
+}
+.lbl-newuser{
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
 .nav-tab-dashboard{
     justify-content: center;
+    padding: 15px;
+    border: 2px solid #FCFCFC;
+    border-bottom: none;
+
 }
 .dash-icon{
     height: 20px;
 }
+.dash-icon-like{
+    height: 15px;
+}
+
 .dash-tab-title{
    color:#8D8D8D;
+   margin-left:10px;
+	position: absolute;
+	margin-top: 2px;
 }
-.div-nav-tab{
-    border: 1px solid #8D8D8D;
 
+.div-nav-tab{
     display: flex;
     flex-direction: column;   
 }
 .div-trade{
     display: flex;
-    flex: 1
 }
 .div-buy-trade{
-
-    height: 40px;
+    padding: 30px;
     background: #5C6BC0;
 }
 .div-sell-trade{
-    height: 40px;
+    padding: 30px;
+    margin-left: 25px;
     background: #26A699;
 }
+.rounded_corner{
+    border-radius: 10px;
+}
+.circle{
+    padding: 10px;
+    background: white;
+    border-radius: 25px;
+
+} 
+.div-dashboard-frame{
+    margin-left: 15px;
+}
 .div-my-trade{
-    height: 40px;
+    padding: 30px;
+    margin-left: 15px;
     background: #42A5F5;
 }
 .nav-title-color{
     color:#3E3E3E;
-    font-size: 12px;
 }
