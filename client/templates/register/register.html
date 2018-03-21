@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="templates/register/register.css" type="text/css" />
 
-<form method="post" action="#">
     <div class="div-registraion">
+
         <div class="div-lblreg">
             <label class="lbl_reg">  Register a new account</label>
         </div>
@@ -22,25 +22,33 @@
         </div>
         <div class="div-lbl">
             <label class="lbl"> Email*</label>
+            <label id="lbl-reg-emailId" class="lbl-already-reg" >
+                    Already registerd Email-ID </label>
+    
         </div>
         <div class="div-lblinput">
-            <input type="email" id="txtemail"  class="rcorner"/>
+            <input type="email" id="txtemail"  class="rcorner" placeholder="eg:a@gmail.com"/>
+            
         </div>
         <div class="div-lbl">
             <label class="lbl"> Password*</label>
         </div>
         <div class="div-lblinput">
-            <input type="password" id="txtpwd"  class="rcorner"/>
+            <input type="password" id="txtpwd"  class="rcorner" placeholder="must have more than 6 characters"/>
         </div>
         <div class="div-lbl">
-            <label class="lbl"> Password(again)*</label>
+            <label class="lbl"> Confirm password*</label>
         </div>
         <div class="div-lblinput">
             <input type="password" id="txtpwd2"  class="rcorner"/>
         </div>
+        <div class="div-lbl_error">
+				<label id="lbl_error"class="lbl_error"></label>
+			</div>
         <div class="div-btn_login">
-            <input type="button" id="btnlogin" class="btncorners div-lblinput" value="Register"/>
+            <input type="button" id="btnregister" class="btncorners div-lblinput" value="Register"/>
         </div>
+       
         <div class="div-bottom">
             <label class="lbl2"> Already have an account?</label>
             <label class="lbl21"><a>Log In.</a></label>
@@ -51,4 +59,3 @@
         </div>
     </div>
     
-</form>

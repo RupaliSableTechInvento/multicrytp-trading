@@ -1,3 +1,8 @@
+
+html,body{
+	margin: 0;
+	padding: 0;
+}
 .flex-container{
   display:flex;
    height:80px;
@@ -6,7 +11,7 @@
   align-items: center;
 }
 .remark_logo{
-height:30px;
+height:40px;
 }
 .flex_sub1{
 	padding-left:10px;
@@ -18,7 +23,7 @@ height:30px;
 	font-weight:bold;
 	margin-left:10px;
 	position: absolute;
-	margin-top: 1px;
+	margin-top: 8px;
 }
 .round-img 
 {
@@ -89,7 +94,7 @@ margin-left: 20px;
 	margin-left:61px;
     background: green;
     border-radius: 10px;
-    width: 12px
+    width: 12px;
 	text-align:center;
 	
 }
@@ -112,10 +117,11 @@ margin-left: 20px;
   box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.2);
 }
 .logo{
-	height:40px;
+	height:34px;
 	margin-left:35px;
 }
 .arrow{
+
 	height:13px;
 }
 .arrow_margin{
@@ -139,6 +145,9 @@ margin-left: 20px;
 .lable_txt{
 	color:#63646E;
 }
+.lbl-txt-unchecked{
+	color: #85909B;
+}
 .logo_label{
 	font-size:18px;
 	font-weight:bold;
@@ -148,15 +157,17 @@ margin-left: 20px;
 }
 .last_div{
 	background-color:#F2F4F5;
-    margin-top: 2px;
-    padding: 20px;
+	margin-top: 2px;
+	padding-top:30px ;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 30px;
 }
 .internal{
 		background-color:#FFFFFF;
 		align:center;
 		padding: 30px;
-	    margin-left: 16px;
-		margin-right: 16px;
+	   
 }
 .internal_sub{
 	margin:10px;
@@ -216,15 +227,13 @@ li a {
 	border-top:none;
 	border-right:none;
 }
-.div-tab{
 
-}
 .amt{
 	padding: 12px;
-	width: 198px;
+	width: 250px;
 }
 .div-txt_amt{
-	margin-left:40px;
+	margin-left:24px;
 }
 .div-content{
 	padding-top: 40px;
@@ -256,7 +265,7 @@ font-weight:bold;
 	border-radius: 5px;
 	border: 2px solid #6E82FA;
 	padding:8px;
-	width: 383px;;
+	width: 420px;;
 }
 .select_offers{
 	color:#9a9cad;
@@ -264,7 +273,7 @@ font-weight:bold;
 	border-radius: 5px;
 	border: 2px solid #6E82FA;
 	padding:8px;
-	width:335px;
+	width:420px;
 }
 .search_btn{
 	color:#ef6a6a;
@@ -402,9 +411,17 @@ font-weight:bold;
 	background:white;
 	border: 2px solid #DEDEDE;
     padding: 15px; 
-    width: 70px;
-  
+    width: 70px;  
 }
-.txt{
-	color:
+.setting_img{
+	height: 20px;
+}
+
+.div-setting-icon{
+    position: fixed;
+	top: 170px;
+	right: 0;
+	background: white;
+	padding: 10px;
+	border: 2px solid #F2F4F5;
 }

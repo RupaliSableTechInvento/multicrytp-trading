@@ -1,0 +1,57 @@
+.div-dashboard-main{
+    display: flex;
+    height: 300px;
+}   
+.div-nav{
+    flex: 0.2;  
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column; 
+}
+.div-dashboard-frame{
+    flex: 0.8;
+    display: flex;
+    flex-direction: column; 
+}
+.div-nav-title{
+    text-align: center;
+    padding: 20px;
+    background: #FCFCFC;
+}
+.nav-tab-dashboard{
+    justify-content: center;
+}
+.dash-icon{
+    height: 20px;
+}
+.dash-tab-title{
+   color:#8D8D8D;
+}
+.div-nav-tab{
+    border: 1px solid #8D8D8D;
+
+    display: flex;
+    flex-direction: column;   
+}
+.div-trade{
+    display: flex;
+    flex: 1
+}
+.div-buy-trade{
+
+    height: 40px;
+    background: #5C6BC0;
+}
+.div-sell-trade{
+    height: 40px;
+    background: #26A699;
+}
+.div-my-trade{
+    height: 40px;
+    background: #42A5F5;
+}
+.nav-title-color{
+    color:#3E3E3E;
+    font-size: 12px;
+}

@@ -16,6 +16,10 @@
     this.get('#/register', function(context){
        Register.init();
     });
+    this.get('#/dashboard', function(context){
+      Dashboard.init();
+   });
+
 
 
   })

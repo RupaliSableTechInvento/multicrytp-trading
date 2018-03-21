@@ -1,4 +1,7 @@
-
+html,body{
+	margin: 0;
+	padding: 0;
+}
 .top-div{
 	margin-top:15px;
 	margin-bottom:15px;

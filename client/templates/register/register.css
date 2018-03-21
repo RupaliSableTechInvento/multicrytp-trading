@@ -13,6 +13,13 @@
 .div-lblinput{
 	margin-top:5px;
 }
+.lbl-already-reg{
+	display:none;
+	color:red;
+	size:12px;
+	margin-bottom:2px;
+
+}
 .lbl2_reg{
 	font-size :15px;
 	color:black;
@@ -52,7 +59,19 @@
     padding: 4px; 
     width:42%;   
 }
-input:focus { 
+input[type=text]:focus { 
+	background: #FAFFBD;
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 8px #719ECE;
+}
+input[type=email]:focus { 
+	background: #FAFFBD;
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 8px #719ECE;
+}
+input[type=password]:focus { 
 	background: #FAFFBD;
     outline: none !important;
     border-color: #719ECE;
@@ -61,8 +80,22 @@ input:focus {
 .div-bottom{
 	margin-top:8px;
 }
+.button:active {
+	background-color: #5CB85C;
+
+  }
+  .button:focus {
+	background-color: #5CB85C;
+  }
 .error{
 	border: 1px solid red;
 	background:#e5d2d2 ;
 	color: red;
+}
+.div-lbl_error{
+	font-size:15px;
+	color:red;
+}
+.lbl_error{
+	display: none;
 }
