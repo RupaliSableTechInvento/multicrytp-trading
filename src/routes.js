@@ -6,6 +6,11 @@ const routes = (route) => {
     route.get('/', (req, res) => {
         res.sendFile(path.resolve(__dirname+'/../client/'+'index.html'));
     });
+
+    route.get('/recover/*', (req, res) => {
+        res.sendFile(path.resolve(__dirname+'/../client/'+'recover.html'));
+    });
+
     route.route('/login')
     .post(authController.login);
 
@@ -31,11 +36,25 @@ const routes = (route) => {
     .put(usersController.update)
     .delete(usersController.delete);
 
+    route.route('/cp/:token')
+    .get(usersController.varifyToken);
+
+    route.route('/emailvarification')
+    .post(usersController.emailVarification);
+
+    route.route('/ev/:token')
+    .get(usersController.emailVarified);
+
     route.route('/trade')
     .get(tradeController.getAll)
     .post(tradeController.create)
     .patch(tradeController.update);
 
+    route.route('/recoverPassword')
+    .post(usersController.recoverPassword);
+
+    route.route('/storeBasicUserInfo')
+    .post(usersController.storeBasicUserInfo);
 };
 
 export default routes;

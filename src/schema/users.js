@@ -19,9 +19,49 @@ const usersSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
-  trade_info:{
+  trade_info: {
     type: String,
+  },
+  basicInfo: {
+    timezone: {
+      type: String,
+    },
+    show_real_name: {
+      type: String,
+    },
+    disable_sensetive: {
+      type: String,
+    },
+    enable_web_notification: {
+      type: String,
+    },
+    selling_vacation: {
+      type: String,
+    },
+    buying_vacation: {
+      type: String,
+    },
+    send_SMS_new_trade: {
+      type: String,
+    },
+    send_SMS_new_online: {
+      type: String,
+    },
+    introduction: {
+      type: String,
+    }
+  },
+  varification:{
+    email_varified:{
+      type:String,
+      default:false,
+    },
+    mobile_varified:{
+      type:String,
+      default:false,
+    },
   }
+
 });
 const sellerSchema = new mongoose.Schema({
   user: {
