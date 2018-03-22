@@ -1,53 +1,91 @@
 .div-dashboard-main{
     display: flex;
-    height: 300px;
 }   
 .div-nav{
     flex: 0.2;  
     margin-left: 10px;
     margin-right: 10px;
     display: flex;
- 
     flex-direction: column; 
 }
 .div-dashboard-frame{
+    margin-right: 20px;
     flex: 0.8;
     display: flex;
     flex-direction: column; 
 }
 .div-nav-title{
-    text-align: center;
+    height: 100px;
+    background: #FCFCFC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: -webkit-center;
     padding: 20px;
+    background: #FCFCFC;
+}
+
+.div-dashboard-tab-bg{
     background: #FCFCFC;
 }
 .nav-title-newuser{
     margin-top: 5px;
 }
+.img-trade-icons{
+    height:25px;
+}
+.div-frame-head-title-color{
+    color:#3B2C30;
+}
+.lbl-recent-chat-id{
+    color:#3EA3F5;
+}
 .img-trade{
-    display:inline-block;
+    vertical-align: sub;
+    display: inline-block;
+}
+.div-frame-chat-response{
+    margin: 10px;
 }
 .trade-title{
     font-size: 20px;
     color: white;
+    margin-left: 10px;
 }
+.img-update{
+    height: 12px;
+    float: right;
+}
+
 .lbl-balag{
     font-weight: bold;
     font-size: 18px;
+}
+.div-img-update-circle{
+    width: 30px;
+    height: 30px;
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background:#DEDEDE ;
+    border-radius: 25px;
 }
 .lbl-newuser{
     margin-left: 5px;
     font-weight: bold;
     font-size: 14px;
 }
-.nav-tab-dashboard{
-    justify-content: center;
-    padding: 15px;
-    border: 2px solid #FCFCFC;
-    border-bottom: none;
 
+.nav-tab-dashboard{
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #DEDEDE;
+    border-bottom: none;
 }
 .dash-icon{
-    height: 20px;
+    width: 20px;
+    vertical-align: sub;
 }
 .dash-icon-like{
     height: 15px;
@@ -62,37 +100,105 @@
 
 .div-nav-tab{
     display: flex;
+    border-bottom: 2px solid #DEDEDE;
     flex-direction: column;   
 }
+.img-trade-icon{
+    height: 25px;
+}
+
 .div-trade{
     display: flex;
+    justify-content: space-around;
+}
+.div-frame-data{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+
 }
 .div-buy-trade{
-    padding: 30px;
+    width: 250px;
+    padding: 20px;
     background: #5C6BC0;
 }
+.div-frame-feedback{
+    border: 2px solid #DEDEDE;
+    background: #F2F4F5;
+    padding: 10px;
+    flex-grow: 0.4;
+    margin-left: 15px;
+
+}
 .div-sell-trade{
-    padding: 30px;
-    margin-left: 25px;
+    width: 250px;
+    padding: 20px;
     background: #26A699;
 }
 .rounded_corner{
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .circle{
-    padding: 10px;
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: white;
     border-radius: 25px;
-
 } 
-.div-dashboard-frame{
-    margin-left: 15px;
-}
+
 .div-my-trade{
-    padding: 30px;
-    margin-left: 15px;
+    width: 250px;
+    padding: 20px;
     background: #42A5F5;
 }
 .nav-title-color{
     color:#3E3E3E;
+}
+.div-frame-head{
+    padding: 15px;
+}
+.div-frame-feedback-data{
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    background: white;
+}
+.div-frame-chat-data{
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    background: white;
+}
+.div-frame-head-title-color{
+    color:#3E3E3E;
+}
+.div-frame-feeback-response{
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 2px solid #D9EDF7;
+    background: #D9EDF7;
+}
+.img-feedback-info_logo{
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.lbl-feedback-no_response{
+    vertical-align: super;
+}
+.div-frame-chat{
+    border: 2px solid #DEDEDE;
+    background: #F2F4F5;
+    padding: 10px;
+    margin-right: 15px;
+    flex-grow: 0.4;
+}
+.scrollbar{
+    -webkit-overflow-scrolling: auto;
+ -webkit-text-stroke-width: 3px;
+
 }

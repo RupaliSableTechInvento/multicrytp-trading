@@ -22,7 +22,7 @@ var block_io = new BlockIo('e1e0-ea6a-d686-dd2e', 'Abhi1Abhi1Abhi1', version);
 // block_io.get_my_archived_addresses({}, console.log);
 // block_io.archive_address({'addresses': '2NFqxPiKTA13iZpyt3jt5ftPz5VbFuVu5eU'},console.log);
 // block_io.get_my_archived_addresses({}, console.log);
-block_io.get_network_fee_estimate({'amounts': '0', 'to_addresses': '2NFqxPiKTA13iZpyt3jt5ftPz5VbFuVu5eU'},console.log);
+// block_io.get_network_fee_estimate({'amounts': '0', 'to_addresses': '2NFqxPiKTA13iZpyt3jt5ftPz5VbFuVu5eU'},console.log);
 // block_io.get_my_addresses({}, console.log);
 // block_io.create_forwarding_address({'to_address': '39mQmjBtG9yPbQfDqF1hjr15bjYjANAZCT'},console.log);
 // console.log("addr",addr);
@@ -35,9 +35,9 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-// app.use(express.static('client'))
-// app.use('/users', authenticated);
-// app.use('/users/*', authenticated);
+app.use(express.static('client'))
+app.use('/users', authenticated);
+app.use('/users/*', authenticated);
 routes(app);
 
 app.listen(env.Api_port, () => {
