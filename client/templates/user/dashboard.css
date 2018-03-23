@@ -22,7 +22,6 @@
     justify-content: center;
     text-align: -webkit-center;
     padding: 20px;
-    background: #FCFCFC;
 }
 
 .div-dashboard-tab-bg{
@@ -41,14 +40,14 @@
     color:#3EA3F5;
 }
 .img-trade{
-    vertical-align: sub;
+    vertical-align: -webkit-baseline-middle;
     display: inline-block;
 }
 .div-frame-chat-response{
     margin: 10px;
 }
 .trade-title{
-    font-size: 20px;
+    font-size: 23px;
     color: white;
     margin-left: 10px;
 }
@@ -59,7 +58,7 @@
 
 .lbl-balag{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 24px;
 }
 .div-img-update-circle{
     width: 30px;
@@ -74,7 +73,7 @@
 .lbl-newuser{
     margin-left: 5px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 19px;
 }
 
 .nav-tab-dashboard{
@@ -88,11 +87,12 @@
     vertical-align: sub;
 }
 .dash-icon-like{
-    height: 15px;
+    height: 17px;
 }
 
 .dash-tab-title{
    color:#8D8D8D;
+   font-size: 19px;
    margin-left:10px;
 	position: absolute;
 	margin-top: 2px;
@@ -112,7 +112,7 @@
     justify-content: space-around;
 }
 .div-frame-data{
-    margin-top: 10px;
+    margin-top: 45px;
     display: flex;
     justify-content: space-around;
 
@@ -123,12 +123,14 @@
     background: #5C6BC0;
 }
 .div-frame-feedback{
-    border: 2px solid #DEDEDE;
-    background: #F2F4F5;
+    border: 2px solid #FCFCFC;
+    background: #FCFCFC;
     padding: 10px;
     flex-grow: 0.4;
     margin-left: 15px;
-
+}
+.lbl-bold{
+    font-weight: bold;
 }
 .div-sell-trade{
     width: 250px;
@@ -136,7 +138,7 @@
     background: #26A699;
 }
 .rounded_corner{
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .circle{
     width: 50px;
@@ -187,12 +189,29 @@
     justify-content: center;
     align-items: center;
 }
+.lbl-title_count--font{
+    font-size: 19px;
+    margin-top: 5px;
+
+}
+.recent_chat_row{
+    font-size: 19px;
+    margin-top: 5px;
+
+}
 .lbl-feedback-no_response{
-    vertical-align: super;
+    color: #60A2CB;
+    font-size: 19px;
+    margin-left: 5px;
+    vertical-align: top;
+}
+.feedback-no_response{
+    display: flex;
+    align-items: center;
 }
 .div-frame-chat{
-    border: 2px solid #DEDEDE;
-    background: #F2F4F5;
+    border: 2px solid #FCFCFC;
+    background: #FCFCFC;
     padding: 10px;
     margin-right: 15px;
     flex-grow: 0.4;
