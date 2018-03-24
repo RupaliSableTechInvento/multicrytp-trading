@@ -172,6 +172,15 @@
 			$(".div_right_header_log-in").removeClass("hidden");
 			$(".div_right_header").addClass("hidden");
 		}
+
+
+		$('#div-signUp').unbind().click(function(){
+			window.location.replace("/#/register");
+		})
+		
+		$('#div_logIn').unbind().click(function(){
+      		window.location.replace("/#/login");
+    	})
 	  })
   </script>
 </html>

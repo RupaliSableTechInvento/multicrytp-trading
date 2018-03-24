@@ -31,8 +31,11 @@ var Home = {};
   logoutUser:function(){
     $('.dropdown-content').unbind().click(function(){
       console.log("logout");
+
       $(".div_right_header_log-in").addClass("hidden");
-			$(".div_right_header").removeClass("hidden");
+      $(".div_right_header").removeClass("hidden");
+     /*  localStorage.removeItem('token');
+      localStorage.removeItem('email'); */
       window.location.replace("/#/");
     })
   },
