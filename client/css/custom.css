@@ -212,6 +212,34 @@ html,body{
 .div_right_header__SignUp:hover{
 	background: #F5F5F5;
 }
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #667BFA;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   
+}
+
+.dropdown-content label{
+    color:white;
+    padding: 8px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 .hidden {
 	display: none;
 	}

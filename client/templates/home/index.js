@@ -26,7 +26,28 @@ var Home = {};
       $(_tabs.buy).removeClass("active")
   })
 
-  }
+  },
+
+  logoutUser:function(){
+    $('.dropdown-content').unbind().click(function(){
+      console.log("logout");
+      $(".div_right_header_log-in").addClass("hidden");
+			$(".div_right_header").removeClass("hidden");
+      window.location.replace("/#/");
+    })
+  },
+  singUpUser:function(){
+    $('#div-signUp').unbind().click(function(){
+      window.location.replace("/#/register");
+    })
+  },
+  logInUser:function(){
+    $('#div_logIn').unbind().click(function(){
+      window.location.replace("/#/login");
+    })
+  },
+
+
 }
 
   var _render = {
@@ -34,6 +55,9 @@ var Home = {};
       renderMainFrame('templates/home/index.html', 'home', function() {
         _bind.changeBuyActiveTab(_tabs.buy,'active');
         _bind.changeBuySellTab();
+        _bind.logoutUser();
+        _bind.singUpUser();
+        _bind.logInUser();
     	})
   	}
 }

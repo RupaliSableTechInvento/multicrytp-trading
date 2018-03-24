@@ -24,7 +24,6 @@ var Login = {};
     submitForm:function(){
       $('#btnlogin').unbind().click(function () {
 
-
   			var input=$('.div-login input[type!=button]');
 		
   			for (var i = input.length - 1; i >= 0; i--) {
