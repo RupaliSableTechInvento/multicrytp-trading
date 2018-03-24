@@ -41,8 +41,8 @@
 			</div>
 		</div>
 		<div class="div_right_header">
-				<div class="div_right_header__SignUp">
-					<div  id="div-signUp" class="div">
+				<div id="div-signUp" class="div_right_header__SignUp">
+					<div  class="div">
 							<img src="img/sign_up.png" class="right_header_log_icon">
 					</div>
 					<label class="lbl_right_header_log-in">Sign Up Free</label>
@@ -175,12 +175,25 @@
 
 
 		$('#div-signUp').unbind().click(function(){
+			localStorage.removeItem('token');
+     		localStorage.removeItem('email'); 
 			window.location.replace("/#/register");
 		})
-		
+
 		$('#div_logIn').unbind().click(function(){
       		window.location.replace("/#/login");
-    	})
+		})
+	
+    	$('.dropdown-content').unbind().click(function(){
+      console.log("logout");
+
+      $(".div_right_header_log-in").addClass("hidden");
+      $(".div_right_header").removeClass("hidden");
+     /*  localStorage.removeItem('token');
+      localStorage.removeItem('email'); */
+      window.location.replace("/#/");
+    })
+  
 	  })
   </script>
 </html>
