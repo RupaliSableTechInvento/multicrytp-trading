@@ -4,6 +4,8 @@
 	<title>Home page</title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/custom.css" type="text/css"/>
+	<link rel="stylesheet" href="css/utility.css" type="text/css"/>
+
 </head>
 <body>
 	<header class="flex-container">
@@ -11,32 +13,43 @@
 			<img src="img/remark_Icon.png" class="remark_logo"></img>
 			<label class="remark"> Remark</label>
 		</div>
-		<div class="div_right_header">
-			<div class="margin-left">
+		<div class="div_right_header_log-in hidden">
+			<div>
 				<img src="img/united-states.png "class="header_right_icon"></img>
-		</div>
-			<div class="div-online div-img-online-circle margin-left">
+			</div>
+			<div class="div-online div-img-online-circle">
 				<img src="img/user_icon.png" class="img_online"></img>
 				<img src="img/online.png" class="img_online_icon"/>
 			</div>
-			<div class="margin-left">
+			<div class="">
 				<img src="img/notifications_icon.png" class="header_right_icon"/>
-				<label class="notfication_lable">
+				<label class="notfication_lable notification_icon_alert">
 					<span>5</span>
 					</label>
 			</div>
-			<div class="margin-left">
+			<div class="">
 				<img src="img/messages_icon.png" class=" header_right_icon"></img>
-				<label class="msg_lable">
+				<label class="msg_lable notification_icon_alert">
 					<span>3</span>
 				</label>
 			</div>
-			<div class="margin-left">
+			<div class="">
 				<img src="img/comment_icon.png" class="header_right_icon"></img>
 			</div>
-
-
-
+		</div>
+		<div class="div_right_header">
+				<div class="div_right_header__SignUp">
+					<div class="div">
+							<img src="img/sign_up.png" class="right_header_log_icon">
+					</div>
+					<label class="lbl_right_header_log-in">Sign Up Free</label>
+				</div>
+				<div class="div_right_header__SignUp right_header__LogIn ">
+					<div class="div">
+							<img src="img/log_in.png" class="right_header_log_icon">
+					</div>
+					<label class="lbl_right_header_log-in">Log In</label>
+				</div>
 		</div>
 		
 	</header>
@@ -149,5 +162,13 @@
 <script src="templates/user/dashboard.js"></script>
 
 
-  
+  <script>
+	  $(document).ready(function(){
+		var isToken = localStorage.getItem('token')  
+		if(isToken && isToken.length > 0) {
+			$(".div_right_header_log-in").removeClass("hidden");
+			$(".div_right_header").addClass("hidden");
+		}
+	  })
+  </script>
 </html>

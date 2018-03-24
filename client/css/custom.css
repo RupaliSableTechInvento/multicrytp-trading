@@ -11,18 +11,19 @@ html,body{
   align-items: center;
 }
 .remark_logo{
-height:40px;
+	margin-left: 10px;
+	height: 52px;
 }
 .flex_sub1{
 	padding-left:10px;
 	min-width:75%
 }
 .remark{
-	color:white;
-	font-size:21px;
-	font-weight:bold;
-	margin-left:10px;
-	margin-top: 8px;
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    margin-left: 73px;
+    margin-top: 8px;
 }
 .div-coin{
 	display: inline-flex;
@@ -46,7 +47,7 @@ height:40px;
 .img_online{
 	height: 25px;
 }
-.div_right_header{
+.div_right_header_log-in{
 	justify-content: center;
 	display: inline-flex;
 }
@@ -70,17 +71,20 @@ height:40px;
     height: 20px;    
 }
 .notfication_lable{
+	background: red;
+   
+}
+.notification_icon_alert{
 	color: white;
     font-size: 11px;
     position: absolute;
-    margin-top: -34px;
+	margin-top: -37px;
     padding: 4px;
 	text-align:center;
-	margin-left:19px;
-    background: red;
-    border-radius: 10px;
-    width: 12px
-}
+	margin-left:15px;
+	border-radius: 10px;
+    width: 12px;
+	}
 .div-msg{
 	height: 20px;
 	width: 20px;
@@ -91,18 +95,9 @@ height:40px;
 	position: absolute;
 }
 .msg_lable{
-	color: white;
-    font-size: 11px;
-    position: absolute;
-    margin-top: -34px;
-    padding: 4px;
-	margin-left:19px;
+
     background: green;
-    border-radius: 10px;
-    width: 12px;
-	text-align:center;
-	
-}
+    }
 .div-chat{
 	margin-left: 10px;
 	display: inline-block;
@@ -124,21 +119,21 @@ height:40px;
 	margin-left:35px;
 }
 .arrow{
-	height:13px;
+	height:15px;
+	width: 15px;
+	margin-left: 5px;
 }
-.arrow_margin{
-    margin-top: 4px;
-    margin-left: 10px;
+.lbl_right_header_log-in{
+	margin-left:14px;
+	font-size: 1.2em; 
+	color: white;
 }
-.arrow_margin2{
-	margin-top:4px;
-	margin-left:138px;
+.right_header__LogIn{
+	margin-left: 10px;
 }
-.arrow_margin3{
-	margin-top:4px;
-	margin-left:90px;
-}
-.div-bitcoin_logo{
+
+.div-remark label{
+	font-size: 1.8em;
 }
 .bitcoin_txt{
 	color:#6E82FA;
@@ -178,272 +173,18 @@ height:40px;
 	min-width: 83%;;
 }
 
-.margin-left{
-margin-left:23px;
+.div_right_header_log-in >div{
+	margin-left:43px;
 }
 
-ul {
-	
-    list-style-type: none;
-    display: flex;
-    padding-left: 0;
-    margin-bottom: 0
-}
-
-li {
-    float: left;
-	text-align: right;
-    border: 1px solid black;
-	flex: 1;
-}
-
-.li-a_quick_buy{
-	font-size: 15px;
-	font-weight:bold;
-	text-align: right;
-	color:#63646E;
-}
-.li-a_quick_sell{
-		text-align: left;
-		font-weight:bold;
-		font-size: 15px;
-		color:#6E82FA;
-}
-li a {
-    display: block;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-.li-quick_buy{
-	text-align: right;
-	border: 2px solid #6E82FA; 
-	border-bottom: none;
-	border-right:none;
-}
-.li-quick_sell{
-	border-bottom: 2px solid #6E82FA;
-	border-left: 2px solid #6E82FA;
-	border-top:none;
-	border-right:none;
-}
-.amt{
-	padding: 12px;
-	width: 250px;
-}
-.div-txt_amt{
-	margin-left:24px;
-	width: 100%;
-}
-.div-content{
-	padding-top: 40px;
-	width: 100%;
-    border: 2px solid #6E82FA;
-    border-top: none;
-	padding-bottom:40px;
-}
-.rcorners{
-    border-radius: 5px;
-	border: 2px solid #6E82FA;
-    height: 10px; 
-}
-.tab_content_txt{
-color:#9a9cad;
-width: 20%;
-font-weight:bold;
-}
-
-.select_one{
-	margin-left: 5px;
-	color:#9a9cad;
-	font-weight:bold;
-	border-radius: 5px;
-	border: 2px solid #6E82FA;
-	padding:8px;
-	width: 10%;
-}
-.select_country{
-	color:#9a9cad;
-	font-weight:bold;
-	margin-left: 5px;
-	border-radius: 5px;
-	border: 2px solid #6E82FA;
-	padding:8px;
-	width: 26%;
-}
-.select_offers{
-	color:#9a9cad;
-	margin-left: 5px;
-	font-weight:bold;
-	border-radius: 5px;
-	border: 2px solid #6E82FA;
-	padding:8px;
-	width: 26%;
-}
-.search_btn{
-	color:#ef6a6a;
-	font-weight:bold;
-	margin-left: 5px;
-	border-radius: 5px;
-	background:white;
-	border: 2px solid #efc1c1;
-	padding:12px;
-	width:10%;
-}
 .header_right_icon{
-	margin-left: 10px;
 	display: inline-block;
 	height: 23px; 
 	margin-top: 5px;
 	width: 23px;
 }
 
-.div-heading{
-	margin-top:30px;
-}
-.heading{
-	color:#1e203e;
-	font-size:30px;
-	font-weight:bold;
-}
-.div-flex_heading{
-    border: 2px solid #F2F4F5;
-	margin-top:10px;
-	 border-right:none;
-	 border-bottom:none;
-	 border-left:none;
-}
-.div-tab label{
-	font-size:1.1em;
-}
-.div-content label{
-	font-size:1.1em;
-}
-
-.div-flex_heading label{
-	font-size:1.1em;
-}
-
-.div-flexheadingSub{
-	 display:flex;
-	 padding:3px;
-	 border: 2px solid #DEDEDE;
-	 border-top:none;
-	 border-left:none;
-	 border-right:none;
-	 background-color:#F9F9F9;
-
-}
-.title1{
-	padding-left:10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	font-weight:bold;
-	color:#1e203e;
-	 flex: 2;
-}
-.title2{
-	padding-top: 5px;
-	padding-bottom: 5px;
-	font-weight:bold;
-	color:#1e203e;
-	 flex: 2;
-}.title3{
-
-	padding-top: 5px;
-	padding-bottom: 5px;
-	font-weight:bold;
-	color:#1e203e;
-	 flex: 1;
-}.title4{
-	padding-top: 5px;
-	padding-bottom: 5px;
-	font-weight:bold;
-	color:#1e203e;
-	 flex: 1;
-}
-.title5{
-    margin-right: 82px;;
-	font-weight:bold;
-
-	color:#1e203e;
-	 flex: 0;
-}
-.flex_row_title{
-	padding:10px;
-	padding-left:0px;
-	font-weight:bold;
-	color:#6E82FA;
-	 flex: 2;
-}
-.flex_row_title_value{
-	padding-left:10px;
-	
-}
-.flex_row_payment-method{
-		padding:10px;
-	padding-left:0px;
-	font-weight:bold;
-	font-size:15px;
-	color:#6E82FA;
-	 flex: 2;
-}
-.flex_row_limits{
-	padding:10px;
-	padding-left:0px;
-	font-weight:bold;
-	font-size:15px;
-	color:#6E82FA;
-	 flex: 1;
-}
-.flex_row_btn-buy{
-	margin:5px;
-	font-weight:bold;
-	font-size:15px;
-	color:#6E82FA;
-	 flex: 0;
-}
-.div-flexrow{
-	display:flex;
-	 border: 2px solid #DEDEDE;
-	 border-top:none;
-	 border-left:none;
-	 border-right:none;
-	 background: white;
-/* 	 background:#EFEFFF;
- */	
-  justify-content: center;
-	   align-items: center;
-	flex-direction: row;
-}
-.div-flexrow:nth-child(even){
-	background: white;
-}
-.div-flexrow:nth-child(odd){
-	background: #F9F9F9;
-}
-.div-flexrow:hover{
-	background:#EFEFFF;
-}
-.flex_heading_sub{
-	flex:1;
-	display:flex;
-	color:green;
-	font-size:18px;
-	font-weight:bold;
-	flex-direction: column;
-}
-.btncorners{
-    border-radius: 4px; 
-	color:#1e203e;
-	font-weight:bold;
-	font-size:14px;
-	background:white;
-	border: 2px solid #DEDEDE;
-    padding: 15px; 
-    width: 70px;  
-}
-.setting_img{
+.img-setting{
 	height: 20px;
 }
 
@@ -455,3 +196,22 @@ font-weight:bold;
 	padding: 15px;
 	border: 2px solid #F2F4F5;
 }
+
+.div_right_header{
+	display: flex;
+	
+}
+.right_header_log_icon{
+	height: 20px;
+}
+
+.div_right_header__SignUp{
+	padding: 28px;
+		display: inline-flex;
+}
+.div_right_header__SignUp:hover{
+	background: #F5F5F5;
+}
+.hidden {
+	display: none;
+	}

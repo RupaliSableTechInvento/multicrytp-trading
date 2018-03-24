@@ -49,7 +49,10 @@ var Login = {};
 								}
 								else {
 									$("#lbl-login-sucess").show();
-									localStorage.setItem("token",res.token);
+									$(".div_right_header_log-in").removeClass("hidden");
+									$(".div_right_header").addClass("hidden");
+									localStorage.setItem("token", res.token);
+									localStorage.setItem('email', dataObj.email);
 									//redirerect tp home page
 									window.location.replace("/#/");
 									

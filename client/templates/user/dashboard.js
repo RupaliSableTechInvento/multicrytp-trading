@@ -15,7 +15,7 @@ var Dashboard = {};
   var _render = {
     content: function() {
       renderMainFrame('templates/user/dashboard.html', 'dashboard', function() {
-			
+			console.log("entered dashboard");
     	})
   	}
 }

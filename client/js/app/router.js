@@ -14,7 +14,12 @@
     });
 
     this.get('#/register', function(context){
+      if(checkIfToken()) {
+        window.location = '#/';
+        return;
+      }
        Register.init();
+     
     });
     this.get('#/dashboard', function(context){
       Dashboard.init();
@@ -24,5 +29,16 @@
 
   })
   app.run('#/');
+
+  function checkIfToken() {
+    var isToken = localStorage.getItem('token')  
+		if(isToken && isToken.length > 0) {
+			$(".div_right_header_log-in").removeClass("hidden");
+      $(".div_right_header").addClass("hidden");
+      return true;
+    }
+    return false;
+  }
+
 });
 })();
