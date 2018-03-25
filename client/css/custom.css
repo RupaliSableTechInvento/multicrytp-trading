@@ -24,7 +24,9 @@ html,body{
 
 .remark {
     color: white;
-    font-weight: bold
+    font-weight: bold;
+		font-size: 1.4em;
+		margin-left: 10px;
 }
 
 .div-coin {
@@ -51,10 +53,21 @@ html,body{
 .img_online{
 	height: 25px;
 }
-.div_right_header_log-in{
+.nav-menu {
 	justify-content: center;
 	display: inline-flex;
+	height:100%;
+	align-items: center;
+	margin:0;
+	flex:1;
+	margin: 0;
+	list-style: none;
 }
+
+.nav-menu li{
+	margin-left:15px;
+}
+
 .div-img-online-circle{
     width: 30px;
     height: 30px;
@@ -136,7 +149,7 @@ html,body{
 	margin-left: 10px;
 }
 
-.div-remark label{
+.remark-block label{
 	font-size: 1.8em;
 }
 .bitcoin_txt{
@@ -172,7 +185,7 @@ html,body{
 .btn_txt{
 		color:#F2F4F5;
 }
-.div-remark{
+.remark-block {
 	display: inline-flex;
 	width: 80%;
   height: 100%;
@@ -199,9 +212,10 @@ html,body{
 	border: 2px solid #F2F4F5;
 }
 
-.div_right_header{
+.nav-menu-login {
 	display: flex;
 	height: 100%;
+	margin:0;
 }
 .right_header_log_icon{
 	height: 20px;
@@ -211,6 +225,7 @@ html,body{
 	display: inline-flex;
   align-items: center;
   height: 100%;
+	padding: 0 10px;
 }
 .div_right_header__SignUp:hover{
 	background: #F5F5F5;

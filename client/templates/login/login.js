@@ -1,31 +1,18 @@
 var Login = {};
-((function() { 
+((function() {
 
   this.init = function() {
     _render.content();
   }
   var _core={
-  	submitForm:function (dataObj, cb) {
-  		$.ajax({
-  		url:"/login",
-  		data:dataObj,
-  		type:"POST",
-  		success:function (successData) {
-  			cb(successData)
-  		},
-  		error:function (err) {
-  			alert(err);
-  		}
-  	})
-  	}
-  	
+  	submitForm: API.submitForm
   }
   var _bind = {
     submitForm:function(){
       $('#btnlogin').unbind().click(function () {
 
   			var input=$('.div-login input[type!=button]');
-		
+
   			for (var i = input.length - 1; i >= 0; i--) {
   				if ($(input[i]).val()=="") {
   					$(input[i]).addClass('error');
@@ -48,19 +35,19 @@ var Login = {};
 								}
 								else {
 									$("#lbl-login-sucess").show();
-									$(".div_right_header_log-in").removeClass("hidden");
-									$(".div_right_header").addClass("hidden");
+                  $(headerElms.nav_menu).removeClass("hidden");
+                  $(headerElms.nav_menu_login).addClass("hidden");
 									localStorage.setItem("token", res.token);
 									localStorage.setItem('email', dataObj.email);
 									//redirerect tp home page
 									window.location.replace("/#/");
-									
+
 								}
-						
+
   						}
   					})
   			}
-  			
+
   		})
     }
      }
