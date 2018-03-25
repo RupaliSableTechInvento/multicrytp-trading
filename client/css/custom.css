@@ -3,42 +3,46 @@ html,body{
 	margin: 0;
 	padding: 0;
 	font-family: 'Roboto', sans-serif;
+	font-size:10px;
 }
-.flex-container{
+
+.flex-container {
   display:flex;
-   height:80px;
+  height:50px;
   background-color:#667BFA;
   align-items: center;
 }
-.remark_logo{
+
+.remark_logo {
 	margin-left: 10px;
-	height: 52px;
 }
+
 .flex_sub1{
 	padding-left:10px;
 	min-width:75%
 }
-.remark{
-    position: absolute;
+
+.remark {
     color: white;
-    font-weight: bold;
-    margin-left: 73px;
-    margin-top: 8px;
+    font-weight: bold
 }
-.div-coin{
+
+.div-coin {
 	display: inline-flex;
-    align-items: center;
+  align-items: center;
 }
-.round-img 
-{
+
+.round-img {
   height:30px;
   border-radius: 50%;
 }
-.div-online{
+
+.div-online {
 	margin-left: 20px;
 	display: inline-block;
 }
-.img_online_icon{
+
+.img_online_icon {
 	height:10px;
 	width:10px;
 	margin-left: -10px;
@@ -68,11 +72,11 @@ html,body{
     border-radius: 500px;
     background: red;
     width: 20px;
-    height: 20px;    
+    height: 20px;
 }
 .notfication_lable{
 	background: red;
-   
+
 }
 .notification_icon_alert{
 	color: white;
@@ -89,7 +93,7 @@ html,body{
 	height: 20px;
 	width: 20px;
 	margin-left: 10px;
-	
+
 }
 .img-msg{
 	position: absolute;
@@ -101,7 +105,7 @@ html,body{
 .div-chat{
 	margin-left: 10px;
 	display: inline-block;
-	height: 20px; 
+	height: 20px;
 	width: 20px;
 }
 .img-chat{
@@ -109,7 +113,7 @@ html,body{
 }
 .flex-container_sec{
   display:flex;
-  height:67px;
+  height:50px;
   background-color:#FFFFFF;
   align-items: center;
   box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.2);
@@ -124,9 +128,9 @@ html,body{
 	margin-left: 5px;
 }
 .lbl_right_header_log-in{
-	margin-left:14px;
-	font-size: 1.2em; 
+	font-size: 1.2em;
 	color: white;
+	margin-left:5px;
 }
 .right_header__LogIn{
 	margin-left: 10px;
@@ -145,7 +149,7 @@ html,body{
 	color: #85909B;
 }
 .logo_label{
-	font-size:21px;
+	font-size: 1.3em;
 	font-weight:bold;
 	margin-left:10px;
 }
@@ -160,7 +164,7 @@ html,body{
 .internal{
 		background-color:#FFFFFF;
 		align:center;
-		padding: 30px;   
+		padding: 30px;
 }
 .internal_sub{
 	margin:10px;
@@ -170,16 +174,14 @@ html,body{
 }
 .div-remark{
 	display: inline-flex;
-	min-width: 83%;;
-}
-
-.div_right_header_log-in >div{
-	margin-left:43px;
+	width: 80%;
+  height: 100%;
+	align-items: center;
 }
 
 .header_right_icon{
 	display: inline-block;
-	height: 23px; 
+	height: 23px;
 	margin-top: 5px;
 	width: 23px;
 }
@@ -189,7 +191,7 @@ html,body{
 }
 
 .div-setting-icon{
-    position: fixed;
+  position: fixed;
 	top: 170px;
 	right:-10px;
 	background: white;
@@ -199,15 +201,16 @@ html,body{
 
 .div_right_header{
 	display: flex;
-	
+	height: 100%;
 }
 .right_header_log_icon{
 	height: 20px;
 }
 
 .div_right_header__SignUp{
-	padding: 28px;
-		display: inline-flex;
+	display: inline-flex;
+  align-items: center;
+  height: 100%;
 }
 .div_right_header__SignUp:hover{
 	background: #F5F5F5;
@@ -225,7 +228,7 @@ html,body{
     background-color: #667BFA;
     min-width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-   
+
 }
 
 .dropdown-content label{

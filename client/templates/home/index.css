@@ -1,7 +1,7 @@
 
 
 ul {
-	
+
     list-style-type: none;
     display: flex;
     padding-left: 0;
@@ -19,7 +19,7 @@ li {
 	text-align: left;
 	border-bottom: 2px solid #6E82FA;
 	border-left: 2px solid #6E82FA;
-	
+
 }
 .li-quick_sell.active{
 
@@ -38,8 +38,8 @@ li {
 
 .li-quick_buy.active {
 	border: none;
-    border-top:  2px solid #6E82FA; 
-    border-left: 2px solid #6E82FA; 
+    border-top:  2px solid #6E82FA;
+    border-left: 2px solid #6E82FA;
 }
 .div-tab li{
     font-size: 1.3em;
@@ -53,8 +53,7 @@ li {
 	padding-bottom:40px;
 }
 .div-quick-buy_data{
-    padding: 20px;
-    margin-left:24px;
+  padding-left: 10px;
 	width:100%;
 }
 .div-quick-buy_data input{
@@ -203,7 +202,7 @@ font-weight:bold;
 }
 .flex_row_title_value{
 	padding-left:10px;
-	
+
 }
 .flex_row_payment-method{
     padding:10px;
@@ -234,13 +233,13 @@ color:#6E82FA;
 	color:#6E82FA;
 	 flex: 0;
 }.btncorners{
-    border-radius: 4px; 
+    border-radius: 4px;
 	color:#1e203e;
 	font-weight:bold;
 	background:white;
 	border: 2px solid #DEDEDE;
-    padding: 15px; 
-    width: 70px;  
+    padding: 15px;
+    width: 70px;
 }
 
 .div-flexrow{
@@ -251,7 +250,7 @@ color:#6E82FA;
 	 border-right:none;
 	 background: white;
 /* 	 background:#EFEFFF;
- */	
+ */
   justify-content: center;
 	   align-items: center;
 	flex-direction: row;
