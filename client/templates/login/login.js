@@ -5,12 +5,11 @@ var Login = {};
     _render.content();
   }
   var _core={
-  	submitForm: API.submitForm
+  	submitForm: API.login
   }
   var _bind = {
     submitForm:function(){
       $('#btnlogin').unbind().click(function () {
-
   			var input=$('.div-login input[type!=button]');
 
   			for (var i = input.length - 1; i >= 0; i--) {
@@ -49,7 +48,9 @@ var Login = {};
   			}
 
   		})
-    }
+	}
+
+	
      }
 
   var _render = {

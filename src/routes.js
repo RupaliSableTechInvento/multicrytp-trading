@@ -21,7 +21,7 @@ const routes = (route) => {
     .get(usersController.getAll)
     .put(usersController.update);
 
-    route.route('/users/changePassword')
+    route.route('/changePassword')
     .post(usersController.changePassword);
 
     route.route('/users/changeEmail')

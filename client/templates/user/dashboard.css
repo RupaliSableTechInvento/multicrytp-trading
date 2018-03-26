@@ -23,7 +23,9 @@
     text-align: -webkit-center;
     padding: 20px;
 }
-
+.dash-icon_color{
+    color: #8D8D8D;
+}
 .div-dashboard-tab-bg{
     background: #FCFCFC;
 }
@@ -47,7 +49,7 @@
     margin: 10px;
 }
 .trade-title{
-    font-size: 23px;
+    font-size: 1.8em;
     color: white;
     margin-left: 10px;
 }
@@ -55,7 +57,10 @@
     height: 12px;
     float: right;
 }
-
+.vl {
+    border-left: 10px solid green;
+    height: 10%;
+}
 .lbl-balag{
     font-weight: bold;
     font-size: 24px;
@@ -73,12 +78,13 @@
 .lbl-newuser{
     margin-left: 5px;
     font-weight: bold;
-    font-size: 19px;
+    font-size: 1.4em;
 }
 
 .nav-tab-dashboard{
+    height: 40px;
+    padding: 7px 0;
     align-items: center;
-    padding: 15px;
     border: 2px solid #DEDEDE;
     border-bottom: none;
 }
@@ -90,9 +96,10 @@
     height: 17px;
 }
 
+
 .dash-tab-title{
    color:#8D8D8D;
-   font-size: 19px;
+   font-size: 1.2em;
    margin-left:10px;
 	position: absolute;
 	margin-top: 2px;
@@ -119,6 +126,8 @@
 }
 .div-buy-trade{
     width: 250px;
+    flex: 1 250px;
+    margin-right: 20px;
     padding: 20px;
     background: #5C6BC0;
 }
@@ -134,11 +143,14 @@
 }
 .div-sell-trade{
     width: 250px;
+    flex: 1 250px;
+    margin-right: 20px;
     padding: 20px;
     background: #26A699;
 }
 .rounded_corner{
     border-radius: 3px;
+   
 }
 .circle{
     width: 50px;
@@ -153,6 +165,8 @@
 .div-my-trade{
     width: 250px;
     padding: 20px;
+    flex: 1 250px;
+    margin-right: 20px;
     background: #42A5F5;
 }
 .nav-title-color{
@@ -190,8 +204,7 @@
     align-items: center;
 }
 .lbl-title_count--font{
-    font-size: 19px;
-    margin-top: 5px;
+    font-size: 1.3em;
 
 }
 .recent_chat_row{
@@ -216,8 +229,20 @@
     margin-right: 15px;
     flex-grow: 0.4;
 }
+.dashboard_menu_icon{
+    font-size: 1.2em;
+    padding: 5px;
+    color:#8D8D8D;
+
+}
+
+.div-nav-tab > div.active_tab{
+    border-left: 6px solid grey ;
+}
+.div-nav-tab > div.active_tab span{
+ color: #02BE69;
+}
 .scrollbar{
     -webkit-overflow-scrolling: auto;
  -webkit-text-stroke-width: 3px;
-
 }

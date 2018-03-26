@@ -10,10 +10,14 @@
 
 .trade-tabs li {
     float: left;
-	text-align: right;
 	flex: 1;
+	color:#6E82FA;
+	cursor:pointer;
 }
 
+.trade-tabs li.active {
+	color:#63646E;
+}
 
 .li-quick_sell{
 	text-align: left;
@@ -76,13 +80,6 @@ color:#9a9cad;
 font-weight:bold;
 }
 
-.active_tab{
-	color:#63646E;
-
-}
-.inactive_tab{
-    color:#6E82FA;
-}
 .select_one{
 	margin-left: 5px;
 	color:#9a9cad;

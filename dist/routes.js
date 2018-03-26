@@ -37,7 +37,7 @@ var routes = function routes(route) {
 
     route.route('/users').get(_usersController2.default.getAll).put(_usersController2.default.update);
 
-    route.route('/users/changePassword').post(_usersController2.default.changePassword);
+    route.route('/changePassword').post(_usersController2.default.changePassword);
 
     route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 

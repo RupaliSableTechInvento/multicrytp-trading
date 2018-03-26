@@ -22,4 +22,11 @@ $(document).ready(function(){
      window.location.replace("/#/");
   })
 
+  $(headerElms.sub_menus +'> div').unbind().click(function() {
+    $(headerElms.sub_menus +'> div').removeClass('active');
+    $(this).addClass('active');
+  });
+
+  
+
 })

@@ -2,8 +2,8 @@
 html,body{
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
-	font-size:10px;
+	font-family: 'Roboto', sans-serif !important;
+	font-size:10px !important;
 }
 
 .flex-container {
@@ -25,8 +25,8 @@ html,body{
 .remark {
     color: white;
     font-weight: bold;
-		font-size: 1.4em;
-		margin-left: 10px;
+	font-size: 1.4em;
+	margin-left: 10px;
 }
 
 .div-coin {
@@ -152,9 +152,7 @@ html,body{
 .remark-block label{
 	font-size: 1.8em;
 }
-.bitcoin_txt{
-	color:#6E82FA;
-}
+
 .lable_txt{
 	color:#63646E;
 }
@@ -162,7 +160,7 @@ html,body{
 	color: #85909B;
 }
 .logo_label{
-	font-size: 1.3em;
+	font-size: 1.7em;
 	font-weight:bold;
 	margin-left:10px;
 }
@@ -228,7 +226,7 @@ html,body{
 	padding: 0 10px;
 }
 .div_right_header__SignUp:hover{
-	background: #F5F5F5;
+	background: #fcfcfc57;
 }
 
 
@@ -238,17 +236,16 @@ html,body{
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
+    display: block;
+	position: absolute;
+	margin-top: 7px;
     background-color: #667BFA;
-    min-width: 120px;
+    min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
 }
-
 .dropdown-content label{
     color:white;
-    padding: 8px;
+	padding: 8px;
     text-decoration: none;
     display: block;
 }
@@ -261,3 +258,12 @@ html,body{
 .hidden {
 	display: none;
 	}
+
+.sub_menus > div.active *{
+	color:#6E82FA;
+}
+@font-face {
+	font-family: 'Glyphicons Halflings';
+	src: url('../fonts/glyphicons-halflings-regular.eot');
+	src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+  }

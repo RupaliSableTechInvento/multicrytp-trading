@@ -5,35 +5,18 @@ var Register = {};
     _render.content();
   }
   var _core={
-  	submitForm:function (dataObj, cb) {
-  		$.ajax({
-  		url:"/register",
-  		data:dataObj,
-  		type:"post",
-  		success:function (successData) {
-  			cb(successData)
-  		},
-  		error:function (err) {
-  			alert(err);
-  		}
-  	})
-		},
-		validateFields:function () {
-
-		},
-	  //fuction defination for Email Validation
-
-	  validateEmail:function (sEmail) {
-		var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+  	submitForm: API.register,
+	validateFields:function () {
+	},
+	validateEmail:function (sEmail) {
+	var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
 		if (filter.test(sEmail)) {
-		return true;
+			return true;
 		}
-		else {
 		return false;
-		}
 	}
-  	
   }
+
   var _bind={
   	submitForm:function () {
   		$('#btnregister').unbind().click(function () {

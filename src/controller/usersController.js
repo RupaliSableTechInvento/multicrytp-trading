@@ -49,7 +49,7 @@ const usersController = {
   },
   changePassword: (req, res, next) => {
     usersModel.find({
-      'email': req.body.email
+      'email': req.body.email 
     }, function(err, result) {
       if (err) {
         res.json(err)
