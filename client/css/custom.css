@@ -23,15 +23,20 @@ html,body{
 }
 
 .remark {
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
 	font-size: 1.4em;
 	margin-left: 10px;
+	margin-bottom: 0px;
 }
 
 .div-coin {
 	display: inline-flex;
   align-items: center;
+}
+
+.div-coin .glyphicon {
+	font-size: 1.1em;
 }
 
 .round-img {
@@ -132,7 +137,7 @@ html,body{
   box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.2);
 }
 .logo{
-	height:34px;
+	height:25px;
 	margin-left:35px;
 }
 .arrow{
@@ -144,6 +149,7 @@ html,body{
 	font-size: 1.2em;
 	color: white;
 	margin-left:5px;
+	margin-bottom: 0px;
 }
 .right_header__LogIn{
 	margin-left: 10px;
@@ -160,9 +166,11 @@ html,body{
 	color: #85909B;
 }
 .logo_label{
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight:bold;
 	margin-left:10px;
+	margin-bottom: 0px;
+	margin-right: 5px;
 }
 .last_div{
 	background-color:#F2F4F5;
