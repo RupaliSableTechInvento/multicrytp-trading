@@ -2,6 +2,7 @@ import usersModel from '../models/usersModel'
 import postatrade from '../models/postatrade'
 import jwt from 'jsonwebtoken';
 import env from "../env";
+const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 
 const usersController = {
@@ -48,8 +49,9 @@ const usersController = {
     res.json(true)
   },
   changePassword: (req, res, next) => {
+    var email= req.body.email;
     usersModel.find({
-      'email': req.body.email 
+      'email': req.body.email
     }, function(err, result) {
       if (err) {
         res.json(err)
@@ -63,7 +65,41 @@ const usersController = {
             email: req.body.email,
           }, env.App_key);
           console.log(result);
-          res.json('http://localhost:3000/cp/' + token);
+          nodemailer.createTestAccount((err, account) => {
+            // create reusable transporter object using the default SMTP transport
+            var transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: 'mailerabhi111@gmail.com',
+                pass: 'Abhi@1234'
+              }
+            });
+
+            // setup email data with unicode symbols
+            let mailOptions = {
+              from: 'mailerabhi111@gmail.com', // sender address
+              to: email, // list of receivers
+              subject: 'Change Password', // Subject line
+              text: 'Please Click below link to change password', // plain text body
+              html: '<a href=http://localhost:3000/cp/' + token + '>Click Here</a>' // html body
+            };
+
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                return console.log("error--11--", error);
+                res.json("error--11--", error);
+              } else {
+                console.log('Message sent: %s', info.messageId);
+                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                res.json('http://localhost:3000/cp/' + token);
+              }
+              // Preview only available when sending through an Ethereal account
+              // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+              // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+            });
+            res.json(mailOptions);
+          });
         } else {
           res.json('please provide a valid mail');
         }
@@ -72,14 +108,20 @@ const usersController = {
   },
 
   storeBasicUserInfo: (req, res, next) => {
-      var id =req.body.id;
-      usersModel.findOneAndUpdate({'_id':id},{'basicInfo':req.body}, {new: true}, (err, user) => {
-          if (err) return res.json(err);
-          res.json(user)
-      });
+    var id = req.body.id;
+    usersModel.findOneAndUpdate({
+      '_id': id
+    }, {
+      'basicInfo': req.body
+    }, {
+      new: true
+    }, (err, user) => {
+      if (err) return res.json(err);
+      res.json(user)
+    });
   },
 
-  emailVarification:(req, res, next)=>{
+  emailVarification: (req, res, next) => {
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
@@ -103,29 +145,32 @@ const usersController = {
     })
   },
 
-  emailVarified:(req, res, next)=>{
+  emailVarified: (req, res, next) => {
     var decoded = jwt.verify(req.params.token, env.App_key);
     var dt = new Date();
-    var checkDate=new Date(decoded.exp);
-    if (dt<checkDate) {
+    var checkDate = new Date(decoded.exp);
+    if (dt < checkDate) {
       console.log("----------");
-      usersModel.findOneAndUpdate({"email": decoded.email},{
-        $set:{"varification.email_varified":"varified"}
-      },(err, user) => {
+      usersModel.findOneAndUpdate({
+        "email": decoded.email
+      }, {
+        $set: {
+          "varification.email_varified": "varified"
+        }
+      }, (err, user) => {
         if (err) return res.json(err);
         res.json(user);
       });
-    }
-    else{
-        res.json("session expire");
+    } else {
+      res.json("session expire");
     }
   },
 
   varifyToken: (req, res, next) => {
     var decoded = jwt.verify(req.params.token, env.App_key);
     var dt = new Date();
-    var checkDate=new Date(decoded.exp);
-    if (dt<checkDate) {
+    var checkDate = new Date(decoded.exp);
+    if (dt < checkDate) {
       console.log("----");
 
       var d = new Date();
@@ -135,28 +180,30 @@ const usersController = {
         exp: Math.floor(v),
         email: decoded.email,
       }, env.App_key);
-      res.redirect('/recover/'+token)
-    }
-    else{
+      res.redirect('/recover/' + token)
+    } else {
 
-        res.json("session expire");
+      res.json("session expire");
     }
   },
 
   recoverPassword: (req, res, next) => {
     var decoded = jwt.verify(req.body.token, env.App_key);
     var dt = new Date();
-    var checkDate=new Date(decoded.exp);
-    if (dt<checkDate) {
-      usersModel.findOneAndUpdate({"email": decoded.email},{
-        $set:{"password":req.body.password}
-      },(err, user) => {
+    var checkDate = new Date(decoded.exp);
+    if (dt < checkDate) {
+      usersModel.findOneAndUpdate({
+        "email": decoded.email
+      }, {
+        $set: {
+          "password": req.body.password
+        }
+      }, (err, user) => {
         if (err) return res.json(err);
         res.json(user);
       });
-    }
-    else{
-        res.json("session expire");
+    } else {
+      res.json("session expire");
     }
   },
 

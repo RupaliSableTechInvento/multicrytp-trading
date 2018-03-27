@@ -24,7 +24,7 @@ const routes = (route) => {
     route.route('/changePassword')
     .post(usersController.changePassword);
 
-    route.route('/users/changeEmail')
+    route.route('/changeEmail')
     .post(usersController.changeEmail);
 
     route.route('/users/:id')
