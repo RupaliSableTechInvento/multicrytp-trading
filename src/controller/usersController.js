@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import env from "../env";
 const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
-
+var encode = require( 'hashcode' ).hashCode;
 const usersController = {
 
   getAll: async (req, res, next) => {
@@ -175,40 +175,47 @@ const usersController = {
 
       var d = new Date();
       var v = new Date();
-      v.setMinutes(d.getMinutes() + 5);
+      v.setMinutes(d.getMinutes() + 60);
       const token = jwt.sign({
         exp: Math.floor(v),
         email: decoded.email,
       }, env.App_key);
       res.redirect('/recover/' + token)
     } else {
-
       res.json("session expire");
     }
   },
 
   recoverPassword: (req, res, next) => {
     var decoded = jwt.verify(req.body.token, env.App_key);
-    var dt = new Date();
-    var checkDate = new Date(decoded.exp);
-    if (dt < checkDate) {
-      usersModel.findOneAndUpdate({
-        "email": decoded.email
-      }, {
-        $set: {
-          "password": req.body.password
-        }
-      }, (err, user) => {
-        if (err) return res.json(err);
-        res.json(user);
-      });
-    } else {
-      res.json("session expire");
+    if (req.body.password != "" && req.body.password.length > 6) {
+      var req.body.password=encode().value(req.body.password);
+      var dt = new Date();
+      var checkDate = new Date(decoded.exp);
+      if (dt < checkDate) {
+        usersModel.findOneAndUpdate({
+          "email": decoded.email
+        }, {
+          $set: {
+            "password": req.body.password
+          }
+        }, (err, user) => {
+          if (err) return res.json(err);
+          res.json(user);
+        });
+      } else {
+        res.json("session expire");
+      }
     }
+    else{
+        res.json("Please provide valid password");
+    }
+
   },
 
   changeEmail: (req, res, next) => {
     if (req.body.new_email) {
+      req.body.password=encode().value(req.body.password);
       usersModel.findOneAndUpdate({
         $and: [{
           "password": req.body.password
