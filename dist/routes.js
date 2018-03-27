@@ -28,7 +28,8 @@ var routes = function routes(route) {
     });
 
     route.get('/recover/*', function (req, res) {
-        res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'recover.html'));
+        console.log("req.query", req.params[0]);
+        res.redirect(_path2.default.resolve(__dirname + '/../client/index.html'));
     });
 
     route.route('/login').post(_authController2.default.login);
@@ -37,7 +38,7 @@ var routes = function routes(route) {
 
     route.route('/users').get(_usersController2.default.getAll).put(_usersController2.default.update);
 
-    route.route('/changePassword').post(_usersController2.default.changePassword);
+    route.route('/forgetPassword').post(_usersController2.default.changePassword);
 
     route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 

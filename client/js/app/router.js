@@ -24,6 +24,12 @@
     this.get('#/dashboard', function(context){
       Dashboard.init();
    });
+    this.get('#/forgetPassword', function(context){
+      ForgetPassword.init();
+    });
+    this.get('#/resetPassword', function(context){
+      ResetPassword.init();
+    });
 
 
 

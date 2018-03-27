@@ -29,6 +29,10 @@ var usersSchema = new _mongoose2.default.Schema({
     type: String,
     required: true
   },
+  isActive: {
+    type: String,
+    default: 'active'
+  },
   email: {
     type: String,
     index: true,

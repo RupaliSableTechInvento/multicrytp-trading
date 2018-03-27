@@ -5,5 +5,7 @@ var headerElms = {
   login_menu : "#login-menu",
   dropdown_content: ".dropdown-content",
   sub_menus :".sub_menus",
-  dashboard_menus:".div-nav-tab"
+  dashboard_menus:".div-nav-tab",
+  btn_recover_pwd:"#btn_recover_pwd",
+  btn_reset_pwd :"#btn_reset_pwd"
 }

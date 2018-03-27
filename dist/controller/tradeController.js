@@ -33,8 +33,8 @@ var tradeController = _defineProperty({
                     switch (_context.prev = _context.next) {
                         case 0:
                             _postatrade2.default.find({}, function (err, trade) {
-                                if (err) return res.json(err);
-                                res.json(trade);
+                                if (err) return res.json({ isError: true, data: err });
+                                res.json({ isError: false, data: trade });
                             });
 
                         case 1:
@@ -52,18 +52,22 @@ var tradeController = _defineProperty({
 
     getOne: function getOne(req, res, next) {
         _postatrade2.default.findById(req.params.id, function (err, trade) {
-            res.json(trade || {});
+            if (err) {
+
+                res.json({ isError: true, data: err });
+            }
+            res.json({ isError: false, data: trade });
         });
     },
 
     create: function create(req, res, next) {
         _postatrade2.default.create(req.body, function (err, trade) {
-            if (err) return res.json(err);else {
+            if (err) return res.json({ isError: true, data: err });else {
                 _tradeMoreInfo2.default.create({ 'trade_id': trade._id, 'user_id': trade.user }, function (err, tradeInfo) {
-                    if (err) return res.json(err);else {
+                    if (err) return res.json({ isError: true, data: err });else {
                         _usersModel2.default.findOneAndUpdate({ '_id': tradeInfo.user_id }, { "trade_info": tradeInfo._id }, function (err, UpdateUser) {
-                            if (err) return res.json(err);
-                            res.json(UpdateUser);
+                            if (err) return res.json({ isError: true, data: err });
+                            res.json({ isError: false, data: UpdateUser });
                         });
                     }
                 });
@@ -73,23 +77,23 @@ var tradeController = _defineProperty({
 
     update: function update(req, res, next) {
         _postatrade2.default.findOneAndUpdate(req.params.id, req.body, { new: true }, function (err, trade) {
-            if (err) return res.json(err);
-            res.json(trade);
+            if (err) return res.json({ isError: true, data: err });
+            res.json({ isError: false, data: trade });
         });
     },
 
     delete: function _delete(req, res, next) {
         _postatrade2.default.remove({ _id: req.params.id }, function (err, ok) {
-            if (err) return res.json(err);
+            if (err) return res.json({ isError: true, data: err });
         });
-        res.json(true);
+        res.json({ isError: false, data: true });
     }
 
 }, 'update', function update(req, res, next) {
     var id = mongoose.Types.ObjectId(req.body.id);
     _postatrade2.default.findOneAndUpdate({ '_id': id }, req.body, { new: true }, function (err, user) {
-        if (err) return res.json(err);
-        res.json(user);
+        if (err) return res.json({ isError: true, data: err });
+        res.json({ isError: false, data: user });
     });
 });
 

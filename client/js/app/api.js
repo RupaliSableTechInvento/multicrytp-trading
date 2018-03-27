@@ -24,5 +24,33 @@ var API = {
           alert(err);
         }
     })
+  },
+  forgetPassword: function (dataObj, cb) {
+    $.ajax({
+        url:"/forgetPassword",
+        data: dataObj,
+        type: "POST",
+        success: function (successData) {
+          cb(successData)
+        },
+        error: function (err) {
+          alert(err);
+        }
+    })
+  },
+  resetPassword: function (dataObj, cb) {
+    $.ajax({
+        url:"/resetPassword",
+        data: dataObj,
+        type: "POST",
+        success: function (successData) {
+          cb(successData)
+        },
+        error: function (err) {
+          alert(err);
+        }
+    })
   }
+
+
 }
