@@ -92,13 +92,13 @@ const usersController = {
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json('http://localhost:3000/cp/' + token);
+                res.json('Please check your Email');
               }
               // Preview only available when sending through an Ethereal account
               // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
               // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
             });
-            res.json(mailOptions);
+        //    res.json(mailOptions);
           });
         } else {
           res.json('please provide a valid mail');
@@ -122,6 +122,7 @@ const usersController = {
   },
 
   emailVarification: (req, res, next) => {
+    var email=req.body.email;
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
@@ -137,7 +138,33 @@ const usersController = {
             email: req.body.email,
           }, env.App_key);
           console.log(result);
-          res.json('http://localhost:3000/ev/' + token);
+          nodemailer.createTestAccount((err, account) => {
+            // create reusable transporter object using the default SMTP transport
+            var transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: 'mailerabhi111@gmail.com',
+                pass: 'Abhi@1234'
+              }
+            });
+            let mailOptions = {
+              from: 'mailerabhi111@gmail.com', // sender address
+              to: email, // list of receivers
+              subject: 'Change Password', // Subject line
+              text: 'Please Click below link to change password', // plain text body
+              html: 'Please<a href=http://localhost:3000/ev/' + token + '>Click Here</a>' // html body
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                res.json("error--11--", error);
+                return console.log("error--11--", error);
+              } else {
+                console.log('Message sent: %s', info.messageId);
+                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                res.json('Please check your email');
+              }
+            });
+          });
         } else {
           res.json('please provide a valid mail');
         }
@@ -159,7 +186,7 @@ const usersController = {
         }
       }, (err, user) => {
         if (err) return res.json(err);
-        res.json(user);
+        res.json("email_varified");
       });
     } else {
       res.json("session expire");
@@ -189,7 +216,7 @@ const usersController = {
   recoverPassword: (req, res, next) => {
     var decoded = jwt.verify(req.body.token, env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
-      var req.body.password=encode().value(req.body.password);
+      req.body.password=encode().value(req.body.password);
       var dt = new Date();
       var checkDate = new Date(decoded.exp);
       if (dt < checkDate) {
