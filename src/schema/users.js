@@ -13,6 +13,10 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  isActive: {
+    type: String,
+    default:'active'
+  },
   email: {
     type: String,
     index: true,

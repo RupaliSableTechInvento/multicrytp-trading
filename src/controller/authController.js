@@ -1,4 +1,5 @@
 import usersModel from './../models/usersModel';
+import tokenModel from './../models/tokenModel';
 import jwt from 'jsonwebtoken';
 import env from "../env";
 var encode = require('hashcode').hashCode;
@@ -12,16 +13,28 @@ const authController = {
     }, (err, user) => {
       if (err) res.json(err);
       if (user !== null) {
-        const token = jwt.sign({
+        var d = new Date();
+        var v = new Date();
+        v.setMinutes(d.getMinutes() + 60);
+        const token1 = jwt.sign({
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name
         }, env.App_key);
-        res.json({
-          token
+        let token = new tokenModel();
+        console.log(user.email);
+        var token2={'token':token1,email: user.email,isActive:"active",expiry:v};
+        tokenModel.findOneAndUpdate({$and:[{email:user.email},{isActive:"active"}]},{$set:{isActive:"inactive"}},(err,data)=>{
+          if (err) return res.json({isError:true,data:err});
+          else{
+            tokenModel.create(token2, function(err, token) {
+              if (err) return res.json(err);
+              res.json({isError:false,data:token1});
+            })
+          }
         })
       } else {
-        res.json("email or password incorrect !")
+        res.json({isError:false,data:"email or password incorrect !"})
       }
     });
   },

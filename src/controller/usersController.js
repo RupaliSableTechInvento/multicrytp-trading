@@ -9,22 +9,26 @@ const usersController = {
 
   getAll: async (req, res, next) => {
     usersModel.find({}, (err, users) => {
-      if (err) return res.json(err);
-      res.json(users);
+      if (err) return res.json({isError:true,data:err});
+      res.json({isError:false,data:users});
     });
   },
 
   getOne: (req, res, next) => {
-    console.log("------------");
-    usersModel.findById(req.params.id, (err, user) => {
-      res.json(user || {});
+     // console.log("------------",next);
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    usersModel.findOne({'email':decoded.email}, (err, user) => {
+      if (err) {
+        res.json({isError:true,data:err});
+      }
+      else{res.json({isError:false,data:user});}
     });
   },
 
   create: (req, res, next) => {
     usersModel.create(req.body, function(err, user) {
-      if (err) return res.json(err);
-      res.json(user)
+      if (err) return res.json({isError:true,data:err});
+      res.json({isError:false,data:user})
     })
   },
 
@@ -35,18 +39,21 @@ const usersController = {
     }, req.body, {
       new: true
     }, (err, user) => {
-      if (err) return res.json(err);
-      res.json(user)
+      if (err) return res.json({isError:true,data:err});
+      res.json({isError:false,data:user})
     });
   },
 
   delete: (req, res, next) => {
-    usersModel.remove({
-      _id: req.params.id
-    }, (err, ok) => {
-      if (err) return res.json(err);
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    usersModel.findOneAndUpdate({
+      'email': decoded.email
+    },{isActive:'inactive'}, (err, ok) => {
+      if (err) return res.json({isError:true,data:err});
+      else{
+        res.json({isError:true,data:true})
+      }
     });
-    res.json(true)
   },
   changePassword: (req, res, next) => {
     var email= req.body.email;
@@ -54,7 +61,7 @@ const usersController = {
       'email': req.body.email
     }, function(err, result) {
       if (err) {
-        res.json(err)
+        res.json({isError:true,data:err})
       } else {
         if (result != "") {
           var d = new Date();
@@ -88,11 +95,11 @@ const usersController = {
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
                 return console.log("error--11--", error);
-                res.json("error--11--", error);
+                res.json({isError:true,data:error});
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json('Please check your Email');
+                res.json({isError:false,data:'Please check your Email'});
               }
               // Preview only available when sending through an Ethereal account
               // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
@@ -101,7 +108,7 @@ const usersController = {
         //    res.json(mailOptions);
           });
         } else {
-          res.json('please provide a valid mail');
+          res.json({isError:true,data:'please provide a valid mail'});
         }
       }
     })
@@ -116,8 +123,8 @@ const usersController = {
     }, {
       new: true
     }, (err, user) => {
-      if (err) return res.json(err);
-      res.json(user)
+      if (err) return res.json({isError:true,data:err});
+      res.json({isError:false,data:user})
     });
   },
 
@@ -127,7 +134,7 @@ const usersController = {
       'email': req.body.email
     }, function(err, result) {
       if (err) {
-        res.json(err)
+        res.json({isError:true,data:err})
       } else {
         if (result != "") {
           var d = new Date();
@@ -156,17 +163,17 @@ const usersController = {
             };
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
-                res.json("error--11--", error);
+                res.json({isError:true,data:error});
                 return console.log("error--11--", error);
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json('Please check your email');
+                res.json({isError:false,data:'Please check your email'});
               }
             });
           });
         } else {
-          res.json('please provide a valid mail');
+          res.json({isError:true,data:'please provide a valid mail'});
         }
       }
     })
@@ -185,11 +192,11 @@ const usersController = {
           "varification.email_varified": "varified"
         }
       }, (err, user) => {
-        if (err) return res.json(err);
-        res.json("email_varified");
+        if (err) return res.json({isError:true,data:err});
+        res.json({isError:false,data:"email_varified"});
       });
     } else {
-      res.json("session expire");
+      res.json({isError:true,data:"session expire"});
     }
   },
 
@@ -209,10 +216,29 @@ const usersController = {
       }, env.App_key);
       res.redirect('/recover/' + token)
     } else {
-      res.json("session expire");
+      res.json({isError:true,data:"session expire"});
     }
   },
-
+  resetPassword: (req, res, next) => {
+    // console.log("+++++++++++",);
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+      req.body.password=encode().value(req.body.password);
+      req.body.new_pasword=encode().value(req.body.new_pasword);
+      usersModel.findOneAndUpdate({
+        $and: [{
+          "password": req.body.password
+        }, {
+          "email": decoded.email
+        }]
+      }, {
+        $set: {
+          "password": req.body.new_pasword
+        }
+      }, (err, user) => {
+        if (err) return res.json({isError:true,data:err});
+        res.json({isError:false,data:user});
+      })
+  },
   recoverPassword: (req, res, next) => {
     var decoded = jwt.verify(req.body.token, env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
@@ -228,18 +254,17 @@ const usersController = {
           }
         }, (err, user) => {
           if (err) return res.json(err);
-          res.json(user);
+          res.json({isError:false,data:user});
         });
       } else {
-        res.json("session expire");
+        res.json({isError:true,data:"session expire"});
       }
     }
     else{
-        res.json("Please provide valid password");
+        res.json({isError:true,data:"Please provide valid password"});
     }
 
   },
-
   changeEmail: (req, res, next) => {
     if (req.body.new_email) {
       req.body.password=encode().value(req.body.password);
@@ -254,13 +279,16 @@ const usersController = {
           "email": req.body.new_email
         }
       }, (err, user) => {
-        if (err) return res.json(err);
-        res.json(user);
+        if (err) return res.json({isError:true,data:err});
+        res.json({isError:false,data:user});
       })
     } else {
-      res.json("NULL");
+      res.json({isError:true,data:"NULL"});
     }
-  }
+  },
+
 };
+
+
 
 export default usersController;
