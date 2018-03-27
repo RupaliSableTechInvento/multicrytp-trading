@@ -53,6 +53,17 @@ const authController = {
       res.json("Please provide valid password");
     }
   },
+  logout:(req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    tokenModel.findOneAndUpdate({$and:[{'email':decoded.email},{'isActive':'active'}]},{$set:{'isActive':'inactive'}},(err,data)=>{
+      if (err) {
+        res.json({isError:true,data:err});
+      }
+      else{
+        res.json({isError:false,data:data});
+      }
+    })
+  },
 };
 
 export default authController;

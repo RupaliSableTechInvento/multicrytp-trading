@@ -115,9 +115,10 @@ const usersController = {
   },
 
   storeBasicUserInfo: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var id = req.body.id;
     usersModel.findOneAndUpdate({
-      '_id': id
+      'email': decoded.email
     }, {
       'basicInfo': req.body
     }, {

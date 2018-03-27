@@ -21,7 +21,7 @@ const routes = (route) => {
     // .get(usersController.getAll)
     // .put(usersController.update);
 
-    route.route('/changePassword')
+    route.route('/forgotPassword')
     .post(usersController.changePassword);
 
     route.route('/users/changeEmail')
@@ -53,13 +53,13 @@ const routes = (route) => {
     route.route('/recoverPassword')
     .post(usersController.recoverPassword);
 
-    route.route('/storeBasicUserInfo')
+    route.route('/users/storeBasicUserInfo')
     .post(usersController.storeBasicUserInfo);
 
     route.route('/users/resetPassword')
     .post(usersController.resetPassword);
-    // route.route('/logout')
-    // .get(authController.logout)
+    route.route('/logout')
+    .get(authController.logout)
 };
 
 export default routes;
