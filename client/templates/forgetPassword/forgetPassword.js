@@ -1,10 +1,9 @@
 var ForgetPassword = {};
-((function() { 
+((function() {
 
   this.init = function() {
 		_render.content();
-		console.log(API)
-  }
+	}
   var _core = {
   	forgetPassword: API.forgetPassword,
 		validateFields:function () {
@@ -32,10 +31,10 @@ var ForgetPassword = {};
 							$("#lbl_error").show();
 							$("#lbl_error").append("<p> Invalid Email address </p>");
 							}
-						else {	
+						else {
 							$("#lbl_error").hide();
 							_core.forgetPassword( { email:input.val() } , function (res) {
-								if (res) {	
+								if (res) {
 										if(res.errors)  {
 											$('#txtemail').addClass('error');
 											console.log(res.error)

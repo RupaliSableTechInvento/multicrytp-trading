@@ -57,6 +57,7 @@ const usersController = {
   },
   changePassword: (req, res, next) => {
     var email= req.body.email;
+    console.log("email",email);
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
@@ -88,7 +89,7 @@ const usersController = {
               to: email, // list of receivers
               subject: 'Change Password', // Subject line
               text: 'Please Click below link to change password', // plain text body
-              html: '<a href=http://localhost:3000/cp/' + token + '>Click Here</a>' // html body
+              html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click Here</a>' // html body
             };
 
             // send mail with defined transport object

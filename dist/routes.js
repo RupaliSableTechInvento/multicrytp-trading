@@ -28,21 +28,23 @@ var routes = function routes(route) {
     });
 
     route.get('/recover/*', function (req, res) {
-        console.log("req.query", req.params[0]);
-        res.redirect(_path2.default.resolve(__dirname + '/../client/index.html'));
+        console.log("req", req.params[0]);
+        res.redirect('/#/resetPassword?accessToken=' + req.params[0]);
     });
 
     route.route('/login').post(_authController2.default.login);
 
     route.route('/register').post(_authController2.default.register);
 
-    route.route('/users').get(_usersController2.default.getAll).put(_usersController2.default.update);
+    // route.route('/users')
+    // .get(usersController.getAll)
+    // .put(usersController.update);
 
     route.route('/forgetPassword').post(_usersController2.default.changePassword);
 
     route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 
-    route.route('/users/:id').get(_usersController2.default.getOne).delete(_usersController2.default.delete);
+    route.route('/users').get(_usersController2.default.getOne).delete(_usersController2.default.delete);
 
     route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
 
@@ -56,7 +58,10 @@ var routes = function routes(route) {
 
     route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
 
-    route.route('/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
+    route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
+
+    route.route('/users/resetPassword').post(_usersController2.default.resetPassword);
+    route.route('/logout').get(_authController2.default.logout);
 };
 
 exports.default = routes;

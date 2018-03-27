@@ -8,7 +8,8 @@ const routes = (route) => {
     });
 
     route.get('/recover/*', (req, res) => {
-        res.sendFile(path.resolve(__dirname+'/../client/'+'recover.html'));
+        console.log("req",req.params[0])
+         res.redirect('/#/resetPassword?accessToken='+req.params[0]);
     });
 
     route.route('/login')
@@ -21,7 +22,7 @@ const routes = (route) => {
     // .get(usersController.getAll)
     // .put(usersController.update);
 
-    route.route('/forgotPassword')
+    route.route('/forgetPassword')
     .post(usersController.changePassword);
 
     route.route('/users/changeEmail')

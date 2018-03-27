@@ -39,8 +39,9 @@ var API = {
     })
   },
   resetPassword: function (dataObj, cb) {
+    delete dataObj.errormsg;
     $.ajax({
-        url:"/resetPassword",
+        url:"/users/resetPassword",
         data: dataObj,
         type: "POST",
         success: function (successData) {
