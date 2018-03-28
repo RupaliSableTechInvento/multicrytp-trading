@@ -1,248 +1,285 @@
-.div-dashboard-main{
-    display: flex;
-}   
-.div-nav{
-    flex: 0.2;  
-    margin-left: 10px;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: column; 
+.div-dashboard-main {
+  display: flex;
+  font-size: 10px;
 }
-.div-dashboard-frame{
-    margin-right: 20px;
-    flex: 0.8;
-    display: flex;
-    flex-direction: column; 
+
+.div-nav {
+  flex: 0.2;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
 }
-.div-nav-title{
-    height: 100px;
-    background: #FCFCFC;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: -webkit-center;
-    padding: 20px;
+
+.div-dashboard-frame {
+  margin-right: 20px;
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
 }
-.dash-icon_color{
-    color: #8D8D8D;
+
+.div-nav-title {
+  height: 100px;
+  background: #FCFCFC;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: -webkit-center;
+  padding: 20px;
 }
-.div-dashboard-tab-bg{
-    background: #FCFCFC;
+
+.dash-icon_color {
+  color: #8D8D8D;
 }
-.nav-title-newuser{
-    margin-top: 5px;
+
+.div-dashboard-tab-bg {
+  background: #FCFCFC;
 }
-.img-trade-icons{
-    height:25px;
+
+.nav-title-newuser {
+  margin-top: 5px;
 }
-.div-frame-head-title-color{
-    color:#3B2C30;
+
+.img-trade-icons {
+  height: 25px;
 }
-.lbl-recent-chat-id{
-    color:#3EA3F5;
+
+.div-frame-head-title-color {
+  color: #3B2C30;
 }
-.img-trade{
-    vertical-align: -webkit-baseline-middle;
-    display: inline-block;
+
+.lbl-recent-chat-id {
+  color: #3EA3F5;
 }
-.div-frame-chat-response{
-    margin: 10px;
+
+.img-trade {
+  vertical-align: -webkit-baseline-middle;
+  display: inline-block;
 }
-.trade-title{
-    font-size: 1.8em;
-    color: white;
-    margin-left: 10px;
+
+.div-frame-chat-response {
+  margin: 10px;
 }
-.img-update{
-    height: 12px;
-    float: right;
+
+.trade-title {
+  font-size: 1.4em;
+  color: white;
+  margin-left: 10px;
 }
+
+.img-update {
+  height: 12px;
+  float: right;
+}
+
 .vl {
-    border-left: 10px solid green;
-    height: 10%;
-}
-.lbl-balag{
-    font-weight: bold;
-    font-size: 24px;
-}
-.div-img-update-circle{
-    width: 30px;
-    height: 30px;
-    float: right;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background:#DEDEDE ;
-    border-radius: 25px;
-}
-.lbl-newuser{
-    margin-left: 5px;
-    font-weight: bold;
-    font-size: 1.4em;
+  border-left: 10px solid green;
+  height: 10%;
 }
 
-.nav-tab-dashboard{
-    height: 40px;
-    padding: 7px 0;
-    align-items: center;
-    border: 2px solid #DEDEDE;
-    border-bottom: none;
-}
-.dash-icon{
-    width: 20px;
-    vertical-align: sub;
-}
-.dash-icon-like{
-    height: 17px;
+.lbl-balag {
+  font-weight: bold;
+  font-size: 24px;
 }
 
-
-.dash-tab-title{
-   color:#8D8D8D;
-   font-size: 1.2em;
-   margin-left:10px;
-	position: absolute;
-	margin-top: 2px;
+.div-img-update-circle {
+  width: 30px;
+  height: 30px;
+  float: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #DEDEDE;
+  border-radius: 25px;
 }
 
-.div-nav-tab{
-    display: flex;
-    border-bottom: 2px solid #DEDEDE;
-    flex-direction: column;   
-}
-.img-trade-icon{
-    height: 25px;
+.lbl-newuser {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 1.4em;
 }
 
-.div-trade{
-    display: flex;
-    justify-content: space-around;
-}
-.div-frame-data{
-    margin-top: 45px;
-    display: flex;
-    justify-content: space-around;
-
-}
-.div-buy-trade{
-    width: 250px;
-    flex: 1 250px;
-    margin-right: 20px;
-    padding: 20px;
-    background: #5C6BC0;
-}
-.div-frame-feedback{
-    border: 2px solid #FCFCFC;
-    background: #FCFCFC;
-    padding: 10px;
-    flex-grow: 0.4;
-    margin-left: 15px;
-}
-.lbl-bold{
-    font-weight: bold;
-}
-.div-sell-trade{
-    width: 250px;
-    flex: 1 250px;
-    margin-right: 20px;
-    padding: 20px;
-    background: #26A699;
-}
-.rounded_corner{
-    border-radius: 3px;
-   
-}
-.circle{
-    width: 50px;
-    height: 50px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 25px;
-} 
-
-.div-my-trade{
-    width: 250px;
-    padding: 20px;
-    flex: 1 250px;
-    margin-right: 20px;
-    background: #42A5F5;
-}
-.nav-title-color{
-    color:#3E3E3E;
-}
-.div-frame-head{
-    padding: 15px;
-}
-.div-frame-feedback-data{
-    margin: 10px;
-    padding: 10px;
-    border: 2px solid white;
-    background: white;
-}
-.div-frame-chat-data{
-    margin: 10px;
-    padding: 10px;
-    border: 2px solid white;
-    background: white;
-}
-.div-frame-head-title-color{
-    color:#3E3E3E;
-}
-.div-frame-feeback-response{
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 2px solid #D9EDF7;
-    background: #D9EDF7;
-}
-.img-feedback-info_logo{
-    height: 20px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-.lbl-title_count--font{
-    font-size: 1.3em;
-
-}
-.recent_chat_row{
-    font-size: 19px;
-    margin-top: 5px;
-
-}
-.lbl-feedback-no_response{
-    color: #60A2CB;
-    font-size: 19px;
-    margin-left: 5px;
-    vertical-align: top;
-}
-.feedback-no_response{
-    display: flex;
-    align-items: center;
-}
-.div-frame-chat{
-    border: 2px solid #FCFCFC;
-    background: #FCFCFC;
-    padding: 10px;
-    margin-right: 15px;
-    flex-grow: 0.4;
-}
-.dashboard_menu_icon{
-    font-size: 1.2em;
-    padding: 5px;
-    color:#8D8D8D;
-
+.nav-tab-dashboard {
+  height: 40px;
+  padding: 7px 0;
+  align-items: center;
+  border: 2px solid #DEDEDE;
+  border-bottom: none;
 }
 
-.div-nav-tab > div.active_tab{
-    border-left: 6px solid grey ;
+.dash-icon {
+  width: 20px;
+  vertical-align: sub;
 }
-.div-nav-tab > div.active_tab span{
- color: #02BE69;
+
+.dash-icon-like {
+  height: 17px;
 }
-.scrollbar{
-    -webkit-overflow-scrolling: auto;
- -webkit-text-stroke-width: 3px;
+
+.dash-tab-title {
+  color: #8D8D8D;
+  font-size: 1.2em;
+  margin-left: 10px;
+  position: absolute;
+  margin-top: 2px;
+}
+
+.div-nav-tab {
+  display: flex;
+  border-bottom: 2px solid #DEDEDE;
+  flex-direction: column;
+}
+
+.img-trade-icon {
+  height: 25px;
+}
+
+.div-trade {
+  display: flex;
+  justify-content: space-around;
+}
+
+.div-frame-data {
+  margin-top: 45px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.div-buy-trade {
+  width: 250px;
+  flex: 1 250px;
+  margin-right: 20px;
+  padding: 20px;
+  background: #5C6BC0;
+}
+
+.div-frame-feedback {
+  border: 2px solid #FCFCFC;
+  background: #FCFCFC;
+  padding: 10px;
+  flex-grow: 0.4;
+  margin-left: 15px;
+}
+
+.lbl-bold {
+  font-weight: bold;
+}
+
+.div-sell-trade {
+  width: 250px;
+  flex: 1 250px;
+  margin-right: 20px;
+  padding: 20px;
+  background: #26A699;
+}
+
+.rounded_corner {
+  border-radius: 3px;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 25px;
+}
+
+.div-my-trade {
+  width: 250px;
+  padding: 20px;
+  flex: 1 250px;
+  margin-right: 20px;
+  background: #42A5F5;
+}
+
+.nav-title-color {
+  color: #3E3E3E;
+}
+
+.div-frame-head {
+  padding: 15px;
+}
+
+.div-frame-feedback-data {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid white;
+  background: white;
+}
+
+.div-frame-chat-data {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid white;
+  background: white;
+}
+
+.div-frame-head-title-color {
+  color: #3E3E3E;
+}
+
+.div-frame-feeback-response {
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 2px solid #D9EDF7;
+  background: #D9EDF7;
+}
+
+.img-feedback-info_logo {
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lbl-title_count--font {
+  font-size: 1.3em;
+}
+
+.recent_chat_row {
+  font-size: 19px;
+  margin-top: 5px;
+}
+
+.lbl-feedback-no_response {
+  color: #60A2CB;
+  font-size: 19px;
+  margin-left: 5px;
+  vertical-align: top;
+}
+
+.feedback-no_response {
+  display: flex;
+  align-items: center;
+}
+
+.div-frame-chat {
+  border: 2px solid #FCFCFC;
+  background: #FCFCFC;
+  padding: 10px;
+  margin-right: 15px;
+  flex-grow: 0.4;
+}
+
+.dashboard_menu_icon {
+  font-size: 1.2em;
+  padding: 5px;
+  color: #8D8D8D;
+}
+
+.div-nav-tab>div.active_tab {
+  border-left: 6px solid grey;
+}
+
+.div-nav-tab>div.active_tab span {
+  color: #02BE69;
+}
+
+.scrollbar {
+  -webkit-overflow-scrolling: auto;
+  -webkit-text-stroke-width: 3px;
 }

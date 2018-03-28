@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _usersController = require('./controller/usersController');
@@ -23,45 +23,45 @@ var _path2 = _interopRequireDefault(_path);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = function routes(route) {
-    route.get('/', function (req, res) {
-        res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
-    });
+  route.get('/', function (req, res) {
+    res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
+  });
 
-    route.get('/recover/*', function (req, res) {
-        console.log("req", req.params[0]);
-        res.redirect('/#/resetPassword?accessToken=' + req.params[0]);
-    });
+  route.get('/recover', function (req, res) {
+    console.log("req", req.query.accessToken);
+    res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
+  });
 
-    route.route('/login').post(_authController2.default.login);
+  route.route('/login').post(_authController2.default.login);
 
-    route.route('/register').post(_authController2.default.register);
+  route.route('/register').post(_authController2.default.register);
 
-    // route.route('/users')
-    // .get(usersController.getAll)
-    // .put(usersController.update);
+  // route.route('/users')
+  // .get(usersController.getAll)
+  // .put(usersController.update);
 
-    route.route('/forgetPassword').post(_usersController2.default.changePassword);
+  route.route('/forgetPassword').post(_usersController2.default.changePassword);
 
-    route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
+  route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 
-    route.route('/users').get(_usersController2.default.getOne).delete(_usersController2.default.delete);
+  route.route('/users').get(_usersController2.default.getOne).delete(_usersController2.default.delete);
 
-    route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
+  route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
 
-    route.route('/cp/:token').get(_usersController2.default.varifyToken);
+  route.route('/cp/:token').get(_usersController2.default.varifyToken);
 
-    route.route('/emailvarification').post(_usersController2.default.emailVarification);
+  route.route('/emailvarification').post(_usersController2.default.emailVarification);
 
-    route.route('/ev/:token').get(_usersController2.default.emailVarified);
+  route.route('/ev/:token').get(_usersController2.default.emailVarified);
 
-    route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create).patch(_tradeController2.default.update);
+  route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create).patch(_tradeController2.default.update);
 
-    route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
+  route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
 
-    route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
+  route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
 
-    route.route('/users/resetPassword').post(_usersController2.default.resetPassword);
-    route.route('/logout').get(_authController2.default.logout);
+  route.route('/users/resetPassword').post(_usersController2.default.resetPassword);
+  route.route('/logout').get(_authController2.default.logout);
 };
 
 exports.default = routes;
