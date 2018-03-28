@@ -34,7 +34,7 @@ const authController = {
           }
         })
       } else {
-        res.json({isError:false,data:"email or password incorrect !"})
+        res.json({isError:true,data:"email or password incorrect !"})
       }
     });
   },
