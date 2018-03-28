@@ -5,7 +5,6 @@
 }
 
 .lbl_reg {
-  font-size: 25px;
   font-weight: bold;
   color: black;
 }
@@ -112,8 +111,7 @@ input[type=password]:focus {
 }
 
 .div-lbl_error {
-  font-size: 15px;
-  color: red;
+  color: #A94442;
 }
 
 .lbl_error {

@@ -158,7 +158,6 @@ body {
 }
 
 .lbl_right_header_log-in {
-  font-size: 1.1em;
   color: white;
   margin-left: 0.5em;
 }
@@ -306,4 +305,16 @@ label {
 
 label {
   margin-bottom: 0 !important;
+}
+
+.lbl_heading {
+  font-size: 1.7em;
+}
+
+.lbl_subheading {
+  font-size: 1.4em;
+}
+
+.lbl_content {
+  font-size: 1.1em;
 }

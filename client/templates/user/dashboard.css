@@ -79,7 +79,6 @@
 
 .lbl-balag {
   font-weight: bold;
-  font-size: 24px;
 }
 
 .div-img-update-circle {
@@ -96,7 +95,6 @@
 .lbl-newuser {
   margin-left: 5px;
   font-weight: bold;
-  font-size: 1.4em;
 }
 
 .nav-tab-dashboard {
@@ -236,18 +234,12 @@
   align-items: center;
 }
 
-.lbl-title_count--font {
-  font-size: 1.3em;
-}
-
 .recent_chat_row {
-  font-size: 19px;
   margin-top: 5px;
 }
 
 .lbl-feedback-no_response {
   color: #60A2CB;
-  font-size: 19px;
   margin-left: 5px;
   vertical-align: top;
 }
@@ -272,7 +264,7 @@
 }
 
 .div-nav-tab>div.active_tab {
-  border-left: 6px solid grey;
+  border-left: 3px solid grey;
 }
 
 .div-nav-tab>div.active_tab span {

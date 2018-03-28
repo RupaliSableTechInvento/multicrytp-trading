@@ -18,9 +18,7 @@
 }
 
 .div-lbl_msg {
-  margin-top: 10px;
   font-weight: bold;
-  font-size: 17px;
   color: #A94442;
 }
 
@@ -69,7 +67,6 @@ input[type=text]:focus {
 
 .lbl_forget {
   color: #6E82FA;
-  font-size: 17px;
 }
 
 .div-newuser {
@@ -78,10 +75,12 @@ input[type=text]:focus {
 
 .lbl_newuser {
   color: #63646E;
-  font-size: 17px;
 }
 
 .lbl_singup {
   color: #6E82FA;
-  font-size: 17px;
+}
+
+.div-bottom {
+  margin-top: 8px;
 }

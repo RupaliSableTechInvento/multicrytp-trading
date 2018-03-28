@@ -10,5 +10,6 @@ var headerElms = {
   btn_reset_pwd: "#btn_reset_pwd",
   remark: ".remark-block",
   lbl_redirect_login: ".lbl_redirect_login",
-  lbl_redirect_reset_pwd: ".lbl_redirect_reset_pwd"
+  lbl_redirect_reset_pwd: ".lbl_redirect_reset_pwd",
+  lbl_redirect_register_user: ".lbl_redirect_register_user"
 }
