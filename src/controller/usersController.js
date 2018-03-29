@@ -55,7 +55,7 @@ const usersController = {
       }
     });
   },
-  changePassword: (req, res, next) => {
+  forgetPassword: (req, res, next) => {
     var email= req.body.email;
     console.log("email",email);
     usersModel.find({
@@ -221,7 +221,7 @@ const usersController = {
       res.json({isError:true,data:"session expire"});
     }
   },
-  resetPassword: (req, res, next) => {
+  changePassword: (req, res, next) => {
     // console.log("+++++++++++",);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
       req.body.password=encode().value(req.body.password);
@@ -242,7 +242,7 @@ const usersController = {
       })
   },
   recoverPassword: (req, res, next) => {
-    var decoded = jwt.verify(req.body.token, env.App_key);
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password=encode().value(req.body.password);
       var dt = new Date();
@@ -269,7 +269,7 @@ const usersController = {
   },
   changeEmail: (req, res, next) => {
     if (req.body.new_email) {
-      req.body.password=encode().value(req.body.password);
+      req.body.password=encode().value(req.body.old_password);
       usersModel.findOneAndUpdate({
         $and: [{
           "password": req.body.password
