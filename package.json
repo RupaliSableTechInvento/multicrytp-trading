@@ -36,5 +36,9 @@
   "devDependencies": {
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.19.1"
+  },
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
   }
 }
