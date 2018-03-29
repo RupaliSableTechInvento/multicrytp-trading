@@ -13,7 +13,7 @@ body {
 }
 
 .remark_logo {
-  height: 2.6em;
+  height: 1.8em;
   margin-left: 10px;
 }
 
@@ -167,7 +167,7 @@ body {
 }
 
 .remark-block label {
-  font-size: 1.4em;
+  font-size: 1em;
 }
 
 .lable_txt {
@@ -317,4 +317,8 @@ label {
 
 .lbl_content {
   font-size: 1.1em;
+}
+
+.lbl_bold {
+  font-weight: bold !important;
 }

@@ -57,7 +57,7 @@ const routes = (route) => {
   route.route('/users/storeBasicUserInfo')
     .post(usersController.storeBasicUserInfo);
 
-  route.route('/users/resetPassword')
+  route.route('/users/changePassword')
     .post(usersController.resetPassword);
   route.route('/logout')
     .get(authController.logout)

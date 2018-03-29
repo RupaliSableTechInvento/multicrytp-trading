@@ -60,7 +60,7 @@ var routes = function routes(route) {
 
   route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
 
-  route.route('/users/resetPassword').post(_usersController2.default.resetPassword);
+  route.route('/users/changePassword').post(_usersController2.default.resetPassword);
   route.route('/logout').get(_authController2.default.logout);
 };
 
