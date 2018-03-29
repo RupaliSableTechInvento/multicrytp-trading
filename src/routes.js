@@ -23,7 +23,7 @@ const routes = (route) => {
   // .put(usersController.update);
 
   route.route('/forgetPassword')
-    .post(usersController.changePassword);
+    .post(usersController.forgetPassword);
 
   route.route('/users/changeEmail')
     .post(usersController.changeEmail);
@@ -58,7 +58,7 @@ const routes = (route) => {
     .post(usersController.storeBasicUserInfo);
 
   route.route('/users/changePassword')
-    .post(usersController.resetPassword);
+    .post(usersController.changePassword);
   route.route('/logout')
     .get(authController.logout)
 };
