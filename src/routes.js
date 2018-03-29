@@ -24,6 +24,7 @@ const routes = (route) => {
 
   route.route('/forgetPassword')
     .post(usersController.forgetPassword);
+    
 
   route.route('/users/changeEmail')
     .post(usersController.changeEmail);
