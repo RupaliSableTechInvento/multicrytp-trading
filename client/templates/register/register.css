@@ -117,3 +117,9 @@ input[type=password]:focus {
 .lbl_error {
   display: none;
 }
+
+.error {
+  border: 1px solid red;
+  background: #e5d2d2;
+  color: red;
+}

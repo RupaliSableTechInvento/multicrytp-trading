@@ -4,31 +4,30 @@ import jwt from 'jsonwebtoken';
 import env from "../env";
 const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
-var encode = require( 'hashcode' ).hashCode;
+var encode = require('hashcode').hashCode;
 const usersController = {
 
-  getAll: async (req, res, next) => {
+  getAll: async(req, res, next) => {
     usersModel.find({}, (err, users) => {
-      if (err) return res.json({isError:true,data:err});
-      res.json({isError:false,data:users});
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: users });
     });
   },
 
   getOne: (req, res, next) => {
-     // console.log("------------",next);
+    // console.log("------------",next);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    usersModel.findOne({'email':decoded.email}, (err, user) => {
+    usersModel.findOne({ 'email': decoded.email }, (err, user) => {
       if (err) {
-        res.json({isError:true,data:err});
-      }
-      else{res.json({isError:false,data:user});}
+        res.json({ isError: true, data: err });
+      } else { res.json({ isError: false, data: user }); }
     });
   },
 
   create: (req, res, next) => {
     usersModel.create(req.body, function(err, user) {
-      if (err) return res.json({isError:true,data:err});
-      res.json({isError:false,data:user})
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: user })
     })
   },
 
@@ -39,8 +38,8 @@ const usersController = {
     }, req.body, {
       new: true
     }, (err, user) => {
-      if (err) return res.json({isError:true,data:err});
-      res.json({isError:false,data:user})
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: user })
     });
   },
 
@@ -48,21 +47,21 @@ const usersController = {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     usersModel.findOneAndUpdate({
       'email': decoded.email
-    },{isActive:'inactive'}, (err, ok) => {
-      if (err) return res.json({isError:true,data:err});
-      else{
-        res.json({isError:true,data:true})
+    }, { isActive: 'inactive' }, (err, ok) => {
+      if (err) return res.json({ isError: true, data: err });
+      else {
+        res.json({ isError: true, data: true })
       }
     });
   },
   forgetPassword: (req, res, next) => {
-    var email= req.body.email;
-    console.log("email",email);
+    var email = req.body.email;
+    console.log("email", email);
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
       if (err) {
-        res.json({isError:true,data:err})
+        res.json({ isError: true, data: err })
       } else {
         if (result != "") {
           var d = new Date();
@@ -96,20 +95,20 @@ const usersController = {
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
                 return console.log("error--11--", error);
-                res.json({isError:true,data:error});
+                res.json({ isError: true, data: error });
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({isError:false,data:'Please check your Email'});
+                res.json({ isError: false, data: 'Please check your Email' });
               }
               // Preview only available when sending through an Ethereal account
               // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
               // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
             });
-        //    res.json(mailOptions);
+            //    res.json(mailOptions);
           });
         } else {
-          res.json({isError:true,data:'please provide a valid mail'});
+          res.json({ isError: true, data: 'please provide a valid mail' });
         }
       }
     })
@@ -125,18 +124,18 @@ const usersController = {
     }, {
       new: true
     }, (err, user) => {
-      if (err) return res.json({isError:true,data:err});
-      res.json({isError:false,data:user})
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: user })
     });
   },
 
   emailVarification: (req, res, next) => {
-    var email=req.body.email;
+    var email = req.body.email;
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
       if (err) {
-        res.json({isError:true,data:err})
+        res.json({ isError: true, data: err })
       } else {
         if (result != "") {
           var d = new Date();
@@ -165,17 +164,17 @@ const usersController = {
             };
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
-                res.json({isError:true,data:error});
+                res.json({ isError: true, data: error });
                 return console.log("error--11--", error);
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({isError:false,data:'Please check your email'});
+                res.json({ isError: false, data: 'Please check your email' });
               }
             });
           });
         } else {
-          res.json({isError:true,data:'please provide a valid mail'});
+          res.json({ isError: true, data: 'please provide a valid mail' });
         }
       }
     })
@@ -194,11 +193,11 @@ const usersController = {
           "varification.email_varified": "varified"
         }
       }, (err, user) => {
-        if (err) return res.json({isError:true,data:err});
-        res.json({isError:false,data:"email_varified"});
+        if (err) return res.json({ isError: true, data: err });
+        res.json({ isError: false, data: "email_varified" });
       });
     } else {
-      res.json({isError:true,data:"session expire"});
+      res.json({ isError: true, data: "session expire" });
     }
   },
 
@@ -218,33 +217,33 @@ const usersController = {
       }, env.App_key);
       res.redirect('/recover/' + token)
     } else {
-      res.json({isError:true,data:"session expire"});
+      res.json({ isError: true, data: "session expire" });
     }
   },
   changePassword: (req, res, next) => {
-    // console.log("+++++++++++",);
+    console.log("req.headers--->", req.headers['authorization'], req.body);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-      req.body.password=encode().value(req.body.password);
-      req.body.new_pasword=encode().value(req.body.new_pasword);
-      usersModel.findOneAndUpdate({
-        $and: [{
-          "password": req.body.password
-        }, {
-          "email": decoded.email
-        }]
+    req.body.password = encode().value(req.body.password);
+    req.body.new_pasword = encode().value(req.body.new_pasword);
+    usersModel.findOneAndUpdate({
+      $and: [{
+        "password": req.body.password
       }, {
-        $set: {
-          "password": req.body.new_pasword
-        }
-      }, (err, user) => {
-        if (err) return res.json({isError:true,data:err});
-        res.json({isError:false,data:user});
-      })
+        "email": decoded.email
+      }]
+    }, {
+      $set: {
+        "password": req.body.new_pasword
+      }
+    }, (err, user) => {
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: user });
+    })
   },
   recoverPassword: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
-      req.body.password=encode().value(req.body.password);
+      req.body.password = encode().value(req.body.password);
       var dt = new Date();
       var checkDate = new Date(decoded.exp);
       if (dt < checkDate) {
@@ -256,20 +255,19 @@ const usersController = {
           }
         }, (err, user) => {
           if (err) return res.json(err);
-          res.json({isError:false,data:user});
+          res.json({ isError: false, data: user });
         });
       } else {
-        res.json({isError:true,data:"session expire"});
+        res.json({ isError: true, data: "session expire" });
       }
-    }
-    else{
-        res.json({isError:true,data:"Please provide valid password"});
+    } else {
+      res.json({ isError: true, data: "Please provide valid password" });
     }
 
   },
   changeEmail: (req, res, next) => {
     if (req.body.new_email) {
-      req.body.password=encode().value(req.body.old_password);
+      req.body.password = encode().value(req.body.old_password);
       usersModel.findOneAndUpdate({
         $and: [{
           "password": req.body.password
@@ -281,11 +279,11 @@ const usersController = {
           "email": req.body.new_email
         }
       }, (err, user) => {
-        if (err) return res.json({isError:true,data:err});
-        res.json({isError:false,data:user});
+        if (err) return res.json({ isError: true, data: err });
+        res.json({ isError: false, data: user });
       })
     } else {
-      res.json({isError:true,data:"NULL"});
+      res.json({ isError: true, data: "NULL" });
     }
   },
 

@@ -11,5 +11,11 @@ var headerElms = {
   remark: ".remark-block",
   lbl_redirect_login: ".lbl_redirect_login",
   lbl_redirect_reset_pwd: ".lbl_redirect_reset_pwd",
-  lbl_redirect_register_user: ".lbl_redirect_register_user"
+  lbl_redirect_register_user: ".lbl_redirect_register_user",
+  btn_change_pwd: "#btn_change_pwd",
+  input_id_old_password: "#id_old_password",
+  input_id_new_password: "#id_new_password",
+  input_id_cnfrm_password: "#id_cnfrm_password",
+  lbl_error: "#lbl_error"
+
 }

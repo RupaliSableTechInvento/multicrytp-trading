@@ -51,6 +51,22 @@ var API = {
         alert(err);
       }
     })
+  },
+  changePassword: function(dataObj, cb) {
+    $.ajax({
+      url: "/users/changePassword",
+      data: dataObj,
+      type: "POST",
+      headers: {
+        "authorization": localStorage.getItem("token"),
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
   }
 
 

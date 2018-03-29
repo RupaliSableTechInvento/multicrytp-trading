@@ -19,6 +19,7 @@ var _tokenModel2 = _interopRequireDefault(_tokenModel);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var authenticated = function authenticated(req, res, next) {
+  console.log("req.headers", req.headers);
   var token = req.headers['authorization'];
   var today = new Date();
   _tokenModel2.default.findOne({ $and: [{ 'token': token }, { 'isActive': 'active' }, { expiry: { $gt: today } }] }, function (err, user) {

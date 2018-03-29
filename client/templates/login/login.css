@@ -8,13 +8,9 @@
 }
 
 .btncorners {
-  border-radius: 3px;
   color: white;
-  font-weight: bold;
   font-size: 14px;
   background: #667BFA;
-  border: 2px solid #337AB7;
-  padding: 7px;
 }
 
 .div-lbl_msg {
@@ -83,4 +79,10 @@ input[type=text]:focus {
 
 .div-bottom {
   margin-top: 8px;
+}
+
+.error {
+  border: 1px solid red;
+  background: #e5d2d2;
+  color: red;
 }

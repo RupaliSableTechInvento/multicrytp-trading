@@ -1,6 +1,5 @@
 .div-dashboard-main {
   display: flex;
-  font-size: 10px;
 }
 
 .div-nav {
@@ -98,11 +97,12 @@
 }
 
 .nav-tab-dashboard {
-  height: 40px;
-  padding: 7px 0;
+  height: 50px;
+  padding: 7px;
   align-items: center;
   border: 2px solid #DEDEDE;
   border-bottom: none;
+  display: flex;
 }
 
 .dash-icon {
@@ -116,9 +116,7 @@
 
 .dash-tab-title {
   color: #8D8D8D;
-  font-size: 1.2em;
   margin-left: 10px;
-  position: absolute;
   margin-top: 2px;
 }
 
@@ -264,7 +262,7 @@
 }
 
 .div-nav-tab>div.active_tab {
-  border-left: 3px solid grey;
+  border-left: 3px solid #5459a3;
 }
 
 .div-nav-tab>div.active_tab span {
@@ -272,6 +270,18 @@
 }
 
 .scrollbar {
-  -webkit-overflow-scrolling: auto;
-  -webkit-text-stroke-width: 3px;
+  height: 300px;
+  margin-bottom: 25px;
+  margin-left: 22px;
+  margin-top: 40px;
+  overflow-y: scroll;
+}
+
+.force-overflow {
+  min-height: 450px;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
 }

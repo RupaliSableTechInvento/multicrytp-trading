@@ -25,6 +25,7 @@ var Login = {};
             password: $('#txtpwd').val(),
           }
           _core.submitForm(dataObj, function(res) {
+
             if (res.isError) {
               $("#lbl_msg").show();
               console.log("auth failed", res)
@@ -32,7 +33,7 @@ var Login = {};
               $("#lbl-login-sucess").show();
               $(headerElms.nav_menu).removeClass("hidden");
               $(headerElms.nav_menu_login).addClass("hidden");
-              localStorage.setItem("token", res.token);
+              localStorage.setItem("token", res.data);
               localStorage.setItem('email', dataObj.email);
               //redirerect tp home page
               window.location.replace("/#/");

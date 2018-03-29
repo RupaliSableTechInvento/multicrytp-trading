@@ -94,7 +94,7 @@ var usersController = {
       }
     });
   },
-  changePassword: function changePassword(req, res, next) {
+  forgetPassword: function forgetPassword(req, res, next) {
     var email = req.body.email;
     console.log("email", email);
     _usersModel2.default.find({
@@ -260,8 +260,8 @@ var usersController = {
       res.json({ isError: true, data: "session expire" });
     }
   },
-  resetPassword: function resetPassword(req, res, next) {
-    // console.log("+++++++++++",);
+  changePassword: function changePassword(req, res, next) {
+    console.log("req.headers--->", req.headers['authorization'], req.body);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     req.body.password = encode().value(req.body.password);
     req.body.new_pasword = encode().value(req.body.new_pasword);
@@ -281,7 +281,7 @@ var usersController = {
     });
   },
   recoverPassword: function recoverPassword(req, res, next) {
-    var decoded = _jsonwebtoken2.default.verify(req.body.token, _env2.default.App_key);
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
       var dt = new Date();
@@ -306,7 +306,7 @@ var usersController = {
   },
   changeEmail: function changeEmail(req, res, next) {
     if (req.body.new_email) {
-      req.body.password = encode().value(req.body.password);
+      req.body.password = encode().value(req.body.old_password);
       _usersModel2.default.findOneAndUpdate({
         $and: [{
           "password": req.body.password
