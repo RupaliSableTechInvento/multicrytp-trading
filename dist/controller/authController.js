@@ -39,7 +39,8 @@ var authController = {
         var token1 = _jsonwebtoken2.default.sign({
           email: user.email,
           first_name: user.first_name,
-          last_name: user.last_name
+          last_name: user.last_name,
+          expiry: v
         }, _env2.default.App_key);
         var token = new _tokenModel2.default();
         console.log(user.email);

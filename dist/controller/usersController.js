@@ -284,8 +284,9 @@ var usersController = {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
+      var checkDate = new Date(decoded.expiry);
       var dt = new Date();
-      var checkDate = new Date(decoded.exp);
+      // console.log(dt,"------",decoded);
       if (dt < checkDate) {
         _usersModel2.default.findOneAndUpdate({
           "email": decoded.email
