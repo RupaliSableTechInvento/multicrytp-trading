@@ -19,7 +19,8 @@ const authController = {
         const token1 = jwt.sign({
           email: user.email,
           first_name: user.first_name,
-          last_name: user.last_name
+          last_name: user.last_name,
+          expiry:v
         }, env.App_key);
         let token = new tokenModel();
         console.log(user.email);

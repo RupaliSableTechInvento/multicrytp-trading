@@ -26,14 +26,13 @@ var ResetPassword = {};
         if ($('.container.error').length <= 0) {
           $("#lbl_error").empty();
           var input = $('input');
+          var  token= window.location.hash.split("=")[1];
           if (input.val().length <= 0) {
             $('#lbl_error').addClass('error');
           } else {
             var dataObj = {
               password: $('#txtpwd').val(),
               passwordcnfrm: $('#txtpwdcnfrm').val(),
-              errormsg: $('#lbl_error'),
-              token: window.location.hash.split("=")[1],
             }
             var isPassLengthValid = (dataObj.password.length <= 6);
             $(dataObj.errormsg).empty();
@@ -45,8 +44,9 @@ var ResetPassword = {};
                 $(dataObj.errormsg).append("<p> Password missmatch </p>");
               } else {
                 $(dataObj.errormsg).hide();
+                console.log("===>",token);
+                _core.resetPassword(dataObj,token, function(res) {
 
-                _core.resetPassword(dataObj, function(res) {
                   if (res) {
                     if (res.errors) {
                       $(dataObj.errormsg).append(res.error);
