@@ -50,7 +50,6 @@ var Register = {};
             $("#lbl_error").empty();
             $("#lbl_error").append("<p> Invalid Email address </p>");
             isError = true;
-
           }
           if (dataObj.password !== $('#txtpwd2').val()) {
             $("#lbl_error").append("<p> Password missmatch </p>");
