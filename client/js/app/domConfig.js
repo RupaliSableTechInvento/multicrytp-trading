@@ -6,6 +6,8 @@ var headerElms = {
   dropdown_content: ".dropdown-content",
   sub_menus: ".sub_menus",
   dashboard_menus: ".div-nav-tab",
+  dashboard_menusData: ".div-frame-data",
+  div_profileSetting: ".div-profileSetting",
   btn_recover_pwd: "#btn_recover_pwd",
   btn_reset_pwd: "#btn_reset_pwd",
   remark: ".remark-block",

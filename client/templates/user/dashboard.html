@@ -10,32 +10,34 @@
       </div>
     </div>
     <div class="div-nav-tab rounded_corner">
-      <div class="nav-tab-dashboard active_tab ">
+      <div class="nav-tab-dashboard active_tab " data-frame="div-dashboardData">
         <span class="glyphicon glyphicon-th-list dashboard_menu_icon"></span>
         <label class="dash-tab-title">Dashboard</label>
       </div>
-      <div class="nav-tab-dashboard div-dashboard-tab-bg">
+      <div class="nav-tab-dashboard div-dashboard-tab-bg" data-frame="div-profileSetting">
+
         <!-- <img src="img/profile-setting.png" class="dash-icon"></img> -->
         <span class="glyphicon glyphicon-cog dashboard_menu_icon"></span>
         <label class="dash-tab-title ">profile-setting</label>
       </div>
-      <div class="nav-tab-dashboard">
+      <div class="nav-tab-dashboard" data-frame="div-bitcoinWallet">
         <!-- <img src="img/bitcoin-logo.png" class="dash-icon"></img> -->
         <span class="glyphicon glyphicon-bitcoin dashboard_menu_icon"></span>
         <label class="dash-tab-title">Bitcoin Wallet</label>
       </div>
-      <div class="nav-tab-dashboard div-dashboard-tab-bg">
+      <div class="nav-tab-dashboard div-dashboard-tab-bg" data-frame="div-messages">
         <!--          <img src="img/messages.png" class="dash-icon"></img> -->
         <span class="glyphicon glyphicon-envelope dashboard_menu_icon"></span>
         <label class="dash-tab-title">Messages</label>
       </div>
-      <div class="nav-tab-dashboard">
+      <div class="nav-tab-dashboard" data-frame="div-logout">
         <span class="glyphicon glyphicon-log-out dashboard_menu_icon"></span>
 
         <label class="dash-tab-title">Logout</label>
       </div>
     </div>
   </div>
+
   <div class="div-dashboard-frame">
     <div class="div-trade">
       <div class="div-buy-trade rounded_corner">
@@ -73,46 +75,134 @@
       </div>
     </div>
     <div class="div-frame-data">
-      <div class="div-frame-feedback rounded_corner">
-        <div class="div-frame-head rounded_corner">
-          <label class="div-frame-head-title-color lbl-balag lbl_heading">People Feedback</label>
-          <div class="div-img-update-circle"><img src="img/update-arrows.png" class="img-update" /></div>
-        </div>
-        <div class="div-frame-feedback-data rounded_corner">
-          <div class="div-frame-feeback-response rounded_corner">
-            <div class="feedback-no_response rounded_corner">
-              <img src="img/information.png" class="img-feedback-info_logo" />
-              <label class="lbl-feedback-no_response lbl-bold">Yet No Feddback</label>
+      <div class="div-dashboardData active_tab_data ">
+        <div class="div-frame-feedback rounded_corner">
+          <div class="div-frame-head rounded_corner">
+            <label class="div-frame-head-title-color lbl-balag lbl_heading">People Feedback</label>
+            <div class="div-img-update-circle"><img src="img/update-arrows.png" class="img-update" /></div>
+          </div>
+          <div class="div-frame-feedback-data rounded_corner">
+            <div class="div-frame-feeback-response rounded_corner">
+              <div class="feedback-no_response rounded_corner">
+                <img src="img/information.png" class="img-feedback-info_logo" />
+                <label class="lbl-feedback-no_response lbl-bold">Yet No Feddback</label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="div-frame-chat rounded_corner lbl_content">
-        <div class="div-frame-head ">
-          <label class="div-frame-head-title-color lbl-balag lbl_heading">Recent Chats</label>
-          <div class="div-img-update-circle"><img src="img/update-arrows.png" class="img-update" /></div>
-        </div>
-        <div class="div-frame-chat-data rounded_corner scrollbar " id="style-1">
-          <div class="force-overflow">
-            <div class="div-frame-chat-response ">
-              <div><label class="lbl-recent-chat-id lbl-bold recent_chat_row">#204465180215</label></div>
-              <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">11 hours ago</label></div>
-              <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">test trade</label></div>
-            </div>
-            <div class="div-frame-chat-response">
-              <div><label class="lbl-recent-chat-id lbl-bold recent_chat_row">#204465180215</label></div>
-              <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">11 hours ago</label></div>
-              <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">test trade</label></div>
-            </div>
-            <div class="div-frame-chat-response">
-              <div><label class="lbl-recent-chat-id lbl-bold recent_chat_row">#204465180215</label></div>
-              <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">11 hours ago</label></div>
-              <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">test trade</label></div>
-            </div>
+        <div class="div-frame-chat rounded_corner lbl_content">
+          <div class="div-frame-head ">
+            <label class="div-frame-head-title-color lbl-balag lbl_heading">Recent Chats</label>
+            <div class="div-img-update-circle"><img src="img/update-arrows.png" class="img-update" /></div>
           </div>
+          <div class="div-frame-chat-data rounded_corner scrollbar " id="style-1">
+            <div class="force-overflow">
+              <div class="div-frame-chat-response ">
+                <div><label class="lbl-recent-chat-id lbl-bold recent_chat_row">#204465180215</label></div>
+                <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">11 hours ago</label></div>
+                <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">test trade</label></div>
+              </div>
+              <div class="div-frame-chat-response">
+                <div><label class="lbl-recent-chat-id lbl-bold recent_chat_row">#204465180215</label></div>
+                <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">11 hours ago</label></div>
+                <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">test trade</label></div>
+              </div>
+              <div class="div-frame-chat-response">
+                <div><label class="lbl-recent-chat-id lbl-bold recent_chat_row">#204465180215</label></div>
+                <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">11 hours ago</label></div>
+                <div><label class="div-frame-head-title-color lbl-bold recent_chat_row">test trade</label></div>
+              </div>
+            </div>
 
+          </div>
         </div>
       </div>
+      <div class="div-profileSetting">
+        <div class="container">
+          <h3> Profile Settings</h3>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3 div_upload_pic">
+              <div class="text-center">
+
+                <img src="//placehold.it/100" id="img_upload_pic" class="avatar img-circle profile_pic" alt="avatar">
+                <h6>Upload a different photo...</h6>
+                <input type="file" id="input_upload_pic" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-7 div_personal_info">
+              <center>
+                <h3>Personal Info</h3>
+              </center>
+              <form class="form-horizontal " role="form">
+                <div class="form-group">
+                  <label class="control-label lbl">First name:</label>
+                  <div class="">
+                    <input class="form-control" type="text" id="txt_firstname" value="Jane">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class=" control-label  lbl">Last name:</label>
+                  <div class="">
+                    <input class="form-control" type="text" id="txt_lastname" value="Bishop">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class=" control-label  lbl">Nick Name:</label>
+                  <div class="">
+                    <input class="form-control" type="text" id="txt_nickname" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label  lbl">Email:</label>
+                  <div class="">
+                    <input class="form-control" type="text" id="txt_email" value="janesemail@gmail.com">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class=" control-label  lbl">Contact No:</label>
+                  <div class="">
+                    <input class="form-control" type="text" id="txt_cno" value="1111111111" maxlength="10">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label  lbl">Date of Birth:</label>
+                  <div class="">
+                    <input class="form-control" id="txt_dob" type="date">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label  lbl">Location:</label>
+                  <div class="">
+                    <input class="form-control" id="txt_location" type="text">
+                  </div>
+                </div>
+                <div class="div-lbl_error">
+                  <label id="lbl_error" class="lbl_error lbl_content"></label>
+                </div>
+                <div class="form-group">
+                  <label class=" control-label"></label>
+                  <div class="">
+                    <input type="button" id="btn_update_profile" class="btn btn-primary" value="Save Changes">
+                    <span></span>
+                    <input type="reset" class="btn btn-default" value="Cancel">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div-bitcoinWallet">
+        <label>Bitcoin Wallet</label>
+      </div>
+      <div class="div-messages">
+        <label>Messages</label>
+      </div>
+      <div class="div-logout">
+        <label>Logout</label>
+      </div>
+
     </div>
   </div>
 </div>
