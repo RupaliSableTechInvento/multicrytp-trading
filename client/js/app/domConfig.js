@@ -16,6 +16,8 @@ var headerElms = {
   input_id_old_password: "#id_old_password",
   input_id_new_password: "#id_new_password",
   input_id_cnfrm_password: "#id_cnfrm_password",
-  lbl_error: "#lbl_error"
-
+  lbl_error: "#lbl_error",
+  btn_update_profile: "#btn_update_profile",
+  img_upload_pic: "#img_upload_pic",
+  input_upload_pic: "#input_upload_pic"
 }

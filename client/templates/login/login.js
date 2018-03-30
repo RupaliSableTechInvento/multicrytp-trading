@@ -36,7 +36,7 @@ var Login = {};
               localStorage.setItem("token", res.data);
               localStorage.setItem('email', dataObj.email);
               //redirerect tp home page
-              window.location.replace("/#/");
+              window.location.replace("#/dashboard");
             }
             // if (res) {
             // 	console.log("res=>",res);

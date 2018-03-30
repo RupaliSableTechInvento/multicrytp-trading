@@ -1,0 +1,11 @@
+.profile_pic {
+  width: 100px;
+}
+
+.div-lbl_error {
+  color: #A94442;
+}
+
+.lbl_error {
+  display: none;
+}

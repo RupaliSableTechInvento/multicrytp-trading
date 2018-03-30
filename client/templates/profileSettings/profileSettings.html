@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="templates/profileSettings/profileSettings.css" type="text/css" />
+
+<div class="container">
+
+  <h3> Profile Settings</h3>
+
+  <hr>
+  <div class="row">
+
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="//placehold.it/100" id="img_upload_pic" class="avatar img-circle profile_pic" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <input type="file" id="input_upload_pic" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-9 personal-info">
+      <center>
+        <h3>Personal Info</h3>
+      </center>
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">First name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" id="txt_firstname" value="Jane">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Last name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" id="txt_lastname" value="Bishop">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Nick Name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" id="txt_nickname" value="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" id="txt_email" value="janesemail@gmail.com">
+          </div>
+        </div>
+        <!--         <div class="form-group">
+          <label class="col-lg-3 control-label">Time Zone:</label>
+          <div class="col-lg-8">
+            <div class="ui-select">
+              <select id="user_time_zone" class="form-control">
+                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
+                  <option value="Alaska">(GMT-09:00) Alaska</option>
+                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+                  <option value="Arizona">(GMT-07:00) Arizona</option>
+                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
+                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                </select>
+            </div>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label class="col-md-3 control-label">Contact No:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" id="txt_cno" value="1111111111" maxlength="10">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Date of Birth:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="txt_dob" type="date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Location:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="txt_location" type="text">
+          </div>
+        </div>
+        <div class="div-lbl_error">
+          <label id="lbl_error" class="lbl_error lbl_content"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input type="button" id="btn_update_profile" class="btn btn-primary" value="Save Changes">
+            <span></span>
+            <input type="reset" class="btn btn-default" value="Cancel">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>

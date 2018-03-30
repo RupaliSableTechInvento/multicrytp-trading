@@ -22,6 +22,10 @@
 
       });
       this.get('#/dashboard', function(context) {
+        if (!checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
         Dashboard.init();
       });
       this.get('#/forgetpassword', function(context) {
@@ -31,10 +35,25 @@
         ResetPassword.init();
       });
       this.get('#/editprofile', function(context) {
+        if (!checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
         EditProfile.init();
       });
       this.get('#/changepassword', function(context) {
+        if (!checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
         ChangePassword.init();
+      });
+      this.get('#/profilesettings', function(context) {
+        if (!checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
+        ProfileSettings.init();
       });
 
 
