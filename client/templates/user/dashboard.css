@@ -144,8 +144,8 @@
   margin-top: 45px;
 }
 
-.input_upload_pic {
-  display: none;
+#input_upload_pic {
+  display: none !important;
 }
 
 .form-horizontal {
