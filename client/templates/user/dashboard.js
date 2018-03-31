@@ -69,8 +69,8 @@ var Dashboard = {};
           console.log("img accepting");
 
         });
-      $(headerElms.img_upload_pic).click(function(e) {
-        $(h.input_upload_pic).click()
+      $(".upload_profile_pic").click(function(e) {
+        $(headerElms.input_upload_pic).click()
       })
 
     }

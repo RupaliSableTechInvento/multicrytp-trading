@@ -148,6 +148,14 @@
   display: none !important;
 }
 
+.upload_profile_pic label {
+  margin-left: 10px;
+}
+
+.lbl_edit {
+  color: #42A5F5;
+}
+
 .form-horizontal {
   max-width: 468px;
   margin: 0 auto;
