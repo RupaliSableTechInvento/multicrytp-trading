@@ -148,12 +148,15 @@
   display: none !important;
 }
 
-.upload_profile_pic label {
-  margin-left: 10px;
+.img_upload_profile_pic {
+  padding: 10px;
+  margin-left: -5px;
+  background: #55555536;
 }
 
 .lbl_edit {
-  color: #42A5F5;
+  background-color: #42A5F5;
+  width: 100px;
 }
 
 .form-horizontal {

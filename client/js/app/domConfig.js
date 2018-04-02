@@ -4,6 +4,7 @@ var headerElms = {
   signup_menu: "#signup-menu",
   login_menu: "#login-menu",
   dropdown_content: ".dropdown-content",
+  droup_dwn_logout: "#droup_dwn_logout",
   sub_menus: ".sub_menus",
   dashboard_menus: ".div-nav-tab",
   dashboard_menusData: ".div-frame-data",
@@ -22,5 +23,6 @@ var headerElms = {
   btn_update_profile: "#btn_update_profile",
   img_upload_pic: "#img_upload_pic",
   input_upload_pic: "#input_upload_pic",
-  upload_profile_pic: ".upload_profile_pic"
+  upload_profile_pic: ".upload_profile_pic",
+  btn_publish_advertisement: "#btn_publish_advertisement"
 }

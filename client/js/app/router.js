@@ -29,9 +29,17 @@
         Dashboard.init();
       });
       this.get('#/forgetpassword', function(context) {
+        if (checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
         ForgetPassword.init();
       });
       this.get('#/resetpassword', function(context) {
+        if (checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
         ResetPassword.init();
       });
       this.get('#/editprofile', function(context) {
@@ -54,6 +62,13 @@
           return;
         }
         ProfileSettings.init();
+      });
+      this.get('#/postatrade', function(context) {
+        if (!checkIfToken()) {
+          window.location = '#/';
+          return;
+        }
+        PostATrade.init();
       });
 
 

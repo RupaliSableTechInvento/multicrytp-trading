@@ -26,7 +26,7 @@ var ResetPassword = {};
         if ($('.container.error').length <= 0) {
           $("#lbl_error").empty();
           var input = $('input');
-          var  token= window.location.hash.split("=")[1];
+          var token = window.location.hash.split("=")[1];
           if (input.val().length <= 0) {
             $('#lbl_error').addClass('error');
           } else {
@@ -35,22 +35,25 @@ var ResetPassword = {};
               passwordcnfrm: $('#txtpwdcnfrm').val(),
             }
             var isPassLengthValid = (dataObj.password.length <= 6);
-            $(dataObj.errormsg).empty();
-            $(dataObj.errormsg).show();
+            $("#lbl_error").empty();
+            $("#lbl_error").show();
             if (isPassLengthValid) {
-              $(dataObj.errormsg).append("<p>password is too short  </p>");
+              $("#lbl_error").append("<p>password is too short  </p>");
             } else {
               if (dataObj.password !== dataObj.passwordcnfrm) {
-                $(dataObj.errormsg).append("<p> Password missmatch </p>");
+                $("#lbl_error").append("<p> Password missmatch </p>");
               } else {
-                $(dataObj.errormsg).hide();
-                console.log("===>",token);
-                _core.resetPassword(dataObj,token, function(res) {
+                $("#lbl_error").hide();
+                console.log("===>", token);
+                _core.resetPassword(dataObj, token, function(res) {
 
                   if (res) {
-                    if (res.errors) {
-                      $(dataObj.errormsg).append(res.error);
+                    if (res.isError) {
+                      $("#lbl_error").empty();
+                      $("#lbl_error").show();
+                      $("#lbl_error").append(res.data);
                       console.log(res.error)
+
                     } else {
 
                       console.log("res", res);

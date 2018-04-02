@@ -1,0 +1,1923 @@
+<link rel="stylesheet" href="templates/postTrade/postTrade.css" type="text/css" />
+<div class="container">
+
+  <h3>Trade Type</h3>
+  <hr>
+
+  <div class="row " id="row_id_ad-trade_type">
+    <div id="div_id_ad-trade_type" class="col-md-2 label-col form-group">
+      <label for="id_ad-trade_type_0" class="control-label requiredField">
+                I want to...
+            </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls trade_type">
+        <label class="radio radio_btn_padding">
+                    <input type="radio" name="ad-trade_type" id="id_ad-trade_type_1" value="LOCAL_SELL" class="add-adform-radio">
+                    Sell your bitcoins locally
+                </label>
+        <label class="radio radio_btn_padding"> 
+                    <input type="radio" name="ad-trade_type" id="id_ad-trade_type_2" value="LOCAL_BUY" class="add-adform-radio">
+                         Buy bitcoins locally
+                </label>
+        <label class="radio radio_btn_padding">
+                    <input type="radio" name="ad-trade_type" id="id_ad-trade_type_3" value="ONLINE_SELL" class="add-adform-radio">
+                         Sell your bitcoins online
+                 </label>
+        <label class="radio radio_btn_padding"> 
+            <input type="radio" name="ad-trade_type" id="id_ad-trade_type_4" value="ONLINE_BUY" class="add-adform-radio">
+                Buy bitcoins online
+        </label>
+      </div>
+    </div>
+
+  </div>
+  <div class="row " id="row_id_ad-place">
+    <div id="div_id_ad-place" class="col-md-2 label-col form-group">
+      <label for="id_ad-place" class="control-label requiredField">
+             Location
+            </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls">
+        <input class="textinput textInput form-control" id="ad-location" name="ad-place" type="text" placeholder="Enter a location" autocomplete="off">
+      </div>
+    </div>
+
+  </div>
+  <div class="row " id="row_id_ad-online_provider" style="display: block;">
+    <div id="div_id_ad-online_provider" class="col-md-2 label-col form-group"> <label for="id_ad-online_provider" class="control-label requiredField">
+      Payment method
+  </label> </div>
+    <div class="col-md-3">
+      <div class="controls"> <select class="select form-control" id="id_ad-online_provider" name="ad-online_provider">
+<option value="NATIONAL_BANK" selected="selected">National bank transfer</option>
+<option value="SEPA">SEPA (EU) bank transfer</option>
+<option value="SPECIFIC_BANK">Transfers with specific bank</option>
+<option value="INTERNATIONAL_WIRE_SWIFT">International Wire (SWIFT)</option>
+<option value="OTHER">Other online payment</option>
+<option value="CASH_DEPOSIT">Cash deposit</option>
+<option value="ECOCASH">EcoCash</option>
+<option value="HAL_CASH">Hal-cash</option>
+<option value="SWISH">Swish</option>
+<option value="VIPPS">Vipps</option>
+<option value="MOBILEPAY_DANSKE_BANK">MobilePay FI</option>
+<option value="QIWI">QIWI</option>
+<option value="CASH_BY_MAIL">Cash by mail</option>
+<option value="BANK_TRANSFER_IMPS">IMPS Bank Transfer India</option>
+<option value="PAYTM">PayTM</option>
+<option value="LYDIA">Lydia</option>
+<option value="INTERAC">Interac e-transfer</option>
+<option value="PINGIT">Pingit</option>
+<option value="PAYM">Paym</option>
+<option value="PYC">PYC</option>
+<option value="ALIPAY">Alipay</option>
+<option value="SUPERFLASH">Superflash</option>
+<option value="CHASE_QUICKPAY">Chase Quickpay</option>
+<option value="OKPAY">OKPay</option>
+<option value="PAYPAL">Paypal</option>
+<option value="WEBMONEY">WebMoney</option>
+<option value="MONEYBOOKERS">Moneybookers / Skrill</option>
+<option value="NETELLER">Neteller</option>
+<option value="WU">Western Union</option>
+<option value="PostePay">PostePay</option>
+<option value="MONEYGRAM">Moneygram</option>
+<option value="POSTAL_ORDER">Postal order</option>
+<option value="CASHIERS_CHECK">Cashier's check</option>
+<option value="VENMO">Venmo</option>
+<option value="DWOLLA">Dwolla</option>
+<option value="PERFECT_MONEY">Perfect Money</option>
+<option value="CASHU">CashU</option>
+<option value="PAYSAFECARD">PaySafeCard</option>
+<option value="PAYZA">Payza</option>
+<option value="ASTROPAY">AstroPay</option>
+<option value="MPESA_KENYA">M-PESA Kenya (Safaricom)</option>
+<option value="MPESA_TANZANIA">M-PESA Tanzania (Vodacom)</option>
+<option value="BPAY">BPAY Bill Payment</option>
+<option value="GIFT_CARD_CODE">Gift Card Code</option>
+<option value="GIFT_CARD_CODE_GLOBAL">Gift Card Code (Global)</option>
+<option value="OTHER_ONLINE_WALLET">Other Online Wallet</option>
+<option value="OTHER_ONLINE_WALLET_GLOBAL">Other Online Wallet (Global)</option>
+<option value="OTHER_REMITTANCE">Other Remittance</option>
+<option value="OTHER_PRE_PAID_DEBIT">Other Pre-Paid Debit Card</option>
+<option value="GOOGLEWALLET">Google Wallet</option>
+<option value="GIFT_CARD_CODE_AMAZON">Amazon Gift Card Code</option>
+<option value="VANILLA">Vanilla</option>
+<option value="TRANSFERWISE">Transferwise</option>
+<option value="PAYPALMYCASH">PayPal My Cash</option>
+<option value="RIA">RIA Money Transfer</option>
+<option value="SOLIDTRUSTPAY">SolidTrustPay</option>
+<option value="XOOM">Xoom</option>
+<option value="MOBILEPAY_DANSKE_BANK_DK">MobilePay</option>
+<option value="TELEGRAMATIC_ORDER">Telegramatic Order</option>
+<option value="PAYEER">Payeer</option>
+<option value="ADVCASH">advcash</option>
+<option value="GIFT_CARD_CODE_APPLE_STORE">Apple Store Gift Card Code</option>
+<option value="NETSPEND">NetSpend Reload Pack</option>
+<option value="HYPERWALLET">hyperWALLET</option>
+<option value="GIFT_CARD_CODE_STEAM">Steam Gift Card Code</option>
+<option value="MOBILEPAY_DANSKE_BANK_NO">MobilePay NO</option>
+<option value="TIGOPESA_TANZANIA">Tigo-Pesa Tanzania</option>
+<option value="ALTCOIN_DASH">Dash altcoin</option>
+<option value="ALTCOIN_XRP">Ripple altcoin</option>
+<option value="PAYONEER">Payoneer</option>
+<option value="ONECARD">OneCard</option>
+<option value="SQUARE_CASH">Square Cash</option>
+<option value="PAXUM">Paxum</option>
+<option value="CASH_AT_ATM">Cash at ATM</option>
+<option value="ALTCOIN_LTC">Litecoin altcoin</option>
+<option value="CREDITCARD">Credit card</option>
+<option value="ALTCOIN_XMR">Monero altcoin</option>
+<option value="WECHAT">WeChat</option>
+<option value="RELOADIT">Reloadit</option>
+<option value="WALMART2WALMART">Walmart 2 Walmart</option>
+<option value="GIFT_CARD_CODE_WALMART">Walmart Gift Card Code</option>
+<option value="EASYPAISA">Easypaisa</option>
+<option value="SERVE2SERVE">Serve2Serve</option>
+<option value="WORLDREMIT">Worldremit</option>
+<option value="ALTCOIN_ETH">Ethereum altcoin</option>
+<option value="GIFT_CARD_CODE_EBAY">Ebay Gift Card Code</option>
+<option value="GIFT_CARD_CODE_STARBUCKS">Starbucks Gift Card Code</option>
+<option value="YANDEXMONEY">Yandex Money</option>
+</select> </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h3>More Information</h3>
+  <hr>
+  <div class="row " id="row_id_ad-currency">
+    <div id="div_id_ad-currency" class="col-md-2 label-col form-group">
+      <label for="id_ad-currency" class="control-label requiredField">
+                Currency
+            </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls">
+        <select class="select form-control" id="id_ad-currency" name="ad-currency">
+            <option value="AED">AED</option>
+            <option value="AFN">AFN</option>
+            <option value="ALL">ALL</option>
+            <option value="AMD">AMD</option>
+            <option value="ANG">ANG</option>
+                    <option value="AOA">AOA</option>
+                    <option value="ARS">ARS</option>
+                    <option value="AUD">AUD</option>
+                    <option value="AWG">AWG</option>
+                    <option value="AZN">AZN</option>
+                    <option value="BAM">BAM</option>
+                    <option value="BBD">BBD</option>
+                    <option value="BDT">BDT</option>
+                    <option value="BGN">BGN</option>
+                    <option value="BHD">BHD</option>
+                    <option value="BIF">BIF</option>
+                    <option value="BMD">BMD</option>
+                    <option value="BND">BND</option>
+                    <option value="BOB">BOB</option>
+                    <option value="BRL">BRL</option>
+                    <option value="BSD">BSD</option>
+                    <option value="BTN">BTN</option>
+                    <option value="BWP">BWP</option>
+                    <option value="BYN">BYN</option>
+                    <option value="BYR">BYR</option>
+                    <option value="BZD">BZD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CDF">CDF</option>
+                    <option value="CHF">CHF</option>
+                    <option value="CLF">CLF</option>
+                    <option value="CLP">CLP</option>
+                    <option value="CNH">CNH</option>
+                    <option value="CNY">CNY</option>
+                    <option value="COP">COP</option>
+                    <option value="CRC">CRC</option>
+                    <option value="CUC">CUC</option>
+                    <option value="CUP">CUP</option>
+                    <option value="CVE">CVE</option>
+                    <option value="CZK">CZK</option>
+                    <option value="DJF">DJF</option>
+                    <option value="DKK">DKK</option>
+                    <option value="DOP">DOP</option>
+                    <option value="DZD">DZD</option>
+                    <option value="EEK">EEK</option>
+                    <option value="EGP">EGP</option>
+                    <option value="ERN">ERN</option>
+                    <option value="ETB">ETB</option>
+                    <option value="EUR">EUR</option>
+                    <option value="FJD">FJD</option>
+                    <option value="FKP">FKP</option>
+                    <option value="GBP">GBP</option>
+                    <option value="GEL">GEL</option>
+                    <option value="GGP">GGP</option>
+                    <option value="GHS">GHS</option>
+                    <option value="GIP">GIP</option>
+                    <option value="GMD">GMD</option>
+                    <option value="GNF">GNF</option>
+                    <option value="GTQ">GTQ</option>
+                    <option value="GYD">GYD</option>
+                    <option value="HKD">HKD</option>
+                    <option value="HNL">HNL</option>
+                    <option value="HRK">HRK</option>
+                    <option value="HTG">HTG</option>
+                    <option value="HUF">HUF</option>
+                    <option value="IDR">IDR</option>
+                    <option value="ILS">ILS</option>
+                    <option value="IMP">IMP</option>
+                    <option value="INR">INR</option>
+                    <option value="IQD">IQD</option>
+                    <option value="IRR">IRR</option>
+                    <option value="ISK">ISK</option>
+                    <option value="JEP">JEP</option>
+                    <option value="JMD">JMD</option>
+                    <option value="JOD">JOD</option>
+                    <option value="JPY">JPY</option>
+                    <option value="KES">KES</option>
+                    <option value="KGS">KGS</option>
+                    <option value="KHR">KHR</option>
+                    <option value="KMF">KMF</option>
+                    <option value="KPW">KPW</option>
+                    <option value="KRW">KRW</option>
+                    <option value="KWD">KWD</option>
+                    <option value="KYD">KYD</option>
+                    <option value="KZT">KZT</option>
+                    <option value="LAK">LAK</option>
+                    <option value="LBP">LBP</option>
+                    <option value="LKR">LKR</option>
+                    <option value="LRD">LRD</option>
+                    <option value="LSL">LSL</option>
+                    <option value="LTL">LTL</option>
+                    <option value="LVL">LVL</option>
+                    <option value="LYD">LYD</option>
+                    <option value="MAD">MAD</option>
+                    <option value="MDL">MDL</option>
+                    <option value="MGA">MGA</option>
+                    <option value="MKD">MKD</option>
+                    <option value="MMK">MMK</option>
+                    <option value="MNT">MNT</option>
+                    <option value="MOP">MOP</option>
+                    <option value="MRO">MRO</option>
+                    <option value="MRU">MRU</option>
+                    <option value="MTL">MTL</option>
+                    <option value="MUR">MUR</option>
+                    <option value="MVR">MVR</option>
+                    <option value="MWK">MWK</option>
+                    <option value="MXN">MXN</option>
+                    <option value="MYR">MYR</option>
+                    <option value="MZN">MZN</option>
+                    <option value="NAD">NAD</option>
+                    <option value="NGN">NGN</option>
+                    <option value="NIO">NIO</option>
+                    <option value="NOK">NOK</option>
+                    <option value="NPR">NPR</option>
+                    <option value="NZD">NZD</option>
+                    <option value="OMR">OMR</option>
+                    <option value="PAB">PAB</option>
+                    <option value="PEN">PEN</option>
+                    <option value="PGK">PGK</option>
+                    <option value="PHP">PHP</option>
+                    <option value="PKR">PKR</option>
+                    <option value="PLN">PLN</option>
+                    <option value="PYG">PYG</option>
+                    <option value="QAR">QAR</option>
+                    <option value="RON">RON</option>
+                    <option value="RSD">RSD</option>
+                    <option value="RUB">RUB</option>
+                    <option value="RWF">RWF</option>
+                    <option value="SAR">SAR</option>
+                    <option value="SBD">SBD</option>
+                    <option value="SCR">SCR</option>
+                    <option value="SDG">SDG</option>
+                    <option value="SEK">SEK</option>
+                    <option value="SGD">SGD</option>
+                    <option value="SHP">SHP</option>
+                    <option value="SLL">SLL</option>
+                    <option value="SOS">SOS</option>
+                    <option value="SRD">SRD</option>
+                    <option value="SSP">SSP</option>
+                    <option value="STD">STD</option>
+                    <option value="STN">STN</option>
+                    <option value="SVC">SVC</option>
+                    <option value="SYP">SYP</option>
+                    <option value="SZL">SZL</option>
+                    <option value="THB">THB</option>
+                    <option value="TJS">TJS</option>
+                    <option value="TMT">TMT</option>
+                    <option value="TND">TND</option>
+                    <option value="TOP">TOP</option>
+                    <option value="TRY">TRY</option>
+                    <option value="TTD">TTD</option>
+                    <option value="TWD">TWD</option>
+                    <option value="TZS">TZS</option>
+                    <option value="UAH">UAH</option>
+                    <option value="UGX">UGX</option>
+                    <option value="USD">USD</option>
+                    <option value="UYU">UYU</option>
+                    <option value="UZS">UZS</option>
+                    <option value="VEF">VEF</option>
+                    <option value="VND">VND</option>
+                    <option value="VUV">VUV</option>
+                    <option value="WST">WST</option>
+                    <option value="XAF">XAF</option>
+                    <option value="XAG">XAG</option>
+                    <option value="XAR">XAR</option>
+                    <option value="XAU">XAU</option>
+                    <option value="XCD">XCD</option>
+                    <option value="XDR">XDR</option>
+                    <option value="XOF">XOF</option>
+                    <option value="XPD">XPD</option>
+                    <option value="XPF">XPF</option>
+                    <option value="XPT">XPT</option>
+                    <option value="YER">YER</option>
+                    <option value="ZAR">ZAR</option>
+                    <option value="ZMK">ZMK</option>
+                    <option value="ZMW">ZMW</option>
+                    <option value="ZWL">ZWL</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-7 two-col-help-text"> </div>
+  </div>
+  <div class="row " id="row_id_ad-commission">
+    <div id="div_id_ad-commission" class="col-md-2 label-col form-group">
+      <label for="id_ad-commission" class="control-label ">
+            Margin
+        </label>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group">
+        <input class="numberinput form-control" id="id_ad-commission" name="ad-commission" step="any" type="number" value="0">
+        <span class="input-group-addon">%</span>
+      </div>
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-price_equation">
+    <div id="div_id_ad-price_equation" class="col-md-2 label-col form-group">
+      <label for="id_ad-price_equation" class="control-label requiredField">
+             Price equation
+            </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls">
+        <input class="textinput textInput form-control" id="id_ad-price_equation" name="ad-price_equation" type="text" value="btc_in_usd">
+      </div>
+      <div class="dynamic-info">
+        <span class="price-info-text">Trade price with current market value 
+                    <strong class="price-info">6,218.96 USD / BTC</strong>
+                </span>
+      </div>
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-min_amount">
+    <div id="div_id_ad-min_amount" class="col-md-2 label-col form-group">
+      <label for="id_ad-min_amount" class="control-label ">
+        Min. transaction limit
+        </label>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group">
+        <input class="numberinput form-control" id="id_ad-min_amount" name="ad-min_amount" type="number">
+        <span class="input-group-addon">USD</span>
+      </div>
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-max_amount">
+    <div id="div_id_ad-max_amount" class="col-md-2 label-col form-group">
+      <label for="id_ad-max_amount" class="control-label ">
+                 Max. transaction limit
+            </label>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group">
+        <input class="numberinput form-control" id="id_ad-max_amount" name="ad-max_amount" type="number">
+        <span class="input-group-addon">USD</span>
+      </div>
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-limit_to_fiat_amounts">
+    <div id="div_id_ad-limit_to_fiat_amounts" class="col-md-2 label-col form-group">
+      <label for="id_ad-limit_to_fiat_amounts" class="control-label ">
+                Restrict amounts to
+            </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls">
+        <input class="textinput textInput form-control" id="id_ad-limit_to_fiat_amounts" name="ad-limit_to_fiat_amounts" type="text">
+      </div>
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-opening_hours">
+    <div id="div_id_ad-opening_hours" class="col-md-2 label-col form-group">
+      <label for="id_ad-opening_hours_0" class="control-label ">
+        Opening hours
+        </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls">
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Sun</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_0_0" name="ad-opening_hours_0_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_0_1" name="ad-opening_hours_0_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                    </select>
+          </div>
+        </div>
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Mon</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_1_0" name="ad-opening_hours_1_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_1_1" name="ad-opening_hours_1_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                    </select>
+          </div>
+        </div>
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Tue</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_2_0" name="ad-opening_hours_2_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_2_1" name="ad-opening_hours_2_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                    </select>
+          </div>
+        </div>
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Wed</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_3_0" name="ad-opening_hours_3_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_3_1" name="ad-opening_hours_3_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                        
+                    </select>
+          </div>
+        </div>
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Thu</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_4_0" name="ad-opening_hours_4_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_4_1" name="ad-opening_hours_4_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                        
+                    </select>
+          </div>
+        </div>
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Fri</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_5_0" name="ad-opening_hours_5_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_5_1" name="ad-opening_hours_5_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                    </select>
+          </div>
+        </div>
+        <div class="row opening_hours_row">
+          <div class="col-md-4">Sat</div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_6_0" name="ad-opening_hours_6_0" style="width: auto;">
+                        <option value="-1" selected="selected">start</option>
+                        <option value="0">00:00</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                    </select>
+          </div>
+          <div class="col-md-4">
+            <select class="hoursofdaywidget form-control" id="id_ad-opening_hours_6_1" name="ad-opening_hours_6_1" style="width: auto;">
+                        <option value="-1" selected="selected">end</option>
+                        <option value="1">00:15</option>
+                        <option value="2">00:30</option>
+                        <option value="3">00:45</option>
+                        <option value="4">01:00</option>
+                        <option value="5">01:15</option>
+                        <option value="6">01:30</option>
+                        <option value="7">01:45</option>
+                        <option value="8">02:00</option>
+                        <option value="9">02:15</option>
+                        <option value="10">02:30</option>
+                        <option value="11">02:45</option>
+                        <option value="12">03:00</option>
+                        <option value="13">03:15</option>
+                        <option value="14">03:30</option>
+                        <option value="15">03:45</option>
+                        <option value="16">04:00</option>
+                        <option value="17">04:15</option>
+                        <option value="18">04:30</option>
+                        <option value="19">04:45</option>
+                        <option value="20">05:00</option>
+                        <option value="21">05:15</option>
+                        <option value="22">05:30</option>
+                        <option value="23">05:45</option>
+                        <option value="24">06:00</option>
+                        <option value="25">06:15</option>
+                        <option value="26">06:30</option>
+                        <option value="27">06:45</option>
+                        <option value="28">07:00</option>
+                        <option value="29">07:15</option>
+                        <option value="30">07:30</option>
+                        <option value="31">07:45</option>
+                        <option value="32">08:00</option>
+                        <option value="33">08:15</option>
+                        <option value="34">08:30</option>
+                        <option value="35">08:45</option>
+                        <option value="36">09:00</option>
+                        <option value="37">09:15</option>
+                        <option value="38">09:30</option>
+                        <option value="39">09:45</option>
+                        <option value="40">10:00</option>
+                        <option value="41">10:15</option>
+                        <option value="42">10:30</option>
+                        <option value="43">10:45</option>
+                        <option value="44">11:00</option>
+                        <option value="45">11:15</option>
+                        <option value="46">11:30</option>
+                        <option value="47">11:45</option>
+                        <option value="48">12:00</option>
+                        <option value="49">12:15</option>
+                        <option value="50">12:30</option>
+                        <option value="51">12:45</option>
+                        <option value="52">13:00</option>
+                        <option value="53">13:15</option>
+                        <option value="54">13:30</option>
+                        <option value="55">13:45</option>
+                        <option value="56">14:00</option>
+                        <option value="57">14:15</option>
+                        <option value="58">14:30</option>
+                        <option value="59">14:45</option>
+                        <option value="60">15:00</option>
+                        <option value="61">15:15</option>
+                        <option value="62">15:30</option>
+                        <option value="63">15:45</option>
+                        <option value="64">16:00</option>
+                        <option value="65">16:15</option>
+                        <option value="66">16:30</option>
+                        <option value="67">16:45</option>
+                        <option value="68">17:00</option>
+                        <option value="69">17:15</option>
+                        <option value="70">17:30</option>
+                        <option value="71">17:45</option>
+                        <option value="72">18:00</option>
+                        <option value="73">18:15</option>
+                        <option value="74">18:30</option>
+                        <option value="75">18:45</option>
+                        <option value="76">19:00</option>
+                        <option value="77">19:15</option>
+                        <option value="78">19:30</option>
+                        <option value="79">19:45</option>
+                        <option value="80">20:00</option>
+                        <option value="81">20:15</option>
+                        <option value="82">20:30</option>
+                        <option value="83">20:45</option>
+                        <option value="84">21:00</option>
+                        <option value="85">21:15</option>
+                        <option value="86">21:30</option>
+                        <option value="87">21:45</option>
+                        <option value="88">22:00</option>
+                        <option value="89">22:15</option>
+                        <option value="90">22:30</option>
+                        <option value="91">22:45</option>
+                        <option value="92">23:00</option>
+                        <option value="93">23:15</option>
+                        <option value="94">23:30</option>
+                        <option value="95">23:45</option>
+                        <option value="96">24:00</option>
+                    </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row " id="row_id_ad-other_info">
+    <div id="div_id_ad-other_info" class="col-md-2 label-col form-group">
+      <label for="id_ad-other_info" class="control-label ">
+            Terms of trade
+        </label>
+    </div>
+    <div class="col-md-6">
+      <div class="controls">
+        <textarea class="textarea form-control" cols="40" id="id_ad-other_info" name="ad-other_info" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="container">
+
+  <h3>Liquidity options</h3>
+  <hr>
+  <div class="row " id="row_id_ad-track_max_amount">
+    <div id="div_id_ad-track_max_amount" class="col-md-2 label-col form-group">
+      <label for="id_ad-track_max_amount" class="control-label ">
+                Track liquidity
+            </label>
+    </div>
+    <div class="col-md-3">
+      <input type="checkbox" name="ad-track_max_amount" id="id_ad-track_max_amount" value="ad-track_max_amount">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h3>Security options</h3>
+  <hr>
+  <div class="row " id="row_id_ad-require_identification">
+    <div id="div_id_ad-require_identification" class="col-md-2 label-col form-group">
+      <label for="id_ad-require_identification" class="control-label ">
+                Identified people only
+            </label>
+    </div>
+    <div class="col-md-3">
+      <input type="checkbox" name="ad-require_identification" id="id_ad-require_identification" value="ad-require_identification">
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-sms_verification_required">
+    <div id="div_id_ad-sms_verification_required" class="col-md-2 label-col form-group">
+      <label for="id_ad-sms_verification_required" class="control-label ">
+                SMS verification required
+            </label>
+    </div>
+    <div class="col-md-3">
+      <input type="checkbox" name="ad-sms_verification_required" id="id_ad-sms_verification_required" value="ad-sms_verification_required">
+    </div>
+  </div>
+  <div class="row " id="row_id_ad-require_trusted_by_advertiser">
+    <div id="div_id_ad-require_trusted_by_advertiser" class="col-md-2 label-col form-group">
+      <label for="id_ad-require_trusted_by_advertiser" class="control-label ">
+            Trusted people only
+            </label>
+    </div>
+    <div class="col-md-3">
+      <input type="checkbox" name="ad-require_trusted_by_advertiser" id="id_ad-require_trusted_by_advertiser" value="ad-require_trusted_by_advertiser">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="controls ">
+    <input type="submit" name="submit" value="Publish advertisement" class="btn btn-primary button white" id="btn_publish_advertisement">
+  </div>
+</div>

@@ -30,7 +30,7 @@ var ChangePassword = {};
           }
 
         }
-        var token= window.location.hash.split("=")[1];
+        var token = localStorage.getItem('token');
         if ($('.container.error').length <= 0) {
           $(headerElms.lbl_error).empty();
 
@@ -60,7 +60,7 @@ var ChangePassword = {};
               isError = true;
             } else if (isError === false) {
               $(headerElms.lbl_error).hide();
-              _core.changePassword(dataObj,token ,function(res) {
+              _core.changePassword(dataObj, token, function(res) {
                 if (res && res.isError) {
                   $(headerElms.lbl_error).show();
                   $(headerElms.lbl_error).append(res.data);

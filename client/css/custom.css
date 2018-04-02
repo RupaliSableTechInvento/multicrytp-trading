@@ -236,7 +236,7 @@ body {
 
 .div-setting-icon {
   position: fixed;
-  top: 13em;
+  top: 9em;
   right: -10px;
   background: white;
   padding: 15px;
@@ -277,7 +277,7 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fa8166db;
+  background-color: #667dfa;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }

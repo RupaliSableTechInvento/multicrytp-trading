@@ -38,13 +38,13 @@ var API = {
       }
     })
   },
-  resetPassword: function(dataObj,token, cb) {
+  resetPassword: function(dataObj, token, cb) {
     // delete dataObj.errormsg;
-    console.log("[][][][]",window.localStorage.token,dataObj);
-    var token=window.localStorage.token;
+    console.log("[][][][]", window.localStorage.token, dataObj);
+    // var token=window.localStorage.token;
     $.ajax({
       url: "/recoverPassword",
-      headers:{'authorization':token},
+      headers: { 'authorization': token },
       data: dataObj,
       type: "POST",
       success: function(successData) {
@@ -55,9 +55,25 @@ var API = {
       }
     })
   },
-  changePassword: function(dataObj,token, cb) {
+  changePassword: function(dataObj, token, cb) {
     $.ajax({
       url: "/users/changePassword",
+      data: dataObj,
+      type: "POST",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
+  postTrade: function(dataObj, token, cb) {
+    $.ajax({
+      url: "/trade",
       data: dataObj,
       type: "POST",
       headers: {
