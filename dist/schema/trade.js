@@ -131,6 +131,9 @@ var postTradeSchema = new _mongoose2.default.Schema({
       type: String
     }
   },
+  payment_window: {
+    type: String
+  },
   liquidity_options: {
     track_liquidity: {
       type: String
@@ -160,5 +163,10 @@ var postTradeSchema = new _mongoose2.default.Schema({
 
 postTradeSchema.plugin(_mongooseUniqueValidator2.default);
 
+/* const buySell = new mongoose.Schema({
+  _id: Schema.ObjectId,
+  id: String,
+  value: string,
+}) */
 exports.default = postTradeSchema;
 //# sourceMappingURL=trade.js.map

@@ -5,3 +5,35 @@
 .radio_btn_padding {
   padding-top: 7px ! important;
 }
+
+.ad-online_provider.active_online {
+  display: block;
+}
+
+.ad-online_provider.active_local {
+  display: none;
+}
+
+.online_Selling.active_online_sell {
+  display: block;
+}
+
+.online_Selling.active_local_sell {
+  display: none;
+}
+
+.online_Buying.active_online_buy {
+  display: block;
+}
+
+.online_Buying.active_local_buy {
+  display: none;
+}
+
+.sell_online_options.active {
+  display: block;
+}
+
+.sell_online_options {
+  display: none;
+}

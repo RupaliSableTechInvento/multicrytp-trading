@@ -65,6 +65,6 @@ app.use('/users/*', _authenticated2.default);
 (0, _routes2.default)(app);
 
 app.listen(_env2.default.Api_port, function () {
-    console.log('Api listening on port ' + _env2.default.Api_port + '!');
+  console.log('Api listening on port ' + _env2.default.Api_port + '!');
 });
 //# sourceMappingURL=app.js.map
