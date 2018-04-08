@@ -13,6 +13,7 @@ const authController = {
     }, (err, user) => {
       if (err) res.json(err);
       if (user !== null) {
+        console.log("User=>", user)
         var d = new Date();
         var v = new Date();
         v.setMinutes(d.getMinutes() + 60);
@@ -20,22 +21,22 @@ const authController = {
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
-          expiry:v
+          expiry: v
         }, env.App_key);
         let token = new tokenModel();
         console.log(user.email);
-        var token2={'token':token1,email: user.email,isActive:"active",expiry:v};
-        tokenModel.findOneAndUpdate({$and:[{email:user.email},{isActive:"active"}]},{$set:{isActive:"inactive"}},(err,data)=>{
-          if (err) return res.json({isError:true,data:err});
-          else{
+        var token2 = { 'token': token1, email: user.email, isActive: "active", expiry: v };
+        tokenModel.findOneAndUpdate({ $and: [{ email: user.email }, { isActive: "active" }] }, { $set: { isActive: "inactive" } }, (err, data) => {
+          if (err) return res.json({ isError: true, data: err });
+          else {
             tokenModel.create(token2, function(err, token) {
               if (err) return res.json(err);
-              res.json({isError:false,data:token1});
+              res.json({ isError: false, data: token1, user: { first_name: user.first_name, last_name: user.last_name, id: user._id } });
             })
           }
         })
       } else {
-        res.json({isError:true,data:"email or password incorrect !"})
+        res.json({ isError: true, data: "email or password incorrect !" })
       }
     });
   },
@@ -49,19 +50,17 @@ const authController = {
         if (err) return res.json(err);
         res.json(user)
       })
-    }
-    else{
+    } else {
       res.json("Please provide valid password");
     }
   },
-  logout:(req, res, next) => {
+  logout: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    tokenModel.findOneAndUpdate({$and:[{'email':decoded.email},{'isActive':'active'}]},{$set:{'isActive':'inactive'}},(err,data)=>{
+    tokenModel.findOneAndUpdate({ $and: [{ 'email': decoded.email }, { 'isActive': 'active' }] }, { $set: { 'isActive': 'inactive' } }, (err, data) => {
       if (err) {
-        res.json({isError:true,data:err});
-      }
-      else{
-        res.json({isError:false,data:data});
+        res.json({ isError: true, data: err });
+      } else {
+        res.json({ isError: false, data: data });
       }
     })
   },

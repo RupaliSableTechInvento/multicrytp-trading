@@ -33,6 +33,7 @@ var authController = {
     }, function (err, user) {
       if (err) res.json(err);
       if (user !== null) {
+        console.log("User=>", user);
         var d = new Date();
         var v = new Date();
         v.setMinutes(d.getMinutes() + 60);
@@ -49,7 +50,7 @@ var authController = {
           if (err) return res.json({ isError: true, data: err });else {
             _tokenModel2.default.create(token2, function (err, token) {
               if (err) return res.json(err);
-              res.json({ isError: false, data: token1 });
+              res.json({ isError: false, data: token1, user: { first_name: user.first_name, last_name: user.last_name, id: user._id } });
             });
           }
         });

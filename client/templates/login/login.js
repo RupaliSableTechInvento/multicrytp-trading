@@ -35,6 +35,7 @@ var Login = {};
               $(headerElms.nav_menu_login).addClass("hidden");
               localStorage.setItem("token", res.data);
               localStorage.setItem('email', dataObj.email);
+              localStorage.setItem('user_id', res.user.id);
               //redirerect tp home page
               window.location.replace("#/dashboard");
             }

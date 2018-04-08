@@ -86,6 +86,18 @@ var API = {
         alert(err);
       }
     })
+  },
+  getAllTrade: function(cb) {
+    $.ajax({
+      url: "/trade",
+      type: "get",
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
   }
 
 
