@@ -87,17 +87,22 @@ var API = {
       }
     })
   },
-  getAllTrade: function(cb) {
-    $.ajax({
-      url: "/trade",
-      type: "get",
-      success: function(successData) {
-        cb(successData)
-      },
-      error: function(err) {
-        alert(err);
-      }
-    })
+  getByCurrencyLoc: function(dataObj) {
+
+    return new Promise(resolve => {
+      // console.log("dataobject in api.js=>", dataObj);
+      $.ajax({
+        url: "/tradeByCurrencyLoc",
+        type: "get",
+        data: dataObj,
+        success: function(successData) {
+          resolve(successData)
+        },
+        error: function(err) {
+          alert(err);
+        }
+      })
+    });
   }
 
 

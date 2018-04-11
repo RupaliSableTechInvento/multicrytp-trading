@@ -134,6 +134,7 @@
 
 .heading {
   color: #1e203e;
+  text-transform: capitalize;
   font-weight: bold;
 }
 
@@ -251,6 +252,10 @@
   flex: 0;
 }
 
+.btn_trade_type {
+  text-transform: capitalize;
+}
+
 .btncorners {
   border-radius: 4px;
   color: #1e203e;
@@ -293,4 +298,12 @@
 
 .quick-buy_data_padding:focus {
   outline: 0;
+}
+
+.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
 }

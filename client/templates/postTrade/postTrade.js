@@ -27,9 +27,11 @@ var PostATrade = {};
         var currency = 1444;
         var margin = $("#margin_ad-commission").val();
         var dataObj = {
-          "trade_type.iwant": $(".trade_type .radio input:checked").val(),
-          "trade_type.location": $("#ad-location").val(),
-          "trade_type.payment_method": $("#select_ad-online_provider option:checked").val(),
+          "tradeMethod": $("#local_bitcoin_sell").attr("data-trade-type"),
+          "traderType": $("#local_bitcoin_sell").val(),
+          "cryptoCurrency": $("#select_ad-cryptocurrency option:checked").val(),
+          "location": $("#ad-location").val(),
+          "payment_method": $("#select_ad-online_provider option:checked").val(),
           "more_information.currency": $("#select_ad-currency option:checked").val(),
           "more_information.margin": $("#margin_ad-commission").val(),
           "more_information.price_equation": _core.priceEquation(btc_in_usd, currency, margin),
@@ -87,14 +89,14 @@ var PostATrade = {};
         })
       })
       $(".trade_type input").unbind().click(function() {
-        if ($(this).attr("data-trade-type") == "online") {
+        if ($(this).attr("data-trade-type") == "ONLINE") {
           $('.sell_online_options').removeClass('active');
-          console.log("online", $("#id_ad-online_provider option:checked").val());
+          console.log("onlinerrrrrr", $("#id_ad-online_provider option:checked").val());
           $('.ad-online_provider').removeClass('active_local');
           $('.ad-online_provider').addClass('active_online');
           $('.online_Selling').removeClass('active_local_sell');
           $('.online_Buying').removeClass('active_local_buy');
-          if ($(this).attr("value") == "ONLINE_SELL") {
+          if ($(this).attr("value") == "SELL") {
             console.log("online sell");
             $('.online_Buying').removeClass('active_online_buy');
             $('.online_Buying').addClass('active_local_buy');
@@ -111,7 +113,7 @@ var PostATrade = {};
             $('.online_Buying').addClass('active_online_buy');
           }
         }
-        if ($(this).attr("data-trade-type") == "local") {
+        if ($(this).attr("data-trade-type") == "LOCAL") {
           console.log("local", $("#id_ad-online_provider option:checked").val());
           $('.sell_online_options').removeClass('active');
           $('.ad-online_provider').removeClass('active_online');

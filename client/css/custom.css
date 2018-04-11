@@ -295,6 +295,11 @@ body {
   display: none;
 }
 
+
+/* .sub_menus {
+  text-decoration-style: none;
+} */
+
 .sub_menus>div.active * {
   color: #6E82FA;
 }

@@ -8,30 +8,50 @@
     <div id="div_id_ad-trade_type" class="col-md-2 label-col form-group">
       <label for="id_ad-trade_type_0" class="control-label requiredField">
                 I want to...
-            </label>
+      </label>
     </div>
     <div class="col-md-3">
       <div class="controls trade_type">
         <label class="radio radio_btn_padding">
-                    <input type="radio" name="ad-trade_type" data-trade-type="local"  id="local_bitcoin_sell" value="LOCAL_SELL" class="add-adform-radio " checked="checked">
-                    Sell your bitcoins locally
-                </label>
+          <input type="radio" name="ad-trade_type" data-trade-type="LOCAL"  id="local_bitcoin_sell" value="SELL" class="add-adform-radio " checked="checked">
+            Sell cryptocurrency locally
+        </label>
         <label class="radio radio_btn_padding"> 
-                    <input type="radio" name="ad-trade_type" data-trade-type="local" id="local_bitcoin_buy" value="LOCAL_BUY" class="add-adform-radio">
-                         Buy bitcoins locally
-                </label>
+          <input type="radio" name="ad-trade_type" data-trade-type="LOCAL" id="local_bitcoin_buy" value="BUY" class="add-adform-radio">
+            Buy cryptocurrency locally
+        </label>
         <label class="radio radio_btn_padding">
-                    <input type="radio" name="ad-trade_type" data-trade-type="online" id="id_ad-trade_type_3" value="ONLINE_SELL" class="add-adform-radio">
-                         Sell your bitcoins online
-                 </label>
+          <input type="radio" name="ad-trade_type" data-trade-type="ONLINE" id="id_ad-trade_type_3" value="SELL" class="add-adform-radio">
+                Sell cryptocurrency online
+        </label>
         <label class="radio radio_btn_padding"> 
-            <input type="radio" name="ad-trade_type" data-trade-type="online" id="id_ad-trade_type_4" value="ONLINE_BUY" class="add-adform-radio">
-                Buy bitcoins online
+          <input type="radio" name="ad-trade_type" data-trade-type="ONLINE" id="id_ad-trade_type_4" value="BUY" class="add-adform-radio">
+              Buy  cryptocurrency online
         </label>
       </div>
     </div>
-
   </div>
+
+  <div class="row" id="row_id_ad_cryptocurrency_type">
+    <div id="div_id_ad-cryptocurrency" class="col-md-2 label-col form-group">
+      <label for="id_ad-cryptocurrency" class="control-label requiredField">
+                Cryptocurrency
+      </label>
+    </div>
+    <div class="col-md-3">
+      <div class="controls">
+        <select class="select form-control" id="select_ad-cryptocurrency" name="ad-cryptocurrency">
+          <option value="BITCOIN" selected="selected">Bitcoin</option>
+          <option value="LITECOIN">Litecoin</option>
+           <option value="MONERO">Monero</option>
+           <option value="CLASSIFIED">Classified</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+
   <div class="row " id="row_id_ad-place">
     <div id="div_id_ad-place" class="col-md-2 label-col form-group">
       <label for="id_ad-place" class="control-label requiredField">

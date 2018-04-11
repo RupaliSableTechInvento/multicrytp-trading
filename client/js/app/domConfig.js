@@ -5,6 +5,8 @@ var headerElms = {
   login_menu: "#login-menu",
   dropdown_content: ".dropdown-content",
   droup_dwn_logout: "#droup_dwn_logout",
+  droup_dwn_dashboard: "#droup_dwn_dashboard",
+  droup_dwn_editProfile: "#droup_dwn_editProfile",
   sub_menus: ".sub_menus",
   dashboard_menus: ".div-nav-tab",
   dashboard_menusData: ".div-frame-data",

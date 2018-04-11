@@ -14,7 +14,7 @@ $(document).ready(function() {
     window.location.replace("/#/login");
   })
 
-  $(headerElms.dropdown_content).unbind().click(function() {
+  $(headerElms.droup_dwn_logout).unbind().click(function() {
     $(headerElms.nav_menu).addClass("hidden");
     $(headerElms.nav_menu_login).removeClass("hidden");
     localStorage.removeItem('token');
@@ -28,6 +28,12 @@ $(document).ready(function() {
   });
   $(headerElms.remark).unbind().click(function() {
     window.location.replace("/#/");
+  });
+  $(headerElms.droup_dwn_dashboard).unbind().click(function() {
+    window.location.replace("/#/dashboard");
+  });
+  $(headerElms.droup_dwn_editProfile).unbind().click(function() {
+    window.location.replace("/#/editprofile");
   });
 
 
