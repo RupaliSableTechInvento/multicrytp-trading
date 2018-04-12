@@ -30,8 +30,10 @@ const routes = (route) => {
     .post(usersController.changeEmail);
 
   route.route('/users')
-    .get(usersController.getOne)
-    .delete(usersController.delete);
+    //console.log("user=>>", req)
+    .get(usersController.getAll)
+    //.get(usersController.getOne)
+    //.delete(usersController.delete);
 
   route.route('/seller')
     .get(usersController.getOne)
@@ -51,6 +53,9 @@ const routes = (route) => {
     .get(tradeController.getAll)
     .post(tradeController.create)
     .patch(tradeController.update);
+
+  route.route('/tradeByCurrencyLoc')
+    .get(tradeController.getByCurrencyLoc)
 
   route.route('/recoverPassword')
     .post(usersController.recoverPassword);

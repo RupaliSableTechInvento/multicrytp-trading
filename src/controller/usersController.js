@@ -8,6 +8,7 @@ var encode = require('hashcode').hashCode;
 const usersController = {
 
   getAll: async(req, res, next) => {
+    console.log("get all web service=>", req.body, req.params, req.query)
     usersModel.find({}, (err, users) => {
       if (err) return res.json({ isError: true, data: err });
       res.json({ isError: false, data: users });

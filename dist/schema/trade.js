@@ -19,17 +19,26 @@ var _mongooseAutoIncrement2 = _interopRequireDefault(_mongooseAutoIncrement);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var postTradeSchema = new _mongoose2.default.Schema({
-  trade_type: {
-    iwant: {
-      type: String
-    },
-    location: {
-      type: String
-    },
-    payment_method: {
-      type: String
-    }
+
+  tradeMethod: { // local or online
+    type: String, //LOCAL_SELL
+    uppercase: true
   },
+  traderType: { // sell or buy
+    type: String,
+    uppercase: true
+  },
+  cryptoCurrency: {
+    type: String,
+    uppercase: true
+  },
+  location: {
+    type: String
+  },
+  payment_method: {
+    type: String
+  },
+
   more_information: {
     currency: {
       type: String
@@ -157,6 +166,9 @@ var postTradeSchema = new _mongoose2.default.Schema({
     }
   },
   user: {
+    type: String
+  },
+  firstName: {
     type: String
   }
 });

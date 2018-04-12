@@ -87,6 +87,22 @@ var API = {
       }
     })
   },
+  /*   getUserInfo: function(dataObj) {
+      return new Promise(resolve => {
+        console.log("dataobject in api.js=>", dataObj);
+        $.ajax({
+          url: "/users",
+          data: dataObj,
+          type: "get",
+          success: function(successData) {
+            resolve(successData)
+          },
+          error: function(err) {
+            alert(err);
+          }
+        })
+      });
+    }, */
   getByCurrencyLoc: function(dataObj) {
 
     return new Promise(resolve => {

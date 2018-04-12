@@ -3,17 +3,26 @@ import uniqueValidator from 'mongoose-unique-validator';
 import autoIncrement from "mongoose-auto-increment";
 
 const postTradeSchema = new mongoose.Schema({
-  trade_type: {
-    iwant: {
-      type: String,
-    },
-    location: {
-      type: String,
-    },
-    payment_method: {
-      type: String,
-    },
+
+  tradeMethod: { // local or online
+    type: String, //LOCAL_SELL
+    uppercase: true
   },
+  traderType: { // sell or buy
+    type: String,
+    uppercase: true
+  },
+  cryptoCurrency: {
+    type: String,
+    uppercase: true
+  },
+  location: {
+    type: String,
+  },
+  payment_method: {
+    type: String,
+  },
+
   more_information: {
     currency: {
       type: String,
@@ -143,6 +152,9 @@ const postTradeSchema = new mongoose.Schema({
   user: {
     type: String,
   },
+  firstName: {
+    type: String,
+  }
 });
 
 postTradeSchema.plugin(uniqueValidator);

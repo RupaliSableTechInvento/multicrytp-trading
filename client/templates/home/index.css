@@ -245,6 +245,8 @@
   flex: 1;
 }
 
+.pull-right {}
+
 .flex_row_btn-buy {
   margin: 7px;
   font-weight: bold;

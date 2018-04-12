@@ -35,12 +35,13 @@ var usersController = {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              console.log("get all web service=>", req.body, req.params, req.query);
               _usersModel2.default.find({}, function (err, users) {
                 if (err) return res.json({ isError: true, data: err });
                 res.json({ isError: false, data: users });
               });
 
-            case 1:
+            case 2:
             case 'end':
               return _context.stop();
           }

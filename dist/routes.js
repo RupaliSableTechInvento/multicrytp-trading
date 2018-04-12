@@ -44,7 +44,11 @@ var routes = function routes(route) {
 
   route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 
-  route.route('/users').get(_usersController2.default.getOne).delete(_usersController2.default.delete);
+  route.route('/users')
+  //console.log("user=>>", req)
+  .get(_usersController2.default.getAll);
+  //.get(usersController.getOne)
+  //.delete(usersController.delete);
 
   route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
 
@@ -55,6 +59,8 @@ var routes = function routes(route) {
   route.route('/ev/:token').get(_usersController2.default.emailVarified);
 
   route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create).patch(_tradeController2.default.update);
+
+  route.route('/tradeByCurrencyLoc').get(_tradeController2.default.getByCurrencyLoc);
 
   route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
 

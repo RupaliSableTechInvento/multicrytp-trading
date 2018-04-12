@@ -11,7 +11,7 @@ var Home = {};
   }
   var _core = {
     getByCurrencyLoc: API.getByCurrencyLoc,
-
+    getUserInfo: API.getUserInfo,
     getUrlVars: function() {
       var vars = [],
         hash;
@@ -44,6 +44,23 @@ var Home = {};
       traderType = "";
       return htmlTradeHeader;
     },
+    setShowMore: function() {
+      var htmlShowMore = '';
+      htmlShowMore +=
+        '<div class=" pull-right">' +
+        '<ul id="dropdown" class="popular-methods-dropdown">' +
+        '<li class="dropdown">' +
+        '<a class="dropdown-toggle" data-toggle="dropdown" href="#" >' +
+        'Show more…' +
+        '<b class="caret"></b>' +
+        '</a>' +
+        '</li>' +
+        '</ul>' +
+
+        '</div>';
+      return htmlShowMore;
+
+    },
     settData: function() {
       var currencyUrl = _core.getUrlVars().currency;
       var SERVICES = [
@@ -73,23 +90,32 @@ var Home = {};
 
         if (res) {
           console.log("res", res);
-
           res.data.forEach(function(item) {
+            var user = 'user' in item ? JSON.parse(item.user) : '';
 
-            var name = 'name' in item ? item.name : '';
-            console.log("Name=>", name);
-            var location = 'trade_type' in item ? ('location' in item.trade_type ? item.trade_type.location : '') : '';
+            var first_name = user.first_name;
+            // var first_name = 'user' in item ?  ('first_name' in item.user ? item.user.first_name : '') : '';
+
+            // var name = 'name' in item ? item.name : '';
+            console.log("Name=>", first_name);
+            var location = 'location' in item ? item.location : '';
             var price = 'more_information' in item ? ('price_equation' in item.more_information ? item.more_information.price_equation : '') : '';
             var max_trans_limit = 'more_information' in item ? ('max_trans_limit' in item.more_information ? item.more_information.max_trans_limit : '') : '';
             var min_trans_limit = 'more_information' in item ? ('min_trans_limit' in item.more_information ? item.more_information.min_trans_limit : '') : '';
             var user_id = 'user' in item ? item.user : '';
             console.log("user id=>", user_id)
 
+            //  const resUserInfo = await _core.getUserInfo(user_id)
+            // console.log("User Info=>", resUserInfo)
+            //return resUserInfo
+
+
+
             var btnTradeType = SERVICES[i].traderType.toLowerCase();
             htmlTemp +=
               '<div class="div-flexrow ">' +
               '<div class="flex_row_title">' +
-              '<label class="flex_row_title_value" id="userName">' + name + '</label>' +
+              '<label class="flex_row_title_value" id="userName">' + first_name + '</label>' +
               '<img src="img/Green_ball.png" style="height:10px;width:10px;"></img>' +
               '</div>' +
               '<div class="flex_row_payment-method ">' +
@@ -105,10 +131,13 @@ var Home = {};
               '<div class="flex_row_btn-buy"><input type="button" value="' + btnTradeType + '" class="btncorners btn_trade_type" /></div>' +
               '</div>';
           })
+          htmlTemp += _core.setShowMore();
+
           $(".div-bitcointradeData").append(htmlTemp)
         } else {
           console.log("no response");
         }
+        // return res
       }
     },
 
