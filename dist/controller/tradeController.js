@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _templateObject = _taggedTemplateLiteral([''], ['']);
+
 var _postatrade = require('../models/postatrade');
 
 var _postatrade2 = _interopRequireDefault(_postatrade);
@@ -23,6 +25,8 @@ var _async2 = _interopRequireDefault(_async);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -55,62 +59,64 @@ var tradeController = _defineProperty({
   }(),
 
   getByCurrencyLoc: function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res, next) {
-      var cryptocurrency, location, tradeMethod, traderType;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
+      var request;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              // console.log("req==>", req.body, req.params, req.query);
-              cryptocurrency = req.query.currency;
-              location = req.query.location;
-              tradeMethod = req.query.tradeMethod;
-              traderType = req.query.traderType;
+              request = Object.assign({}, req.query);
 
-              // console.log("req", req.query);
-              // console.log("cryptocurrency in trade controller=>", cryptocurrency);
-              // console.log("Location in trade controller=>", location);
+              delete request.limit;
+              delete request.skip;
+              _postatrade2.default.find(request, function () {
+                var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(err, trade) {
+                  return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                    while (1) {
+                      switch (_context2.prev = _context2.next) {
+                        case 0:
+                          if (!err) {
+                            _context2.next = 2;
+                            break;
+                          }
 
-              _postatrade2.default.find({
-                "cryptoCurrency": req.query.currency,
-                "location": req.query.location,
-                "traderType": req.query.traderType,
-                "tradeMethod": req.query.tradeMethod
-              }, function (err, trade) {
-                if (err) return res.json({ isError: true, data: err });
-                // console.log("data", data)
-                //var userId = trade[0].user;
-                // console.log("trade", trade)
-                var tradeArr = [];
+                          return _context2.abrupt('return', res.json({ isError: true, data: err }));
 
-                for (var i = 0; i < trade.length; i++) {
+                        case 2:
+                          _context2.t0 = res;
+                          _context2.t1 = trade;
+                          _context2.next = 6;
+                          return _postatrade2.default.find(request).count();
 
-                  console.log("trade array", i);
-                  // var userId = 'user' in item ? item.user : '';
-                  // console.log("uer id=>", userId)
-                  // const userData = await usersModel.findOne({ '_id': trade[i].user });
-                  // item.user = userData;
-                  // item.userInfo = userData;
-                  trade[i].user = "";
+                        case 6:
+                          _context2.t2 = _context2.sent;
+                          _context2.t3 = {
+                            isError: false,
+                            data: _context2.t1,
+                            count: _context2.t2
+                          };
 
-                  tradeArr.push(trade[i]);
-                  // res.json({ isError: false, data: tradeArr })
-                  // console.log("trade item", index, trade.length)
-                  // if (index + 1 == trade.length) {
+                          _context2.t0.json.call(_context2.t0, _context2.t3);
 
-                  // }
+                        case 9:
+                        case 'end':
+                          return _context2.stop();
+                      }
+                    }
+                  }, _callee2, undefined);
+                }));
+
+                return function (_x7, _x8) {
+                  return _ref3.apply(this, arguments);
                 };
-                res.json({ isError: false, data: tradeArr });
+              }()).limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0);
 
-                // res.json({ isError: false, data: trade });
-              });
-
-            case 5:
+            case 4:
             case 'end':
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, undefined);
+      }, _callee3, undefined);
     }));
 
     return function getByCurrencyLoc(_x4, _x5, _x6) {
@@ -121,7 +127,7 @@ var tradeController = _defineProperty({
   getOne: function getOne(req, res, next) {
     _postatrade2.default.findById(req.params.id, function (err, trade) {
       if (err) {
-
+        x(_templateObject);
         res.json({ isError: true, data: err });
       }
       res.json({ isError: false, data: trade });
@@ -129,18 +135,18 @@ var tradeController = _defineProperty({
   },
 
   create: function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res, next) {
       var params, userObj;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               params = req.body;
-              _context3.next = 3;
+              _context4.next = 3;
               return _usersModel2.default.find({ '_id': req.body.user }, { _id: 0, first_name: 1 });
 
             case 3:
-              userObj = _context3.sent;
+              userObj = _context4.sent;
 
 
               /*  params.firstName = await usersModel.findOne({ '_id': req.body.user }, { _id: 0, first_name: 1 }, (err, user) => {
@@ -166,14 +172,14 @@ var tradeController = _defineProperty({
 
             case 7:
             case 'end':
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, undefined);
+      }, _callee4, undefined);
     }));
 
-    return function create(_x7, _x8, _x9) {
-      return _ref3.apply(this, arguments);
+    return function create(_x9, _x10, _x11) {
+      return _ref4.apply(this, arguments);
     };
   }(),
 

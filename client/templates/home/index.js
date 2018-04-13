@@ -28,6 +28,7 @@ var Home = {};
       var traderType = traderType.toLowerCase();
       var tradeMethod = tradeMethod.toLowerCase();
       var currency = currency.toLowerCase();
+      console.log("currency=>", currency);
       var location = location.toLowerCase();
       var htmlTradeHeader = '';
       htmlTradeHeader += '<div class="div-heading">' +
@@ -44,6 +45,29 @@ var Home = {};
       traderType = "";
       return htmlTradeHeader;
     },
+
+    setTradeData: function(firstName, location, price, max_trans_limit, min_trans_limit, btnTradeType) {
+      var htmlTemp = '';
+      htmlTemp += '<div class="div-flexrow ">' +
+        '<div class="flex_row_title">' +
+        '<label class="flex_row_title_value" id="userName">' + firstName + '</label>' +
+        '<img src="img/Green_ball.png" style="height:10px;width:10px;"></img>' +
+        '</div>' +
+        '<div class="flex_row_payment-method ">' +
+        '<label id="bankName">National bank transfer:</label>' +
+        '<label class="tab_content_txt" id="location">' + location + '</label>' +
+        '</div>' +
+        '<div class="flex_heading_sub ">' +
+        '<div><label id="priceE">' + price + '</label></div>' +
+        '<div><label>GBP</label></div>' +
+        '</div>' +
+        '<div class="flex_row_limits"><label>' + min_trans_limit + '-' + max_trans_limit + '</label></div>' +
+        '<div class="flex_row_btn-buy"><input type="button" value="' + btnTradeType + '" class="btncorners btn_trade_type" /></div>' +
+        '</div>';
+
+      return htmlTemp;
+    },
+
     setShowMore: function() {
       var htmlShowMore = '';
       htmlShowMore +=
@@ -56,7 +80,6 @@ var Home = {};
         '</a>' +
         '</li>' +
         '</ul>' +
-
         '</div>';
       return htmlShowMore;
 
@@ -83,57 +106,47 @@ var Home = {};
       var tradeMethod = '';
       var currency = '';
       var location = '';
+
       for (i = 0; i < 4; i++) {
-        var htmlTemp = _core.setHeader(SERVICES[i].traderType, SERVICES[i].tradeMethod, SERVICES[i].currency, SERVICES[i].location);
-        var params = { currency: SERVICES[i].currency || 'BITCOIN', location: SERVICES[i].location || 'india', tradeMethod: SERVICES[i].tradeMethod, traderType: SERVICES[i].traderType }
+        var htmlTemp = _core.setHeader(SERVICES[i].traderType, SERVICES[i].tradeMethod, SERVICES[i].currency || 'BITCOIN', SERVICES[i].location);
+        var params = { cryptoCurrency: SERVICES[i].currency || 'BITCOIN', location: SERVICES[i].location || 'india', tradeMethod: SERVICES[i].tradeMethod, traderType: SERVICES[i].traderType, limit: 10 }
+        console.log("params=>", params)
         const res = await _core.getByCurrencyLoc(params)
-
+        console.log("res=>", res)
         if (res) {
-          console.log("res", res);
+          console.log("res and i=>", res, i);
           res.data.forEach(function(item) {
-            var user = 'user' in item ? JSON.parse(item.user) : '';
-
-            var first_name = user.first_name;
-            // var first_name = 'user' in item ?  ('first_name' in item.user ? item.user.first_name : '') : '';
-
-            // var name = 'name' in item ? item.name : '';
-            console.log("Name=>", first_name);
+            var firstName = 'firstName' in item ? (item.firstName) : '';
+            // console.log("Name=>", firstName);
             var location = 'location' in item ? item.location : '';
             var price = 'more_information' in item ? ('price_equation' in item.more_information ? item.more_information.price_equation : '') : '';
             var max_trans_limit = 'more_information' in item ? ('max_trans_limit' in item.more_information ? item.more_information.max_trans_limit : '') : '';
             var min_trans_limit = 'more_information' in item ? ('min_trans_limit' in item.more_information ? item.more_information.min_trans_limit : '') : '';
             var user_id = 'user' in item ? item.user : '';
-            console.log("user id=>", user_id)
-
-            //  const resUserInfo = await _core.getUserInfo(user_id)
-            // console.log("User Info=>", resUserInfo)
-            //return resUserInfo
-
-
-
+            // console.log("user id=>", user_id)
             var btnTradeType = SERVICES[i].traderType.toLowerCase();
-            htmlTemp +=
-              '<div class="div-flexrow ">' +
-              '<div class="flex_row_title">' +
-              '<label class="flex_row_title_value" id="userName">' + first_name + '</label>' +
-              '<img src="img/Green_ball.png" style="height:10px;width:10px;"></img>' +
-              '</div>' +
-              '<div class="flex_row_payment-method ">' +
-              '<label id="bankName">National bank transfer:</label>' +
-              '<label class="tab_content_txt" id="location">' + location + '</label>' +
-              '</div>' +
-              '<div class="flex_heading_sub ">' +
-              '<div><label id="priceE">' + price + '</label></div>' +
-              '<div><label>GBP</label></div>' +
-              '</div>' +
-              '<div class="flex_row_limits"><label>' + min_trans_limit + '-' + max_trans_limit + '</label></div>' +
 
-              '<div class="flex_row_btn-buy"><input type="button" value="' + btnTradeType + '" class="btncorners btn_trade_type" /></div>' +
-              '</div>';
+            htmlTemp += _core.setTradeData(firstName, location, price, max_trans_limit, min_trans_limit, btnTradeType);
+            //   $("trade_block").append(htmlTemp)
+            /*               '<div class="div-flexrow ">' +
+                          '<div class="flex_row_title">' +
+                          '<label class="flex_row_title_value" id="userName">' + firstName + '</label>' +
+                          '<img src="img/Green_ball.png" style="height:10px;width:10px;"></img>' +
+                          '</div>' +
+                          '<div class="flex_row_payment-method ">' +
+                          '<label id="bankName">National bank transfer:</label>' +
+                          '<label class="tab_content_txt" id="location">' + location + '</label>' +
+                          '</div>' +
+                          '<div class="flex_heading_sub ">' +
+                          '<div><label id="priceE">' + price + '</label></div>' +
+                          '<div><label>GBP</label></div>' +
+                          '</div>' +
+                          '<div class="flex_row_limits"><label>' + min_trans_limit + '-' + max_trans_limit + '</label></div>' +
+                          '<div class="flex_row_btn-buy"><input type="button" value="' + btnTradeType + '" class="btncorners btn_trade_type" /></div>' +
+                          '</div>'; */
           })
           htmlTemp += _core.setShowMore();
-
-          $(".div-bitcointradeData").append(htmlTemp)
+          $(".trade_block").append(htmlTemp)
         } else {
           console.log("no response");
         }

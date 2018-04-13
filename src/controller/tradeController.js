@@ -15,62 +15,21 @@ const tradeController = {
   },
 
   getByCurrencyLoc: async(req, res, next) => {
-    // console.log("req==>", req.body, req.params, req.query);
-    var cryptocurrency = req.query.currency;
-    var location = req.query.location;
-    var tradeMethod = req.query.tradeMethod;
-    var traderType = req.query.traderType;
-
-    // console.log("req", req.query);
-    // console.log("cryptocurrency in trade controller=>", cryptocurrency);
-    // console.log("Location in trade controller=>", location);
-    postatrade.find({
-      "cryptoCurrency": req.query.currency,
-      "location": req.query.location,
-      "traderType": req.query.traderType,
-      "tradeMethod": req.query.tradeMethod,
-    }, (err, trade) => {
+    var request = Object.assign({}, req.query);
+    delete request.limit;
+    delete request.skip;
+    postatrade.find(request, async(err, trade) => {
       if (err) return res.json({ isError: true, data: err });
-      // console.log("data", data)
-      //var userId = trade[0].user;
-      // console.log("trade", trade)
-      var tradeArr = [];
+      res.json({ isError: false, data: trade, count: await postatrade.find(request).count() }, )
 
-      for (var i = 0; i < trade.length; i++) {
-
-        console.log("trade array", i)
-          // var userId = 'user' in item ? item.user : '';
-          // console.log("uer id=>", userId)
-          // const userData = await usersModel.findOne({ '_id': trade[i].user });
-          // item.user = userData;
-          // item.userInfo = userData;
-        trade[i].user = "";
-
-        tradeArr.push(trade[i])
-          // res.json({ isError: false, data: tradeArr })
-          // console.log("trade item", index, trade.length)
-          // if (index + 1 == trade.length) {
-
-        // }
-      };
-      res.json({ isError: false, data: tradeArr })
-
-
-
-
-
-      // res.json({ isError: false, data: trade });
-    });
-
-
-
+    }).limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0)
 
   },
 
   getOne: (req, res, next) => {
     postatrade.findById(req.params.id, (err, trade) => {
       if (err) {
-
+        x ``
         res.json({ isError: true, data: err });
       }
       res.json({ isError: false, data: trade });

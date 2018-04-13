@@ -27,7 +27,7 @@ var PostATrade = {};
         var currency = 1444;
         var margin = $("#margin_ad-commission").val();
         var dataObj = {
-          "tradeMethod": $("#local_bitcoin_sell").attr("data-trade-type"),
+          "tradeMethod": $(".add-adform-radio:checked").attr("data-trade-type"),
           "traderType": $("#local_bitcoin_sell").val(),
           "cryptoCurrency": $("#select_ad-cryptocurrency option:checked").val(),
           "location": $("#ad-location").val(),
