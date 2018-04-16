@@ -245,7 +245,9 @@
   flex: 1;
 }
 
-.pull-right {}
+.showMore {
+  font-size: 17px !important;
+}
 
 .flex_row_btn-buy {
   margin: 7px;

@@ -14,6 +14,7 @@ const tradeController = {
     });
   },
 
+
   getByCurrencyLoc: async(req, res, next) => {
     var request = Object.assign({}, req.query);
     delete request.limit;
