@@ -1,0 +1,305 @@
+.home_template_wrapper {
+  font-size: 10px;
+}
+
+.trade-tabs {
+  list-style-type: none;
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0
+}
+
+.trade-tabs li {
+  float: left;
+  flex: 1;
+  color: #6E82FA;
+  cursor: pointer;
+}
+
+.trade-tabs li.active {
+  color: white;
+}
+
+.li-quick_sell {
+  text-align: left;
+  border-bottom: 2px solid #6E82FA;
+  border-left: 2px solid #6E82FA;
+}
+
+.li-quick_sell.active {
+  border-top: 2px solid #6E82FA;
+  border-right: 2px solid #6E82FA;
+  border-left: 2px solid #6E82FA;
+  border-bottom: none;
+}
+
+.li-quick_buy {
+  border-left: none;
+  border-bottom: 2px solid #6E82FA;
+  border-right: none;
+  text-align: right;
+}
+
+.li-quick_buy.active {
+  border: none;
+  border-top: 2px solid #6E82FA;
+  border-left: 2px solid #6E82FA;
+}
+
+.div-tab li {
+  padding: 10px;
+  font-weight: bolder;
+}
+
+.div-content {
+  padding-top: 40px;
+  border: 2px solid #6E82FA;
+  border-top: none;
+  padding-bottom: 40px;
+}
+
+.div-quick-buy_data {
+  padding-left: 10px;
+  width: 100%;
+}
+
+.div-quick-buy_data input {
+  /*   font-size: 1.2em;
+ */
+}
+
+.div-quick-buy_data select {
+  /*   font-size: 1.2em;
+ */
+}
+
+.quick-buy_data_padding {
+  padding: 8px;
+}
+
+.amt {
+  width: 20%;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+}
+
+
+/* .tab_content_txt {
+  color: #9a9cad;
+  font-weight: bold;
+} */
+
+.select_one {
+  margin-left: 5px;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  width: 10%;
+}
+
+.select_country {
+  margin-left: 5px;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  width: 26%;
+}
+
+.select_offers {
+  margin-left: 5px;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+}
+
+.search_btn {
+  margin-left: 5px;
+  background: white;
+  border: 1px solid #f0f0f0;
+  width: 10%;
+}
+
+.div-heading {
+  margin-top: 30px;
+}
+
+.div-heading label {
+  font-size: 1.8em;
+}
+
+.heading {
+  color: #1e203e;
+  text-transform: capitalize;
+}
+
+.div-flex_heading {
+  border: 2px solid #F2F4F5;
+  margin-top: 10px;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.div-content label {
+  /*   font-size: 1.3em;
+ */
+}
+
+.div-flex_heading label {
+  /*   font-size: 1.3em;
+ */
+}
+
+.div-flex_heading input {
+  /*   font-size: 1.3em;
+ */
+}
+
+.div-flexheadingSub {
+  display: flex;
+  padding: 3px;
+  border: 2px solid #DEDEDE;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: #F9F9F9;
+}
+
+.title_seller {
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #1e203e;
+  flex: 2;
+}
+
+.title_payment_method {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #1e203e;
+  flex: 2;
+}
+
+.title_price {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #1e203e;
+  flex: 1;
+}
+
+.title_limits {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #1e203e;
+  flex: 1;
+}
+
+.title5 {
+  margin-right: 82px;
+  ;
+  font-weight: bold;
+  color: #1e203e;
+  flex: 0;
+}
+
+.flex_row_title {
+  padding: 10px;
+  padding-left: 0px;
+  font-weight: bold;
+  color: #6E82FA;
+  flex: 2;
+}
+
+.flex_row_title_value {
+  padding-left: 10px;
+}
+
+.flex_row_payment-method {
+  padding: 10px;
+  padding-left: 0px;
+  font-weight: bold;
+  color: #6E82FA;
+  flex: 2;
+}
+
+.flex_heading_sub {
+  flex: 1;
+  display: flex;
+  color: green;
+  font-weight: bold;
+  flex-direction: column;
+}
+
+.flex_row_limits {
+  padding: 10px;
+  padding-left: 0px;
+  font-weight: bold;
+  color: #6E82FA;
+  flex: 1;
+}
+
+.showMore {
+  font-size: 17px !important;
+}
+
+.flex_row_btn-buy {
+  margin: 7px;
+  font-weight: bold;
+  color: #6E82FA;
+  flex: 0;
+}
+
+.btn_trade_type {
+  text-transform: capitalize;
+}
+
+.btncorners {
+  color: white;
+  background: #22b9ff;
+  border: 1px solid #DEDEDE;
+  padding: 7px;
+  width: 70px;
+}
+
+.div-flexrow {
+  display: flex;
+  border: 2px solid #DEDEDE;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: white;
+  /* 	 background:#EFEFFF;
+   */
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.div-flexrow:nth-child(odd) {
+  background: white;
+}
+
+.div-flexrow:nth-child(even) {
+  background: #F9F9F9;
+}
+
+.div-flexrow:hover {
+  background: #EFEFFF;
+}
+
+.div-flexrow:hover {
+  background: #EFEFFF;
+}
+
+.quick-buy_data_padding:focus {
+  outline: 0;
+}
+
+.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

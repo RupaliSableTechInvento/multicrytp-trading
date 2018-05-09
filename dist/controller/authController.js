@@ -25,6 +25,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var encode = require('hashcode').hashCode;
 var authController = {
   login: function login(req, res, next) {
+    console.log("login api=>", req.body);
     req.body.password = encode().value(req.body.password);
     var credential = req.body;
     _usersModel2.default.findOne({

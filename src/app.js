@@ -38,6 +38,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client'))
+
 app.use('/users', authenticated);
 app.use('/users/*', authenticated);
 routes(app);

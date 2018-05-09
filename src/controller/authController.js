@@ -5,6 +5,7 @@ import env from "../env";
 var encode = require('hashcode').hashCode;
 const authController = {
   login: (req, res, next) => {
+    console.log("login api=>", req.body)
     req.body.password = encode().value(req.body.password);
     const credential = req.body;
     usersModel.findOne({

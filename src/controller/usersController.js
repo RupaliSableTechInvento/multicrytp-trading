@@ -57,6 +57,7 @@ const usersController = {
   },
   forgetPassword: (req, res, next) => {
     var email = req.body.email;
+    console.log("req=>", req.body);
     console.log("email", email);
     usersModel.find({
       'email': req.body.email
@@ -79,7 +80,7 @@ const usersController = {
               service: 'gmail',
               auth: {
                 user: 'mailerabhi111@gmail.com',
-                pass: 'Abhi@1234'
+                pass: 'Abhi@12345'
               }
             });
 
@@ -89,7 +90,7 @@ const usersController = {
               to: email, // list of receivers
               subject: 'Change Password', // Subject line
               text: 'Please Click below link to change password', // plain text body
-              html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click Here</a>' // html body
+              html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body
             };
 
             // send mail with defined transport object

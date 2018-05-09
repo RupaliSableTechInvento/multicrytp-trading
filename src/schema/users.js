@@ -15,7 +15,7 @@ const usersSchema = new mongoose.Schema({
   },
   isActive: {
     type: String,
-    default:'active'
+    default: 'active'
   },
   email: {
     type: String,
@@ -55,14 +55,14 @@ const usersSchema = new mongoose.Schema({
       type: String,
     }
   },
-  varification:{
-    email_varified:{
-      type:String,
-      default:false,
+  varification: {
+    email_varified: {
+      type: String,
+      default: false,
     },
-    mobile_varified:{
-      type:String,
-      default:false,
+    mobile_varified: {
+      type: String,
+      default: false,
     },
   }
 
