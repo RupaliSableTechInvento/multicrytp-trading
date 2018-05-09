@@ -243,12 +243,13 @@ const usersController = {
     })
   },
   recoverPassword: (req, res, next) => {
+    console.log("reg in recover password api=>", req.body);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
-      var checkDate = new Date(decoded.expiry);
+      var checkDate = new Date(decoded.exp);
       var dt = new Date();
-      // console.log(dt,"------",decoded);
+      console.log(dt, "------", checkDate);
       if (dt < checkDate) {
         usersModel.findOneAndUpdate({
           "email": decoded.email

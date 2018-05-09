@@ -6,7 +6,7 @@
   "scripts": {
     "build-dev": "babel --watch src --out-dir dist --source-maps",
     "build-prod": "babel src --out-dir dist",
-    "server": "nodemon dist/app.js"
+    "server": "node --inspect dist/app.js "
   },
   "author": "MohammadHossein Mardani",
   "url": "https://github.com/mhmardani/express-es6-boilerplate",

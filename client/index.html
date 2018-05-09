@@ -812,8 +812,9 @@ License: You must have a valid license purchased only from themeforest(the above
 												<i class="flaticon-search"></i>
 											</span>
                     <span class="m-header-search__input-wrapper">
-												<input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="Search..." id="m_quicksearch_input">
-											</span>
+ 											<input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="Search..." id="m_quicksearch_input">
+                    
+                      </span>
                     <span class="m-header-search__icon-close" id="m_quicksearch_close">
 												<i class="la la-remove"></i>
 											</span>
@@ -2387,45 +2388,13 @@ License: You must have a valid license purchased only from themeforest(the above
                   <option value="WU">Western Union</option><option value="XOOM">Xoom</option></optgroup><optgroup label="Altcoins"><option value="ALTCOIN_DASH">Dash altcoin</option><option value="ALTCOIN_XRP">Ripple altcoin</option><option value="ALTCOIN_LTC">Litecoin altcoin</option><option value="ALTCOIN_XMR">Monero altcoin</option><option value="ALTCOIN_ETH">Ethereum altcoin</option>
                   </optgroup><optgroup label="In-person"><option value="CASH">Cash</option></optgroup>
                 </select>
-              <!-- <input type="button" name="search_btn" value="Search" class="search_btn  quick-buy_data_padding" /> -->
-              <div style=" display:initial" class="m-stack__item m-stack__item--middle m-dropdown m-dropdown--arrow m-dropdown--large m-dropdown--mobile-full-width m-dropdown--align-right m-dropdown--skin-light m-header-search m-header-search--expandable m-header-search--skin-light"
-                id="m_quicksearch" data-search-type="default">
-                <!--BEGIN: Search Form -->
-                <form class="m-header-search__form" style="margin-right: 25px;">
-                  <div class="m-header-search__wrapper">
-                    <span class="m-header-search__icon-search" id="m_quicksearch_search">
-                          <i class="flaticon-search"></i>
-                        </span>
-                    <span class="m-header-search__input-wrapper">
-                          <input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="Search..." id="m_quicksearch_input">
-                        </span>
-
-                  </div>
-                </form>
-                <!--END: Search Form -->
-                <!--BEGIN: Search Results -->
-                <div class="m-dropdown__wrapper">
-                  <div class="m-dropdown__arrow m-dropdown__arrow--center"></div>
-                  <!--  <div class="m-dropdown__inner">
-                     <div class="m-dropdown__body">
-                      <div class="m-dropdown__scrollable m-scrollable mCustomScrollbar _mCS_5 mCS-autoHide mCS_no_scrollbar" data-mobile-max-height="200"> 
-                             <div id="mCSB_5" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 0px;">
-                          <div id="mCSB_5_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
-                            <div class="m-dropdown__content m-list-search m-list-search--skin-light"></div>
-                          </div>
-                        </div>
-                       </div>
-                    </div>
-                  </div> -->
-                </div>
-                <!--BEGIN: END Results -->
-              </div>
+              <input type="button" name="search_btn" value="Search" class="search_btn  quick-buy_data_padding" style="border-radius: 4px;" />
             </div>
           </div>
         </div>
         <div class="m-content">
           <!--Begin::Section-->
-          <div class="m-portlet">
+          <div class="m-portlet" style="display:none">
             <div class="m-portlet__body  m-portlet__body--no-padding">
               <div class="row m-row--no-padding m-row--col-separator-xl">
                 <div class="col-xl-4">
@@ -2553,7 +2522,7 @@ License: You must have a valid license purchased only from themeforest(the above
           <!--End::Section-->
           <!--Begin::Section-->
           <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
               <div class="m-portlet m-portlet--mobile " id="maintradeblock">
                 <div class="m-portlet__head">
                   <div class="m-portlet__head-caption">
@@ -2563,7 +2532,7 @@ License: You must have a valid license purchased only from themeforest(the above
                       </h3> -->
                     </div>
                   </div>
-                  <div class="m-portlet__head-tools">
+                  <div class="m-portlet__head-tools" style="display:none">
                     <ul class="m-portlet__nav">
                       <li class="m-portlet__nav-item">
                         <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
@@ -2652,7 +2621,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
               </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4" style="display:none">
               <!--begin:: Widgets/Audit Log-->
               <div class="m-portlet m-portlet--full-height ">
                 <div class="m-portlet__head">
@@ -2892,7 +2861,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
           <!--End::Section-->
           <!--Begin::Section-->
-          <div class="row">
+          <div class="row" style="display:none">
             <div class="col-xl-6">
               <!--begin:: Widgets/Tasks -->
               <div class="m-portlet m-portlet--full-height ">
@@ -3509,7 +3478,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
           <!--End::Section-->
           <!--Begin::Section-->
-          <div class="row">
+          <div class="row" style="display:none">
             <div class="col-xl-12">
               <!--begin::Portlet-->
               <div class="m-portlet" id="m_portlet">
@@ -3548,7 +3517,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
           <!--End::Section-->
           <!--Begin::Section-->
-          <div class="row">
+          <div class="row" style="display:none">
             <div class="col-xl-4">
               <!--begin:: Widgets/Sales Stats-->
               <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
@@ -3994,7 +3963,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
           <!--End::Section-->
           <!--Begin::Section-->
-          <div class="row">
+          <div class="row" style="display:none">
             <div class="col-xl-6 col-lg-12">
               <!--Begin::Portlet-->
               <div class="m-portlet  m-portlet--full-height">
@@ -4464,7 +4433,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
           <!--End::Section-->
           <!--Begin::Section-->
-          <div class="row ">
+          <div class="row " style="display:none">
             <div class="col-xl-8 ">
               <!--begin:: Widgets/Best Sellers-->
               <div class="m-portlet m-portlet--full-height ">
@@ -5817,6 +5786,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <!--end::Page Vendors -->
   <!--begin::Page Snippets -->
   <script src="assets/app/js/dashboard.js " type="text/javascript "></script>
+
   <script src="assets/app/templates/home.js " type="text/javascript "></script>
   <!--end::Page Snippets -->
 </body>
