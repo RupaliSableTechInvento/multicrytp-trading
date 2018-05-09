@@ -27,9 +27,13 @@ var routes = function routes(route) {
     res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
   });
 
+  /*   route.get('/recover', (req, res) => {
+      console.log("req", req.query.accessToken)
+      res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
+    }); */
   route.get('/recover', function (req, res) {
-    console.log("req", req.query.accessToken);
-    res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
+    console.log("req=> in recover", req.query.accessToken);
+    res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'recover.html'));
   });
 
   route.route('/login').post(_authController2.default.login);

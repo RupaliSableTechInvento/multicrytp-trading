@@ -7,9 +7,13 @@ const routes = (route) => {
     res.sendFile(path.resolve(__dirname + '/../client/' + 'index.html'));
   });
 
+  /*   route.get('/recover', (req, res) => {
+      console.log("req", req.query.accessToken)
+      res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
+    }); */
   route.get('/recover', (req, res) => {
-    console.log("req", req.query.accessToken)
-    res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
+    console.log("req=> in recover", req.query.accessToken)
+    res.sendFile(path.resolve(__dirname + '/../client/' + 'recover.html'));
   });
 
   route.route('/login')

@@ -1,1 +1,0 @@
-# multicrytp-trading

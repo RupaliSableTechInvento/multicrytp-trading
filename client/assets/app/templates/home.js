@@ -1,6 +1,5 @@
 var Home = {};
 ((function() {
-  console.log("home.js")
   this.init = function() {
     _render.content();
   }
@@ -338,16 +337,34 @@ var Home = {};
         $(_tabs.buy).addClass("active");
         $(_tabs.sell).removeClass("active")
       })
-
       $('.li-quick_sell').unbind().click(function() {
         $(_tabs.sell).addClass("active");
         $(_tabs.buy).removeClass("active")
       })
-
     },
+
+    addUserInfo: function() {
+      $('.m-card-user__email').empty();
+      $('.m-card-user__name').empty();
+      var email = localStorage.getItem('email');
+      var first_name = localStorage.getItem('first_name');
+      var last_name = localStorage.getItem('last_name');
+      $('.m-card-user__email').append(email);
+      $('.m-card-user__name').append(first_name + '  ' + last_name);
+      $('#logoutbtn').unbind().click(function() {
+        console.log("logout");
+        window.location.href = "assets/snippets/pages/user/login.html";
+        localStorage.removeItem("token");
+        localStorage.removeItem('email');
+        localStorage.removeItem("first_name");
+        localStorage.removeItem("last_name");
+        localStorage.removeItem('user_id');
+      })
+    }
   }
   var _render = {
     content: function() {
+      _bind.addUserInfo();
       _bind.getByCurrencyLoc();
       _bind.changeBuyActiveTab(_tabs.buy, 'active');
       _bind.changeBuySellTab();

@@ -100,19 +100,19 @@ var SnippetLogin = function() {
           } else {
             console.log("sucessdata=>", successData);
             var first_name = successData.user.first_name;
-            /* $('.m-card-user__name').append(first_name);
-            $('.m-card-user__email').append(dataObj.email);
-            $('.m-card-user__name').html(first_name);
-            $('.m-card-user__email').html(dataObj.email); */
+            var last_name = successData.user.last_name;
             localStorage.setItem("token", successData.data);
+            localStorage.setItem('email', dataObj.email);
+            localStorage.setItem("first_name", first_name);
+            localStorage.setItem("last_name", last_name);
             localStorage.setItem('email', dataObj.email);
             localStorage.setItem('user_id', successData.user.id);
             // window.location.href = "/";
             /*  $('#m-card-user__name').html(first_name);
              $('#m-card-user__email').html(dataObj.email); */
-            $('#m-card-user__name').html('<label id="m-card-user__name">rrrrr</label>');
-            $('#m-card-user__email').append(dataObj.email);
+
             window.location.replace("/");
+            // window.location = 'updateProductById/' + sku;
           }
 
           // similate 2s delay
@@ -148,7 +148,8 @@ var SnippetLogin = function() {
             email: true
           },
           password: {
-            required: true
+            required: true,
+
           },
           rpassword: {
             required: true
