@@ -1,6 +1,7 @@
 //== Class definition
 var Dashboard = function() {
 
+  console.log("dashboard from  out side client=>");
   //== Sparkline Chart helper function
   var _initSparklineChart = function(src, data, color, border) {
     if (src.length == 0) {
@@ -1335,8 +1336,6 @@ var Dashboard = function() {
     if ($('#m_datatable_latest_orders').length === 0) {
       return;
     }
-
-
     $.ajax({
         url: "/tradeByCurrencyLoc",
         type: "get",
@@ -1680,7 +1679,7 @@ var Dashboard = function() {
       daterangepickerInit();
 
       // datatables
-      datatableLatestOrders();
+      //datatableLatestOrders();
 
       // calendar
       calendarInit();
@@ -1699,13 +1698,4 @@ jQuery(document).ready(function() {
   }
 
 
-  function checkIfToken() {
-    var isToken = localStorage.getItem('token')
-    if (isToken && isToken.length > 0) {
-      $(".div_right_header_log-in").removeClass("hidden");
-      $(".div_right_header").addClass("hidden");
-      return true;
-    }
-    return false;
-  }
 });

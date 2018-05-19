@@ -243,7 +243,7 @@ const usersController = {
     })
   },
   recoverPassword: (req, res, next) => {
-    console.log("reg in recover password api=>", req.body);
+    console.log("req in recover password api=>", req.body, req.query, req.params);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);

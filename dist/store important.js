@@ -32,7 +32,7 @@ var trade = {
   "online_selling.display_reference": "555",
   "online_selling.reference_type": "string",
   "liquidity_options.track_liquidity": "true",
-  "security_options.identified_people_only": "true",
+  "identified_people_only": "true",
   "security_options.identify_user_before": "true",
   "security_options.real_name_required": "true",
   "security_options.sms_verification_required": "true",

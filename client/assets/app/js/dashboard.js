@@ -1330,34 +1330,7 @@ var Dashboard = function() {
 
     cb(start, end, '');
   }
-  var settData = function() {
-    // var urlParams = _core.getUrlVars();
-    // currencyUrl = urlParams.currency;
-    var SERVICES = [];
-
-    SERVICES = [
-      { traderType: 'SELL', tradeMethod: 'LOCAL', currency: 'BITCOIN', location: 'india' },
-      { traderType: 'SELL', tradeMethod: 'ONLINE', currency: 'BITCOIN', location: 'india' },
-      { traderType: 'BUY', tradeMethod: 'ONLINE', currency: 'BITCOIN', location: 'india' },
-      { traderType: 'BUY', tradeMethod: 'LOCAL', currency: 'BITCOIN', location: 'india' }
-    ]
-
-    return SERVICES;
-  }
-
   var datatableLatestOrders = function() {
-    var SERVICES = Object.assign([], settData());
-
-    var dataObj = { cryptoCurrency: 'BITCOIN', location: 'india', tradeMethod: 'LOCAL', traderType: 'SELL', }
-    $.ajax({
-      url: "/tradeByCurrencyLoc",
-      type: "get",
-      data: dataObj,
-      success: function(successData) {},
-      error: function(err) {
-        alert(err);
-      }
-    })
     var datatable = $('.m_datatable').mDatatable({
       data: {
         type: 'remote',
@@ -1689,7 +1662,7 @@ var Dashboard = function() {
       daterangepickerInit();
 
       // datatables
-      datatableLatestOrders();
+      // datatableLatestOrders();
 
       // calendar
       calendarInit();
@@ -1700,5 +1673,4 @@ var Dashboard = function() {
 //== Class initialization on page load
 jQuery(document).ready(function() {
   Dashboard.init();
-  Home.init();
 });

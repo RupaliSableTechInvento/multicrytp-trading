@@ -26,14 +26,19 @@ var routes = function routes(route) {
   route.get('/', function (req, res) {
     res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
   });
+  route.get('#/', function (req, res) {
+    res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
+  });
 
   /*   route.get('/recover', (req, res) => {
       console.log("req", req.query.accessToken)
       res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
     }); */
   route.get('/recover', function (req, res) {
-    console.log("req=> in recover", req.query.accessToken);
-    res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'recover.html'));
+    // console.log("router.js in recover access token", req.query.accessToken)
+    res.redirect('/#/recoverPassword?accessToken=' + req.query.accessToken);
+
+    // res.sendFile(path.resolve(__dirname + '/../client/assets/snippets/pages/user/' + 'recover.html'));
   });
 
   route.route('/login').post(_authController2.default.login);

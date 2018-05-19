@@ -6,15 +6,21 @@ const routes = (route) => {
   route.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname + '/../client/' + 'index.html'));
   });
+  route.get('#/', (req, res) => {
+    res.sendFile(path.resolve(__dirname + '/../client/' + 'index.html'));
+  });
 
   /*   route.get('/recover', (req, res) => {
       console.log("req", req.query.accessToken)
       res.redirect('/#/resetpassword?accessToken=' + req.query.accessToken);
     }); */
   route.get('/recover', (req, res) => {
-    console.log("req=> in recover", req.query.accessToken)
-    res.sendFile(path.resolve(__dirname + '/../client/' + 'recover.html'));
+    // console.log("router.js in recover access token", req.query.accessToken)
+    res.redirect('/#/recoverPassword?accessToken=' + req.query.accessToken);
+
+    // res.sendFile(path.resolve(__dirname + '/../client/assets/snippets/pages/user/' + 'recover.html'));
   });
+
 
   route.route('/login')
     .post(authController.login);

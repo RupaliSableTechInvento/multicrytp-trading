@@ -262,20 +262,6 @@
   width: 70px;
 }
 
-.div-flexrow {
-  display: flex;
-  border: 2px solid #DEDEDE;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  background: white;
-  /* 	 background:#EFEFFF;
-   */
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-
 .div-flexrow:nth-child(odd) {
   background: white;
 }

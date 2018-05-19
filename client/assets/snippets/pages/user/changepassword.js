@@ -8,53 +8,36 @@ var changePassword = {};
     }
     //
   var _core = {
-    /*   getAPICall: function(params) {
-        console.log("_core get call..");
+    changePassword = API.changePassword
+    /*  
+      getAPICall: async function(params, token) {
         return new Promise(resolve => {
+          console.log("params=>", params, token)
           $.ajax({
-            url: "/tradeByCurrencyLoc",
-            type: "get",
+            url: "/users/changePassword",
             data: params,
+            type: "POST",
+            headers: {
+              "authorization": token,
+            },
             success: function(successData) {
               console.log("result=>", successData);
+              if (successData.isError) {
+                console.log("password could not be change")
+              } else {
+                console.log("password changed...")
+
+              }
               resolve(successData);
 
             },
             error: function(err) {
-              alert(err);
+              console.log("change password error=>", err);
             }
           })
 
         })
       } */
-    getAPICall: async function(params, token) {
-      return new Promise(resolve => {
-        console.log("params=>", params, token)
-        $.ajax({
-          url: "/users/changePassword",
-          data: params,
-          type: "POST",
-          headers: {
-            "authorization": token,
-          },
-          success: function(successData) {
-            console.log("result=>", successData);
-            if (successData.isError) {
-              console.log("password could not be change")
-            } else {
-              console.log("password changed...")
-
-            }
-            resolve(successData);
-
-          },
-          error: function(err) {
-            console.log("change password error=>", err);
-          }
-        })
-
-      })
-    }
 
 
   }
@@ -116,7 +99,7 @@ var changePassword = {};
                    console.log(err);
                  }
                })  */
-            const res = await _core.getAPICall(dataObj, token);
+            const res = await _core.changePassword(dataObj, token);
             console.log("res=>", res);
 
           } else {

@@ -283,7 +283,7 @@ var usersController = {
     });
   },
   recoverPassword: function recoverPassword(req, res, next) {
-    console.log("reg in recover password api=>", req.body);
+    console.log("req in recover password api=>", req.body, req.query, req.params);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);

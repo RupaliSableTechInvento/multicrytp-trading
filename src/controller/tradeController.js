@@ -14,19 +14,65 @@ const tradeController = {
     });
   },
 
+  /*  getByCurrencyLoc: async(req, res, next) => {
+     var searchQ = {
+       cryptoCurrency: req.query.datatable.query.cryptoCurrency,
+       location: req.query.datatable.query.location,
+       tradeMethod: req.query.datatable.query.tradeMethod,
+       traderType: req.query.datatable.query.traderType
+     }
+     postatrade.find(searchQ).limit(parseInt(req.query.datatable.query.limit)).toArray(function(err, data) {
+         res.send({
+           isError: false,
+           data: { 'success': true, 'data': data },
+           count: postatrade.find(searchQ).count()
+         })
+       })
+   }, */
+
 
   getByCurrencyLoc: async(req, res, next) => {
-    var request = Object.assign({}, req.query);
-    delete request.limit;
-    delete request.skip;
-    postatrade.find(request, async(err, trade) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: trade, count: await postatrade.find(request).count() }, )
 
-    }).limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0)
+    var request = req.query.query;
+    var cryptoCurrency = req.query.query.cryptoCurrency;
+    var location = req.query.query.location;
+    var tradeMethod = req.query.query.tradeMethod;
+    var traderType = req.query.query.traderType;
+    console.log("request=>", request);
+    // delete request.limit;
+    // delete request.skip;
+    // var count = postatrade.find({ cryptoCurrency: 'BITCOIN' }).count();
+    // var count1 = count / 10;
 
+    postatrade.find({
+        cryptoCurrency: cryptoCurrency,
+        location: location,
+        tradeMethod: tradeMethod,
+        traderType: traderType,
+      }, async(err, trade) => {
+        if (err) return res.json({ isError: true, data: err });
+        res.json({
+          isError: false,
+          "meta": {
+            "page": 1,
+            "pages": 35,
+            "perpage": 10,
+            "total": await postatrade.find({
+              cryptoCurrency: cryptoCurrency,
+              location: location,
+              tradeMethod: tradeMethod,
+              traderType: traderType,
+            }).count(),
+            "sort": "asc",
+            "field": "_id"
+          },
+          data: trade,
+          //count: await postatrade.find().count()
+        }, )
+
+      })
+      //.limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0)
   },
-
   getOne: (req, res, next) => {
     postatrade.findById(req.params.id, (err, trade) => {
       if (err) {

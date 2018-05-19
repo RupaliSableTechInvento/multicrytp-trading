@@ -58,18 +58,47 @@ var tradeController = _defineProperty({
     };
   }(),
 
+  /*  getByCurrencyLoc: async(req, res, next) => {
+     var searchQ = {
+       cryptoCurrency: req.query.datatable.query.cryptoCurrency,
+       location: req.query.datatable.query.location,
+       tradeMethod: req.query.datatable.query.tradeMethod,
+       traderType: req.query.datatable.query.traderType
+     }
+     postatrade.find(searchQ).limit(parseInt(req.query.datatable.query.limit)).toArray(function(err, data) {
+         res.send({
+           isError: false,
+           data: { 'success': true, 'data': data },
+           count: postatrade.find(searchQ).count()
+         })
+       })
+   }, */
+
   getByCurrencyLoc: function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
-      var request;
+      var request, cryptoCurrency, location, tradeMethod, traderType;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              request = Object.assign({}, req.query);
+              request = req.query.query;
+              cryptoCurrency = req.query.query.cryptoCurrency;
+              location = req.query.query.location;
+              tradeMethod = req.query.query.tradeMethod;
+              traderType = req.query.query.traderType;
 
-              delete request.limit;
-              delete request.skip;
-              _postatrade2.default.find(request, function () {
+              console.log("request=>", request);
+              // delete request.limit;
+              // delete request.skip;
+              // var count = postatrade.find({ cryptoCurrency: 'BITCOIN' }).count();
+              // var count1 = count / 10;
+
+              _postatrade2.default.find({
+                cryptoCurrency: cryptoCurrency,
+                location: location,
+                tradeMethod: tradeMethod,
+                traderType: traderType
+              }, function () {
                 var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(err, trade) {
                   return regeneratorRuntime.wrap(function _callee2$(_context2) {
                     while (1) {
@@ -84,21 +113,34 @@ var tradeController = _defineProperty({
 
                         case 2:
                           _context2.t0 = res;
-                          _context2.t1 = trade;
-                          _context2.next = 6;
-                          return _postatrade2.default.find(request).count();
+                          _context2.next = 5;
+                          return _postatrade2.default.find({
+                            cryptoCurrency: cryptoCurrency,
+                            location: location,
+                            tradeMethod: tradeMethod,
+                            traderType: traderType
+                          }).count();
 
-                        case 6:
-                          _context2.t2 = _context2.sent;
-                          _context2.t3 = {
+                        case 5:
+                          _context2.t1 = _context2.sent;
+                          _context2.t2 = {
+                            "page": 1,
+                            "pages": 35,
+                            "perpage": 10,
+                            "total": _context2.t1,
+                            "sort": "asc",
+                            "field": "_id"
+                          };
+                          _context2.t3 = trade;
+                          _context2.t4 = {
                             isError: false,
-                            data: _context2.t1,
-                            count: _context2.t2
+                            "meta": _context2.t2,
+                            data: _context2.t3
                           };
 
-                          _context2.t0.json.call(_context2.t0, _context2.t3);
+                          _context2.t0.json.call(_context2.t0, _context2.t4);
 
-                        case 9:
+                        case 10:
                         case 'end':
                           return _context2.stop();
                       }
@@ -109,9 +151,10 @@ var tradeController = _defineProperty({
                 return function (_x7, _x8) {
                   return _ref3.apply(this, arguments);
                 };
-              }()).limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0);
+              }());
+              //.limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0)
 
-            case 4:
+            case 7:
             case 'end':
               return _context3.stop();
           }
@@ -123,7 +166,6 @@ var tradeController = _defineProperty({
       return _ref2.apply(this, arguments);
     };
   }(),
-
   getOne: function getOne(req, res, next) {
     _postatrade2.default.findById(req.params.id, function (err, trade) {
       if (err) {
