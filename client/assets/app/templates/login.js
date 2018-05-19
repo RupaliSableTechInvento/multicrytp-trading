@@ -107,6 +107,7 @@ var SnippetLogin = function() {
             localStorage.setItem("last_name", last_name);
             localStorage.setItem('email', dataObj.email);
             localStorage.setItem('user_id', successData.user.id);
+            
             // window.location.href = "/";
             /*  $('#m-card-user__name').html(first_name);
              $('#m-card-user__email').html(dataObj.email); */

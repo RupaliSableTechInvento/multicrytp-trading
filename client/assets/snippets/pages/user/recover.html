@@ -1,0 +1,204 @@
+<!-- <html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <base href="/"></base>
+  <meta name="description" content="User profile view and edit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
+      },
+      active: function() {
+        sessionStorage.fonts = true;
+      }
+    });
+  </script>
+  <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+  <link href="assets/demo/demo6/base/style.bundle.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="assets/demo/demo6/media/img/logo/favicon.ico" />
+</head>
+
+<body>
+  <form class="#submit-form" id="#submit-form" action="/recoverPassword" method="post">
+    <h2>Enter New Password</h2>
+    <label>New Password</label>
+    <input type="password" name="password" value="" required id="pass" placeholder="password lenght must be greater than 6 digit">
+    <label>Confirm Password</label>
+    <input type="password" name="password" value="" required id="cpass">
+    <button type="button" name="button" id="submit-form">Submit</button>
+  </form>
+</body>
+<script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+<script src="assets/demo/demo6/base/scripts.bundle.js" type="text/javascript"></script>
+<script src="recoverPass.js"></script>
+
+</html> -->
+<style type="text/css">
+  span.im-caret {
+    -webkit-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
+  }
+  
+  @keyframes blink {
+    from,
+    to {
+      border-right-color: black;
+    }
+    50% {
+      border-right-color: transparent;
+    }
+  }
+  
+  @-webkit-keyframes blink {
+    from,
+    to {
+      border-right-color: black;
+    }
+    50% {
+      border-right-color: transparent;
+    }
+  }
+  
+  span.im-static {
+    color: grey;
+  }
+  
+  div.im-colormask {
+    display: inline-block;
+    border-style: inset;
+    border-width: 2px;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  
+  div.im-colormask>input {
+    position: absolute;
+    display: inline-block;
+    background-color: transparent;
+    color: transparent;
+    -webkit-appearance: caret;
+    -moz-appearance: caret;
+    appearance: caret;
+    border-style: none;
+    left: 0;
+    /*calculated*/
+  }
+  
+  div.im-colormask>input:focus {
+    outline: none;
+  }
+  
+  div.im-colormask>input::-moz-selection {
+    background: none;
+  }
+  
+  div.im-colormask>input::selection {
+    background: none;
+  }
+  
+  div.im-colormask>input::-moz-selection {
+    background: none;
+  }
+  
+  div.im-colormask>div {
+    color: black;
+    display: inline-block;
+    width: 100px;
+    /*calculated*/
+  }
+</style>
+<style type="text/css">
+  /* Chart.js */
+  
+  @-webkit-keyframes chartjs-render-animation {
+    from {
+      opacity: 0.99
+    }
+    to {
+      opacity: 1
+    }
+  }
+  
+  @keyframes chartjs-render-animation {
+    from {
+      opacity: 0.99
+    }
+    to {
+      opacity: 1
+    }
+  }
+  
+  .chartjs-render-monitor {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+  }
+</style>
+
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page">
+
+
+  <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--signin" id="m_login">
+    <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
+      <div class="m-stack m-stack--hor m-stack--desktop">
+        <div class="m-stack__item m-stack__item--fluid">
+
+          <div class="m-login__wrapper">
+
+            <div class="m-login__logo">
+              <a href="#">
+                <img src="assets/app/media/img//logos/logo-2.png">
+              </a>
+            </div>
+            <!--   <div class="m-login__signin">
+              <div class="m-login__head">
+                <h3 class="m-login__title"></h3>
+              </div>
+              <div class="m-login__form m-form">
+                <div class="form-group m-form__group">
+                  <input class="form-control m-input" id="password" type="password" type="password" placeholder="password lenght must be greater than 6 digit" required>
+                </div>
+                <div class="form-group m-form__group">
+                  <input class="form-control m-input m-login__form-input--last" id="cnfrmpass" type="password" placeholder="confirm your password" required>
+                </div>
+                <div class="m-login__form-action">
+                  <button id="submit-form_btn" class=" btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air ">Reset Password</button>
+                </div>
+              </div>
+            </div>
+ -->
+
+            <div class="m-login__signin">
+              <div class="m-login__head">
+                <h3 class="m-login__title">Set your password</h3>
+              </div>
+              <form class="m-login__form m-form" action="">
+                <div class="form-group m-form__group">
+                  <input class="form-control m-input" id="password" name="password" type="password" type="password" placeholder="password lenght must be greater than 6 digit" required>
+                </div>
+                <div class="form-group m-form__group">
+                  <input class="form-control m-input m-login__form-input--last" id="passwordcnfrm" name="passwordcnfrm" type="password" placeholder="confirm your password" required>
+                </div>
+
+                <div class="m-login__form-action">
+                  <button id="submit-form_btn" type="button" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air ">Reset Password</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<!-- end:: Page -->
