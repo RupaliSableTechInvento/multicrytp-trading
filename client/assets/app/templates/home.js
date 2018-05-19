@@ -40,7 +40,7 @@ var Home = {};
           source: {
             read: {
               // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
-              url: 'http://localhost:3000/tradeByCurrencyLoc/',
+              url: '/tradeByCurrencyLoc/',
               method: 'GET',
               params: {
                 query: {
@@ -122,7 +122,7 @@ var Home = {};
           source: {
             read: {
               // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
-              url: 'http://localhost:3000/tradeByCurrencyLoc/',
+              url: '/tradeByCurrencyLoc/',
               method: 'GET',
               params: {
                 query: {
@@ -199,7 +199,7 @@ var Home = {};
           source: {
             read: {
               // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
-              url: 'http://localhost:3000/tradeByCurrencyLoc/',
+              url: '/tradeByCurrencyLoc/',
               method: 'GET',
               params: {
                 query: {
@@ -276,7 +276,7 @@ var Home = {};
             source: {
               read: {
                 // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
-                url: 'http://localhost:3000/tradeByCurrencyLoc/',
+                url: '/tradeByCurrencyLoc/',
                 method: 'GET',
                 params: {
                   query: {
