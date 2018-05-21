@@ -31,17 +31,15 @@ var Home = {};
           cryptoCurrency = urlParams.currency;
         console.log("cryptoCurrency in if", cryptoCurrency);
       }
-
-
-      // $("#m_datatable_latest_ordersLS").mDataTable().destroy()
       await $('#m_datatable_latest_ordersLS').mDatatable({
         data: {
           type: 'remote',
           source: {
             read: {
-              // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
               url: '/tradeByCurrencyLoc/',
               method: 'GET',
+              processing: true,
+              serverSide: true,
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
@@ -52,7 +50,93 @@ var Home = {};
               }
             }
           },
-          pageSize: 20,
+
+          saveState: {
+            cookie: true,
+            webstorage: true
+          },
+          serverPaging: true,
+          serverFiltering: true,
+          serverSorting: true
+        },
+
+        layout: {
+          theme: 'default',
+          class: '',
+          scroll: true,
+          height: 380,
+          footer: false
+        },
+        sortable: true,
+        filterable: false,
+
+        columns: [{
+            field: "firstName",
+            title: "Seller",
+            sortable: false,
+            width: 100,
+            textAlign: 'center'
+          },
+          {
+            field: "",
+            template: function(field, type, row) {
+              return field.online_selling.payment_details + ' ' + field.location;
+            },
+            title: "Payment Method",
+            width: 180,
+            responsive: {
+              visible: 'lg'
+            }
+          },
+          {
+            field: "more_information.price_equation",
+            title: "price/BTC",
+            sortable: false,
+            width: 80,
+            textAlign: 'center'
+          },
+          {
+            field: "more_information.max_trans_limit",
+            template: function(field, type, row) {
+              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            },
+            title: "Limits",
+            width: 80,
+            responsive: {
+              visible: 'lg'
+            }
+          }, {
+            field: "traderType",
+            title: "traderType",
+            template: function(row) {
+              return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
+                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+                '</a>';
+            }
+          }
+
+        ]
+
+      })
+
+
+      await $('#m_datatable_latest_ordersLB').mDatatable({
+        data: {
+          type: 'remote',
+          source: {
+            read: {
+              url: '/tradeByCurrencyLoc/',
+              method: 'GET',
+              params: {
+                query: {
+                  cryptoCurrency: cryptoCurrency,
+                  location: 'india',
+                  tradeMethod: 'LOCAL',
+                  traderType: 'BUY'
+                },
+              }
+            }
+          },
           saveState: {
             cookie: true,
             webstorage: true
@@ -80,11 +164,15 @@ var Home = {};
             textAlign: 'center'
           },
           {
-            field: "location",
-            title: "Location",
-            sortable: false,
-            width: 100,
-            textAlign: 'center'
+            field: "",
+            template: function(field, type, row) {
+              return field.online_selling.payment_details + ' ' + field.location;
+            },
+            title: "Payment Method",
+            width: 80,
+            responsive: {
+              visible: 'lg'
+            }
           },
           {
             field: "more_information.price_equation",
@@ -107,86 +195,9 @@ var Home = {};
             field: "traderType",
             title: "traderType",
             template: function(row) {
-              return '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">';
-            }
-          }
-
-        ]
-
-      })
-
-
-      await $('#m_datatable_latest_ordersLB').mDatatable({
-        data: {
-          type: 'remote',
-          source: {
-            read: {
-              // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
-              url: '/tradeByCurrencyLoc/',
-              method: 'GET',
-              params: {
-                query: {
-                  cryptoCurrency: cryptoCurrency,
-                  location: 'india',
-                  tradeMethod: 'LOCAL',
-                  traderType: 'BUY'
-                },
-              }
-            }
-          },
-          pageSize: 20,
-          saveState: {
-            cookie: true,
-            webstorage: true
-          },
-          serverPaging: true,
-          serverFiltering: true,
-          serverSorting: true
-        },
-
-        layout: {
-          theme: 'default',
-          class: '',
-          scroll: true,
-          height: 380,
-          footer: false
-        },
-        sortable: true,
-        filterable: false,
-        pagination: true,
-        columns: [{
-            field: "firstName",
-            title: "Seller",
-            sortable: false,
-            width: 100,
-            textAlign: 'center'
-          },
-          {
-            field: "location",
-            title: "Location",
-            sortable: false,
-            width: 100,
-            textAlign: 'center'
-          },
-          {
-            field: "more_information.price_equation",
-            title: "price/BTC",
-            sortable: false,
-            width: 100,
-            textAlign: 'center'
-          },
-          {
-            field: "more_information.max_trans_limit",
-            title: "Limits",
-            width: 80,
-            responsive: {
-              visible: 'lg'
-            }
-          }, {
-            field: "traderType",
-            title: "traderType",
-            template: function(row) {
-              return '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">';
+              return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
+                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+                '</a>';
             }
           }
 
@@ -198,7 +209,6 @@ var Home = {};
           type: 'remote',
           source: {
             read: {
-              // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
               url: '/tradeByCurrencyLoc/',
               method: 'GET',
               params: {
@@ -211,7 +221,6 @@ var Home = {};
               }
             }
           },
-          pageSize: 20,
           saveState: {
             cookie: true,
             webstorage: true
@@ -239,11 +248,15 @@ var Home = {};
             textAlign: 'center'
           },
           {
-            field: "location",
-            title: "Location",
-            sortable: false,
-            width: 100,
-            textAlign: 'center'
+            field: "",
+            template: function(field, type, row) {
+              return field.online_selling.payment_details + ' ' + field.location;
+            },
+            title: "Payment Method",
+            width: 80,
+            responsive: {
+              visible: 'lg'
+            }
           },
           {
             field: "more_information.price_equation",
@@ -254,6 +267,9 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
+            template: function(field, type, row) {
+              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            },
             title: "Limits",
             width: 80,
             responsive: {
@@ -263,7 +279,9 @@ var Home = {};
             field: "traderType",
             title: "traderType",
             template: function(row) {
-              return '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">';
+              return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
+                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+                '</a>';
             }
           }
 
@@ -275,7 +293,6 @@ var Home = {};
             type: 'remote',
             source: {
               read: {
-                // url: 'http://localhost:3000/tradeByCurrencyLoc?cryptoCurrency=BITCOIN&location=india&tradeMethod=LOCAL&traderType=SELL&limit=10' ,
                 url: '/tradeByCurrencyLoc/',
                 method: 'GET',
                 params: {
@@ -288,7 +305,6 @@ var Home = {};
                 }
               }
             },
-            pageSize: 20,
             saveState: {
               cookie: true,
               webstorage: true
@@ -316,11 +332,15 @@ var Home = {};
               textAlign: 'center'
             },
             {
-              field: "location",
-              title: "Location",
-              sortable: false,
-              width: 100,
-              textAlign: 'center'
+              field: "",
+              template: function(field, type, row) {
+                return field.online_selling.payment_details + ' ' + field.location;
+              },
+              title: "Payment Method",
+              width: 80,
+              responsive: {
+                visible: 'lg'
+              }
             },
             {
               field: "more_information.price_equation",
@@ -331,6 +351,9 @@ var Home = {};
             },
             {
               field: "more_information.max_trans_limit",
+              template: function(field, type, row) {
+                return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+              },
               title: "Limits",
               width: 80,
               responsive: {
@@ -340,13 +363,16 @@ var Home = {};
               field: "traderType",
               title: "traderType",
               template: function(row) {
-                return '<input type="button"  name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">';
+                return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
+                  '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+                  '</a>';
               }
             }
 
           ]
 
         }),
+
         $('.m-datatable__table').css('min-height', '0');
 
       $('.m_datatable').on('click', '#traderType', function() {

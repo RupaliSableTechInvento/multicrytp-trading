@@ -40,17 +40,13 @@
          } */
         ForgetPassword.init();
       });
-      /*     this.get('#/resetpassword', function(context) {
-            if (checkIfToken()) {
-              window.location = '#/';
-              return;
-            }
-            ResetPassword.init();
-          }); */
-
       this.get('#/changepassword', function(context) {
-        changePassword.init();
+        ChangePassword.init();
       });
+      this.get('#/sellBuyCurrency', function(context) {
+        SellBuyCurrency.init();
+      });
+
 
     })
     app.run('#/');

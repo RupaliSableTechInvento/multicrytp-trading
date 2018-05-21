@@ -30,48 +30,56 @@ const tradeController = {
        })
    }, */
 
-
   getByCurrencyLoc: async(req, res, next) => {
 
+    var perpage = req.query.pagination.perpage;
+    var page = req.query.pagination.page;
+    /*   req.query.pagination.page = 0;
+      req.query.pagination.pages = 0;
+      req.query.pagination.perpage = 0;
+      req.query.pagination.total = 0; */
+    // console.log("perpage , page ,total , pages", perpage, page, req.query.pagination.total, req.query.pagination.pages);
+
+    var skip = 0;
+    if (page > 1) {
+      skip = perpage * page;
+    }
     var request = req.query.query;
     var cryptoCurrency = req.query.query.cryptoCurrency;
     var location = req.query.query.location;
     var tradeMethod = req.query.query.tradeMethod;
     var traderType = req.query.query.traderType;
-    console.log("request=>", request);
-    // delete request.limit;
-    // delete request.skip;
-    // var count = postatrade.find({ cryptoCurrency: 'BITCOIN' }).count();
-    // var count1 = count / 10;
-
     postatrade.find({
-        cryptoCurrency: cryptoCurrency,
-        location: location,
-        tradeMethod: tradeMethod,
-        traderType: traderType,
-      }, async(err, trade) => {
-        if (err) return res.json({ isError: true, data: err });
-        res.json({
-          isError: false,
-          "meta": {
-            "page": 1,
-            "pages": 35,
-            "perpage": 10,
-            "total": await postatrade.find({
-              cryptoCurrency: cryptoCurrency,
-              location: location,
-              tradeMethod: tradeMethod,
-              traderType: traderType,
-            }).count(),
-            "sort": "asc",
-            "field": "_id"
-          },
-          data: trade,
-          //count: await postatrade.find().count()
-        }, )
+      cryptoCurrency: cryptoCurrency,
+      location: location,
+      tradeMethod: tradeMethod,
+      traderType: traderType,
+    }, async(err, trade) => {
+      if (err) return res.json({ isError: true, data: err });
+      res.json({
+        isError: false,
+        meta: {
+          page: req.query.pagination.page,
+          pages: (await postatrade.find({
+            cryptoCurrency: cryptoCurrency,
+            location: location,
+            tradeMethod: tradeMethod,
+            traderType: traderType,
+          }).count() / (10)),
+          perpage: 10,
+          total: await postatrade.find({
+            cryptoCurrency: cryptoCurrency,
+            location: location,
+            tradeMethod: tradeMethod,
+            traderType: traderType,
+          }).count(),
+          sort: "asc",
+          field: "_id",
+        },
+        data: trade,
+      }, )
 
-      })
-      //.limit(parseInt(req.query.limit) || '').skip(parseInt(req.query.skip) || 0)
+    }).limit(parseInt(req.query.pagination.perpage) || '').skip(skip || '')
   },
   getOne: (req, res, next) => {
     postatrade.findById(req.params.id, (err, trade) => {

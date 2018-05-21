@@ -15,7 +15,6 @@ var API = {
       })
     });
   },
-
   changePassword: async function(params, token) {
     return new Promise(resolve => {
       console.log("params=>", params, token)
