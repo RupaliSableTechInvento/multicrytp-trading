@@ -61,6 +61,8 @@ var routes = function routes(route) {
 
   route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
 
+  route.route('/sellerBuyerInfo').get(_tradeController2.default.getOne);
+
   route.route('/cp/:token').get(_usersController2.default.varifyToken);
 
   route.route('/emailvarification').post(_usersController2.default.emailVarification);

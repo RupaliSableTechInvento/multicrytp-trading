@@ -12,25 +12,27 @@ var ChangePassword = {};
     changePassword: function() {
       console.log("change password call");
       $("#m_login_changePassword_submit").unbind().click(async function() {
+        console.log("buttton clicked");
         var token = localStorage.getItem('token');
         console.log("token=>", token);
         var dataObj1 = {
-          oldpassword: $("#txtoldPassword").val(),
-          newpssword: $("#txtnewPassword").val(),
+          password: $("#txtoldPassword").val(),
+          new_pasword: $("#txtnewPassword").val(),
           passwordcnfrm: $("#txtconfirmPassword").val(),
         }
         var isError = false;
-        var isPassLengthValid = (dataObj1.newpssword.length <= 6);
+        var isPassLengthValid = (dataObj1.new_pasword.length <= 6);
         if (isPassLengthValid) {
           isError = true;
           console.log("Password length is short.")
         } else {
           var dataObj = {
-            oldpassword: $("#txtoldPassword").val(),
-            newpssword: $("#txtnewPassword").val(),
+            password: $("#txtoldPassword").val(),
+            new_pasword: $("#txtnewPassword").val(),
             passwordcnfrm: $("#txtconfirmPassword").val(),
+
           }
-          if (dataObj.newpssword !== dataObj.passwordcnfrm) {
+          if (dataObj.new_pasword !== dataObj.passwordcnfrm) {
             console.log("Password not matched.")
             isError = true;
           } else if (isError === false) {
@@ -54,4 +56,4 @@ var ChangePassword = {};
     }
   }
 }).bind(ChangePassword))();
-ChangePassword.init();
+//ChangePassword.init();

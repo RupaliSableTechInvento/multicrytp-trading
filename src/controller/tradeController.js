@@ -82,9 +82,9 @@ const tradeController = {
     }).limit(parseInt(req.query.pagination.perpage) || '').skip(skip || '')
   },
   getOne: (req, res, next) => {
-    postatrade.findById(req.params.id, (err, trade) => {
+    console.log("req=> for get One tradeController", req.body, req.params, req.query);
+    postatrade.findById(req.query.id, (err, trade) => {
       if (err) {
-        x ``
         res.json({ isError: true, data: err });
       }
       res.json({ isError: false, data: trade });

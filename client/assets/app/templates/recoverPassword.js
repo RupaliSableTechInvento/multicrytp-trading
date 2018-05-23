@@ -14,7 +14,8 @@ var RecoverPassword = {};
         var cnfrmpass = $('#passwordcnfrm').val();
         console.log("password and cnfrm", password, cnfrmpass);
         if ($('#password').val() == $('#passwordcnfrm').val()) {
-          if ($('#password').val() > 6) {
+          if (password.length > 6) {
+            console.log("length is greater than 6");
             var temp = window.location.href.split('recoverPassword?')[1];
             var token = temp.split('=')[1];
             console.log("token", token);
@@ -57,4 +58,4 @@ var RecoverPassword = {};
     }
   }
 }).bind(RecoverPassword))()
-RecoverPassword.init();
+//RecoverPassword.init();

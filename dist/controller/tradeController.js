@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _templateObject = _taggedTemplateLiteral([''], ['']);
-
 var _postatrade = require('../models/postatrade');
 
 var _postatrade2 = _interopRequireDefault(_postatrade);
@@ -25,8 +23,6 @@ var _async2 = _interopRequireDefault(_async);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -185,9 +181,9 @@ var tradeController = _defineProperty({
     };
   }(),
   getOne: function getOne(req, res, next) {
-    _postatrade2.default.findById(req.params.id, function (err, trade) {
+    console.log("req=> for get One tradeController", req.body, req.params, req.query);
+    _postatrade2.default.findById(req.query.id, function (err, trade) {
       if (err) {
-        x(_templateObject);
         res.json({ isError: true, data: err });
       }
       res.json({ isError: false, data: trade });

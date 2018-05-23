@@ -83,4 +83,4 @@ var ForgetPassword = {};
     }
   }
 }).bind(ForgetPassword))()
-ForgetPassword.init();
+//ForgetPassword.init();

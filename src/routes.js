@@ -50,6 +50,9 @@ const routes = (route) => {
     .put(usersController.update)
     .delete(usersController.delete);
 
+  route.route('/sellerBuyerInfo')
+    .get(tradeController.getOne);
+
   route.route('/cp/:token')
     .get(usersController.varifyToken);
 
@@ -65,7 +68,7 @@ const routes = (route) => {
     .patch(tradeController.update);
 
   route.route('/tradeByCurrencyLoc')
-    .get(tradeController.getByCurrencyLoc)
+    .get(tradeController.getByCurrencyLoc);
 
   route.route('/recoverPassword')
     .post(usersController.recoverPassword);

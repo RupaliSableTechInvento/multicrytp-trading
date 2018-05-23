@@ -41,7 +41,12 @@
         ForgetPassword.init();
       });
       this.get('#/changepassword', function(context) {
+        console.log("#/changepassword");
         ChangePassword.init();
+      });
+      this.get('#/profile', function(context) {
+        console.log("#/changepassword");
+        Profile.init();
       });
       this.get('#/sellBuyCurrency', function(context) {
         SellBuyCurrency.init();

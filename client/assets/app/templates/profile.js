@@ -4,7 +4,6 @@ var Profile = {};
   this.init = function() {
     _render.content();
   }
-
   var _core = {
     readURL: function(imgInput) {
       if (imgInput.files && imgInput.files[0]) {
@@ -15,10 +14,7 @@ var Profile = {};
         }
         reader.readAsDataURL(imgInput.files[0]);
       }
-
     }
-
-
   }
   var _bind = {
     profileSettings: function() {
@@ -60,14 +56,14 @@ var Profile = {};
     }
 
   }
-
   var _render = {
     content: function() {
-      console.log("render in profile.js");
-      _bind.profileSettings();
-      _bind.addUserInfo();
+      renderMainFrame('assets/snippets/pages/user/profile.html', 'profile', function() {
+        console.log("render in profile.js");
+        _bind.profileSettings();
+        _bind.addUserInfo();
 
+      })
     }
   }
-}).bind(Profile))()
-Profile.init();
+}).bind(Profile))();

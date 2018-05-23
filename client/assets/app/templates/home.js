@@ -83,7 +83,7 @@ var Home = {};
               return field.online_selling.payment_details + ' ' + field.location;
             },
             title: "Payment Method",
-            width: 180,
+            width: 250,
             responsive: {
               visible: 'lg'
             }
@@ -108,9 +108,10 @@ var Home = {};
           }, {
             field: "traderType",
             title: "traderType",
+
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
-                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                 '</a>';
             }
           }
@@ -169,7 +170,7 @@ var Home = {};
               return field.online_selling.payment_details + ' ' + field.location;
             },
             title: "Payment Method",
-            width: 80,
+            width: 250,
             responsive: {
               visible: 'lg'
             }
@@ -195,8 +196,8 @@ var Home = {};
             field: "traderType",
             title: "traderType",
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
-                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                 '</a>';
             }
           }
@@ -253,7 +254,7 @@ var Home = {};
               return field.online_selling.payment_details + ' ' + field.location;
             },
             title: "Payment Method",
-            width: 80,
+            width: 250,
             responsive: {
               visible: 'lg'
             }
@@ -279,8 +280,8 @@ var Home = {};
             field: "traderType",
             title: "traderType",
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
-                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+                '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                 '</a>';
             }
           }
@@ -337,7 +338,7 @@ var Home = {};
                 return field.online_selling.payment_details + ' ' + field.location;
               },
               title: "Payment Method",
-              width: 80,
+              width: 250,
               responsive: {
                 visible: 'lg'
               }
@@ -363,10 +364,12 @@ var Home = {};
               field: "traderType",
               title: "traderType",
               template: function(row) {
-                return ' <a href="./#/sellBuyCurrency?currency=' + cryptoCurrency + '&traderType=' + row.traderType + '&location=' + row.location + '&payment_details=' + row.online_selling.payment_details + '&user=' + row.firstName + '&price=' + row.more_information.price_equation + ' ">' +
-                  '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px;">' +
+                return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+                  '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                   '</a>';
               }
+
+
             }
 
           ]

@@ -116,4 +116,4 @@ var Login = {};
     }
   }
 }).bind(Login))()
-Login.init();
+//Login.init();

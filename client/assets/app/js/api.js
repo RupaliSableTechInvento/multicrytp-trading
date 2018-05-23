@@ -62,8 +62,20 @@ var API = {
         console.log("recoverpassword err=>", err);
       }
     })
-
+  },
+  getCurrencySellerBuyerInfo: function(id, cb) {
+    // console.log("dataobject in api.js=>", dataObj);
+    $.ajax({
+      url: "/sellerBuyerInfo",
+      type: "get",
+      data: { id: id },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
 
   },
-
 }
