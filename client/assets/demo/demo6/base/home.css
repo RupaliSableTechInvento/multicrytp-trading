@@ -40,6 +40,14 @@
   text-align: right;
 }
 
+.div-flex_basis {
+  flex-basis: 200px;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
 .li-quick_buy.active {
   border: none;
   border-top: 2px solid #6E82FA;
@@ -60,17 +68,9 @@
 
 .div-quick-buy_data {
   padding-left: 10px;
+  display: flex;
+  justify-content: space-around;
   width: 100%;
-}
-
-.div-quick-buy_data input {
-  /*   font-size: 1.2em;
- */
-}
-
-.div-quick-buy_data select {
-  /*   font-size: 1.2em;
- */
 }
 
 .quick-buy_data_padding {
@@ -78,7 +78,7 @@
 }
 
 .amt {
-  width: 20%;
+  width: 100%;
   border-radius: 4px;
   border: 1px solid #f0f0f0;
 }
@@ -241,6 +241,8 @@
 
 .showMore {
   font-size: 17px !important;
+  color: white !important;
+  margin-top: 15px !important;
 }
 
 .flex_row_btn-buy {
@@ -288,4 +290,174 @@
 
 .hidden {
   display: none;
+}
+
+.m-datatable__pager {
+  display: none !important;
+}
+
+#m_aside_left {
+  display: none !important;
+}
+
+.m-menu__item--active {
+  color: #22b9ff !important;
+}
+
+.btn-dropdown {
+  padding: 10px;
+  BORDER: none;
+  outline: none !important;
+  color: #22b9ff;
+}
+
+.btn-dropdown-bg {
+  border-radius: 25px;
+  background: #ffa3a31c;
+}
+
+.btn-dropdown-bgheader {
+  background: white;
+  border-radius: 5px;
+}
+
+.span-dropdown {
+  padding: 10px;
+}
+
+.div-dropdown {
+  height: 140px;
+  margin-top: 10px;
+  position: absolute;
+  transform: translate3d(15px, 40px, 0px);
+  top: 0px;
+  left: 0px;
+  width: 159px;
+  will-change: transform;
+}
+
+.label-dropdown {
+  margin-top: .3rem !important;
+  margin-bottom: .3rem!important;
+}
+
+.ul-dropdown {
+  padding: 0;
+}
+
+.li-dropdown-item {
+  margin-top: 10px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  /* font-size: 10px !important; */
+}
+
+.li-dropdown-item:focus,
+.li-dropdown-item:hover {
+  color: #22b9ff !important;
+  text-decoration: none !important;
+  background-color: #ffa3a31c !important;
+}
+
+
+/* .custom-dropdown-toggle {
+  position: relative;
+  outline: none !important;
+  padding: 0.65rem 1rem;
+  padding-right: 1.85rem;
+  -webkit-border-radius: 0.25rem!important;
+  -moz-border-radius: 0.25rem!important;
+  -ms-border-radius: 0.25rem!important;
+  -o-border-radius: 0.25rem!important;
+  border-radius: 0.25rem!important;
+}
+ */
+
+.custom-m-menu__hor-arrow {
+  color: #22b9ff !important;
+}
+
+.custom-la-angle-down:before {
+  content: "\f110" !important;
+}
+
+.custom-dropdown-toggle:after {
+  ition: absolute !important;
+  marfont-family: "LineAwesome" !important;
+  text-decoration: inherit !important;
+  text-rendering: optimizeLegibility !important;
+  text-transform: none !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  -webkit-font-smoothing: antialiased !important;
+  font-smoothing: antialiased !important;
+  content: none !important;
+  border: 0 !important;
+  top: 50% !important;
+  posgin-top: 0 !important;
+  font-size: 0.85rem !important;
+  right: 1.85rem !important;
+  display: inline-block !important;
+}
+
+
+/* 
+.container ul::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  border: 1px dashed red;
+} */
+
+.div-dropdown>span::before {
+  display: inline-block;
+  font-family: "Metronic";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 0px;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  content: "";
+  position: relative;
+  top: 0;
+  margin-top: 20px;
+  font-size: 40px;
+}
+
+.div-dropdown>span {
+  width: 10px;
+  height: 40px;
+  position: relative;
+  left: auto;
+  right: 0;
+  margin-left: auto;
+  margin-right: -9px;
+  position: absolute;
+  top: 2px;
+  left: auto;
+  right: -2px;
+  margin: 0px -7px 0 0;
+  display: none;
+}
+
+.scrollbar {
+  height: 300px;
+  margin-bottom: 25px;
+  margin-left: 22px;
+  margin-top: 40px;
+  overflow-y: scroll;
+}
+
+.force-overflow {
+  min-height: 450px;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
 }

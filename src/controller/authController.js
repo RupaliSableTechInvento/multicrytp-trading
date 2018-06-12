@@ -2,6 +2,7 @@ import usersModel from './../models/usersModel';
 import tokenModel from './../models/tokenModel';
 import jwt from 'jsonwebtoken';
 import env from "../env";
+import tradeModel from '../models/postatrade';
 var encode = require('hashcode').hashCode;
 const authController = {
   login: (req, res, next) => {
@@ -17,7 +18,7 @@ const authController = {
         console.log("User=>", user)
         var d = new Date();
         var v = new Date();
-        v.setMinutes(d.getMinutes() + 60);
+        v.setMinutes(d.getMinutes() + 10);
         const token1 = jwt.sign({
           email: user.email,
           first_name: user.first_name,
@@ -26,7 +27,8 @@ const authController = {
         }, env.App_key);
         let token = new tokenModel();
         console.log(user.email);
-        var token2 = { 'token': token1, email: user.email, isActive: "active", expiry: v };
+        var currentTime = new Date();
+        var token2 = { 'token': token1, email: user.email, isActive: "active", expiry: v, userActiveTime: currentTime };
         tokenModel.findOneAndUpdate({ $and: [{ email: user.email }, { isActive: "active" }] }, { $set: { isActive: "inactive" } }, (err, data) => {
           if (err) return res.json({ isError: true, data: err });
           else {
@@ -40,6 +42,27 @@ const authController = {
         res.json({ isError: true, data: "email or password incorrect !" })
       }
     });
+  },
+
+  getActiveUser: async(req, res, next) => {
+    await tokenModel.find({ isActive: "active" }, (err, tokenModel) => {
+      if (err) return res.json({ isError: true, tokenModel: err });
+      else {
+        var emailObj = [];
+        console.log("trade model result", tokenModel.length);
+        for (let index = 0; index < tokenModel.length; index++) {
+          emailObj.push(tokenModel[index].email);
+        }
+        console.log("active user email ", emailObj);
+
+        usersModel.find({ 'email': { $in: emailObj } }, (err, user) => {
+          if (err) return res.json({ isError: true, user: err });
+          else {
+            return res.json({ isError: false, tokenModel: tokenModel, user: user });
+          }
+        });
+      }
+    })
   },
 
   register: (req, res, next) => {

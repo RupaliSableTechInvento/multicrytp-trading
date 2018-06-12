@@ -2,7 +2,6 @@
 var SnippetLogin = function() {
 
   var login = $('#m_login');
-
   var showErrorMsg = function(form, type, msg) {
     var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\
@@ -107,7 +106,7 @@ var SnippetLogin = function() {
             localStorage.setItem("last_name", last_name);
             localStorage.setItem('email', dataObj.email);
             localStorage.setItem('user_id', successData.user.id);
-            
+
             // window.location.href = "/";
             /*  $('#m-card-user__name').html(first_name);
              $('#m-card-user__email').html(dataObj.email); */

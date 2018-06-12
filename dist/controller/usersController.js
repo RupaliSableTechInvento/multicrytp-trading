@@ -171,7 +171,16 @@ var usersController = {
     });
   },
 
-  emailVarification: function emailVarification(req, res, next) {
+  isVerified: function isVerified(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.query.token, _env2.default.App_key);
+    _usersModel2.default.find({ 'email': decoded.email }, function (err, user) {
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: user });
+    });
+  },
+
+  emailVerification: function emailVerification(req, res, next) {
+    console.log("Email Verification=>", req.body, req.params, req.query);
     var email = req.body.email;
     _usersModel2.default.find({
       'email': req.body.email
@@ -194,15 +203,15 @@ var usersController = {
               service: 'gmail',
               auth: {
                 user: 'mailerabhi111@gmail.com',
-                pass: 'Abhi@1234'
+                pass: 'Abhi@12345'
               }
             });
             var mailOptions = {
               from: 'mailerabhi111@gmail.com', // sender address
               to: email, // list of receivers
-              subject: 'Change Password', // Subject line
-              text: 'Please Click below link to change password', // plain text body
-              html: 'Please<a href=http://localhost:3000/ev/' + token + '>Click Here</a>' // html body
+              subject: 'Email Verification', // Subject line
+              text: 'Please Click below link to Verify Your Email address', // plain text body
+              html: 'Please<a href=http://localhost:3000/ev/' + token + '>Click Here to processed email verification</a>' // html body
             };
             transporter.sendMail(mailOptions, function (error, info) {
               if (error) {
@@ -222,7 +231,7 @@ var usersController = {
     });
   },
 
-  emailVarified: function emailVarified(req, res, next) {
+  emailVerified: function emailVerified(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.params.token, _env2.default.App_key);
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
@@ -232,11 +241,12 @@ var usersController = {
         "email": decoded.email
       }, {
         $set: {
-          "varification.email_varified": "varified"
+          "verification.email_verified": true
         }
       }, function (err, user) {
         if (err) return res.json({ isError: true, data: err });
-        res.json({ isError: false, data: "email_varified" });
+        //  res.redirect('/#/profile');
+        res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
       });
     } else {
       res.json({ isError: true, data: "session expire" });
@@ -244,12 +254,12 @@ var usersController = {
   },
 
   varifyToken: function varifyToken(req, res, next) {
+    console.log("in verify Token=>");
     var decoded = _jsonwebtoken2.default.verify(req.params.token, _env2.default.App_key);
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
     if (dt < checkDate) {
       console.log("----");
-
       var d = new Date();
       var v = new Date();
       v.setMinutes(d.getMinutes() + 60);
@@ -263,7 +273,7 @@ var usersController = {
     }
   },
   changePassword: function changePassword(req, res, next) {
-    console.log("req.headers--->", req.headers['authorization'], req.body);
+    // console.log("req.headers--->", req.headers['authorization'], req.body);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     req.body.password = encode().value(req.body.password);
     req.body.new_pasword = encode().value(req.body.new_pasword);
@@ -280,6 +290,7 @@ var usersController = {
     }, function (err, user) {
       if (err) return res.json({ isError: true, data: err });
       res.json({ isError: false, data: user });
+      console.log("user=>", user);
     });
   },
   recoverPassword: function recoverPassword(req, res, next) {

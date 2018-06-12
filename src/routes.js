@@ -39,10 +39,10 @@ const routes = (route) => {
   route.route('/users/changeEmail')
     .post(usersController.changeEmail);
 
+
   route.route('/users')
     //console.log("user=>>", req)
     .get(usersController.getAll)
-    //.get(usersController.getOne)
     //.delete(usersController.delete);
 
   route.route('/seller')
@@ -56,17 +56,26 @@ const routes = (route) => {
   route.route('/cp/:token')
     .get(usersController.varifyToken);
 
-  route.route('/emailvarification')
-    .post(usersController.emailVarification);
+  route.route('/isVerified')
+    .get(usersController.isVerified);
+
+
+  route.route('/emailverification')
+    .post(usersController.emailVerification);
 
   route.route('/ev/:token')
-    .get(usersController.emailVarified);
+    .get(usersController.emailVerified);
 
   route.route('/trade')
     .get(tradeController.getAll)
     .post(tradeController.create)
     .patch(tradeController.update);
 
+
+
+  /* route.route('/getPriceEquation')
+    .get(tradeController.getPriceEquation);
+ */
   route.route('/tradeByCurrencyLoc')
     .get(tradeController.getByCurrencyLoc);
 
@@ -78,6 +87,10 @@ const routes = (route) => {
 
   route.route('/users/changePassword')
     .post(usersController.changePassword);
+
+  route.route('/getActiveUser')
+    .get(authController.getActiveUser);
+
   route.route('/logout')
     .get(authController.logout)
 };

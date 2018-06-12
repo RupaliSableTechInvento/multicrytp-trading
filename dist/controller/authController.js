@@ -20,7 +20,13 @@ var _env = require('../env');
 
 var _env2 = _interopRequireDefault(_env);
 
+var _postatrade = require('../models/postatrade');
+
+var _postatrade2 = _interopRequireDefault(_postatrade);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var encode = require('hashcode').hashCode;
 var authController = {
@@ -37,7 +43,7 @@ var authController = {
         console.log("User=>", user);
         var d = new Date();
         var v = new Date();
-        v.setMinutes(d.getMinutes() + 60);
+        v.setMinutes(d.getMinutes() + 10);
         var token1 = _jsonwebtoken2.default.sign({
           email: user.email,
           first_name: user.first_name,
@@ -46,7 +52,8 @@ var authController = {
         }, _env2.default.App_key);
         var token = new _tokenModel2.default();
         console.log(user.email);
-        var token2 = { 'token': token1, email: user.email, isActive: "active", expiry: v };
+        var currentTime = new Date();
+        var token2 = { 'token': token1, email: user.email, isActive: "active", expiry: v, userActiveTime: currentTime };
         _tokenModel2.default.findOneAndUpdate({ $and: [{ email: user.email }, { isActive: "active" }] }, { $set: { isActive: "inactive" } }, function (err, data) {
           if (err) return res.json({ isError: true, data: err });else {
             _tokenModel2.default.create(token2, function (err, token) {
@@ -60,6 +67,43 @@ var authController = {
       }
     });
   },
+
+  getActiveUser: function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _tokenModel2.default.find({ isActive: "active" }, function (err, tokenModel) {
+                if (err) return res.json({ isError: true, tokenModel: err });else {
+                  var emailObj = [];
+                  console.log("trade model result", tokenModel.length);
+                  for (var index = 0; index < tokenModel.length; index++) {
+                    emailObj.push(tokenModel[index].email);
+                  }
+                  console.log("active user email ", emailObj);
+
+                  _usersModel2.default.find({ 'email': { $in: emailObj } }, function (err, user) {
+                    if (err) return res.json({ isError: true, user: err });else {
+                      return res.json({ isError: false, tokenModel: tokenModel, user: user });
+                    }
+                  });
+                }
+              });
+
+            case 2:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function getActiveUser(_x, _x2, _x3) {
+      return _ref.apply(this, arguments);
+    };
+  }(),
 
   register: function register(req, res, next) {
     console.log("req.body", req.body, req.params, req.query);

@@ -15,36 +15,92 @@ var API = {
       })
     });
   },
-  changePassword: async function(params, token) {
-    return new Promise(resolve => {
-      console.log("params=>", params, token)
-      $.ajax({
-        url: "/users/changePassword",
-        data: params,
-        type: "POST",
-        headers: {
-          "authorization": token,
-        },
-        success: function(successData) {
-          console.log("result=>", successData);
-          if (successData.isError) {
-            console.log("password could not be change")
-          } else {
-            console.log("password changed...")
-
+  /*   getPriceEquation: function(dataObj) {
+      return new Promise(resolve => {
+        // console.log("dataobject in api.js=>", dataObj);
+        $.ajax({
+          url: "/getPriceEquation",
+          type: "get",
+          data: dataObj,
+          success: function(successData) {
+            console.log("sucesss data in price equation=> ", successData);
+            resolve(successData)
+          },
+          error: function(err) {
+            alert(err);
           }
-          resolve(successData);
+        })
+      });
+    }, */
+  getPriceEquation: function(dataObj) {
+    return new Promise(resolve => {
+      console.log("dataobject in getPriceEquation=>", dataObj);
 
+      $.ajax({
+        url: 'https://api.cryptonator.com/api/ticker/' + dataObj.from + '-' + dataObj.to,
+        type: "get",
+
+        success: function(successData) {
+          console.log("sucesss data in price equation=> ", successData);
+          resolve(successData)
         },
         error: function(err) {
-          console.log("change password error=>", err);
+          alert(err);
         }
       })
+    });
+  },
 
+  changePassword: function(params, token, cb) {
+    console.log("params=>", params, token)
+
+    $.ajax({
+      url: "/users/changePassword",
+      data: params,
+      type: "POST",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
     })
   },
-  recoverPassword: async function(params, token) {
 
+  logout: function(token, cb) {
+    $.ajax({
+      url: "/logout",
+      headers: {
+        'authorization': token
+      },
+      type: "get",
+      success: function(successData) {
+        cb(successData)
+
+      },
+      error: function(err) {
+        console.log("logout err=>", err);
+      }
+    })
+  },
+  emailVerification: function(email, cb) {
+    $.ajax({
+      url: "/emailverification",
+      data: { email: email },
+      type: "POST",
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+
+  },
+  recoverPassword: function(params, token, cb) {
     console.log("params=> recover password api call", params, token)
     $.ajax({
       url: "/recoverPassword",
@@ -54,12 +110,25 @@ var API = {
       data: { password: $('#password').val() },
       type: "post",
       success: function(successData) {
+        cb(successData)
         console.log(" your password is set  =>", successData.data);
-        window.location.replace("#/login");
-
+        /*         window.location.replace("#/login");
+         */
       },
       error: function(err) {
         console.log("recoverpassword err=>", err);
+      }
+    })
+  },
+  getActiveUser: function(cb) {
+    $.ajax({
+      url: "/getActiveUser",
+      type: "get",
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
       }
     })
   },
@@ -77,5 +146,38 @@ var API = {
       }
     })
 
+  },
+
+
+  verification: function(dataObj, cb) {
+    $.ajax({
+      url: "/isVerified",
+      data: dataObj,
+      type: "get",
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+
+  },
+
+  postTrade: function(dataObj, token, cb) {
+    $.ajax({
+      url: "/trade",
+      data: dataObj,
+      type: "POST",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
   },
 }

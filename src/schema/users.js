@@ -17,6 +17,10 @@ const usersSchema = new mongoose.Schema({
     type: String,
     default: 'active'
   },
+  /*  isOnline: {
+     type: String,
+     default: 'false'
+   }, */
   email: {
     type: String,
     index: true,
@@ -55,19 +59,41 @@ const usersSchema = new mongoose.Schema({
       type: String,
     }
   },
-  varification: {
-    email_varified: {
-      type: String,
+  verification: {
+    email_verified: {
+      type: Boolean,
       default: false,
     },
-    mobile_varified: {
-      type: String,
+    mobile_verified: {
+      type: Boolean,
       default: false,
     },
   }
 
 });
 const sellerSchema = new mongoose.Schema({
+  user: {
+    type: String,
+  },
+  payment_method: {
+    type: String,
+  },
+  price_btc: {
+    type: Number,
+  },
+  currency: {
+    type: String,
+  },
+  limit_from: {
+    type: Number,
+  },
+  limit_to: {
+    type: Number,
+  },
+});
+
+
+const BuyerSchema = new mongoose.Schema({
   user: {
     type: String,
   },

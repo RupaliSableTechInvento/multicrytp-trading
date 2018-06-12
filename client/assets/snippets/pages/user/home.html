@@ -8,482 +8,1494 @@
       </h2> -->
     <div class="div-tab">
       <ul class="trade-tabs">
+
         <li class="li-quick_buy active lbl_heading">QUICK BUY</li>
         <li class="li-quick_sell lbl_heading">QUICK SELL</li>
       </ul>
     </div>
     <div class="div-content">
-      <div id="quick_buy" class="div-quick-buy_data  ">
-        <input type="text" name="txt_amt" placeholder="Amount" class="quick-buy_data_padding  tab_content_txt  amt">
+      <div id="quick_buy" class="div-quick-buy_data">
+
+        <div>
+          <input type="text" name="txt_amt" placeholder="Amount" class="quick-buy_data_padding  tab_content_txt  amt">
+
+        </div>
+        <div class="flex_basis">
+          <button style="outline:none" class="fullwidth btn-dropdown btn-dropdown-bgheader  m-menu__item--hover custom-dropdown-toggle" style="width:100%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">     
+              <span  id="titile_currency" class="span-dropdown">
+                Currency
+              </span>   
+              <i class="custom-m-menu__hor-arrow la custom-la-angle-down"></i>   
+            </button>
+          <div class="dropdown-menu div-dropdown" style="height: 200px; overflow: auto">
+            <ul class="m-menu__subnav ul-dropdown" id="select_ad-currency" style="width:30%">
+
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="AED">
+                <span class="m-menu__link-text">
+              AED						
+            </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="AFN">
+                <span class="m-menu__link-text">
+              AFN					
+            </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ALL "><span class="m-menu__link-text">ALL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="AMD "><span class="m-menu__link-text">AMD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ANG "><span class="m-menu__link-text">ANG</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="AOA "><span class="m-menu__link-text">AOA</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ARS "><span class="m-menu__link-text">ARS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="AUD "><span class="m-menu__link-text">AUD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="AWG "><span class="m-menu__link-text">AWG</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="AZN "><span class="m-menu__link-text">AZN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BAM "><span class="m-menu__link-text">BAM</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BBD "><span class="m-menu__link-text">BBD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BDT "><span class="m-menu__link-text">BDT</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BGN "><span class="m-menu__link-text">BGN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BHD "><span class="m-menu__link-text">BHD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BIF "><span class="m-menu__link-text">BIF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BMD "><span class="m-menu__link-text">BMD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BND "><span class="m-menu__link-text">BND</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BOB "><span class="m-menu__link-text">BOB</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BRL "><span class="m-menu__link-text">BRL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BSD "><span class="m-menu__link-text">BSD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BTN "><span class="m-menu__link-text">BTN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BWP "><span class="m-menu__link-text">BWP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BYN "><span class="m-menu__link-text">BYN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BYR "><span class="m-menu__link-text">BYR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="BZD "><span class="m-menu__link-text">BZD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CAD "><span class="m-menu__link-text">CAD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CDF "><span class="m-menu__link-text">CDF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CHF "><span class="m-menu__link-text">CHF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CLF "><span class="m-menu__link-text">CLF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CLP "><span class="m-menu__link-text">CLP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CNH "><span class="m-menu__link-text">CNH</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CNY "><span class="m-menu__link-text">CNY</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="COP "><span class="m-menu__link-text">COP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CRC "><span class="m-menu__link-text">CRC</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CUC "><span class="m-menu__link-text">CUC</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CUP "><span class="m-menu__link-text">CUP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CVE "><span class="m-menu__link-text">CVE</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="CZK "><span class="m-menu__link-text">CZK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="DJF "><span class="m-menu__link-text">DJF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="DKK "><span class="m-menu__link-text">DKK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="DOP "><span class="m-menu__link-text">DOP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="DZD "><span class="m-menu__link-text">DZD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="EEK "><span class="m-menu__link-text">EEK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="EGP "><span class="m-menu__link-text">EGP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ERN "><span class="m-menu__link-text">ERN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ETB "><span class="m-menu__link-text">ETB</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="EUR "><span class="m-menu__link-text">EUR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="FJD "><span class="m-menu__link-text">FJD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="FKP "><span class="m-menu__link-text">FKP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GBP "><span class="m-menu__link-text">GBP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GEL "><span class="m-menu__link-text">GEL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GGP "><span class="m-menu__link-text">GGP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GHS "><span class="m-menu__link-text">GHS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GIP "><span class="m-menu__link-text">GIP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GMD "><span class="m-menu__link-text">GMD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GNF "><span class="m-menu__link-text">GNF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GTQ "><span class="m-menu__link-text">GTQ</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="GYD "><span class="m-menu__link-text">GYD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="HKD "><span class="m-menu__link-text">HKD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="HNL "><span class="m-menu__link-text">HNL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="HRK "><span class="m-menu__link-text">HRK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="HTG "><span class="m-menu__link-text">HTG</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="HUF "><span class="m-menu__link-text">HUF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="IDR "><span class="m-menu__link-text">IDR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ILS "><span class="m-menu__link-text">ILS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="IMP "><span class="m-menu__link-text">IMP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="INR "><span class="m-menu__link-text">INR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="IQD "><span class="m-menu__link-text">IQD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="IRR "><span class="m-menu__link-text">IRR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ISK "><span class="m-menu__link-text">ISK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="JEP "><span class="m-menu__link-text">JEP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="JMD "><span class="m-menu__link-text">JMD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="JOD "><span class="m-menu__link-text">JOD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="JPY "><span class="m-menu__link-text">JPY</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KES "><span class="m-menu__link-text">KES</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KGS "><span class="m-menu__link-text">KGS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KHR "><span class="m-menu__link-text">KHR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KMF "><span class="m-menu__link-text">KMF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KPW "><span class="m-menu__link-text">KPW</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KRW "><span class="m-menu__link-text">KRW</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KWD "><span class="m-menu__link-text">KWD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KYD "><span class="m-menu__link-text">KYD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="KZT "><span class="m-menu__link-text">KZT</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LAK "><span class="m-menu__link-text">LAK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LBP "><span class="m-menu__link-text">LBP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LKR "><span class="m-menu__link-text">LKR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LRD "><span class="m-menu__link-text">LRD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LSL "><span class="m-menu__link-text">LSL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LTL "><span class="m-menu__link-text">LTL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LVL "><span class="m-menu__link-text">LVL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="LYD "><span class="m-menu__link-text">LYD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MAD "><span class="m-menu__link-text">MAD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MDL "><span class="m-menu__link-text">MDL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MGA "><span class="m-menu__link-text">MGA</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MKD "><span class="m-menu__link-text">MKD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MMK "><span class="m-menu__link-text">MMK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MNT "><span class="m-menu__link-text">MNT</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MOP "><span class="m-menu__link-text">MOP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MRO "><span class="m-menu__link-text">MRO</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MRU "><span class="m-menu__link-text">MRU</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MTL "><span class="m-menu__link-text">MTL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MUR "><span class="m-menu__link-text">MUR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MVR "><span class="m-menu__link-text">MVR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MWK "><span class="m-menu__link-text">MWK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MXN "><span class="m-menu__link-text">MXN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MYR "><span class="m-menu__link-text">MYR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="MZN "><span class="m-menu__link-text">MZN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="NAD "><span class="m-menu__link-text">NAD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="NGN "><span class="m-menu__link-text">NGN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="NIO "><span class="m-menu__link-text">NIO</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="NOK "><span class="m-menu__link-text">NOK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="NPR "><span class="m-menu__link-text">NPR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="NZD "><span class="m-menu__link-text">NZD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="OMR "><span class="m-menu__link-text">OMR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PAB "><span class="m-menu__link-text">PAB</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PEN "><span class="m-menu__link-text">PEN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PGK "><span class="m-menu__link-text">PGK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PHP "><span class="m-menu__link-text">PHP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PKR "><span class="m-menu__link-text">PKR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PLN "><span class="m-menu__link-text">PLN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="PYG "><span class="m-menu__link-text">PYG</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="QAR "><span class="m-menu__link-text">QAR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="RON "><span class="m-menu__link-text">RON</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="RSD "><span class="m-menu__link-text">RSD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="RUB "><span class="m-menu__link-text">RUB</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="RWF "><span class="m-menu__link-text">RWF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SAR "><span class="m-menu__link-text">SAR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SBD "><span class="m-menu__link-text">SBD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SCR "><span class="m-menu__link-text">SCR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SDG "><span class="m-menu__link-text">SDG</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SEK "><span class="m-menu__link-text">SEK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SGD "><span class="m-menu__link-text">SGD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SHP "><span class="m-menu__link-text">SHP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SLL "><span class="m-menu__link-text">SLL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SOS "><span class="m-menu__link-text">SOS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SRD "><span class="m-menu__link-text">SRD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SSP "><span class="m-menu__link-text">SSP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="STD "><span class="m-menu__link-text">STD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="STN "><span class="m-menu__link-text">STN</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SVC "><span class="m-menu__link-text">SVC</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SYP "><span class="m-menu__link-text">SYP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="SZL "><span class="m-menu__link-text">SZL</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="THB "><span class="m-menu__link-text">THB</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TJS "><span class="m-menu__link-text">TJS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TMT "><span class="m-menu__link-text">TMT</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TND "><span class="m-menu__link-text">TND</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TOP "><span class="m-menu__link-text">TOP</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TRY "><span class="m-menu__link-text">TRY</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TTD "><span class="m-menu__link-text">TTD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TWD "><span class="m-menu__link-text">TWD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="TZS "><span class="m-menu__link-text">TZS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="UAH "><span class="m-menu__link-text">UAH</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="UGX "><span class="m-menu__link-text">UGX</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="USD "><span class="m-menu__link-text">USD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="UYU "><span class="m-menu__link-text">UYU</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="UZS "><span class="m-menu__link-text">UZS</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="VEF "><span class="m-menu__link-text">VEF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="VND "><span class="m-menu__link-text">VND</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="VUV "><span class="m-menu__link-text">VUV</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="WST "><span class="m-menu__link-text">WST</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XAF "><span class="m-menu__link-text">XAF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XAG "><span class="m-menu__link-text">XAG</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XAR "><span class="m-menu__link-text">XAR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XAU "><span class="m-menu__link-text">XAU</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XCD "><span class="m-menu__link-text">XCD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XDR "><span class="m-menu__link-text">XDR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XOF "><span class="m-menu__link-text">XOF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XPD "><span class="m-menu__link-text">XPD</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XPF "><span class="m-menu__link-text">XPF</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="XPT "><span class="m-menu__link-text">XPT</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="YER "><span class="m-menu__link-text">YER</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ZAR "><span class="m-menu__link-text">ZAR</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ZMK "><span class="m-menu__link-text">ZMK</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ZMW "><span class="m-menu__link-text">ZMW</span></li>
+              <li class="dropdown-item m-menu__item li-dropdown-item  " aria-haspopup="true" name="ZWL "><span class="m-menu__link-text">ZWL</span></li>
+            </ul>
+
+          </div>
+
+        </div>
         <!--    <select class="select_one quick-buy_data_padding"> -->
-        <select class="select_one quick-buy_data_padding" id="id_currency" name="currency">
-              <option value="AED">AED</option>
-              <option value="AFN">AFN</option>
-              <option value="ALL">ALL</option>
-              <option value="AMD">AMD</option>
-              <option value="ANG">ANG</option>
-              <option value="AOA">AOA</option>
-              <option value="ARS">ARS</option>
-              <option value="AUD">AUD</option>
-              <option value="AWG">AWG</option>
-              <option value="AZN">AZN</option>
-              <option value="BAM">BAM</option>
-              <option value="BBD">BBD</option>
-              <option value="BDT">BDT</option>
-              <option value="BGN">BGN</option>
-              <option value="BHD">BHD</option>
-              <option value="BIF">BIF</option>
-              <option value="BMD">BMD</option>
-              <option value="BND">BND</option>
-              <option value="BOB">BOB</option>
-              <option value="BRL">BRL</option>
-              <option value="BSD">BSD</option>
-              <option value="BTN">BTN</option>
-              <option value="BWP">BWP</option>
-              <option value="BYN">BYN</option>
-              <option value="BYR">BYR</option>
-              <option value="BZD">BZD</option>
-              <option value="CAD">CAD</option>
-              <option value="CDF">CDF</option>
-              <option value="CHF">CHF</option>
-              <option value="CLF">CLF</option>
-              <option value="CLP">CLP</option>
-              <option value="CNH">CNH</option>
-              <option value="CNY">CNY</option>
-              <option value="COP">COP</option>
-              <option value="CRC">CRC</option>
-              <option value="CUC">CUC</option>
-              <option value="CUP">CUP</option>
-              <option value="CVE">CVE</option>
-              <option value="CZK">CZK</option>
-              <option value="DASH">DASH</option>
-              <option value="DJF">DJF</option>
-              <option value="DKK">DKK</option>
-              <option value="DOP">DOP</option>
-              <option value="DZD">DZD</option>
-              <option value="EEK">EEK</option>
-              <option value="EGP">EGP</option>
-              <option value="ERN">ERN</option>
-              <option value="ETB">ETB</option>
-              <option value="ETH">ETH</option>
-              <option value="EUR">EUR</option>
-              <option value="FJD">FJD</option>
-              <option value="FKP">FKP</option>
-              <option value="GBP">GBP</option>
-              <option value="GEL">GEL</option>
-              <option value="GGP">GGP</option>
-              <option value="GHS">GHS</option>
-              <option value="GIP">GIP</option>
-              <option value="GMD">GMD</option>
-              <option value="GNF">GNF</option>
-              <option value="GTQ">GTQ</option>
-              <option value="GYD">GYD</option>
-              <option value="HKD">HKD</option>
-              <option value="HNL">HNL</option>
-              <option value="HRK">HRK</option>
-              <option value="HTG">HTG</option>
-              <option value="HUF">HUF</option>
-              <option value="IDR">IDR</option>
-              <option value="ILS">ILS</option>
-              <option value="IMP">IMP</option>
-              <option value="INR">INR</option>
-              <option value="IQD">IQD</option>
-              <option value="IRR">IRR</option>
-              <option value="ISK">ISK</option>
-              <option value="JEP">JEP</option>
-              <option value="JMD">JMD</option>
-              <option value="JOD">JOD</option>
-              <option value="JPY">JPY</option>
-              <option value="KES">KES</option>
-              <option value="KGS">KGS</option>
-              <option value="KHR">KHR</option>
-              <option value="KMF">KMF</option>
-              <option value="KPW">KPW</option>
-              <option value="KRW">KRW</option>
-              <option value="KWD">KWD</option>
-              <option value="KYD">KYD</option>
-              <option value="KZT">KZT</option>
-              <option value="LAK">LAK</option>
-              <option value="LBP">LBP</option>
-              <option value="LKR">LKR</option>
-              <option value="LRD">LRD</option>
-              <option value="LSL">LSL</option>
-              <option value="LTC">LTC</option>
-              <option value="LTL">LTL</option>
-              <option value="LVL">LVL</option>
-              <option value="LYD">LYD</option>
-              <option value="MAD">MAD</option>
-              <option value="MDL">MDL</option>
-              <option value="MGA">MGA</option>
-              <option value="MKD">MKD</option>
-              <option value="MMK">MMK</option>
-              <option value="MNT">MNT</option>
-              <option value="MOP">MOP</option>
-              <option value="MRO">MRO</option>
-              <option value="MRU">MRU</option>
-              <option value="MTL">MTL</option>
-              <option value="MUR">MUR</option>
-              <option value="MVR">MVR</option>
-              <option value="MWK">MWK</option>
-              <option value="MXN">MXN</option>
-              <option value="MYR">MYR</option>
-              <option value="MZN">MZN</option>
-              <option value="NAD">NAD</option>
-              <option value="NGN">NGN</option>
-              <option value="NIO">NIO</option>
-              <option value="NOK">NOK</option>
-              <option value="NPR">NPR</option>
-              <option value="NZD">NZD</option>
-              <option value="OMR">OMR</option>
-              <option value="PAB">PAB</option>
-              <option value="PEN">PEN</option>
-              <option value="PGK">PGK</option>
-              <option value="PHP">PHP</option>
-              <option value="PKR">PKR</option>
-              <option value="PLN">PLN</option>
-              <option value="PYG">PYG</option>
-              <option value="QAR">QAR</option>
-              <option value="RON">RON</option>
-              <option value="RSD">RSD</option>
-              <option value="RUB">RUB</option>
-              <option value="RWF">RWF</option>
-              <option value="SAR">SAR</option>
-              <option value="SBD">SBD</option>
-              <option value="SCR">SCR</option>
-              <option value="SDG">SDG</option>
-              <option value="SEK">SEK</option>
-              <option value="SGD">SGD</option>
-              <option value="SHP">SHP</option>
-              <option value="SLL">SLL</option>
-              <option value="SOS">SOS</option>
-              <option value="SRD">SRD</option>
-              <option value="SSP">SSP</option>
-              <option value="STD">STD</option>
-              <option value="STN">STN</option>
-              <option value="SVC">SVC</option>
-              <option value="SYP">SYP</option>
-              <option value="SZL">SZL</option>
-              <option value="THB">THB</option>
-              <option value="TJS">TJS</option>
-              <option value="TMT">TMT</option>
-              <option value="TND">TND</option>
-              <option value="TOP">TOP</option>
-              <option value="TRY">TRY</option>
-              <option value="TTD">TTD</option>
-              <option value="TWD">TWD</option>
-              <option value="TZS">TZS</option>
-              <option value="UAH">UAH</option>
-              <option value="UGX">UGX</option>
-              <option value="USD" selected="selected">USD</option>
-              <option value="UYU">UYU</option>
-              <option value="UZS">UZS</option>
-              <option value="VEF">VEF</option>
-              <option value="VND">VND</option>
-              <option value="VUV">VUV</option>
-              <option value="WST">WST</option>
-              <option value="XAF">XAF</option>
-              <option value="XAG">XAG</option>
-              <option value="XAR">XAR</option>
-              <option value="XAU">XAU</option>
-              <option value="XCD">XCD</option>
-              <option value="XDR">XDR</option>
-              <option value="XMR">XMR</option>
-              <option value="XOF">XOF</option>
-              <option value="XPD">XPD</option>
-              <option value="XPF">XPF</option>
-              <option value="XPT">XPT</option>
-              <option value="XRP">XRP</option>
-              <option value="YER">YER</option>
-              <option value="ZAR">ZAR</option>
-              <option value="ZMK">ZMK</option>
-              <option value="ZMW">ZMW</option>
-              <option value="ZWL">ZWL</option>
-            </select>
-        <select class="select_country  quick-buy_data_padding">
-              <option value="AF">Afghanistan</option>
-              <option value="AL">Albania</option>
-              <option value="DZ">Algeria</option>
-              <option value="AS">American Samoa</option>
-              <option value="AD">Andorra</option>
-              <option value="AO">Angola</option>
-              <option value="AI">Anguilla</option>
-              <option value="AQ">Antarctica</option>
-              <option value="AG">Antigua and Barbuda</option>
-              <option value="AR">Argentina</option>
-              <option value="AM">Armenia</option>
-              <option value="AW">Aruba</option>
-              <option value="AU">Australia</option>
-              <option value="AT">Austria</option>
-              <option value="AZ">Azerbaijan</option>
-              <option value="BS">Bahamas</option>
-              <option value="BH">Bahrain</option>
-              <option value="BD">Bangladesh</option>
-              <option value="BB">Barbados</option>
-              <option value="BY">Belarus</option>
-              <option value="BE">Belgium</option>
-              <option value="BZ">Belize</option>
-              <option value="BJ">Benin</option>
-              <option value="BM">Bermuda</option>
-              <option value="BT">Bhutan</option>
-              <option value="BO">Bolivia</option>
-              <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
-              <option value="BA">Bosnia and Herzegovina</option>
-              <option value="BW">Botswana</option>
-              <option value="BV">Bouvet Island</option>
-              <option value="BR">Brazil</option>
-              <option value="IO">British Indian Ocean Territory</option>
-              <option value="BN">Brunei Darussalam</option>
-              <option value="BG">Bulgaria</option>
-              <option value="BF">Burkina Faso</option>
-              <option value="BI">Burundi</option>
-              <option value="CV">Cabo Verde</option>
-              <option value="KH">Cambodia</option>
-              <option value="CM">Cameroon</option>
-              <option value="CA">Canada</option>
-              <option value="KY">Cayman Islands</option>
-              <option value="CF">Central African Republic</option>
-              <option value="TD">Chad</option>
-              <option value="CL">Chile</option>
-              <option value="CN">China</option>
-              <option value="CX">Christmas Island</option>
-              <option value="CC">Cocos (Keeling) Islands</option>
-              <option value="CO">Colombia</option>
-              <option value="KM">Comoros</option>
-              <option value="CG">Congo</option>
-              <option value="CD">Congo, The Democratic Republic of the</option>
-              <option value="CK">Cook Islands</option>
-              <option value="CR">Costa Rica</option>
-              <option value="HR">Croatia</option>
-              <option value="CU">Cuba</option>
-              <option value="CW">Curaçao</option>
-              <option value="CY">Cyprus</option>
-              <option value="CZ">Czechia</option>
-              <option value="CI">Côte d'Ivoire</option>
-              <option value="DK">Denmark</option>
-              <option value="DJ">Djibouti</option>
-              <option value="DM">Dominica</option>
-              <option value="DO">Dominican Republic</option>
-              <option value="EC">Ecuador</option>
-              <option value="EG">Egypt</option>
-              <option value="SV">El Salvador</option>
-              <option value="GQ">Equatorial Guinea</option>
-              <option value="ER">Eritrea</option>
-              <option value="EE">Estonia</option>
-              <option value="ET">Ethiopia</option>
-              <option value="FK">Falkland Islands (Malvinas)</option>
-              <option value="FO">Faroe Islands</option>
-              <option value="FJ">Fiji</option>
-              <option value="FI">Finland</option>
-              <option value="FR">France</option>
-              <option value="GF">French Guiana</option>
-              <option value="PF">French Polynesia</option>
-              <option value="TF">French Southern Territories</option>
-              <option value="GA">Gabon</option>
-              <option value="GM">Gambia</option>
-              <option value="GE">Georgia</option>
-              <option value="DE">Germany</option>
-              <option value="GH">Ghana</option>
-              <option value="GI">Gibraltar</option>
-              <option value="GR">Greece</option>
-              <option value="GL">Greenland</option>
-              <option value="GD">Grenada</option>
-              <option value="GP">Guadeloupe</option>
-              <option value="GU">Guam</option>
-              <option value="GT">Guatemala</option>
-              <option value="GG">Guernsey</option>
-              <option value="GN">Guinea</option>
-              <option value="GW">Guinea-Bissau</option>
-              <option value="GY">Guyana</option>
-              <option value="HT">Haiti</option>
-              <option value="HM">Heard Island and McDonald Islands</option>
-              <option value="VA">Holy See (Vatican City State)</option>
-              <option value="HN">Honduras</option>
-              <option value="HK">Hong Kong</option>
-              <option value="HU">Hungary</option>
-              <option value="IS">Iceland</option>
-              <option value="IN">India</option>
-              <option value="ID">Indonesia</option>
-              <option value="IR">Iran, Islamic Republic of</option>
-              <option value="IQ">Iraq</option>
-              <option value="IE">Ireland</option>
-              <option value="IM">Isle of Man</option>
-              <option value="IL">Israel</option>
-              <option value="IT">Italy</option>
-              <option value="JM">Jamaica</option>
-              <option value="JP">Japan</option>
-              <option value="JE">Jersey</option>
-              <option value="JO">Jordan</option>
-              <option value="KZ">Kazakhstan</option>
-              <option value="KE">Kenya</option>
-              <option value="KI">Kiribati</option>
-              <option value="KP">Korea, Democratic People's Republic of</option>
-              <option value="KR">Korea, Republic of</option>
-              <option value="KW">Kuwait</option>
-              <option value="KG">Kyrgyzstan</option>
-              <option value="LA">Lao People's Democratic Republic</option>
-              <option value="LV">Latvia</option>
-              <option value="LB">Lebanon</option>
-              <option value="LS">Lesotho</option>
-              <option value="LR">Liberia</option>
-              <option value="LY">Libya</option>
-              <option value="LI">Liechtenstein</option>
-              <option value="LT">Lithuania</option>
-              <option value="LU">Luxembourg</option>
-              <option value="MO">Macao</option>
-              <option value="MK">Macedonia, Republic of</option>
-              <option value="MG">Madagascar</option>
-              <option value="MW">Malawi</option>
-              <option value="MY">Malaysia</option>
-              <option value="MV">Maldives</option>
-              <option value="ML">Mali</option>
-              <option value="MT">Malta</option>
-              <option value="MH">Marshall Islands</option>
-              <option value="MQ">Martinique</option>
-              <option value="MR">Mauritania</option>
-              <option value="MU">Mauritius</option>
-              <option value="YT">Mayotte</option>
-              <option value="MX">Mexico</option>
-              <option value="FM">Micronesia, Federated States of</option>
-              <option value="MD">Moldova</option>
-              <option value="MC">Monaco</option>
-              <option value="MN">Mongolia</option>
-              <option value="ME">Montenegro</option>
-              <option value="MS">Montserrat</option>
-              <option value="MA">Morocco</option>
-              <option value="MZ">Mozambique</option>
-              <option value="MM">Myanmar</option>
-              <option value="NA">Namibia</option>
-              <option value="NR">Nauru</option>
-              <option value="NP">Nepal</option>
-              <option value="NL">Netherlands</option>
-              <option value="NC">New Caledonia</option>
-              <option value="NZ">New Zealand</option>
-              <option value="NI">Nicaragua</option>
-              <option value="NE">Niger</option>
-              <option value="NG">Nigeria</option>
-              <option value="NU">Niue</option>
-              <option value="NF">Norfolk Island</option>
-              <option value="MP">Northern Mariana Islands</option>
-              <option value="NO">Norway</option>
-              <option value="OM">Oman</option>
-              <option value="PK">Pakistan</option>
-              <option value="PW">Palau</option>
-              <option value="PS">Palestine, State of</option>
-              <option value="PA">Panama</option>
-              <option value="PG">Papua New Guinea</option>
-              <option value="PY">Paraguay</option>
-              <option value="PE">Peru</option>
-              <option value="PH">Philippines</option>
-              <option value="PN">Pitcairn</option>
-              <option value="PL">Poland</option>
-              <option value="PT">Portugal</option>
-              <option value="PR">Puerto Rico</option>
-              <option value="QA">Qatar</option>
-              <option value="RO">Romania</option>
-              <option value="RU">Russian Federation</option>
-              <option value="RW">Rwanda</option>
-              <option value="RE">Réunion</option>
-              <option value="BL">Saint Barthélemy</option>
-              <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-              <option value="KN">Saint Kitts and Nevis</option>
-              <option value="LC">Saint Lucia</option>
-              <option value="MF">Saint Martin (French part)</option>
-              <option value="PM">Saint Pierre and Miquelon</option>
-              <option value="VC">Saint Vincent and the Grenadines</option>
-              <option value="WS">Samoa</option>
-              <option value="SM">San Marino</option>
-              <option value="ST">Sao Tome and Principe</option>
-              <option value="SA">Saudi Arabia</option>
-              <option value="SN">Senegal</option>
-              <option value="RS">Serbia</option>
-              <option value="SC">Seychelles</option>
-              <option value="SL">Sierra Leone</option>
-              <option value="SG">Singapore</option>
-              <option value="SX">Sint Maarten (Dutch part)</option>
-              <option value="SK">Slovakia</option>
-              <option value="SI">Slovenia</option>
-              <option value="SB">Solomon Islands</option>
-              <option value="SO">Somalia</option>
-              <option value="ZA">South Africa</option>
-              <option value="GS">South Georgia and the South Sandwich Islands</option>
-              <option value="SS">South Sudan</option>
-              <option value="ES">Spain</option>
-              <option value="LK">Sri Lanka</option>
-              <option value="SD">Sudan</option>
-              <option value="SR">Suriname</option>
-              <option value="SJ">Svalbard and Jan Mayen</option>
-              <option value="SZ">Swaziland</option>
-              <option value="SE">Sweden</option>
-              <option value="CH">Switzerland</option>
-              <option value="SY">Syrian Arab Republic</option>
-              <option value="TW">Taiwan</option>
-              <option value="TJ">Tajikistan</option>
-              <option value="TZ">Tanzania</option>
-              <option value="TH">Thailand</option>
-              <option value="TL">Timor-Leste</option>
-              <option value="TG">Togo</option>
-              <option value="TK">Tokelau</option>
-              <option value="TO">Tonga</option>
-              <option value="TT">Trinidad and Tobago</option>
-              <option value="TN">Tunisia</option>
-              <option value="TR">Turkey</option>
-              <option value="TM">Turkmenistan</option>
-              <option value="TC">Turks and Caicos Islands</option>
-              <option value="TV">Tuvalu</option>
-              <option value="UG">Uganda</option>
-              <option value="UA">Ukraine</option>
-              <option value="AE">United Arab Emirates</option>
-              <option value="GB">United Kingdom</option>
-              <option value="US">United States</option>
-              <option value="UM">United States Minor Outlying Islands</option>
-              <option value="UY">Uruguay</option>
-              <option value="UZ">Uzbekistan</option>
-              <option value="VU">Vanuatu</option>
-              <option value="VE">Venezuela</option>
-              <option value="VN">Viet Nam</option>
-              <option value="VG">Virgin Islands, British</option>
-              <option value="VI">Virgin Islands, U.S.</option>
-              <option value="WF">Wallis and Futuna</option>
-              <option value="EH">Western Sahara</option>
-              <option value="YE">Yemen</option>
-              <option value="ZM">Zambia</option>
-              <option value="ZW">Zimbabwe</option>
-              <option value="AX">Åland Islands</option>
-            </select>
-        <select class="select_offers  quick-buy_data_padding">
-              <optgroup label="Popular in your country"></optgroup>
-              <option value="CASH_BY_MAIL">Cash by mail</option>
-              <option value="CASH_DEPOSIT">Cash deposit</option>
-              <option value="GIFT_CARD_CODE_AMAZON">Amazon Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_EBAY">Ebay Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_ITUNES">GIFT_CARD_CODE_ITUNES</option><option value="MONEYGRAM">Moneygram</option>
-              <option value="PAYPAL">Paypal</option><option value="SERVE2SERVE">Serve2Serve</option>
-              <option value="VANILLA">Vanilla</option><option value="WU">Western Union</option>
-            </optgroup><optgroup label="All payment methods"><option value="ALL_ONLINE">All online offers</option>
-              <option value="ADVCASH">advcash</option><option value="ALIPAY">Alipay</option><option value="ALTCOIN_DASH">Dash altcoin</option>
-              <option value="ALTCOIN_ETH">Ethereum altcoin</option><option value="ALTCOIN_LTC">Litecoin altcoin</option>
-              <option value="ALTCOIN_XMR">Monero altcoin</option><option value="ALTCOIN_XRP">Ripple altcoin</option>
-              <option value="CASHU">CashU</option><option value="CASH_BY_MAIL">Cash by mail</option>
-              <option value="CASH_DEPOSIT">Cash deposit</option><option value="CHASE_QUICKPAY">Chase Quickpay</option>
-              <option value="CREDITCARD">Credit card</option><option value="EGOPAY">EGOPAY</option>
-              <option value="GIFT_CARD_CODE">Gift Card Code</option><option value="GIFT_CARD_CODE_AMAZON">Amazon Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_APPLE_STORE">Apple Store Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_EBAY">Ebay Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_GLOBAL">Gift Card Code (Global)</option>
-              <option value="GIFT_CARD_CODE_STARBUCKS">Starbucks Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_STEAM">Steam Gift Card Code</option>
-              <option value="GIFT_CARD_CODE_WALMART">Walmart Gift Card Code</option>
-              <option value="GOOGLEWALLET">Google Wallet</option><option value="INTERNATIONAL_WIRE_SWIFT">International Wire (SWIFT)</option>
-              <option value="MONEYBOOKERS">Moneybookers / Skrill</option><option value="MONEYGRAM">Moneygram</option>
-              <option value="NATIONAL_BANK">National bank transfer</option><option value="NETELLER">Neteller</option>
-              <option value="OKPAY">OKPay</option><option value="ONECARD">OneCard</option><option value="OTHER">Other online payment</option>
-              <option value="OTHER_ONLINE_WALLET">Other Online Wallet</option>
-              <option value="OTHER_ONLINE_WALLET_GLOBAL">Other Online Wallet (Global)</option><option value="OTHER_PRE_PAID_DEBIT">Other Pre-Paid Debit Card</option><option value="OTHER_REMITTANCE">Other Remittance</option><option value="PAXUM">Paxum</option><option value="PAYEER">Payeer</option><option value="PAYONEER">Payoneer</option><option value="PAYPAL">Paypal</option><option value="PAYPALMYCASH">PayPal My Cash</option><option value="PAYZA">Payza</option><option value="PERFECT_MONEY">Perfect Money</option><option value="POSTAL_ORDER">Postal order</option><option value="RELOADIT">Reloadit</option><option value="RIA">RIA Money Transfer</option><option value="SERVE2SERVE">Serve2Serve</option><option value="SOLIDTRUSTPAY">SolidTrustPay</option><option value="SPECIFIC_BANK">Transfers with specific bank</option><option value="SQUARE_CASH">Square Cash</option><option value="TRANSFERWISE">Transferwise</option><option value="VANILLA">Vanilla</option><option value="VENMO">Venmo</option><option value="WALMART2WALMART">Walmart 2 Walmart</option><option value="WEBMONEY">WebMoney</option><option value="WECHAT">WeChat</option><option value="WORLDREMIT">Worldremit</option>
-              <option value="WU">Western Union</option><option value="XOOM">Xoom</option></optgroup><optgroup label="Altcoins"><option value="ALTCOIN_DASH">Dash altcoin</option><option value="ALTCOIN_XRP">Ripple altcoin</option><option value="ALTCOIN_LTC">Litecoin altcoin</option><option value="ALTCOIN_XMR">Monero altcoin</option><option value="ALTCOIN_ETH">Ethereum altcoin</option>
-              </optgroup><optgroup label="In-person"><option value="CASH">Cash</option></optgroup>
-            </select>
-        <input type="button" name="search_btn" value="Search" class="search_btn  quick-buy_data_padding" style="border-radius: 4px;    cursor: pointer;
-          " />
+
+
+        <div class="flex_basis">
+
+
+          <button style="outline:none" class="fullwidth btn-dropdown btn-dropdown-bgheader  m-menu__item--hover custom-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">     
+                <span  id="titile_country" class="span-dropdown">
+                  Country
+                </span>   
+                <i class="custom-m-menu__hor-arrow la custom-la-angle-down"></i>   
+          </button>
+          <div class="dropdown-menu div-dropdown" style="height: 200px; overflow: auto">
+            <ul class="m-menu__subnav ul-dropdown" id="select_ad-country" style="width:100%">
+
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Afghanistan">
+                <span class="m-menu__link-text">Afghanistan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Albania">
+                <span class="m-menu__link-text">Albania</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Algeria">
+                <span class="m-menu__link-text">Algeria</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="American Samoa">
+                <span class="m-menu__link-text">American Samoa</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Andorra">
+                <span class="m-menu__link-text">Andorra</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Angola">
+                <span class="m-menu__link-text">Angola</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Anguilla">
+                <span class="m-menu__link-text">Anguilla</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Antarctica">
+                <span class="m-menu__link-text">Antarctica</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Antigua and Barbuda">
+                <span class="m-menu__link-text">Antigua and Barbuda</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Argentina">
+                <span class="m-menu__link-text">Argentina</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Armenia">
+                <span class="m-menu__link-text">Armenia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Aruba">
+                <span class="m-menu__link-text">Aruba</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Australia">
+                <span class="m-menu__link-text">Australia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Austria">
+                <span class="m-menu__link-text">Austria</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Azerbaijan">
+                <span class="m-menu__link-text">Azerbaijan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bahamas">
+                <span class="m-menu__link-text">Bahamas</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bahrain">
+                <span class="m-menu__link-text">Bahrain</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bangladesh">
+                <span class="m-menu__link-text">Bangladesh</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Barbados">
+                <span class="m-menu__link-text">Barbados</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Belarus">
+                <span class="m-menu__link-text">Belarus</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Belgium">
+                <span class="m-menu__link-text">Belgium</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Belize">
+                <span class="m-menu__link-text">Belize</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Benin">
+                <span class="m-menu__link-text">Benin</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bermuda">
+                <span class="m-menu__link-text">Bermuda</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bhutan">
+                <span class="m-menu__link-text">Bhutan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bolivia">
+                <span class="m-menu__link-text">Bolivia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bonaire, Sint Eustatius and Saba">
+                <span class="m-menu__link-text">Bonaire, Sint Eustatius Saba</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bosnia and Herzegovina">
+                <span class="m-menu__link-text">Bosnia and Herzegovina</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Botswana">
+                <span class="m-menu__link-text">Botswana</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bouvet Island">
+                <span class="m-menu__link-text">Bouvet Island</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Brazil">
+                <span class="m-menu__link-text">Brazil</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="British Indian Ocean Territory">
+                <span class="m-menu__link-text">British Indian Ocean Territory</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Brunei Darussalam">
+                <span class="m-menu__link-text">Brunei Darussalam</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Bulgaria">
+                <span class="m-menu__link-text">Bulgaria</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Burkina Faso">
+                <span class="m-menu__link-text">Burkina Faso</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Burundi">
+                <span class="m-menu__link-text">Burundi</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cabo Verde">
+                <span class="m-menu__link-text">Cabo Verde</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cambodia">
+                <span class="m-menu__link-text">Cambodia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cameroon">
+                <span class="m-menu__link-text">Cameroon</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Canada">
+                <span class="m-menu__link-text">Canada</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cayman Islands">
+                <span class="m-menu__link-text">Cayman Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Central African Republic">
+                <span class="m-menu__link-text">Central African Republic</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Chad">
+                <span class="m-menu__link-text">Chad</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Chile">
+                <span class="m-menu__link-text">Chile</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="China">
+                <span class="m-menu__link-text">China</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Christmas Island">
+                <span class="m-menu__link-text">Christmas Island</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cocos (Keeling) Islands">
+                <span class="m-menu__link-text">Cocos (Keeling) Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Colombia">
+                <span class="m-menu__link-text">Colombia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Comoros">
+                <span class="m-menu__link-text">Comoros</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Congo">
+                <span class="m-menu__link-text">Congo</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Congo, The Democratic Republic of the">
+                <span class="m-menu__link-text">Congo, The Democratic Republic of the</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cook Islands">
+                <span class="m-menu__link-text">Cook Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Costa Rica">
+                <span class="m-menu__link-text">Costa Rica</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Croatia">
+                <span class="m-menu__link-text">Croatia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cuba">
+                <span class="m-menu__link-text">Cuba</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Curaçao">
+                <span class="m-menu__link-text">Curaçao</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Cyprus">
+                <span class="m-menu__link-text">Cyprus</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Czechia">
+                <span class="m-menu__link-text">Czechia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Côte d'Ivoire">
+                <span class="m-menu__link-text">Côte d'Ivoire</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Denmark">
+                <span class="m-menu__link-text">Denmark</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Djibouti">
+                <span class="m-menu__link-text">Djibouti</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Dominica">
+                <span class="m-menu__link-text">Dominica</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Dominican Republic">
+                <span class="m-menu__link-text">Dominican Republic</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Ecuador">
+                <span class="m-menu__link-text">Ecuador</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Egypt">
+                <span class="m-menu__link-text">Egypt</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="El Salvador">
+                <span class="m-menu__link-text">El Salvador</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Equatorial Guinea">
+                <span class="m-menu__link-text">Equatorial Guinea</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Eritrea">
+                <span class="m-menu__link-text">Eritrea</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Estonia">
+                <span class="m-menu__link-text">Estonia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Ethiopia">
+                <span class="m-menu__link-text">Ethiopia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Falkland Islands (Malvinas)">
+                <span class="m-menu__link-text">Falkland Islands (Malvinas)</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Faroe Islands">
+                <span class="m-menu__link-text">Faroe Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Fiji">
+                <span class="m-menu__link-text">Fiji</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Finland">
+                <span class="m-menu__link-text">Finland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="France">
+                <span class="m-menu__link-text">France</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="French Guiana">
+                <span class="m-menu__link-text">French Guiana</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="French Polynesia">
+                <span class="m-menu__link-text">French Polynesia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="French Southern Territories">
+                <span class="m-menu__link-text">French Southern Territories</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Gabon">
+                <span class="m-menu__link-text">Gabon</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Gambia">
+                <span class="m-menu__link-text">Gambia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Georgia">
+                <span class="m-menu__link-text">Georgia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Germany">
+                <span class="m-menu__link-text">Germany</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Ghana">
+                <span class="m-menu__link-text">
+                    Ghana</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Gibraltar">
+                <span class="m-menu__link-text">
+                    Gibraltar</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Greece">
+                <span class="m-menu__link-text">Greece</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Greenland">
+                <span class="m-menu__link-text">Greenland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Grenada">
+                <span class="m-menu__link-text">Grenada</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guadeloupe">
+                <span class="m-menu__link-text">Guadeloupe</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guam">
+                <span class="m-menu__link-text">Guam</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guatemala">
+                <span class="m-menu__link-text">Guatemala</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guernsey">
+                <span class="m-menu__link-text">Guernsey</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guinea">
+                <span class="m-menu__link-text">Guinea</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guinea-Bissau">
+                <span class="m-menu__link-text">Guinea-Bissau</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Guyana">
+                <span class="m-menu__link-text">Guyana</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Haiti">
+                <span class="m-menu__link-text">Haiti</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Heard Island and McDonald Islands">
+                <span class="m-menu__link-text">Heard Island and McDonald Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Holy See (Vatican City State)">
+                <span class="m-menu__link-text">Holy See (Vatican City State)</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Honduras">
+                <span class="m-menu__link-text">Honduras</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Hong Kong">
+                <span class="m-menu__link-text">Hong Kong</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Hungary">
+                <span class="m-menu__link-text">Hungary</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Iceland">
+                <span class="m-menu__link-text">Iceland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="India">
+                <span class="m-menu__link-text">India</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Indonesia">
+                <span class="m-menu__link-text">Indonesia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Iran, Islamic Republic of">
+
+                <span class="m-menu__link-text">Iran, Islamic Republic of</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Iraq">
+                <span class="m-menu__link-text">Iraq</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Ireland">
+                <span class="m-menu__link-text">Ireland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Isle of Man">
+                <span class="m-menu__link-text">Isle of Man</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Israel">
+                <span class="m-menu__link-text">Israel</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Italy">
+                <span class="m-menu__link-text">Italy</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Jamaica">
+                <span class="m-menu__link-text">Jamaica</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Japan">
+                <span class="m-menu__link-text">Japan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Jersey">
+                <span class="m-menu__link-text">
+                    Jersey</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Jordan">
+                <span class="m-menu__link-text">Jordan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Kazakhstan">
+                <span class="m-menu__link-text">Kazakhstan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Kenya">
+                <span class="m-menu__link-text">Kenya</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Kiribati">
+                <span class="m-menu__link-text">Kiribati</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Korea, Democratic People's Republic of">
+
+                <span class="m-menu__link-text">Korea, Democratic People's Republic of</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Korea, Republic of">
+                <span class="m-menu__link-text">Korea, Republic of</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Kuwait">
+                <span class="m-menu__link-text">Kuwait</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Kyrgyzstan">
+                <span class="m-menu__link-text">Kyrgyzstan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Lao People's Democratic Republic">
+                <span class="m-menu__link-text">Lao People's Democratic Republic</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Latvia">
+                <span class="m-menu__link-text">Latvia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Lebanon">
+                <span class="m-menu__link-text">Lebanon</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Lesotho">
+                <span class="m-menu__link-text">Lesotho</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Liberia">
+                <span class="m-menu__link-text">
+                    Liberia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Libya">
+                <span class="m-menu__link-text">Libya</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Liechtenstein">
+                <span class="m-menu__link-text">Liechtenstein</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Lithuania">
+                <span class="m-menu__link-text">Lithuania</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Luxembourg">
+                <span class="m-menu__link-text">
+                    Luxembourg</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Macao">
+                <span class="m-menu__link-text">Macao</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Macedonia, Republic of">
+                <span class="m-menu__link-text">Macedonia, Republic of</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Madagascar">
+                <span class="m-menu__link-text">Madagascar</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Malawi">
+                <span class="m-menu__link-text">Malawi</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Malaysia">
+                <span class="m-menu__link-text">Malaysia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Maldives">
+                <span class="m-menu__link-text">Maldives</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mali">
+                <span class="m-menu__link-text">Mali</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Malta">
+                <span class="m-menu__link-text">Malta</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Marshall Islands">
+                <span class="m-menu__link-text">Marshall Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Martinique">
+                <span class="m-menu__link-text">Martinique</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mauritania">
+                <span class="m-menu__link-text">Mauritania</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mauritius">
+                <span class="m-menu__link-text">Mauritius</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mayotte">
+                <span class="m-menu__link-text">Mayotte</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mexico">
+                <span class="m-menu__link-text">Mexico</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Micronesia, Federated States of">
+                <span class="m-menu__link-text">Micronesia, Federated States of</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Moldova">
+                <span class="m-menu__link-text">Moldova</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Monaco">
+                <span class="m-menu__link-text">Monaco</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mongolia">
+                <span class="m-menu__link-text">Mongolia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Montenegro">
+                <span class="m-menu__link-text">Montenegro</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Montserrat">
+                <span class="m-menu__link-text">Montserrat</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Morocco">
+                <span class="m-menu__link-text">Morocco</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Mozambique">
+                <span class="m-menu__link-text">Mozambique</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Myanmar">
+                <span class="m-menu__link-text">Myanmar</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Namibia">
+                <span class="m-menu__link-text">Namibia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Nauru">
+                <span class="m-menu__link-text">Nauru</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Nepal">
+                <span class="m-menu__link-text">Nepal</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Netherlands">
+                <span class="m-menu__link-text">Netherlands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="New Caledonia">
+                <span class="m-menu__link-text">New Caledonia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="New Zealand">
+                <span class="m-menu__link-text">New Zealand</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Nicaragua">
+                <span class="m-menu__link-text">Nicaragua</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Niger">
+                <span class="m-menu__link-text">Niger</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Nigeria">
+                <span class="m-menu__link-text">Nigeria</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Niue">
+                <span class="m-menu__link-text">Niue</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Norfolk Island">
+                <span class="m-menu__link-text">Norfolk Island</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Northern Mariana Islands">
+                <span class="m-menu__link-text">Northern Mariana Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Norway">
+                <span class="m-menu__link-text">Norway</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Oman">
+                <span class="m-menu__link-text">Oman</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Pakistan">
+                <span class="m-menu__link-text">Pakistan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Palau">
+                <span class="m-menu__link-text">Palau</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Palestine, State of">
+                <span class="m-menu__link-text">Palestine, State of</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Papua New Guinea">
+                <span class="m-menu__link-text">Panama</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Papua New Guinea">
+                <span class="m-menu__link-text">Papua New Guinea</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Paraguay">
+                <span class="m-menu__link-text">Paraguay</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Peru">
+                <span class="m-menu__link-text">Peru</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Philippines">
+                <span class="m-menu__link-text">Philippines</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Pitcairn">
+                <span class="m-menu__link-text">Pitcairn</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Poland">
+                <span class="m-menu__link-text">Poland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Portugal">
+                <span class="m-menu__link-text">Portugal</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Puerto Rico">
+                <span class="m-menu__link-text">Puerto Rico</span>
+              </li><span class="m-menu__link-text">
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Qatar">
+                  <span class="m-menu__link-text">Qatar</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Romania">
+                <span class="m-menu__link-text">Romania</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Russian Federation">
+                <span class="m-menu__link-text">Russian Federation</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Rwanda">
+                <span class="m-menu__link-text">Rwanda</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Réunion">
+                <span class="m-menu__link-text">Réunion</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Barthélemy">
+                <span class="m-menu__link-text">Saint Barthélemy</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Helena, Ascension and Tristan da Cunha">
+                <span class="m-menu__link-text">Saint Helena, Ascension and Tristan da Cunha</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Kitts and Nevis">
+                <span class="m-menu__link-text">Saint Kitts and Nevis</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Lucia">
+                <span class="m-menu__link-text">Saint Lucia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Martin (French part)">
+                <span class="m-menu__link-text">Saint Martin (French part)</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Pierre and Miquelon">
+                <span class="m-menu__link-text">Saint Pierre and Miquelon</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saint Vincent and the Grenadines">
+                <span class="m-menu__link-text">Saint Vincent and the Grenadines</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Samoa">Samoa</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="San Marino">
+                <span class="m-menu__link-text">San Marino</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Sao Tome and Principe">
+                <span class="m-menu__link-text">Sao Tome and Principe</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Saudi Arabia">
+                <span class="m-menu__link-text">Saudi Arabia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Senegal">
+                <span class="m-menu__link-text">Senegal</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Serbia">
+                <span class="m-menu__link-text">Serbia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Seychelles">
+                <span class="m-menu__link-text">Seychelles</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Sierra Leone">
+                <span class="m-menu__link-text">Sierra Leone</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Singapore">
+                <span class="m-menu__link-text">Singapore</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Sint Maarten (Dutch part)">
+                <span class="m-menu__link-text">Sint Maarten (Dutch part)</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Slovakia">
+                <span class="m-menu__link-text">Slovakia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Slovenia">
+                <span class="m-menu__link-text">Slovenia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Solomon Islands">
+                <span class="m-menu__link-text">Solomon Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Somalia">
+                <span class="m-menu__link-text">Somalia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="South Africa">
+                <span class="m-menu__link-text">South Africa</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="South Georgia and the South Sandwich Islands">
+                <span class="m-menu__link-text">South Georgia and the South Sandwich Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="South Sudan">
+                <span class="m-menu__link-text">South Sudan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Spain">
+                <span class="m-menu__link-text">Spain</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Sri Lanka">
+                <span class="m-menu__link-text">Sri Lanka</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Sudan">
+                <span class="m-menu__link-text">Sudan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Suriname"><span class="m-menu__link-text">Suriname</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Svalbard and Jan Mayen">
+                <span class="m-menu__link-text">Svalbard and Jan Mayen</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Swaziland">
+                <span class="m-menu__link-text">
+                Swaziland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Sweden">
+                <span class="m-menu__link-text">
+                Sweden</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Switzerland">
+                <span class="m-menu__link-text">
+                Switzerland</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Syrian Arab Republic">
+                <span class="m-menu__link-text">
+                Syrian Arab Republic</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Taiwan">
+                <span class="m-menu__link-text">
+                Taiwan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Tajikistan">
+                <span class="m-menu__link-text">
+                Tajikistan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Tanzania">
+                <span class="m-menu__link-text">
+                Tanzania</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Thailand">
+                <span class="m-menu__link-text">
+                Thailand</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Timor-Leste">
+                <span class="m-menu__link-text">
+                Timor-Leste</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Togo">
+                <span class="m-menu__link-text">
+                Togo</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Tokelau">
+                <span class="m-menu__link-text">
+                Tokelau</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Tonga">
+                <span class="m-menu__link-text">
+                Tonga</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Trinidad and Tobago">
+                <span class="m-menu__link-text">
+                Trinidad and Tobago</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Tunisia">
+                <span class="m-menu__link-text">
+                Tunisia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Turkey">
+                <span class="m-menu__link-text">
+                Turkey</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Turkmenistan">
+                <span class="m-menu__link-text">
+                Turkmenistan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Turks and Caicos Islands">
+                <span class="m-menu__link-text">
+                Turks and Caicos Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Tuvalu">
+                <span class="m-menu__link-text">
+                Tuvalu</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Uganda">
+                <span class="m-menu__link-text">
+                Uganda</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Ukraine">
+                <span class="m-menu__link-text">
+                Ukraine</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="United Arab Emirates">
+                <span class="m-menu__link-text">
+                United Arab Emirates</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="United Kingdom">
+                <span class="m-menu__link-text">
+                United Kingdom</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="United States">
+                <span class="m-menu__link-text">
+                United States</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="United States Minor Outlying Islands">
+                <span class="m-menu__link-text">
+                United States Minor Outlying Islands</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Uruguay">
+                <span class="m-menu__link-text">
+                Uruguay</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Uzbekistan">
+                <span class="m-menu__link-text">
+                Uzbekistan</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Vanuatu">
+                <span class="m-menu__link-text">
+                Vanuatu</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Venezuela">
+                <span class="m-menu__link-text">
+                Venezuela</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Viet Nam">
+                <span class="m-menu__link-text">
+                Viet Nam</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Virgin Islands, British">
+                <span class="m-menu__link-text">
+              Virgin Islands, British</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Virgin Islands, U.S.">
+                <span class="m-menu__link-text">
+                Virgin Islands, U.S.</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Wallis and Futuna">
+                <span class="m-menu__link-text">
+                Wallis and Futuna</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Western Sahara">
+                <span class="m-menu__link-text">
+                Western Sahara</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Yemen">
+                <span class="m-menu__link-text">
+                Yemen</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Zambia">
+                <span class="m-menu__link-text">
+                Zambia</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Zimbabwe">
+                <span class="m-menu__link-text">
+                Zimbabwe</span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Åland Islands">
+                <span class="m-menu__link-text">
+                Åland Islands</span>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex_basis">
+
+          <button style="outline:none" class=" fullwidth btn-dropdown btn-dropdown-bgheader  m-menu__item--hover custom-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">     
+            <span id="title_online_provide" class="span-dropdown">
+               payment Method
+            </span>   
+            <i class="custom-m-menu__hor-arrow la custom-la-angle-down"></i>   
+             </button>
+          <div class="dropdown-menu div-dropdown" style="height: 200px; overflow: auto">
+            <ul class="m-menu__subnav ul-dropdown" id="select_ad-online_provide">
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="National bank transfer">
+                <span class="m-menu__link-text">
+               National bank transfer         
+               </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="SEPA (EU) bank transfer">
+                <span class="m-menu__link-text">
+                SEPA (EU) bank transfer
+                 </span>
+              </li>
+              <li class="dropdown-    item m-menu__item li-dropdown-item " name="Transfers with specific">
+                <span class="m-menu__link-text">
+                  Transfers with specific
+              </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="International Wire (SWIFT)">
+                <span class="m-menu__link-text">
+                    International Wire (SWIFT)
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Other online payment">
+                <span class="m-menu__link-text">
+                    Other online payment
+                </span>
+              </li>
+
+              <li class="dropdown-item m-menu__item li-dropdown-item " name=" Cash deposit">
+                <span class="m-menu__link-text">
+                    Cash deposit
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="EcoCash">
+                <span class="m-menu__link-text">
+                      EcoCash
+                  </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Hal-cash">
+                <span class="m-menu__link-text">
+                        Hal-cash
+
+                    </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Swish">
+                <span class="m-menu__link-text">
+                Swish          
+            </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Vipps">
+                <span class="m-menu__link-text">
+                Vipps
+
+          </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="MobilePay FI">
+                <span class="m-menu__link-text">
+                MobilePay FI
+                          </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="QIWI">
+                <span class="m-menu__link-text">
+                QIWI                
+             </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Cash by mail">
+                <span class="m-menu__link-text">
+                Cash by Mail                  
+             </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="IMPS Bank Transfer India">
+                <span class="m-menu__link-text">
+              IMPS Bank Transfer India
+                                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="PayTM">
+                <span class="m-menu__link-text">
+              PayTM                      
+              </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Lydia">
+                <span class="m-menu__link-text">
+              Lydia
+                                    </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Interac e-transfer">
+                <span class="m-menu__link-text">
+              Interac e-transfer
+              </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Pingit">
+                <span class="m-menu__link-text">
+              Pingit                            
+              </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Paym">
+                <span class="m-menu__link-text">
+              Paym                        
+`               </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="PYC">
+                <span class="m-menu__link-text">
+              PYC
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Alipay">
+                <span class="m-menu__link-text">
+              Alipay    
+              </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Supperflash">
+                <span class="m-menu__link-text">
+              Superflash      
+            </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Chase Quickpay">
+                <span class="m-menu__link-text">
+              Chase Quickpay
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="OKPAY">
+                <span class="m-menu__link-text">
+              OKPay
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Paypal">
+                <span class="m-menu__link-text">
+              Paypal
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="WebMoney">
+                <span class="m-menu__link-text">
+              WebMoney
+                  </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Moneybookers / Skrill">
+                <span class="m-menu__link-text">
+              Moneybookers / Skrill
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Neteller">
+                <span class="m-menu__link-text">
+              Neteller
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Western Union">
+                <span class="m-menu__link-text">
+              Western Union
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="PostePay">
+                <span class="m-menu__link-text">
+              PostePay
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Moneygram">
+                <span class="m-menu__link-text">
+              Moneygram
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Postal order">
+                <span class="m-menu__link-text">
+              Postal order
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Cashier's check">
+                <span class="m-menu__link-text">
+              Cashier's check
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Venmo">
+                <span class="m-menu__link-text">
+              Venmo
+                  </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Dwolla">
+                <span class="m-menu__link-text">
+              Dwolla
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Perfect Money">
+                <span class="m-menu__link-text">
+              Perfect Money
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="CashU">
+                <span class="m-menu__link-text">
+              CashU
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="PaySafeCard">
+                <span class="m-menu__link-text">
+              PaySafeCard    
+             </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Payza">
+                <span class="m-menu__link-text">
+              Payza
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="AstroPay">
+                <span class="m-menu__link-text">
+              AstroPay
+                </span>
+              </li>
+
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="M-PESA Kenya (Safaricom)">
+                <span class="m-menu__link-text">
+              M-PESA Kenya (Safaricom)
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="M-PESA Tanzania (Vodacom)">
+                <span class="m-menu__link-text">
+              M-PESA Tanzania (Vodacom)
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="BPAY Bill Payment">
+                <span class="m-menu__link-text">
+              BPAY Bill Payment                   
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Gift Card Code">
+                <span class="m-menu__link-text">
+              Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Gift Card Code (Global)">
+                <span class="m-menu__link-text">
+              Gift Card Code (Global)
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Other Online Wallet">
+                <span class="m-menu__link-text">
+              Other Online Wallet
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Other Online Wallet (Global)">
+                <span class="m-menu__link-text">
+              Other Online Wallet (Global)
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Other Remittance">
+                <span class="m-menu__link-text">
+              Other Remittance
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Other Pre-Paid Debit Card">
+                <span class="m-menu__link-text">
+              Other Pre-Paid Debit Card
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Google Wallet">
+                <span class="m-menu__link-text">
+              Google Wallet
+                </span>
+              </li>
+
+
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Amazon Gift Card Code">
+                <span class="m-menu__link-text">
+              Amazon Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Vanilla">
+                <span class="m-menu__link-text">
+              Vanilla
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Transferwise">
+                <span class="m-menu__link-text">
+              Transferwise
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="PayPal My Cash">
+                <span class="m-menu__link-text">
+              PayPal My Cash
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="RIA Money Transfer">
+                <span class="m-menu__link-text">
+              RIA Money Transfer
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="SolidTrustPay">
+                <span class="m-menu__link-text">
+              SolidTrustPay
+                </span>
+              </li>
+
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Xoom">
+                <span class="m-menu__link-text">
+              Xoom
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="MobilePay">
+                <span class="m-menu__link-text">
+              MobilePay
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Telegramatic Order">
+                <span class="m-menu__link-text">
+              Telegramatic Order
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="advcash">
+                <span class="m-menu__link-text">
+              advcash
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Payeer">
+                <span class="m-menu__link-text">
+              Payeer
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Apple Store Gift Card Code">
+                <span class="m-menu__link-text">
+              Apple Store Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="NetSpend Reload Pack">
+                <span class="m-menu__link-text">
+              NetSpend Reload Pack
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="hyperWALLET">
+                <span class="m-menu__link-text">
+              hyperWALLET
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Steam Gift Card Code">
+                <span class="m-menu__link-text">
+              Steam Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="MobilePay NO">
+                <span class="m-menu__link-text">
+              MobilePay NO
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Tigo-Pesa Tanzania">
+                <span class="m-menu__link-text">
+              Tigo-Pesa Tanzania
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Dash altcoin">
+                <span class="m-menu__link-text">
+              Dash altcoin
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Ripple altcoin">
+                <span class="m-menu__link-text">
+              Ripple altcoin
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Payoneer">
+                <span class="m-menu__link-text">
+              Payoneer
+                </span>
+              </li>
+
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="OneCard">
+                <span class="m-menu__link-text">
+              OneCard
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Square Cash">
+                <span class="m-menu__link-text">
+              Square Cash
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Paxum">
+                <span class="m-menu__link-text">
+              Paxum
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Cash at ATM">
+                <span class="m-menu__link-text">
+              Cash at ATM
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Litecoin altcoin">
+                <span class="m-menu__link-text">
+              Litecoin altcoin
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Credit card">
+                <span class="m-menu__link-text">
+              Credit card  
+              </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Monero altcoin">
+                <span class="m-menu__link-text">
+              Monero altcoin    
+             </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="WeChat">
+                <span class="m-menu__link-text">
+              WeChat    
+            </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Reloadit">
+                <span class="m-menu__link-text">
+              Reloadit
+                </span>
+              </li>
+
+
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Walmart 2 Walmart">
+                <span class="m-menu__link-text">
+              Walmart 2 Walmart
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Walmart Gift Card Code">
+                <span class="m-menu__link-text">
+              Walmart Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Easypaisa">
+                <span class="m-menu__link-text">
+              Easypaisa
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Serve2Serve">
+                <span class="m-menu__link-text">
+              Serve2Serve
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Worldremit">
+                <span class="m-menu__link-text">
+              Worldremit
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Ethereum altcoin">
+                <span class="m-menu__link-text">
+              Ethereum altcoin
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Ebay Gift Card Code">
+                <span class="m-menu__link-text">
+              Ebay Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Starbucks Gift Card Code">
+                <span class="m-menu__link-text">
+              Starbucks Gift Card Code
+                </span>
+              </li>
+              <li class="dropdown-item m-menu__item li-dropdown-item" name="Yandex Money">
+                <span class="m-menu__link-text">
+              Yandex Money
+                </span>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+        <div>
+          <input type="button" name="search_btn" style="width:100%" value="Search" class="search_btn  quick-buy_data_padding" style="border-radius: 4px;cursor: pointer;" />
+
+        </div>
       </div>
     </div>
   </div>
@@ -707,50 +1719,138 @@
             </div>
           </div>
           <div class="m-portlet__body">
-            <!--begin: Datatable -->
+
+
+
+
             <div>
-              <div>
+              <div class="m-portlet__head-title headTitle">
                 <h5>
-                  <center>Sell Local</center>
+                  <center>Buy online</center>
                 </h5>
               </div>
-              <div class="m_datatable" id="m_datatable_latest_ordersLS" style="min-height:0">
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <center>Buy Local </center>
-                </h5>
-              </div>
-              <div class="m_datatable" id="m_datatable_latest_ordersLB" style="min-height:0">
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersOB" style="min-height:0">
+                </div>
+                <div class=" pull-right">
 
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <center> Sell Online </center>
-                </h5>
-              </div>
 
-              <div class="m_datatable" id="m_datatable_latest_ordersOS" style="min-height:0">
+                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="ONLINE" data-traderType="BUY">
+                    <span>
+                          <i class="fa flaticon-menu-button"></i>          
+                              <span class="showMore">Show more</span>
+                    </span>
+                  </a>
 
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <center> Buy Online </center>
-                </h5>
-              </div>
-              <div class="m_datatable" id="m_datatable_latest_ordersOB" style="min-height:0">
+                  <!-- <ul id="dropdown">
+                    <li class="dropdown li_showMore" data-tradeMethod="ONLINE" data-traderType="BUY">
 
+
+
+                   
+                       <!-- <a class="showMorelink" href="#"> 
+                                             <span class="showMore">Show more…</span>
+                      <b class="caret"></b>
+                      
+                      <!-- </a> 
+                    </li>
+                  </ul>-->
+                </div>
               </div>
             </div>
 
+            <div>
+              <div class="m-portlet__head-title headTitle">
+                <h5>
+                  <center>Buy Locally</center>
+                </h5>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersLB" style="min-height:0">
+                </div>
+                <div class=" pull-right">
+
+                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="LOCAL" data-traderType="BUY">
+                    <span>
+                              <i class="fa flaticon-menu-button"></i>          
+                                  <span class="showMore">Show more</span>
+                    </span>
+                  </a>
+
+                  <!--   <ul id="dropdown">
+                    <li class="dropdown li_showMore" data-tradeMethod="LOCAL" data-traderType="BUY">
+                      <span class="showMore">Show more…</span>
+                      <b class="caret"></b>
+                    </li>
+                  </ul>
+                 -->
+                </div>
+              </div>
+            </div>
 
 
+            <div>
+              <div class="m-portlet__head-title headTitle">
+                <h5>
+                  <center>Sell online</center>
+                </h5>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersOS" style="min-height:0">
+                </div>
+                <div class=" pull-right">
+
+                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="ONLINE" data-traderType="SELL">
+                    <span>
+                              <i class="fa flaticon-menu-button"></i>          
+                                  <span class="showMore">Show more</span>
+                    </span>
+                  </a>
+
+                  <!-- 
+                  <ul id="dropdown">
+                    <li class="dropdown li_showMore" data-tradeMethod="ONLINE" data-traderType="SELL">
+                      <a class="showMorelink"> 
+                      <span class="showMore">Show more…</span>
+                      <b class="caret"></b>
+                      </a> 
+                    </li>
+                  </ul> -->
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="m-portlet__head-title headTitle">
+                <h5>
+                  <center> Sell locally </center>
+                </h5>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersLS" style="min-height:0">
+                </div>
+                <div class=" pull-right showMore">
+
+                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="LOCAL" data-traderType="SELL">
+                    <span>
+                              <i class="fa flaticon-menu-button"></i>          
+                                  <span >Show more</span>
+                    </span>
+                  </a>
+
+
+                  <!--  <ul id="dropdown">
+                    <li class="dropdown li_showMore" data-tradeMethod="LOCAL" data-traderType="SELL">
+                      <a class="showMorelink">
+                      <span class="showMore">Show more…</span>
+                      <b class="caret"></b>
+                      </a>
+                    </li>
+                  </ul>
+                -->
+                </div>
+              </div>
+            </div>
 
             <!--end: Datatable -->
           </div>
@@ -880,8 +1980,241 @@
                       <div class="m-list-timeline__item">
                         <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
                         <span class="m-list-timeline__text">
+                                                            </span> 12 new users registered
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                Just now
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
+                        <span class="m-list-timeline__text">
+                                                                System shutdown
+                                                                <span class="m-badge m-badge--success m-badge--wide">
+                                                                    pending
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                14 mins
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
+                        <span class="m-list-timeline__text">
+                                                                New invoice received
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                20 mins
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--accent"></span>
+                        <span class="m-list-timeline__text">
+                                                                DB overloaded 80%
+                                                                <span class="m-badge m-badge--info m-badge--wide">
+                                                                    settled
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                1 hr
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
+                        <span class="m-list-timeline__text">
+                                                                New invoice received
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                20 mins
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--accent"></span>
+                        <span class="m-list-timeline__text">
+                                                                DB overloaded 80%
+                                                                <span class="m-badge m-badge--info m-badge--wide">
+                                                                    settled
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                1 hr
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
+                        <span class="m-list-timeline__text">
+                                                                System error -
+                                                                <a href="#" class="m-link">
+                                                                    Check
+                                                                </a>
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                2 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
+                        <span class="m-list-timeline__text">
+                                                                Production server down
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                3 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
+                        <span class="m-list-timeline__text">
+                                                                Production server up
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                5 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+                        <span href="" class="m-list-timeline__text">
+                                                                New order received
+                                                                <span class="m-badge m-badge--danger m-badge--wide">
+                                                                    urgent
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                7 hrs
+                                                            </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="m_widget4_tab2_content"></div>
+              <div class="tab-pane" id="m_widget4_tab3_content"></div>
+            </div>
+          </div>
+        </div>
+        <div class="m-portlet m-portlet--full-height ">
+          <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+              <div class="m-portlet__head-title">
+                <h3 class="m-portlet__head-text">
+                  Audit Log
+                </h3>
+              </div>
+            </div>
+            <div class="m-portlet__head-tools">
+              <ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
+                <li class="nav-item m-tabs__item">
+                  <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_widget4_tab1_content" role="tab">
+                                                    Today
+                                                </a>
+                </li>
+                <li class="nav-item m-tabs__item">
+                  <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget4_tab2_content" role="tab">
+                                                    Week
+                                                </a>
+                </li>
+                <li class="nav-item m-tabs__item">
+                  <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget4_tab3_content" role="tab">
+                                                    Month
+                                                </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="m_widget4_tab1_content">
+                <div class="m-scrollable" data-scrollable="true" data-max-height="400" style="height: 400px; overflow: hidden;">
+                  <div class="m-list-timeline m-list-timeline--skin-light">
+                    <div class="m-list-timeline__items">
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+                        <span class="m-list-timeline__text">
                                                                 12 new users registered
                                                             </span>
+                        <span class="m-list-timeline__time">
+                                                                Just now
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
+                        <span class="m-list-timeline__text">
+                                                                System shutdown
+                                                                <span class="m-badge m-badge--success m-badge--wide">
+                                                                    pending
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                14 mins
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
+                        <span class="m-list-timeline__text">
+                                                                New invoice received
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                20 mins
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--accent"></span>
+                        <span class="m-list-timeline__text">
+                                                                DB overloaded 80%
+                                                                <span class="m-badge m-badge--info m-badge--wide">
+                                                                    settled
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                1 hr
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
+                        <span class="m-list-timeline__text">
+                                                                System error -
+                                                                <a href="#" class="m-link">
+                                                                    Check
+                                                                </a>
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                2 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
+                        <span class="m-list-timeline__text">
+                                                                Production server down
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                3 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
+                        <span class="m-list-timeline__text">
+                                                                Production server up
+                                                            </span>
+                        <span class="m-list-timeline__time">
+                                                                5 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+                        <span href="" class="m-list-timeline__text">
+                                                                New order received
+                                                                <span class="m-badge m-badge--danger m-badge--wide">
+                                                                    urgent
+                                                                </span>
+                        </span>
+                        <span class="m-list-timeline__time">
+                                                                7 hrs
+                                                            </span>
+                      </div>
+                      <div class="m-list-timeline__item">
+                        <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
+                        <span class="m-list-timeline__text">
+                                                            </span> 12 new users registered
+                        </span>
                         <span class="m-list-timeline__time">
                                                                 Just now
                                                             </span>

@@ -39,8 +39,20 @@ var Login = {};
               email: true
             },
             password: {
-              required: true
+              required: true,
+              minlength: 6
+
             }
+          },
+          messages: {
+            email: {
+              required: "please enter your email"
+            },
+            password: {
+              required: "please provide a password",
+              minlength: "your password must be at least 6 characters long"
+            }
+
           }
         });
 

@@ -30,6 +30,9 @@ var tokenSchema = new _mongoose2.default.Schema({
   },
   expiry: {
     type: Date
+  },
+  userActiveTime: {
+    type: Date
   }
 
 });

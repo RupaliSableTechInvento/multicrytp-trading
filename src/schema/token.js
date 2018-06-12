@@ -6,14 +6,17 @@ const tokenSchema = new mongoose.Schema({
   token: {
     type: String,
   },
-  email:{
+  email: {
     type: String,
   },
-  isActive:{
+  isActive: {
     type: String,
   },
-  expiry:{
-    type:Date,
+  expiry: {
+    type: Date,
+  },
+  userActiveTime: {
+    type: Date,
   }
 
 });

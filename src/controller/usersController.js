@@ -13,6 +13,7 @@ const usersController = {
       if (err) return res.json({ isError: true, data: err });
       res.json({ isError: false, data: users });
     });
+
   },
 
   getOne: (req, res, next) => {
@@ -131,7 +132,18 @@ const usersController = {
     });
   },
 
-  emailVarification: (req, res, next) => {
+
+  isVerified: (req, res, next) => {
+    var decoded = jwt.verify(req.query.token, env.App_key);
+    usersModel.find({ 'email': decoded.email }, (err, user) => {
+      if (err) return res.json({ isError: true, data: err });
+      res.json({ isError: false, data: user });
+    });
+
+  },
+
+  emailVerification: (req, res, next) => {
+    console.log("Email Verification=>", req.body, req.params, req.query);
     var email = req.body.email;
     usersModel.find({
       'email': req.body.email
@@ -154,15 +166,15 @@ const usersController = {
               service: 'gmail',
               auth: {
                 user: 'mailerabhi111@gmail.com',
-                pass: 'Abhi@1234'
+                pass: 'Abhi@12345'
               }
             });
             let mailOptions = {
               from: 'mailerabhi111@gmail.com', // sender address
               to: email, // list of receivers
-              subject: 'Change Password', // Subject line
-              text: 'Please Click below link to change password', // plain text body
-              html: 'Please<a href=http://localhost:3000/ev/' + token + '>Click Here</a>' // html body
+              subject: 'Email Verification', // Subject line
+              text: 'Please Click below link to Verify Your Email address', // plain text body
+              html: 'Please<a href=http://localhost:3000/ev/' + token + '>Click Here to processed email verification</a>' // html body
             };
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
@@ -182,7 +194,7 @@ const usersController = {
     })
   },
 
-  emailVarified: (req, res, next) => {
+  emailVerified: (req, res, next) => {
     var decoded = jwt.verify(req.params.token, env.App_key);
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
@@ -192,11 +204,13 @@ const usersController = {
         "email": decoded.email
       }, {
         $set: {
-          "varification.email_varified": "varified"
+          "verification.email_verified": true
         }
       }, (err, user) => {
         if (err) return res.json({ isError: true, data: err });
-        res.json({ isError: false, data: "email_varified" });
+        //  res.redirect('/#/profile');
+        res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
+
       });
     } else {
       res.json({ isError: true, data: "session expire" });
@@ -204,12 +218,12 @@ const usersController = {
   },
 
   varifyToken: (req, res, next) => {
+    console.log("in verify Token=>");
     var decoded = jwt.verify(req.params.token, env.App_key);
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
     if (dt < checkDate) {
       console.log("----");
-
       var d = new Date();
       var v = new Date();
       v.setMinutes(d.getMinutes() + 60);
@@ -223,7 +237,7 @@ const usersController = {
     }
   },
   changePassword: (req, res, next) => {
-    console.log("req.headers--->", req.headers['authorization'], req.body);
+    // console.log("req.headers--->", req.headers['authorization'], req.body);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     req.body.password = encode().value(req.body.password);
     req.body.new_pasword = encode().value(req.body.new_pasword);
@@ -235,11 +249,12 @@ const usersController = {
       }]
     }, {
       $set: {
-        "password": req.body.new_pasword
+        "password": req.body.new_pasword,
       }
     }, (err, user) => {
       if (err) return res.json({ isError: true, data: err });
       res.json({ isError: false, data: user });
+      console.log("user=>", user);
     })
   },
   recoverPassword: (req, res, next) => {
@@ -280,7 +295,7 @@ const usersController = {
         }]
       }, {
         $set: {
-          "email": req.body.new_email
+          "email": req.body.new_email,
         }
       }, (err, user) => {
         if (err) return res.json({ isError: true, data: err });

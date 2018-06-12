@@ -56,7 +56,6 @@ var routes = function routes(route) {
   route.route('/users')
   //console.log("user=>>", req)
   .get(_usersController2.default.getAll);
-  //.get(usersController.getOne)
   //.delete(usersController.delete);
 
   route.route('/seller').get(_usersController2.default.getOne).put(_usersController2.default.update).delete(_usersController2.default.delete);
@@ -65,12 +64,17 @@ var routes = function routes(route) {
 
   route.route('/cp/:token').get(_usersController2.default.varifyToken);
 
-  route.route('/emailvarification').post(_usersController2.default.emailVarification);
+  route.route('/isVerified').get(_usersController2.default.isVerified);
 
-  route.route('/ev/:token').get(_usersController2.default.emailVarified);
+  route.route('/emailverification').post(_usersController2.default.emailVerification);
+
+  route.route('/ev/:token').get(_usersController2.default.emailVerified);
 
   route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create).patch(_tradeController2.default.update);
 
+  /* route.route('/getPriceEquation')
+    .get(tradeController.getPriceEquation);
+  */
   route.route('/tradeByCurrencyLoc').get(_tradeController2.default.getByCurrencyLoc);
 
   route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
@@ -78,6 +82,9 @@ var routes = function routes(route) {
   route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
 
   route.route('/users/changePassword').post(_usersController2.default.changePassword);
+
+  route.route('/getActiveUser').get(_authController2.default.getActiveUser);
+
   route.route('/logout').get(_authController2.default.logout);
 };
 

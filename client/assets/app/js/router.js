@@ -4,24 +4,27 @@
     var app = $.sammy(function() {
       this.element_selector = '#main-frame';
       this.get('#/', function(context) {
-        /* if (!checkIfToken()) {
-          console.log("router.js login");
-          Login.init();
-
+        if (!checkIfToken()) {
+          Home.init();
           return;
-        } else {
-          
-         
+        }
 
-        } */
         console.log("router.js home");
         Home.init();
 
       });
 
       this.get('#/login', function(context) {
-        console.log("router.js Login");
+        if (checkIfToken()) {
+          Home.init();
+          return;
+        }
         Login.init();
+      });
+
+      this.get('#/showMoreDetail', function(context) {
+        console.log("showmoredetail in router .js");
+        ShowMoreDetail.init();
       });
 
       this.get('#/signup', function(context) {
@@ -45,13 +48,33 @@
         ChangePassword.init();
       });
       this.get('#/profile', function(context) {
-        console.log("#/changepassword");
-        Profile.init();
+        if (checkIfToken()) {
+          Profile.init();
+          return;
+        }
+        Home.init();
+
       });
       this.get('#/sellBuyCurrency', function(context) {
-        SellBuyCurrency.init();
+        console.log("Sell  By currency  in route");
+        if (checkIfToken()) {
+          SellBuyCurrency.init();
+
+          return;
+        }
+        Home.init();
+
       });
 
+      this.get('#/postatrade', function(context) {
+        if (checkIfToken()) {
+          PostATrade.init();
+          return;
+        }
+        Home.init();
+
+
+      });
 
     })
     app.run('#/');
@@ -59,8 +82,18 @@
     function checkIfToken() {
       var isToken = localStorage.getItem('token')
       if (isToken && isToken.length > 0) {
+        $('.loginOutUser').hide();
+        $('.loginUser').show();
+        //  $('.dropdown__wrapper_login').hide();
+
+
         return true;
       }
+      $('.loginUser').hide();
+      $('.loginOutUser').show();
+      // $('.loginOutUser').removeAttr("style")
+
+
       return false;
     }
   });

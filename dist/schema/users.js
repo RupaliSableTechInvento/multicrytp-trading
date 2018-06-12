@@ -33,6 +33,10 @@ var usersSchema = new _mongoose2.default.Schema({
     type: String,
     default: 'active'
   },
+  /*  isOnline: {
+     type: String,
+     default: 'false'
+   }, */
   email: {
     type: String,
     index: true,
@@ -71,19 +75,40 @@ var usersSchema = new _mongoose2.default.Schema({
       type: String
     }
   },
-  varification: {
-    email_varified: {
-      type: String,
+  verification: {
+    email_verified: {
+      type: Boolean,
       default: false
     },
-    mobile_varified: {
-      type: String,
+    mobile_verified: {
+      type: Boolean,
       default: false
     }
   }
 
 });
 var sellerSchema = new _mongoose2.default.Schema({
+  user: {
+    type: String
+  },
+  payment_method: {
+    type: String
+  },
+  price_btc: {
+    type: Number
+  },
+  currency: {
+    type: String
+  },
+  limit_from: {
+    type: Number
+  },
+  limit_to: {
+    type: Number
+  }
+});
+
+var BuyerSchema = new _mongoose2.default.Schema({
   user: {
     type: String
   },

@@ -41,14 +41,45 @@ var SignUp = {};
             },
             password: {
               required: true,
+              minlength: 6
 
             },
             rpassword: {
-              required: true
+              required: true,
+              minlength: 6,
+              equalTo: "#password"
+
             },
             agree: {
               required: true
             }
+          },
+          messages: {
+            first_name: {
+              required: "please Enter your first Name"
+            },
+            last_name: {
+              required: "please Enter your last Name"
+            },
+            email: {
+              required: "please Enter your Email"
+
+            },
+            password: {
+              required: "please provide a password",
+              minlength: "your password must be at least 6 characters long"
+
+            },
+            rpassword: {
+              required: "please provide a password",
+              minlength: "your password must be at least 6 characters long",
+              equalTo: "please enter the same password as above",
+
+            },
+            agree: {
+              required: "please acceppt our policy"
+            }
+
           }
         });
 
@@ -105,4 +136,3 @@ var SignUp = {};
     }
   }
 }).bind(SignUp))()
-SignUp.init();

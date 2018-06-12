@@ -19,6 +19,7 @@
     "block_io": "^1.0.9-2",
     "body-parser": "^1.18.1",
     "cookie-parser": "^1.4.3",
+    "crypto-price": "0.0.6",
     "eslint-plugin-react": "^7.7.0",
     "express": "^4.15.4",
     "hashcode": "^1.0.3",

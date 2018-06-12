@@ -5,6 +5,7 @@ import async from 'async';
 
 var mongoose = require('mongoose');
 
+
 const tradeController = {
 
   getAll: async(req, res, next) => {
@@ -30,25 +31,27 @@ const tradeController = {
        })
    }, */
 
+
+
   getByCurrencyLoc: async(req, res, next) => {
+
+    var request = req.query.query;
 
     var perpage = req.query.pagination.perpage;
     var page = req.query.pagination.page;
-    /*   req.query.pagination.page = 0;
-      req.query.pagination.pages = 0;
-      req.query.pagination.perpage = 0;
-      req.query.pagination.total = 0; */
-    // console.log("perpage , page ,total , pages", perpage, page, req.query.pagination.total, req.query.pagination.pages);
 
     var skip = 0;
     if (page > 1) {
-      skip = perpage * page;
+      skip = perpage * (page - 1);
+      console.log("perpage page skip=>", perpage, page, skip);
     }
-    var request = req.query.query;
     var cryptoCurrency = req.query.query.cryptoCurrency;
     var location = req.query.query.location;
     var tradeMethod = req.query.query.tradeMethod;
     var traderType = req.query.query.traderType;
+
+
+
     postatrade.find({
       cryptoCurrency: cryptoCurrency,
       location: location,
@@ -66,7 +69,7 @@ const tradeController = {
             tradeMethod: tradeMethod,
             traderType: traderType,
           }).count() / (10)),
-          perpage: 10,
+          perpage: req.query.pagination.perpage,
           total: await postatrade.find({
             cryptoCurrency: cryptoCurrency,
             location: location,
@@ -79,7 +82,7 @@ const tradeController = {
         data: trade,
       }, )
 
-    }).limit(parseInt(req.query.pagination.perpage) || '').skip(skip || '')
+    }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
   },
   getOne: (req, res, next) => {
     console.log("req=> for get One tradeController", req.body, req.params, req.query);
@@ -103,7 +106,7 @@ const tradeController = {
        } else { res.json({ isError: false, data: user }); }
      }); */
     params.firstName = userObj[0].first_name;
-    console.log("params name =", params.firstName);
+    console.log("params in posrt trade=>>", params);
 
     postatrade.create(params, function(err, trade) {
       if (err) return res.json({ isError: true, data: err });
