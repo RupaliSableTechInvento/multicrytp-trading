@@ -118,12 +118,15 @@ const usersController = {
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({ isError: false, data: 'Please check your Email' });
               }
+
               // Preview only available when sending through an Ethereal account
               // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
               // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
             });
+
+            res.json({ isError: false, data: 'Please check your Email' });
+
             //    res.json(mailOptions);
           });
         } else {
