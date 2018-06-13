@@ -6,29 +6,28 @@
                             Onling Bookings Management
                         </span>
       </h2> -->
-    <div class="div-tab">
+    <div class="div-tab" id="trade-tabs">
       <ul class="trade-tabs">
-
-        <li class="li-quick_buy active lbl_heading">QUICK BUY</li>
-        <li class="li-quick_sell lbl_heading">QUICK SELL</li>
+        <li class="li-quick_buy active lbl_heading active" data-traderType="BUY">QUICK BUY</li>
+        <li class="li-quick_sell lbl_heading" data-traderType="SELL">QUICK SELL</li>
       </ul>
     </div>
     <div class="div-content">
       <div id="quick_buy" class="div-quick-buy_data">
 
-        <div>
-          <input type="text" name="txt_amt" placeholder="Amount" class="quick-buy_data_padding  tab_content_txt  amt">
+        <div class="input_amt" style="flex-basis: 225px;">
+          <input type="text" name="txt_amt" placeholder="Amount" class=" amt form-control m-input ">
 
         </div>
-        <div class="flex_basis">
+        <div class="div-flex_basis_currency">
           <button style="outline:none" class="fullwidth btn-dropdown btn-dropdown-bgheader  m-menu__item--hover custom-dropdown-toggle" style="width:100%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">     
-              <span  id="titile_currency" class="span-dropdown">
+              <span id="titile_currency" class="span-dropdown">
                 Currency
               </span>   
-              <i class="custom-m-menu__hor-arrow la custom-la-angle-down"></i>   
+              <i class="custom-m-menu__hor-arrow la custom-la-angle-down  pull-right"></i>   
             </button>
           <div class="dropdown-menu div-dropdown" style="height: 200px; overflow: auto">
-            <ul class="m-menu__subnav ul-dropdown" id="select_ad-currency" style="width:30%">
+            <ul class="m-menu__subnav ul-dropdown" id="select_ad-currency" style="width:100%">
 
               <li class="dropdown-item m-menu__item li-dropdown-item " name="AED">
                 <span class="m-menu__link-text">
@@ -222,18 +221,15 @@
         <!--    <select class="select_one quick-buy_data_padding"> -->
 
 
-        <div class="flex_basis">
-
-
+        <div class="div-flex_basis">
           <button style="outline:none" class="fullwidth btn-dropdown btn-dropdown-bgheader  m-menu__item--hover custom-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">     
                 <span  id="titile_country" class="span-dropdown">
                   Country
                 </span>   
-                <i class="custom-m-menu__hor-arrow la custom-la-angle-down"></i>   
+                <i class="custom-m-menu__hor-arrow la custom-la-angle-down  pull-right"></i>   
           </button>
-          <div class="dropdown-menu div-dropdown" style="height: 200px; overflow: auto">
+          <div class="dropdown-menu div-dropdown" style="height: 200px;  overflow: auto">
             <ul class="m-menu__subnav ul-dropdown" id="select_ad-country" style="width:100%">
-
               <li class="dropdown-item m-menu__item li-dropdown-item " name="Afghanistan">
                 <span class="m-menu__link-text">Afghanistan</span>
               </li>
@@ -1028,13 +1024,13 @@
           </div>
         </div>
 
-        <div class="flex_basis">
+        <div class="div-flex_basis">
 
           <button style="outline:none" class=" fullwidth btn-dropdown btn-dropdown-bgheader  m-menu__item--hover custom-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">     
             <span id="title_online_provide" class="span-dropdown">
                payment Method
             </span>   
-            <i class="custom-m-menu__hor-arrow la custom-la-angle-down"></i>   
+            <i class="custom-m-menu__hor-arrow la custom-la-angle-down  pull-right"></i>   
              </button>
           <div class="dropdown-menu div-dropdown" style="height: 200px; overflow: auto">
             <ul class="m-menu__subnav ul-dropdown" id="select_ad-online_provide">
@@ -1048,7 +1044,7 @@
                 SEPA (EU) bank transfer
                  </span>
               </li>
-              <li class="dropdown-    item m-menu__item li-dropdown-item " name="Transfers with specific">
+              <li class="dropdown-item m-menu__item li-dropdown-item " name="Transfers with specific">
                 <span class="m-menu__link-text">
                   Transfers with specific
               </span>
@@ -1492,8 +1488,8 @@
             </ul>
           </div>
         </div>
-        <div>
-          <input type="button" name="search_btn" style="width:100%" value="Search" class="search_btn  quick-buy_data_padding" style="border-radius: 4px;cursor: pointer;" />
+        <div style="flex-basis: 120px; ">
+          <input type="button" name="search_btn" style="width:100%; color:#22b9ff;  padding: 10px;" value="Search" class="search_btn btn  m-btn m-btn--icon  quick-buy_data_padding" style="border-radius: 4px;cursor: pointer;" />
 
         </div>
       </div>
@@ -1719,10 +1715,6 @@
             </div>
           </div>
           <div class="m-portlet__body">
-
-
-
-
             <div>
               <div class="m-portlet__head-title headTitle">
                 <h5>
@@ -1733,9 +1725,7 @@
                 <div class="m_datatable" id="m_datatable_latest_ordersOB" style="min-height:0">
                 </div>
                 <div class=" pull-right">
-
-
-                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="ONLINE" data-traderType="BUY">
+                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;margin-right: 20px; margin-top: 20px;" data-tradeMethod="ONLINE" data-traderType="SELL">
                     <span>
                           <i class="fa flaticon-menu-button"></i>          
                               <span class="showMore">Show more</span>
@@ -1770,7 +1760,7 @@
                 </div>
                 <div class=" pull-right">
 
-                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="LOCAL" data-traderType="BUY">
+                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;margin-right: 20px; margin-top: 20px;" data-tradeMethod="LOCAL" data-traderType="SELL">
                     <span>
                               <i class="fa flaticon-menu-button"></i>          
                                   <span class="showMore">Show more</span>
@@ -1800,7 +1790,7 @@
                 </div>
                 <div class=" pull-right">
 
-                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="ONLINE" data-traderType="SELL">
+                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;margin-right: 20px;margin-top: 20px;" data-tradeMethod="ONLINE" data-traderType="BUY">
                     <span>
                               <i class="fa flaticon-menu-button"></i>          
                                   <span class="showMore">Show more</span>
@@ -1831,7 +1821,7 @@
                 </div>
                 <div class=" pull-right showMore">
 
-                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="LOCAL" data-traderType="SELL">
+                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;margin-right: 20px;" data-tradeMethod="LOCAL" data-traderType="BUY">
                     <span>
                               <i class="fa flaticon-menu-button"></i>          
                                   <span >Show more</span>

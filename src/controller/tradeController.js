@@ -32,14 +32,10 @@ const tradeController = {
    }, */
 
 
-
-  getByCurrencyLoc: async(req, res, next) => {
-
+  getQuickByCryptocurrency: async(req, res, next) => {
     var request = req.query.query;
-
     var perpage = req.query.pagination.perpage;
     var page = req.query.pagination.page;
-
     var skip = 0;
     if (page > 1) {
       skip = perpage * (page - 1);
@@ -50,7 +46,52 @@ const tradeController = {
     var tradeMethod = req.query.query.tradeMethod;
     var traderType = req.query.query.traderType;
 
+    postatrade.find({
+      cryptoCurrency: cryptoCurrency,
+      location: location,
+      tradeMethod: tradeMethod,
+      traderType: traderType,
+    }, async(err, trade) => {
+      if (err) return res.json({ isError: true, data: err });
+      res.json({
+        isError: false,
+        meta: {
+          page: req.query.pagination.page,
+          pages: (await postatrade.find({
+            cryptoCurrency: cryptoCurrency,
+            location: location,
+            tradeMethod: tradeMethod,
+            traderType: traderType,
+          }).count() / (10)),
+          perpage: req.query.pagination.perpage,
+          total: await postatrade.find({
+            cryptoCurrency: cryptoCurrency,
+            location: location,
+            tradeMethod: tradeMethod,
+            traderType: traderType,
+          }).count(),
+          sort: "asc",
+          field: "_id",
+        },
+        data: trade,
+      }, )
 
+    }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
+  },
+
+  getByCurrencyLoc: async(req, res, next) => {
+    var request = req.query.query;
+    var perpage = req.query.pagination.perpage;
+    var page = req.query.pagination.page;
+    var skip = 0;
+    if (page > 1) {
+      skip = perpage * (page - 1);
+      console.log("perpage page skip=>", perpage, page, skip);
+    }
+    var cryptoCurrency = req.query.query.cryptoCurrency;
+    var location = req.query.query.location;
+    var tradeMethod = req.query.query.tradeMethod;
+    var traderType = req.query.query.traderType;
 
     postatrade.find({
       cryptoCurrency: cryptoCurrency,

@@ -53,11 +53,11 @@ License: You must have a valid license purchased only from themeforest(the above
   <!-- begin:: Page -->
   <div class="m-grid m-grid--hor m-grid--root m-page">
     <!-- BEGIN: Header -->
-    <header class="m-grid__item    m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
+    <header class="m-grid__item m-header " data-minimize-offset="200" data-minimize-mobile-offset="200">
       <div class="m-container m-container--fluid m-container--full-height">
         <div class="m-stack m-stack--ver m-stack--desktop">
           <!-- BEGIN: Brand -->
-          <div class="m-stack__item m-brand  m-brand--skin-light ">
+          <div class="m-stack__item m-brand  m-brand--skin-light" style="display:none">
             <div class="m-stack m-stack--ver m-stack--general">
               <div class="m-stack__item m-stack__item--middle m-brand__logo">
                 <a href="#/" class="m-brand__logo-wrapper">
@@ -89,15 +89,18 @@ License: You must have a valid license purchased only from themeforest(the above
           <!-- END: Brand -->
           <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
             <div class="m-header__title">
-              <h3 class="m-header__title-text">
-                Remark
-              </h3>
+              <!-- <a href="#/"> -->
+              <h4 class="m-header__title-text">
+                <a href="#/" style="text-decoration: none; color:black"> Remark</a>
+              </h4>
+              <!-- </a> -->
             </div>
             <!-- BEGIN: Horizontal Menu -->
             <button class="m-aside-header-menu-mobile-close   m-aside-header-menu-mobile-close--skin-light " id="m_aside_header_menu_mobile_close_btn">
 								<i class="la la-close"></i>
 							</button>
             <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
+
               <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
                 <li class="m-menu__item  m-menu__item--active m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" aria-haspopup="true">
                   <a class="m-menu__link m-menu__toggle">
@@ -112,7 +115,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <span class="m-menu__arrow m-menu__arrow--adjust"></span>
                     <ul class="m-menu__subnav">
                       <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
-                        <a href="./#/?currency=BITCOIN" class="m-menu__link ">
+                        <a href="./#/?cryptoCurrency=BITCOIN" class="m-menu__link ">
                           <i class="m-menu__link-icon flaticon-diagram"></i>
                           <span class="m-menu__link-title">
 															<span class="m-menu__link-wrap">
@@ -125,7 +128,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                       </li>
                       <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                        <a href="./#/?currency=LITECOIN" class="m-menu__link ">
+                        <a href="./#/?cryptoCurrency=LITECOIN" class="m-menu__link ">
                           <i class="m-menu__link-icon flaticon-users"></i>
                           <span class="m-menu__link-text">
                               LiteCoin
@@ -133,7 +136,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                       </li>
                       <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                        <a href="./#/?currency=MONERO" class="m-menu__link ">
+                        <a href="./#/?cryptoCurrency=MONERO" class="m-menu__link ">
                           <i class="m-menu__link-icon flaticon-users"></i>
                           <span class="m-menu__link-text">
                                 Monero
@@ -141,7 +144,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                       </li>
                       <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                        <a href="./#/?currency=CLASSIFIED" class="m-menu__link ">
+                        <a href="./#/?cryptoCurrency=CLASSIFIED" class="m-menu__link ">
                           <i class="m-menu__link-icon flaticon-users"></i>
                           <span class="m-menu__link-text">
 														Classified
@@ -1485,9 +1488,6 @@ License: You must have a valid license purchased only from themeforest(the above
                       </div>
                     </div>
                   </li>
-
-
-
                   <li class="m-nav__item m-topbar__user-profile  loginOutUser m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
                     <a href="#/login" class="m-nav__link">
                       <span class="m-nav__link-icon m-topbar__usericon">
@@ -1497,13 +1497,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
                       <!--   <span class="m-nav__link-icon-wrapper loginOutUser" style="background:red">
 														<i class="fa fa-user"></i>
-													</span>
- -->
+													</span>-->
+
                       </span>
                     </a>
 
                   </li>
-
                   <li class="m-nav__item m-topbar__user-profile loginUser m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" style="display:none" data-dropdown-toggle="click">
                     <a href="#" class="m-nav__link m-dropdown__toggle">
                       <span class="m-topbar__userpic m--hide">
@@ -1516,8 +1515,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
                       <!--   <span class="m-nav__link-icon-wrapper " style="background:red">
 														<i class="fa fa-user"></i>
-													</span>
- -->
+													</span>-->
+
                       </span>
                       <span class="m-topbar__username m--hide">
 													Nick
@@ -1633,12 +1632,12 @@ License: You must have a valid license purchased only from themeforest(the above
     </header>
     <!-- END: Header -->
     <!-- begin::Body -->
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body" style="padding-left:0;">
       <!-- BEGIN: Left Aside -->
-      <button class="m-aside-left-close  m-aside-left-close--skin-light " id="m_aside_left_close_btn">
+      <button class="m-aside-left-close  m-aside-left-close--skin-light " style="display:none" id="m_aside_left_close_btn">
 					<i class="la la-close"></i>
-				</button>
-      <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-light ">
+			</button>
+      <div id="m_aside_left" style="display:none" class="m-grid__item	m-aside-left  m-aside-left--skin-light ">
         <!-- BEGIN: Aside Menu -->
         <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " data-menu-vertical="true" data-menu-scrollable="true" data-menu-dropdown-timeout="500">
           <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
@@ -2102,7 +2101,7 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
     <!-- end:: Body -->
     <!-- begin::Footer -->
-    <footer class="m-grid__item m-footer ">
+    <footer class="m-grid__item m-footer" style="padding-left:0">
       <div class="m-container m-container--fluid m-container--full-height m-page__container ">
         <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop ">
           <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last ">
@@ -2825,6 +2824,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <script src="assets/app/templates/recoverPassword.js"></script>
   <script src="assets/app/templates/profile.js"></script>
   <script src="assets/app/templates/postTrade.js"></script>
+  <script src="assets/app/templates/quickOnline.js"></script>
 
 
 

@@ -26,6 +26,10 @@
         console.log("showmoredetail in router .js");
         ShowMoreDetail.init();
       });
+      this.get('#/quickOnline', function(context) {
+        console.log("quickOnline in router .js");
+        QuickOnline.init();
+      });
 
       this.get('#/signup', function(context) {
         console.log("router.js signup");
@@ -72,8 +76,6 @@
           return;
         }
         Home.init();
-
-
       });
 
     })

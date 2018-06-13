@@ -41,11 +41,17 @@
 }
 
 .div-flex_basis {
-  flex-basis: 200px;
+  margin-left: 10px;
+  flex-basis: 400px;
+}
+
+.div-flex_basis_currency {
+  margin-left: 19px;
+  flex-basis: 125px;
 }
 
 .fullwidth {
-  width: 100%;
+  width: 100% !important;
 }
 
 .li-quick_buy.active {
@@ -67,20 +73,25 @@
 }
 
 .div-quick-buy_data {
-  padding-left: 10px;
   display: flex;
-  justify-content: space-around;
-  width: 100%;
+  /* justify-content: space-around; */
+  /* width: 100%; */
 }
 
 .quick-buy_data_padding {
   padding: 8px;
 }
 
+::placeholder {
+  color: #22b9ff !important;
+  opacity: 1;
+}
+
 .amt {
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid #f0f0f0;
+  margin-left: 10px;
+  padding: 10px !important;
+  background: white !important;
+  color: #22b9ff !important;
 }
 
 
@@ -160,39 +171,6 @@
   border-left: none;
   border-right: none;
   background-color: #F9F9F9;
-}
-
-.title_seller {
-  padding-left: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: bold;
-  color: #1e203e;
-  flex: 2;
-}
-
-.title_payment_method {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: bold;
-  color: #1e203e;
-  flex: 2;
-}
-
-.title_price {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: bold;
-  color: #1e203e;
-  flex: 1;
-}
-
-.title_limits {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-weight: bold;
-  color: #1e203e;
-  flex: 1;
 }
 
 .title5 {
@@ -305,7 +283,7 @@
 }
 
 .btn-dropdown {
-  padding: 10px;
+  padding: 9px;
   BORDER: none;
   outline: none !important;
   color: #22b9ff;
@@ -332,7 +310,6 @@
   transform: translate3d(15px, 40px, 0px);
   top: 0px;
   left: 0px;
-  width: 159px;
   will-change: transform;
 }
 
@@ -342,12 +319,14 @@
 }
 
 .ul-dropdown {
+  width: 100% !important;
   padding: 0;
 }
 
 .li-dropdown-item {
   margin-top: 10px !important;
   padding-top: 5px !important;
+  width: 100% !important;
   padding-bottom: 5px !important;
   /* font-size: 10px !important; */
 }

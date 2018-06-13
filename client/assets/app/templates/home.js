@@ -17,7 +17,13 @@ var Home = {};
         return true;
       }
       return false;
-    }
+    },
+
+    setValueDropDwn: function(id, value) {
+      console.log(" Set Drop Down ", id, value);
+      $(id).empty();
+      $(id).append(value);
+    },
 
   }
 
@@ -32,12 +38,13 @@ var Home = {};
       $('.m-datatable__pager-info').css('display', 'none');
       $('.m-datatable--paging-loaded').css('display', 'none');
 
-
       var htmlShowMore;
       var activeUSer = [];
       var currentTime = [];
       var params;
       var currentTimeSys = new Date();
+      var payment_method, country, currency;
+      var quickTraderType;
       before = new Date();
       before.setMinutes(before.getMinutes() - 15);
       console.log("time -15 min from current time", currentTimeSys, before);
@@ -48,22 +55,64 @@ var Home = {};
 
 
       console.log("url params=>", urlParams);
-      currencyUrl = urlParams.currency;
-      if (urlParams.currency) {
-        var str = urlParams.currency;
+      currencyUrl = urlParams.cryptoCurrency;
+      if (urlParams.cryptoCurrency) {
+        var str = urlParams.cryptoCurrency;
         cryptoCurrency = str.toString(),
-          cryptoCurrency = urlParams.currency;
+          cryptoCurrency = urlParams.cryptoCurrency;
         console.log("cryptoCurrency in if", cryptoCurrency);
+      } else {
+        cryptoCurrency = 'BITCOIN'
       }
+
+      $('#trade-tabs li').on('click', function() {
+        console.log("Quick tab clickeddd");
+        $('#trade-tabs li').removeClass('active')
+        $(this).addClass('active')
+      })
+
+
+
+      $('#select_ad-online_provide li').on('click', function() {
+        var value = $(this).attr('name');
+        _core.setValueDropDwn('#title_online_provide', value)
+        payment_method = value;
+      })
+
+
+      $('#select_ad-online_provide li').on('click', function() {
+        var value = $(this).attr('name');
+        _core.setValueDropDwn('#title_online_provide', value)
+        payment_method = value;
+      })
+      $('#select_ad-country li').on('click', function() {
+        var value = $(this).attr('name');
+        _core.setValueDropDwn('#titile_country', value)
+        country = value;
+      })
+      $('#select_ad-currency li').on('click', function() {
+        var value = $(this).attr('name');
+        _core.setValueDropDwn('#titile_currency', value)
+        currency = value;
+      })
 
       htmlShowMore = '';
       $('.li_showMore').unbind().click(function() {
         var traderType = $(this).attr("data-traderType")
         var tradeMethod = $(this).attr("data-tradeMethod")
         console.log("trade type and trade method=>", tradeMethod, traderType);
-        window.location.href = '#/showMoreDetail?currency=' + cryptoCurrency +
+        window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency +
           '&tradeMethod=' + tradeMethod + '&traderType=' + traderType + '&location=india';
       })
+
+      $('.search_btn').unbind().click(function() {
+        var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
+        console.log("quickTraderType", quickTraderType);
+
+        window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&payment_method=' + payment_method +
+          '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
+      })
+
 
 
       await _core.getActiveUser(function(res) {
@@ -86,8 +135,6 @@ var Home = {};
         }
       })
 
-
-
       await $('#m_datatable_latest_ordersOB').mDatatable({
           data: {
             type: 'remote',
@@ -100,7 +147,7 @@ var Home = {};
                     cryptoCurrency: cryptoCurrency,
                     location: 'india',
                     tradeMethod: 'ONLINE',
-                    traderType: 'BUY',
+                    traderType: 'SELL',
 
                   },
                 }
@@ -147,7 +194,7 @@ var Home = {};
                   }
                   return field.firstName + '  inactive';
                 }, */
-              title: "Buyer",
+              title: "Seller",
               sortable: false,
               width: 100,
               textAlign: 'center'
@@ -203,7 +250,7 @@ var Home = {};
               template: function(row) {
 
                 return '<a href="./#/sellBuyCurrency?id=' + row._id + '">' +
-                  '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="color: white;  width: 70px; cursor:pointer;">' +
+                  '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                   '</a>';
               }
             }
@@ -222,7 +269,7 @@ var Home = {};
                     cryptoCurrency: cryptoCurrency,
                     location: 'india',
                     tradeMethod: 'LOCAL',
-                    traderType: 'BUY',
+                    traderType: 'SELL',
 
                   },
                 }
@@ -324,9 +371,7 @@ var Home = {};
               title: "Trader Type",
               template: function(row) {
                 return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
-
-
-                  '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="color: white;  width: 70px; cursor:pointer;">' +
+                  '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                   '</a>';
 
                 /* '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
@@ -350,7 +395,7 @@ var Home = {};
                   cryptoCurrency: cryptoCurrency,
                   location: 'india',
                   tradeMethod: 'ONLINE',
-                  traderType: 'SELL',
+                  traderType: 'BUY',
 
                 },
               }
@@ -453,7 +498,7 @@ var Home = {};
             template: function(row) {
               return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
 
-                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="color: white;  width: 70px; cursor:pointer;">' +
+                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
 
               /*     '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
@@ -479,7 +524,7 @@ var Home = {};
                   cryptoCurrency: cryptoCurrency,
                   location: 'india',
                   tradeMethod: 'LOCAL',
-                  traderType: 'SELL',
+                  traderType: 'BUY',
 
                 },
               }
@@ -586,9 +631,8 @@ var Home = {};
                 /*   '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                   '</a>';
                 */
-                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="color: white;  width: 70px; cursor:pointer;">' +
+                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
-
             }
           }
 
@@ -598,6 +642,9 @@ var Home = {};
       $('.m-datatable__table').css('min-height', '0');
 
     },
+
+
+
     getUrlVars: function() {
       var vars = [],
         hash;
@@ -612,28 +659,9 @@ var Home = {};
       console.log("vars=>", vars);
       return vars;
     },
-    /*     changeCurrency: function() {
-          $('.m-menu__item--rel').on('click', 'span', function() {
-            console.log("clicked currency..", $(this).attr("name"))
-            cryptoCurrencytemp = $(this).attr("name");
-            //  _bind.getByCurrencyLoc(cryptoCurrencytemp);
-
-          });
-        }, */
 
     changeBuyActiveTab: function(elem, className) {
       $(elem).addClass(className)
-    },
-    changeBuySellTab: function() {
-      $('.li-quick_buy').unbind().click(function() {
-        console.log("active");
-        $(_tabs.buy).addClass("active");
-        $(_tabs.sell).removeClass("active")
-      })
-      $('.li-quick_sell').unbind().click(function() {
-        $(_tabs.sell).addClass("active");
-        $(_tabs.buy).removeClass("active")
-      })
     },
 
     addUserInfo: function() {
@@ -669,7 +697,6 @@ var Home = {};
         $('#loginbtn').unbind().click(function() {
           window.location.replace("#/login");
         })
-
 
       }
 

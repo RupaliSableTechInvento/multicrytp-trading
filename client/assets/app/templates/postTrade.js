@@ -254,8 +254,6 @@ var PostATrade = {};
 
       })
       $('#ad-opening_hours_tue_end li').on('click', function() {
-
-
         var value = $(this).attr('name');
         $(this).addClass('selected');
         var startTime = $(this).parents().parents().parents().find(".start_time li.selected").attr('value');
@@ -433,7 +431,6 @@ var PostATrade = {};
         }
 
       })
-
 
 
       $('#btn_publish_advertisement').unbind().click(function() {

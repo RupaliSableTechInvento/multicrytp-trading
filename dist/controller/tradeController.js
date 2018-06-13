@@ -70,7 +70,7 @@ var tradeController = _defineProperty({
        })
    }, */
 
-  getByCurrencyLoc: function () {
+  getQuickByCryptocurrency: function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
       var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -173,8 +173,116 @@ var tradeController = _defineProperty({
       }, _callee3, undefined);
     }));
 
-    return function getByCurrencyLoc(_x4, _x5, _x6) {
+    return function getQuickByCryptocurrency(_x4, _x5, _x6) {
       return _ref2.apply(this, arguments);
+    };
+  }(),
+
+  getByCurrencyLoc: function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res, next) {
+      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              request = req.query.query;
+              perpage = req.query.pagination.perpage;
+              page = req.query.pagination.page;
+              skip = 0;
+
+              if (page > 1) {
+                skip = perpage * (page - 1);
+                console.log("perpage page skip=>", perpage, page, skip);
+              }
+              cryptoCurrency = req.query.query.cryptoCurrency;
+              location = req.query.query.location;
+              tradeMethod = req.query.query.tradeMethod;
+              traderType = req.query.query.traderType;
+
+
+              _postatrade2.default.find({
+                cryptoCurrency: cryptoCurrency,
+                location: location,
+                tradeMethod: tradeMethod,
+                traderType: traderType
+              }, function () {
+                var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(err, trade) {
+                  return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                    while (1) {
+                      switch (_context4.prev = _context4.next) {
+                        case 0:
+                          if (!err) {
+                            _context4.next = 2;
+                            break;
+                          }
+
+                          return _context4.abrupt('return', res.json({ isError: true, data: err }));
+
+                        case 2:
+                          _context4.t0 = res;
+                          _context4.t1 = req.query.pagination.page;
+                          _context4.next = 6;
+                          return _postatrade2.default.find({
+                            cryptoCurrency: cryptoCurrency,
+                            location: location,
+                            tradeMethod: tradeMethod,
+                            traderType: traderType
+                          }).count();
+
+                        case 6:
+                          _context4.t2 = _context4.sent;
+                          _context4.t3 = _context4.t2 / 10;
+                          _context4.t4 = req.query.pagination.perpage;
+                          _context4.next = 11;
+                          return _postatrade2.default.find({
+                            cryptoCurrency: cryptoCurrency,
+                            location: location,
+                            tradeMethod: tradeMethod,
+                            traderType: traderType
+                          }).count();
+
+                        case 11:
+                          _context4.t5 = _context4.sent;
+                          _context4.t6 = {
+                            page: _context4.t1,
+                            pages: _context4.t3,
+                            perpage: _context4.t4,
+                            total: _context4.t5,
+                            sort: "asc",
+                            field: "_id"
+                          };
+                          _context4.t7 = trade;
+                          _context4.t8 = {
+                            isError: false,
+                            meta: _context4.t6,
+                            data: _context4.t7
+                          };
+
+                          _context4.t0.json.call(_context4.t0, _context4.t8);
+
+                        case 16:
+                        case 'end':
+                          return _context4.stop();
+                      }
+                    }
+                  }, _callee4, undefined);
+                }));
+
+                return function (_x12, _x13) {
+                  return _ref5.apply(this, arguments);
+                };
+              }()).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '');
+
+            case 10:
+            case 'end':
+              return _context5.stop();
+          }
+        }
+      }, _callee5, undefined);
+    }));
+
+    return function getByCurrencyLoc(_x9, _x10, _x11) {
+      return _ref4.apply(this, arguments);
     };
   }(),
   getOne: function getOne(req, res, next) {
@@ -188,18 +296,18 @@ var tradeController = _defineProperty({
   },
 
   create: function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res, next) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res, next) {
       var params, userObj;
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
               params = req.body;
-              _context4.next = 3;
+              _context6.next = 3;
               return _usersModel2.default.find({ '_id': req.body.user }, { _id: 0, first_name: 1 });
 
             case 3:
-              userObj = _context4.sent;
+              userObj = _context6.sent;
 
 
               /*  params.firstName = await usersModel.findOne({ '_id': req.body.user }, { _id: 0, first_name: 1 }, (err, user) => {
@@ -225,14 +333,14 @@ var tradeController = _defineProperty({
 
             case 7:
             case 'end':
-              return _context4.stop();
+              return _context6.stop();
           }
         }
-      }, _callee4, undefined);
+      }, _callee6, undefined);
     }));
 
-    return function create(_x9, _x10, _x11) {
-      return _ref4.apply(this, arguments);
+    return function create(_x14, _x15, _x16) {
+      return _ref6.apply(this, arguments);
     };
   }(),
 
