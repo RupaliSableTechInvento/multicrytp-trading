@@ -711,7 +711,6 @@ var Home = {};
           _bind.getByCurrencyLoc('BITCOIN');
           // _bind.changeCurrency();
           _bind.changeBuyActiveTab(_tabs.buy, 'active');
-          _bind.changeBuySellTab();
 
         })
         // $( "#maintradeblock" ).load( "ajax/test.html" );

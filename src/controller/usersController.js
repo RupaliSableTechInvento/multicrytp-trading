@@ -58,7 +58,8 @@ const usersController = {
   },
   forgetPassword: (req, res, next) => {
     var email = req.body.email;
-    console.log("req=>", req.body);
+    var host = req.headers.host;
+    console.log("req.domain=>", req.headers.host);
     console.log("email", email);
     usersModel.find({
       'email': req.body.email
@@ -91,7 +92,9 @@ const usersController = {
               to: email, // list of receivers
               subject: 'Change Password', // Subject line
               text: 'Please Click below link to change password', // plain text body
-              html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body
+              html: '<a href=http://' + host + '/recover?accessToken=' + token + '>Click to recover password</a>' // html body
+
+              // html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body
             };
 
             // send mail with defined transport object
@@ -145,6 +148,8 @@ const usersController = {
   emailVerification: (req, res, next) => {
     console.log("Email Verification=>", req.body, req.params, req.query);
     var email = req.body.email;
+    var host = req.headers.host;
+
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
@@ -174,7 +179,7 @@ const usersController = {
               to: email, // list of receivers
               subject: 'Email Verification', // Subject line
               text: 'Please Click below link to Verify Your Email address', // plain text body
-              html: 'Please<a href=http://localhost:3000/ev/' + token + '>Click Here to processed email verification</a>' // html body
+              html: 'Please<a href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>' // html body
             };
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
