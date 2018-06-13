@@ -45,7 +45,7 @@ const tradeController = {
     var location = req.query.query.location;
     var tradeMethod = req.query.query.tradeMethod;
     var traderType = req.query.query.traderType;
-
+    var payment_details = req.query.query.pa
     postatrade.find({
       cryptoCurrency: cryptoCurrency,
       location: location,

@@ -72,7 +72,7 @@ var tradeController = _defineProperty({
 
   getQuickByCryptocurrency: function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
-      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType;
+      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType, payment_details;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -90,7 +90,7 @@ var tradeController = _defineProperty({
               location = req.query.query.location;
               tradeMethod = req.query.query.tradeMethod;
               traderType = req.query.query.traderType;
-
+              payment_details = req.query.query.pa;
 
               _postatrade2.default.find({
                 cryptoCurrency: cryptoCurrency,
@@ -165,7 +165,7 @@ var tradeController = _defineProperty({
                 };
               }()).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '');
 
-            case 10:
+            case 11:
             case 'end':
               return _context3.stop();
           }
