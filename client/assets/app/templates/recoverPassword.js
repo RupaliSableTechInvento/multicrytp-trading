@@ -62,6 +62,10 @@ var RecoverPassword = {};
         }
 
         btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+        var temp = window.location.href.split('recoverPassword?')[1];
+        var token = temp.split('=')[1];
+        console.log("token", token);
+
 
         _core.recoverPassword($('#password').val(), token, function(res) {
 
