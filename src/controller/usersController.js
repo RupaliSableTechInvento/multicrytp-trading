@@ -82,14 +82,14 @@ const usersController = {
             var transporter = nodemailer.createTransport({
               service: 'gmail',
               auth: {
-                user: 'mailerabhi111@gmail.com',
-                pass: 'Abhi@12345'
+                user: 'itstechinvento@gmail.com',
+                pass: 'techinvento123'
               }
             });
 
             // setup email data with unicode symbols
             let mailOptions = {
-              from: 'mailerabhi111@gmail.com', // sender address
+              from: 'itstechinvento@gmail.com', // sender address
               to: email, // list of receivers
               subject: 'Change Password', // Subject line
               text: 'Please Click below link to change password', // plain text body
@@ -97,6 +97,7 @@ const usersController = {
 
               // html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body
             };
+            console.log("Mailoptions", mailOptions);
 
             // send mail with defined transport object
             transporter.sendMail(mailOptions, (error, info) => {
@@ -118,6 +119,8 @@ const usersController = {
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                res.json({ isError: false, data: 'Please check your Email' });
+
               }
 
               // Preview only available when sending through an Ethereal account
@@ -125,7 +128,7 @@ const usersController = {
               // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
             });
 
-            res.json({ isError: false, data: 'Please check your Email' });
+            // res.json({ isError: false, data: 'Please check your Email' });
 
             //    res.json(mailOptions);
           });
