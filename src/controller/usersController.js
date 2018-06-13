@@ -189,12 +189,12 @@ const usersController = {
             var transporter = nodemailer.createTransport({
               service: 'gmail',
               auth: {
-                user: 'mailerabhi111@gmail.com',
-                pass: 'Abhi@12345'
+                user: 'itstechinvento@gmail.com',
+                pass: 'techinvento123'
               }
             });
             let mailOptions = {
-              from: 'mailerabhi111@gmail.com', // sender address
+              from: 'itstechinvento@gmail.com', // sender address
               to: email, // list of receivers
               subject: 'Email Verification', // Subject line
               text: 'Please Click below link to Verify Your Email address', // plain text body
