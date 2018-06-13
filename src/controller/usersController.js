@@ -1,4 +1,5 @@
 import usersModel from '../models/usersModel'
+import mail_responseModel from '../models/mail_responseModel'
 import postatrade from '../models/postatrade'
 import jwt from 'jsonwebtoken';
 import env from "../env";
@@ -99,6 +100,18 @@ const usersController = {
 
             // send mail with defined transport object
             transporter.sendMail(mailOptions, (error, info) => {
+              var information = JSON.stringify(info);
+
+              console.log('Transporter', err, information);
+              mail_responseModel.create({ 'email': email, 'error': error, 'info': information }, function(err, mail_response) {
+                if (err) {
+                  console.log("mail_responseModel error=>", err);
+                } else {
+                  console.log("mail_responseModel No error", mail_response);
+                }
+              })
+
+
               if (error) {
                 return console.log("error--11--", error);
                 res.json({ isError: true, data: error });
@@ -182,6 +195,14 @@ const usersController = {
               html: 'Please<a href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>' // html body
             };
             transporter.sendMail(mailOptions, (error, info) => {
+
+              mail_responseModel.create({ 'email': email, 'error': error, 'info': info }, function(err, mail_response) {
+                if (err) {
+                  console.log("mail_responseModel error=>", err);
+                } else {
+                  console.log("mail_responseModel ", mail_response);
+                }
+              })
               if (error) {
                 res.json({ isError: true, data: error });
                 return console.log("error--11--", error);

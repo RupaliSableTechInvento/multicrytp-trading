@@ -8,6 +8,10 @@ var _usersModel = require('../models/usersModel');
 
 var _usersModel2 = _interopRequireDefault(_usersModel);
 
+var _mail_responseModel = require('../models/mail_responseModel');
+
+var _mail_responseModel2 = _interopRequireDefault(_mail_responseModel);
+
 var _postatrade = require('../models/postatrade');
 
 var _postatrade2 = _interopRequireDefault(_postatrade);
@@ -138,6 +142,17 @@ var usersController = {
 
             // send mail with defined transport object
             transporter.sendMail(mailOptions, function (error, info) {
+              var information = JSON.stringify(info);
+
+              console.log('Transporter', err, information);
+              _mail_responseModel2.default.create({ 'email': email, 'error': error, 'info': information }, function (err, mail_response) {
+                if (err) {
+                  console.log("mail_responseModel error=>", err);
+                } else {
+                  console.log("mail_responseModel No error", mail_response);
+                }
+              });
+
               if (error) {
                 return console.log("error--11--", error);
                 res.json({ isError: true, data: error });
@@ -219,6 +234,14 @@ var usersController = {
               html: 'Please<a href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>' // html body
             };
             transporter.sendMail(mailOptions, function (error, info) {
+
+              _mail_responseModel2.default.create({ 'email': email, 'error': error, 'info': info }, function (err, mail_response) {
+                if (err) {
+                  console.log("mail_responseModel error=>", err);
+                } else {
+                  console.log("mail_responseModel ", mail_response);
+                }
+              });
               if (error) {
                 res.json({ isError: true, data: error });
                 return console.log("error--11--", error);
