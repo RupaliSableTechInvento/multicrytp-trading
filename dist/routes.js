@@ -77,6 +77,8 @@ var routes = function routes(route) {
   */
   route.route('/tradeByCurrencyLoc').get(_tradeController2.default.getByCurrencyLoc);
 
+  route.route('/getQuickByCryptocurrency').get(_tradeController2.default.getQuickByCryptocurrency);
+
   route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
 
   route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);

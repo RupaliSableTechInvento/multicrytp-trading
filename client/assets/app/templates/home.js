@@ -220,6 +220,15 @@ var Home = {};
             },
             {
               field: "more_information.price_equation",
+
+              template: function(field, type, row) {
+                if (field.more_information.price_equation == undefined || '') {
+                  field.more_information.price_equation = '';
+                }
+
+                return field.more_information.price_equation;
+              },
+
               title: "Price/BTC",
               sortable: false,
               width: 100,
@@ -342,6 +351,14 @@ var Home = {};
             },
             {
               field: "more_information.price_equation",
+              template: function(field, type, row) {
+                if (field.more_information.price_equation == undefined || '') {
+                  field.more_information.price_equation = '';
+                }
+
+                return field.more_information.price_equation;
+              },
+
               title: "Price/BTC",
               sortable: false,
               width: 100,
@@ -468,6 +485,15 @@ var Home = {};
           },
           {
             field: "more_information.price_equation",
+
+            template: function(field, type, row) {
+              if (field.more_information.price_equation == undefined || '') {
+                field.more_information.price_equation = '';
+              }
+
+              return field.more_information.price_equation;
+            },
+
             title: "Price/BTC",
             sortable: false,
             width: 100,
@@ -598,6 +624,14 @@ var Home = {};
           },
           {
             field: "more_information.price_equation",
+            template: function(field, type, row) {
+              if (field.more_information.price_equation == undefined || '') {
+                field.more_information.price_equation = '';
+              }
+
+              return field.more_information.price_equation;
+            },
+
             title: "Price/BTC",
             sortable: false,
             width: 80,

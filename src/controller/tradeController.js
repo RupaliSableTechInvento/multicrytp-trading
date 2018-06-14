@@ -15,24 +15,8 @@ const tradeController = {
     });
   },
 
-  /*  getByCurrencyLoc: async(req, res, next) => {
-     var searchQ = {
-       cryptoCurrency: req.query.datatable.query.cryptoCurrency,
-       location: req.query.datatable.query.location,
-       tradeMethod: req.query.datatable.query.tradeMethod,
-       traderType: req.query.datatable.query.traderType
-     }
-     postatrade.find(searchQ).limit(parseInt(req.query.datatable.query.limit)).toArray(function(err, data) {
-         res.send({
-           isError: false,
-           data: { 'success': true, 'data': data },
-           count: postatrade.find(searchQ).count()
-         })
-       })
-   }, */
-
-
   getQuickByCryptocurrency: async(req, res, next) => {
+    console.log("quickBUY/SELL");
     var request = req.query.query;
     var perpage = req.query.pagination.perpage;
     var page = req.query.pagination.page;
@@ -45,12 +29,19 @@ const tradeController = {
     var location = req.query.query.location;
     var tradeMethod = req.query.query.tradeMethod;
     var traderType = req.query.query.traderType;
-    var payment_details = req.query.query.pa
+    var payment_method = req.query.query.payment_method;
+    var currency = req.query.query.currency;
+    // 'more_information.currency': currency,
+    console.log("trader type=>", traderType);
+
     postatrade.find({
       cryptoCurrency: cryptoCurrency,
       location: location,
       tradeMethod: tradeMethod,
       traderType: traderType,
+      'more_information.currency': currency,
+
+      payment_method: payment_method
     }, async(err, trade) => {
       if (err) return res.json({ isError: true, data: err });
       res.json({
@@ -62,6 +53,10 @@ const tradeController = {
             location: location,
             tradeMethod: tradeMethod,
             traderType: traderType,
+            'more_information.currency': currency,
+
+            payment_method: payment_method
+
           }).count() / (10)),
           perpage: req.query.pagination.perpage,
           total: await postatrade.find({
@@ -69,6 +64,10 @@ const tradeController = {
             location: location,
             tradeMethod: tradeMethod,
             traderType: traderType,
+            'more_information.currency': currency,
+
+            // payment_method: payment_method
+
           }).count(),
           sort: "asc",
           field: "_id",

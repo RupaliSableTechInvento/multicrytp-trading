@@ -73,10 +73,13 @@ var QuickOnline = {};
 
       console.log("url params=>", urlParams);
       // currencyUrl = urlParams.currency;
-      var Currency = urlParams.currency;
+      var currency = urlParams.currency;
       var cryptoCurrency = urlParams.cryptoCurrency;
-      var location = urlParams.location;
-      var tradeMethod = urlParams.tradeMethod;
+      var location = urlParams.country.toLowerCase();
+      var payment_method = urlParams.payment_method;
+      payment_method = decodeURI(payment_method);
+
+      var tradeMethod = 'ONLINE';
       var traderType = urlParams.traderType;
       var title = 'Buyer';
       if (traderType == 'BUY') {
@@ -118,7 +121,7 @@ var QuickOnline = {};
           type: 'remote',
           source: {
             read: {
-              url: '/tradeByCurrencyLoc',
+              url: '/getQuickByCryptocurrency',
               method: 'GET',
               processing: true,
               serverSide: true,
@@ -128,7 +131,8 @@ var QuickOnline = {};
                   location: location,
                   tradeMethod: tradeMethod,
                   traderType: traderType,
-
+                  payment_method: payment_method,
+                  currency: currency,
                 },
               }
             }
@@ -141,7 +145,6 @@ var QuickOnline = {};
           serverFiltering: false,
           serverSorting: false,
           pagination: true,
-
         },
 
         layout: {
@@ -184,6 +187,15 @@ var QuickOnline = {};
           },
           {
             field: "more_information.price_equation",
+            template: function(field, type, row) {
+              if (field.more_information.price_equation == undefined || '') {
+                field.more_information.price_equation = '';
+              }
+
+              return field.more_information.price_equation;
+            },
+
+
             title: "price/BTC",
             sortable: false,
             width: 80,

@@ -79,6 +79,11 @@ const routes = (route) => {
   route.route('/tradeByCurrencyLoc')
     .get(tradeController.getByCurrencyLoc);
 
+
+  route.route('/getQuickByCryptocurrency')
+    .get(tradeController.getQuickByCryptocurrency);
+
+
   route.route('/recoverPassword')
     .post(usersController.recoverPassword);
 

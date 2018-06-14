@@ -54,29 +54,14 @@ var tradeController = _defineProperty({
     };
   }(),
 
-  /*  getByCurrencyLoc: async(req, res, next) => {
-     var searchQ = {
-       cryptoCurrency: req.query.datatable.query.cryptoCurrency,
-       location: req.query.datatable.query.location,
-       tradeMethod: req.query.datatable.query.tradeMethod,
-       traderType: req.query.datatable.query.traderType
-     }
-     postatrade.find(searchQ).limit(parseInt(req.query.datatable.query.limit)).toArray(function(err, data) {
-         res.send({
-           isError: false,
-           data: { 'success': true, 'data': data },
-           count: postatrade.find(searchQ).count()
-         })
-       })
-   }, */
-
   getQuickByCryptocurrency: function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
-      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType, payment_details;
+      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType, payment_method, currency;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
+              console.log("quickBUY/SELL");
               request = req.query.query;
               perpage = req.query.pagination.perpage;
               page = req.query.pagination.page;
@@ -90,13 +75,20 @@ var tradeController = _defineProperty({
               location = req.query.query.location;
               tradeMethod = req.query.query.tradeMethod;
               traderType = req.query.query.traderType;
-              payment_details = req.query.query.pa;
+              payment_method = req.query.query.payment_method;
+              currency = req.query.query.currency;
+              // 'more_information.currency': currency,
+
+              console.log("trader type=>", traderType);
 
               _postatrade2.default.find({
                 cryptoCurrency: cryptoCurrency,
                 location: location,
                 tradeMethod: tradeMethod,
-                traderType: traderType
+                traderType: traderType,
+                'more_information.currency': currency,
+
+                payment_method: payment_method
               }, function () {
                 var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(err, trade) {
                   return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -118,7 +110,11 @@ var tradeController = _defineProperty({
                             cryptoCurrency: cryptoCurrency,
                             location: location,
                             tradeMethod: tradeMethod,
-                            traderType: traderType
+                            traderType: traderType,
+                            'more_information.currency': currency,
+
+                            payment_method: payment_method
+
                           }).count();
 
                         case 6:
@@ -130,7 +126,11 @@ var tradeController = _defineProperty({
                             cryptoCurrency: cryptoCurrency,
                             location: location,
                             tradeMethod: tradeMethod,
-                            traderType: traderType
+                            traderType: traderType,
+                            'more_information.currency': currency
+
+                            // payment_method: payment_method
+
                           }).count();
 
                         case 11:
@@ -165,7 +165,7 @@ var tradeController = _defineProperty({
                 };
               }()).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '');
 
-            case 11:
+            case 14:
             case 'end':
               return _context3.stop();
           }
