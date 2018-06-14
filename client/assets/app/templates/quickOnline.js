@@ -60,9 +60,6 @@ var QuickOnline = {};
       $(".headTitle").append(htmlTradeHeader);
     }
 
-
-
-
   }
 
   var _bind = {
@@ -191,7 +188,7 @@ var QuickOnline = {};
           {
             field: "more_information.price_equation",
             template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '') {
+              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
               }
 
@@ -207,10 +204,10 @@ var QuickOnline = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '') {
+              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = '';
               }
-              if (field.more_information.max_trans_limit == undefined || '') {
+              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
                 field.more_information.max_trans_limit = '';
               }
 

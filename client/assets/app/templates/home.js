@@ -209,10 +209,10 @@ var Home = {};
             {
               field: "",
               template: function(field, type, row) {
-                if (field.online_selling.payment_details == undefined || '') {
+                if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
                   field.online_selling.payment_details = '';
                 }
-                if (field.location == undefined || '') {
+                if (field.location == undefined || '' || isNaN(field.location)) {
                   field.location = '';
                 }
 
@@ -229,7 +229,7 @@ var Home = {};
               field: "more_information.price_equation",
 
               template: function(field, type, row) {
-                if (field.more_information.price_equation == undefined || '') {
+                if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                   field.more_information.price_equation = '';
                 }
 
@@ -244,10 +244,10 @@ var Home = {};
             {
               field: "more_information.max_trans_limit",
               template: function(field, type, row) {
-                if (field.more_information.min_trans_limit == undefined || '') {
+                if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                   field.more_information.min_trans_limit = '';
                 }
-                if (field.more_information.max_trans_limit == undefined || '') {
+                if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
                   field.more_information.max_trans_limit = '';
                 }
 
@@ -340,10 +340,10 @@ var Home = {};
             {
               field: "",
               template: function(field, type, row) {
-                if (field.online_selling.payment_details == undefined || '') {
+                if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
                   field.online_selling.payment_details = '';
                 }
-                if (field.location == undefined || '') {
+                if (field.location == undefined || '' || isNaN(field.location)) {
                   field.location = '';
                 }
 
@@ -359,7 +359,7 @@ var Home = {};
             {
               field: "more_information.price_equation",
               template: function(field, type, row) {
-                if (field.more_information.price_equation == undefined || '') {
+                if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                   field.more_information.price_equation = '';
                 }
 
@@ -374,10 +374,10 @@ var Home = {};
             {
               field: "more_information.max_trans_limit",
               template: function(field, type, row) {
-                if (field.more_information.min_trans_limit == undefined || '') {
+                if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                   field.more_information.min_trans_limit = '';
                 }
-                if (field.more_information.max_trans_limit == undefined || '') {
+                if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
                   field.more_information.max_trans_limit = '';
                 }
 
@@ -474,7 +474,7 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              if (field.online_selling.payment_details == undefined || '') {
+              if (field.online_selling.payment_details == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.online_selling.payment_details = '';
               }
               if (field.location == undefined || '') {
@@ -494,7 +494,7 @@ var Home = {};
             field: "more_information.price_equation",
 
             template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '') {
+              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
               }
 
@@ -509,10 +509,10 @@ var Home = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '') {
+              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = '';
               }
-              if (field.more_information.max_trans_limit == undefined || '') {
+              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
                 field.more_information.max_trans_limit = '';
               }
 
