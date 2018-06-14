@@ -105,7 +105,7 @@
                       </span>
               </li>
               <li class="m-nav__item">
-                <a href="header/profile&amp;demo=default.html" class="m-nav__link">
+                <a class="m-nav__link">
                   <i class="m-nav__link-icon flaticon-profile-1"></i>
                   <span class="m-nav__link-title">
                           <span class="m-nav__link-wrap">
@@ -325,7 +325,7 @@
           </div>
           <div class="tab-content">
             <div class="tab-pane active" id="m_user_profile_tab_1">
-              <form class="m-form m-form--fit m-form--label-align-right">
+              <form class=" m-form m-form--state m-form--fit m-form--label-align-right  m-form--label-align-right">
                 <div class="m-portlet__body">
                   <div class="form-group m-form__group m--margin-top-10 m--hide">
                     <div class="alert m-alert m-alert--default" role="alert">
@@ -413,14 +413,20 @@
 
                     </div>
                   </div>
-                  <div class="form-group m-form__group row set_up_email" style="display:none">
+                  <div class="form-group m-form__group row set_up_email" style="display:none; margin-left :20px;">
+
+                    <button id="m_profile_set_up_email" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">  Set Up Email</button>
+
+
+                    <!-- 
                     <label for="example-text-input" class="col-2 col-form-label " style="color:#5867dd">
                        Set Up Email
-                          </label>
+                    </label>
+ -->
                     <div class="col-7">
                     </div>
                   </div>
-                  <div class="form-group m-form__group row">
+                  <div class="form-group m-form__group row" style="display:none">
                     <label for="example-text-input" class="col-2 col-form-label">
                             Phone number verified:
                           </label>
@@ -437,7 +443,7 @@
                     </div>
                   </div>
 
-
+                  <!-- 
                   <div class="form-group m-form__group row">
                     <label for="example-text-input" class="col-2 col-form-label">
                       <a href="#/changepassword">
@@ -445,9 +451,9 @@
                       </a>
                     <div class="col-7">
                     </div>
-                  </div>
+                  </div> -->
                   <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x">
-                   
+
                   </div>
 
                 </div>
@@ -472,15 +478,15 @@
 
               <label>Yet No Messages</label>
 
-                  </div>
+            </div>
 
 
-                  <div class="tab-pane " id="m_user_profile_tab_3">
-                    <label>Yet No Feedback</label>
-                  </div>
-                </div>
+            <div class="tab-pane " id="m_user_profile_tab_3">
+              <label>Yet No Feedback</label>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>

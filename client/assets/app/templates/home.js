@@ -192,7 +192,7 @@ var Home = {};
                     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                   }
                 }
-                return field.firstName + ' inactive';
+                return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--metal"> </span>';
               },
               /*   template: function(field, type, row) {
                   if (field.firstName === ({ $in: activeUSer })) {
@@ -323,7 +323,7 @@ var Home = {};
                     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                   }
                 }
-                return field.firstName + ' inactive';
+                return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--metal"> </span>';
               },
               /*    template: function(field, type, row) {
                    if (field.firstName === ({ $in: activeUSer })) {
@@ -457,7 +457,7 @@ var Home = {};
                   return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                 }
               }
-              return field.firstName + ' inactive';
+              return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--metal"> </span>';
             },
             /*   template: function(field, type, row) {
                 if (field.firstName === ({ $in: activeUSer })) {
@@ -596,7 +596,7 @@ var Home = {};
                   return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                 }
               }
-              return field.firstName + ' inactive';
+              return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--metal"> </span>';
             },
             /*    template: function(field, type, row) {
                  if (field.firstName === ({ $in: activeUSer })) {

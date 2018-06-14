@@ -49,7 +49,11 @@
       });
       this.get('#/changepassword', function(context) {
         console.log("#/changepassword");
-        ChangePassword.init();
+        if (checkIfToken()) {
+          ChangePassword.init();
+          return;
+        }
+        Home.init();
       });
       this.get('#/profile', function(context) {
         if (checkIfToken()) {

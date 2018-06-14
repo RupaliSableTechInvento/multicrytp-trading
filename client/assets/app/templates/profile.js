@@ -16,10 +16,25 @@ var Profile = {};
         }
         reader.readAsDataURL(imgInput.files[0]);
       }
+    },
+
+    showErrorMsg: function(form, type, msg) {
+      var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
+        <button type="button" class="close" style="margin-top:10px" data-dismiss="alert" aria-label="Close"></button>\
+        <span></span>\
+      </div>');
+      form.find('.alert').remove();
+      alert.prependTo(form);
+      alert.animateClass('fadeIn animated');
+      alert.find('span').html(msg);
     }
+
+
+
   }
   var _bind = {
     profileSettings: function() {
+
 
       $("#input_upload_pic").change(function() {
         _core.readURL(this);
@@ -71,14 +86,52 @@ var Profile = {};
           }
 
           //on setUp Email
-          $('.set_up_email').unbind().click(function() {
+
+
+          $('#m_profile_set_up_email').click(function(e) {
+            e.preventDefault();
+            var btn = $(this);
+            var form = $(this).closest('form');
+            btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+
             _core.emailVerification(email, function(res) {
               if (res) {
                 if (res.isError) {
-                  console.log(res.error)
+
+                  setTimeout(function() {
+                    _core.showErrorMsg(form, 'danger', 'Email is not verified. ');
+
+                  }, 2000)
+
+
                 } else {
                   console.log("res=>>", res);
+
+
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    form.clearForm();
+                    form.validate().resetForm();
+                    // display signup form
+                    // displaySignInForm();
+                    // var signInForm = login.find('.m-login__signin form');
+                    //signInForm.clearForm();
+                    //signInForm.validate().resetForm();
+                    _core.showErrorMsg(form, 'success', 'Thank you. please check your Email');
+                  }, 2000);
                   if (res.data == 'email_verified') {
+
+                    setTimeout(function() {
+                      btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                      form.clearForm();
+                      form.validate().resetForm();
+                      // display signup form
+                      // displaySignInForm();
+                      // var signInForm = login.find('.m-login__signin form');
+                      //signInForm.clearForm();
+                      //signInForm.validate().resetForm();
+                      _core.showErrorMsg(form, 'success', 'Thank you. Your Email is verified');
+                    }, 2000);
                     $('.E_mail_Verified').empty()
                     $('.E_mail_Verified').html('<label style="color:green";>' + email_verified + '</label>')
 
@@ -86,15 +139,37 @@ var Profile = {};
                 }
               }
             })
+
+
+
           })
+
+
+
+          /*   $('.set_up_email').unbind().click(function() {
+              _core.emailVerification(email, function(res) {
+                if (res) {
+                  if (res.isError) {
+                    console.log(res.error)
+                  } else {
+                    console.log("res=>>", res);
+                    if (res.data == 'email_verified') {
+                      $('.E_mail_Verified').empty()
+                      $('.E_mail_Verified').html('<label style="color:green";>' + email_verified + '</label>')
+
+                    }
+                  }
+                }
+              })
+            }) */
 
           if (mobile_verified) {
             $('.set_up_phoneNo').hide();
             $('.phone_no_Verified').append('<label style="color: green";>' + mobile_verified + '</label>')
 
           } else {
-            $('.set_up_phoneNo').show();
-            $('.phone_no_Verified').append('<label style="color: red";>' + mobile_verified + '</label>')
+            // $('.set_up_phoneNo').show();
+            // $('.phone_no_Verified').append('<label style="color: red";>' + mobile_verified + '</label>')
           }
         }
       })

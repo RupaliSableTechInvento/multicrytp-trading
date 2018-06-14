@@ -23,7 +23,7 @@ var ShowMoreDetail = {};
     },
 
 
-    verifyTrader: function(currency, traderType, location, tradeMethod) {
+    verifyTrader: function(cryptoCurrency, traderType, location, tradeMethod) {
       /*  tradeMethod: 'LOCAL',
        traderType: 'SELL' */
       var htmlTradeHeader = '';
@@ -36,23 +36,23 @@ var ShowMoreDetail = {};
                '</h3>'; */
 
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Sell ' + currency + ' ' + ' Online  Transfer   in ' + location + ' ' + '  with Indian Rupee (INR)' +
+            'Sell ' + cryptoCurrency + ' ' + ' Online  Transfer   in ' + location + ' ' + '  with Indian Rupee (INR)' +
             '</h3>';
         } else {
 
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Buy' + ' ' + currency + ' using' + ' Online  Transfer  in ' + location + ' ' + '  with Indian Rupee (INR)' +
+            'Buy' + ' ' + cryptoCurrency + ' using' + ' Online  Transfer  in ' + location + ' ' + '  with Indian Rupee (INR)' +
             '</h3>';
         }
 
       } else {
         if (traderType == 'SELL') {
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Sell your ' + currency + '  ' + '  with cash' +
+            'Sell your ' + cryptoCurrency + '  ' + '  with cash' +
             '</h3>';
         } else {
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Buy' + ' ' + currency + '  with cash ' +
+            'Buy' + ' ' + cryptoCurrency + '  with cash ' +
             '</h3>';
 
         }
@@ -74,7 +74,7 @@ var ShowMoreDetail = {};
       console.log("url params=>", urlParams);
       // currencyUrl = urlParams.currency;
 
-      var cryptoCurrency = urlParams.currency;
+      var cryptoCurrency = urlParams.cryptoCurrency;
       var location = urlParams.location;
       var tradeMethod = urlParams.tradeMethod;
       var traderType = urlParams.traderType;
@@ -105,8 +105,8 @@ var ShowMoreDetail = {};
       })
 
 
-      if (urlParams.currency) {
-        var str = urlParams.currency;
+      if (urlParams.cryptoCurrency) {
+        var str = urlParams.cryptoCurrency;
         cryptoCurrency = str.toString(),
           cryptoCurrency = urlParams.currency;
         console.log("cryptoCurrency in if", cryptoCurrency);
@@ -128,7 +128,6 @@ var ShowMoreDetail = {};
                   location: location,
                   tradeMethod: tradeMethod,
                   traderType: traderType,
-
                 },
               }
             }
@@ -164,7 +163,7 @@ var ShowMoreDetail = {};
                   return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                 }
               }
-              return field.firstName + ' inactive';
+              return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--metal"> </span>';
             },
             title: title,
             sortable: false,

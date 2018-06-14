@@ -8,7 +8,7 @@ var SellBuyCurrency = {};
   var _core = {
     getCurrencySellerBuyerInfo: API.getCurrencySellerBuyerInfo,
     chkNullValue: function(isNull) {
-      if (isNull == undefined || '') {
+      if (isNull == undefined || '' || isNaN(isNull)) {
         return '';
       }
       return isNull;
