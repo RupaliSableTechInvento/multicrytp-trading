@@ -25,6 +25,7 @@ const tradeController = {
       skip = perpage * (page - 1);
       console.log("perpage page skip=>", perpage, page, skip);
     }
+    var amount = req.query.query.amount;
     var cryptoCurrency = req.query.query.cryptoCurrency;
     var location = req.query.query.location;
     var tradeMethod = req.query.query.tradeMethod;
@@ -32,15 +33,16 @@ const tradeController = {
     var payment_method = req.query.query.payment_method;
     var currency = req.query.query.currency;
     // 'more_information.currency': currency,
-    console.log("trader type=>", traderType);
+    console.log("trader type   amount=>>", traderType, amount);
 
     postatrade.find({
       cryptoCurrency: cryptoCurrency,
       location: location,
       tradeMethod: tradeMethod,
       traderType: traderType,
+      'more_information.min_trans_limit': { $lte: amount },
+      'more_information.max_trans_limit': { $gte: amount },
       'more_information.currency': currency,
-
       payment_method: payment_method
     }, async(err, trade) => {
       if (err) return res.json({ isError: true, data: err });
@@ -53,8 +55,9 @@ const tradeController = {
             location: location,
             tradeMethod: tradeMethod,
             traderType: traderType,
+            'more_information.min_trans_limit': { $lt: amount },
+            'more_information.max_trans_limit': { $gt: amount },
             'more_information.currency': currency,
-
             payment_method: payment_method
 
           }).count() / (10)),
@@ -62,6 +65,8 @@ const tradeController = {
           total: await postatrade.find({
             cryptoCurrency: cryptoCurrency,
             location: location,
+            'more_information.min_trans_limit': { $lt: amount },
+            'more_information.max_trans_limit': { $gt: amount },
             tradeMethod: tradeMethod,
             traderType: traderType,
             'more_information.currency': currency,

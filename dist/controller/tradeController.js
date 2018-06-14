@@ -56,7 +56,7 @@ var tradeController = _defineProperty({
 
   getQuickByCryptocurrency: function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
-      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType, payment_method, currency;
+      var request, perpage, page, skip, amount, cryptoCurrency, location, tradeMethod, traderType, payment_method, currency;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -71,6 +71,7 @@ var tradeController = _defineProperty({
                 skip = perpage * (page - 1);
                 console.log("perpage page skip=>", perpage, page, skip);
               }
+              amount = req.query.query.amount;
               cryptoCurrency = req.query.query.cryptoCurrency;
               location = req.query.query.location;
               tradeMethod = req.query.query.tradeMethod;
@@ -79,15 +80,16 @@ var tradeController = _defineProperty({
               currency = req.query.query.currency;
               // 'more_information.currency': currency,
 
-              console.log("trader type=>", traderType);
+              console.log("trader type   amount=>>", traderType, amount);
 
               _postatrade2.default.find({
                 cryptoCurrency: cryptoCurrency,
                 location: location,
                 tradeMethod: tradeMethod,
                 traderType: traderType,
+                'more_information.min_trans_limit': { $lte: amount },
+                'more_information.max_trans_limit': { $gte: amount },
                 'more_information.currency': currency,
-
                 payment_method: payment_method
               }, function () {
                 var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(err, trade) {
@@ -111,8 +113,9 @@ var tradeController = _defineProperty({
                             location: location,
                             tradeMethod: tradeMethod,
                             traderType: traderType,
+                            'more_information.min_trans_limit': { $lt: amount },
+                            'more_information.max_trans_limit': { $gt: amount },
                             'more_information.currency': currency,
-
                             payment_method: payment_method
 
                           }).count();
@@ -125,6 +128,8 @@ var tradeController = _defineProperty({
                           return _postatrade2.default.find({
                             cryptoCurrency: cryptoCurrency,
                             location: location,
+                            'more_information.min_trans_limit': { $lt: amount },
+                            'more_information.max_trans_limit': { $gt: amount },
                             tradeMethod: tradeMethod,
                             traderType: traderType,
                             'more_information.currency': currency
@@ -165,7 +170,7 @@ var tradeController = _defineProperty({
                 };
               }()).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '');
 
-            case 14:
+            case 15:
             case 'end':
               return _context3.stop();
           }

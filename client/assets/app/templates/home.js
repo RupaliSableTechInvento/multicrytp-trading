@@ -43,7 +43,7 @@ var Home = {};
       var currentTime = [];
       var params;
       var currentTimeSys = new Date();
-      var payment_method, country, currency;
+      var payment_method, country, currency, amount;
       var quickTraderType;
       before = new Date();
       before.setMinutes(before.getMinutes() - 15);
@@ -64,6 +64,12 @@ var Home = {};
       } else {
         cryptoCurrency = 'BITCOIN'
       }
+
+      $('#trade-tabs li').on('click', function() {
+        console.log("Quick tab clickeddd");
+        $('#trade-tabs li').removeClass('active')
+        $(this).addClass('active')
+      })
 
       $('#trade-tabs li').on('click', function() {
         console.log("Quick tab clickeddd");
@@ -101,15 +107,16 @@ var Home = {};
         var traderType = $(this).attr("data-traderType")
         var tradeMethod = $(this).attr("data-tradeMethod")
         console.log("trade type and trade method=>", tradeMethod, traderType);
-        window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency +
-          '&tradeMethod=' + tradeMethod + '&traderType=' + traderType + '&location=india';
+        window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency + '&tradeMethod=' + tradeMethod + '&traderType=' + traderType + '&location=india';
       })
 
       $('.search_btn').unbind().click(function() {
+        amount = $('#txt_amt').val();
         var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
         console.log("quickTraderType", quickTraderType);
 
-        window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&payment_method=' + payment_method +
+        window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
+          '&payment_method=' + payment_method +
           '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
       })
 

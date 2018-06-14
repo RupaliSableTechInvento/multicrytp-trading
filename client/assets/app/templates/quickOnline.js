@@ -78,7 +78,9 @@ var QuickOnline = {};
       var location = urlParams.country.toLowerCase();
       var payment_method = urlParams.payment_method;
       payment_method = decodeURI(payment_method);
-
+      var amount = urlParams.amount;
+      amount = parseInt(amount);
+      console.log("AMOUNT in quickonline.js=>>", amount);
       var tradeMethod = 'ONLINE';
       var traderType = urlParams.traderType;
       var title = 'Buyer';
@@ -133,6 +135,7 @@ var QuickOnline = {};
                   traderType: traderType,
                   payment_method: payment_method,
                   currency: currency,
+                  amount: amount,
                 },
               }
             }
