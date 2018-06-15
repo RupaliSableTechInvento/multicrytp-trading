@@ -56,28 +56,28 @@ var SignUp = {};
           },
           messages: {
             first_name: {
-              required: "please Enter your first Name"
+              required: "Please enter your first name"
             },
             last_name: {
-              required: "please Enter your last Name"
+              required: "Please enter your last name"
             },
             email: {
-              required: "please Enter your Email"
+              required: "Please enter your email"
 
             },
             password: {
-              required: "please provide a password",
-              minlength: "your password must be at least 6 characters long"
+              required: "Please provide a password",
+              minlength: "Your password must be at least 6 characters long"
 
             },
             rpassword: {
-              required: "please provide a password",
-              minlength: "your password must be at least 6 characters long",
-              equalTo: "please enter the same password as above",
+              required: "Please provide a password",
+              minlength: "Your password must be at least 6 characters long",
+              equalTo: "Please enter the same password as above",
 
             },
             agree: {
-              required: "please acceppt our policy"
+              required: "Please acceppt our policy"
             }
 
           }
@@ -105,7 +105,7 @@ var SignUp = {};
               //signInForm.validate().resetForm();
               _core.showErrorMsg(form, 'success', 'Thank you. To complete your registration');
             }, 2000);
-            // window.location.replace("#/login");
+            window.location.replace("#/login");
 
           },
           error: function(err) {

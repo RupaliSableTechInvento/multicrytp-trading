@@ -87,7 +87,7 @@ var ShowMoreDetail = {};
       await _core.getActiveUser(function(res) {
         activeUSerData = res;
         if (res) {
-          console.log("response in getActive User=>>", res);
+          // console.log("response in getActive User=>>", res);
           for (let index = 0; index < res.tokenModel.length; index++) {
             for (let j = 0; j < res.user.length; j++) {
               console.log("Email=>", res.tokenModel[index].email, res.user[j].email);
@@ -98,9 +98,6 @@ var ShowMoreDetail = {};
             }
 
           }
-
-          console.log("active user data=>", activeUSer);
-
         }
       })
 
@@ -108,10 +105,9 @@ var ShowMoreDetail = {};
       if (urlParams.cryptoCurrency) {
         var str = urlParams.cryptoCurrency;
         cryptoCurrency = str.toString(),
-          cryptoCurrency = urlParams.currency;
+          cryptoCurrency = urlParams.cryptoCurrency;
         console.log("cryptoCurrency in if", cryptoCurrency);
       }
-
 
       await $('#m_datatable_showMore').mDatatable({
         data: {
@@ -157,9 +153,8 @@ var ShowMoreDetail = {};
             field: "firstName",
             template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
-                console.log("field.firstName", field.firstName, index, activeUSer[index].name);
+                // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (activeUSer[index].name == field.firstName) {
-                  console.log("activeUSer[index].name in if", activeUSer[index].name);
                   return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                 }
               }
@@ -173,8 +168,16 @@ var ShowMoreDetail = {};
           {
             field: "",
             template: function(field, type, row) {
+              if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
+                field.online_selling.payment_details = '';
+              }
+              if (field.location == undefined || '' || isNaN(field.location)) {
+                field.location = '';
+              }
+
               return field.online_selling.payment_details + ' ' + field.location;
             },
+
             title: "Payment Method",
             width: 250,
             responsive: {
@@ -183,6 +186,15 @@ var ShowMoreDetail = {};
           },
           {
             field: "more_information.price_equation",
+
+            template: function(field, type, row) {
+              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
+                field.more_information.price_equation = '';
+              }
+
+              return field.more_information.price_equation;
+            },
+
             title: "price/BTC",
             sortable: false,
             width: 80,
@@ -191,10 +203,10 @@ var ShowMoreDetail = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '') {
+              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = '';
               }
-              if (field.more_information.max_trans_limit == undefined || '') {
+              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
                 field.more_information.max_trans_limit = '';
               }
 

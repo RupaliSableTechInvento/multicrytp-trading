@@ -36,6 +36,7 @@ var Profile = {};
     profileSettings: function() {
 
 
+
       $("#input_upload_pic").change(function() {
         _core.readURL(this);
         console.log("img accepting");

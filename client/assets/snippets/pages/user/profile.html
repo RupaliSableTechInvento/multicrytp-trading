@@ -325,11 +325,10 @@
           </div>
           <div class="tab-content">
             <div class="tab-pane active" id="m_user_profile_tab_1">
-              <form class=" m-form m-form--state m-form--fit m-form--label-align-right  m-form--label-align-right">
+              <form class=" m-form m-form--state m-form--fit m-form--label-align-right  m-form--label-align-right" id="profile-form">
                 <div class="m-portlet__body">
                   <div class="form-group m-form__group m--margin-top-10 m--hide">
                     <div class="alert m-alert m-alert--default" role="alert">
-                      The example form below demonstrates common HTML form elements that receive updated styles from Bootstrap with additional classes.
                     </div>
                   </div>
                   <div class="form-group m-form__group row">
@@ -374,7 +373,7 @@
                               E-mail
                             </label>
                     <div class="col-7">
-                      <input class="form-control m-input" type="email" id="email">
+                      <input class="form-control m-input" type="email" name="email" id="email">
                       <span class="m-form__help">
                       </span>
                     </div>
@@ -394,7 +393,7 @@
                             Phone No.
                           </label>
                     <div class="col-7">
-                      <input class="form-control m-input" type="text" id="phone_no">
+                      <input class="form-control m-input" type="number" name="phone_no" id="phone_no">
                     </div>
                   </div>
                   <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>

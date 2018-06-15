@@ -51,7 +51,7 @@ var PostATrade = {};
     postTrade: async function() {
       var btn, form;
       var margin = $("#margin_ad-commission").val();
-      var cryptoCurrency;
+      var cryptoCurrency, location;
       var currency, price_equation;
       var USD = 'USD';
       var cryptoCurrency_in_usd;
@@ -65,13 +65,12 @@ var PostATrade = {};
 
       $('#select_ad-cryptocurrency li').on('click', async function() {
         var value = $(this).attr('name');
-        var id = '#title_crytpoCurrency';
-        _core.setValueDropDwn(id, value)
 
         code = $(this).attr('data-code');
+        _core.setValueDropDwn('#titile_cryptocurrency', value)
 
         console.log("Selected Currency code=>", code, value);
-        // $('#title_crytpoCurrency').append(value);
+        $('#title_crytpoCurrency').append(value);
         console.log("currency changed event");
         $('.price-info').empty();
         cryptoCurrency = value;
@@ -154,6 +153,13 @@ var PostATrade = {};
         reference_type = value;
 
       })
+
+      $('#select_ad-location li').on('click', function() {
+        var value = $(this).attr('name');
+        _core.setValueDropDwn('#titile_location', value)
+        location = value;
+      })
+
 
 
 
@@ -292,7 +298,6 @@ var PostATrade = {};
 
       })
       $('#ad-opening_hours_wed_end li').on('click', function() {
-
         var value = $(this).attr('name');
         $(this).addClass('selected');
         var startTime = $(this).parents().parents().parents().find(".start_time li.selected").attr('value');
@@ -450,7 +455,7 @@ var PostATrade = {};
           "tradeMethod": $(".add-adform-radio:checked").attr("data-trade-type"),
           "traderType": $("#local_bitcoin_sell").val(),
           "cryptoCurrency": cryptoCurrency,
-          "location": $("#ad-location").val(),
+          "location": location,
           "payment_method": payment_method,
           more_information: more_information,
           "more_information.opening_hours.sunday.start": sun_start,
