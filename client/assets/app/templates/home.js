@@ -133,7 +133,7 @@ var Home = {};
         var traderType = $(this).attr("data-traderType")
         var tradeMethod = $(this).attr("data-tradeMethod")
         console.log("trade type and trade method=>", tradeMethod, traderType);
-        window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency + '&tradeMethod=' + tradeMethod + '&traderType=' + traderType + '&location=india';
+        window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency + '&tradeMethod=' + tradeMethod + '&code=' + cryptoCurrencyCode + '&traderType=' + traderType + '&location=india';
       })
 
       $('.search_btn').unbind().click(function() {

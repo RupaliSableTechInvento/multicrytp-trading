@@ -95,6 +95,11 @@
 }
 
 
+/* .mCSB_draggerContainer {
+  display: none;
+} */
+
+
 /* .tab_content_txt {
   color: #9a9cad;
   font-weight: bold;
@@ -368,9 +373,10 @@
 }
  */
 
-.mCSB_dragger_bar {
-  display: block !important;
-}
+
+/* .mCSB_draggerContainer {
+  display: none !important;
+} */
 
 .custom-m-menu__hor-arrow {
   color: #22b9ff !important;

@@ -23,10 +23,14 @@ var ShowMoreDetail = {};
     },
 
 
+
+
     verifyTrader: function(cryptoCurrency, traderType, location, tradeMethod) {
       /*  tradeMethod: 'LOCAL',
        traderType: 'SELL' */
       var htmlTradeHeader = '';
+
+
       if (tradeMethod == 'ONLINE') {
 
         if (traderType == 'SELL') {
@@ -36,12 +40,12 @@ var ShowMoreDetail = {};
                '</h3>'; */
 
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Sell ' + cryptoCurrency + ' ' + ' Online  Transfer   in ' + location + ' ' + '  with Indian Rupee (INR)' +
+            'Sell ' + cryptoCurrency + ' ' + ' Online  Transfer   in ' + location + ' ' +
             '</h3>';
         } else {
 
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Buy' + ' ' + cryptoCurrency + ' using' + ' Online  Transfer  in ' + location + ' ' + '  with Indian Rupee (INR)' +
+            'Buy' + ' ' + cryptoCurrency + ' using' + ' Online  Transfer  in ' + location +
             '</h3>';
         }
 
@@ -75,8 +79,13 @@ var ShowMoreDetail = {};
       // currencyUrl = urlParams.currency;
 
       var cryptoCurrency = urlParams.cryptoCurrency;
+
+      cryptoCurrency = cryptoCurrency.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+        return letter.toUpperCase();
+      });
       var location = urlParams.location;
       var tradeMethod = urlParams.tradeMethod;
+      var cryptoCurrencyCode = urlParams.code;
       var traderType = urlParams.traderType;
       var title = 'Buyer';
       if (traderType == 'BUY') {
@@ -195,7 +204,7 @@ var ShowMoreDetail = {};
               return field.more_information.price_equation;
             },
 
-            title: "price/BTC",
+            title: 'Price/' + cryptoCurrencyCode,
             sortable: false,
             width: 80,
             textAlign: 'center'
@@ -219,7 +228,7 @@ var ShowMoreDetail = {};
             }
           }, {
             field: "traderType",
-            title: "traderType",
+            title: "Trader Type",
 
             template: function(row) {
               return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
