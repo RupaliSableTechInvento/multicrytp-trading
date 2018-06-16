@@ -66,6 +66,7 @@ var PostATrade = {};
       $('#select_ad-cryptocurrency li').on('click', async function() {
         var value = $(this).attr('name');
 
+
         code = $(this).attr('data-code');
         _core.setValueDropDwn('#titile_cryptocurrency', value)
 
@@ -111,8 +112,6 @@ var PostATrade = {};
 
         const res = await _core.getPriceEquation(dataObjPriceEq);
         console.log("price Equation=>>", res);
-
-
         if (res.success) {
           USD_in_currency = res.ticker.price;
           if (margin == '' || undefined) {
@@ -157,6 +156,23 @@ var PostATrade = {};
       $('#select_ad-location li').on('click', function() {
         var value = $(this).attr('name');
         _core.setValueDropDwn('#titile_location', value)
+
+        var country_code = $(this).attr('data-country-code');
+        console.log("country code=>", country_code, this);
+
+        $('#select_ad-currency li').each(function(i) {
+          var temp = $(this).attr('name');
+          console.log("Temp =>", temp, this);
+          if (temp == country_code) {
+            console.log("currency matched", $(this).attr('name'), country_code);
+            _core.setValueDropDwn('#titile_currency', country_code)
+          }
+        })
+
+
+
+
+
         location = value;
       })
 

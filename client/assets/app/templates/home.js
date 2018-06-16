@@ -45,6 +45,7 @@ var Home = {};
       var currentTimeSys = new Date();
       var payment_method, country, currency, amount;
       var quickTraderType;
+      var cryptoCurrencyCode;
       before = new Date();
       before.setMinutes(before.getMinutes() - 15);
       console.log("time -15 min from current time", currentTimeSys, before);
@@ -60,10 +61,24 @@ var Home = {};
         var str = urlParams.cryptoCurrency;
         cryptoCurrency = str.toString(),
           cryptoCurrency = urlParams.cryptoCurrency;
-        console.log("cryptoCurrency in if", cryptoCurrency);
+        cryptoCurrencyCode = urlParams.code;
+        console.log("cryptoCurrency in if", cryptoCurrency, cryptoCurrencyCode);
       } else {
-        cryptoCurrency = 'BITCOIN'
+        cryptoCurrency = 'BITCOIN';
+        cryptoCurrencyCode = 'BTC';
+
       }
+
+
+      $('#select_ad-cryptocurrency li').on('click', async function() {
+        var value = $(this).attr('name');
+
+        cryptoCurrencyCode = $(this).attr('data-code');
+
+        console.log("Selected Currency code=>", cryptoCurrencyCode, value);
+        _core.setValueDropDwn('#title_crytpocurrency', value)
+
+      });
 
       $('#trade-tabs li').on('click', function() {
         console.log("Quick tab clickeddd");
@@ -72,7 +87,6 @@ var Home = {};
       })
 
       $('#trade-tabs li').on('click', function() {
-        console.log("Quick tab clickeddd");
         $('#trade-tabs li').removeClass('active')
         $(this).addClass('active')
       })
@@ -93,6 +107,18 @@ var Home = {};
       })
       $('#select_ad-country li').on('click', function() {
         var value = $(this).attr('name');
+        var country_code = $(this).attr('data-country-code');
+        console.log("country code=>", country_code, this);
+
+        $('#select_ad-currency li').each(function(i) {
+          var temp = $(this).attr('name');
+          console.log("Temp =>", temp, this);
+          if (temp == country_code) {
+            console.log("currency matched", $(this).attr('name'), country_code);
+            _core.setValueDropDwn('#titile_currency', country_code)
+
+          }
+        })
         _core.setValueDropDwn('#titile_country', value)
         country = value;
       })
@@ -236,7 +262,7 @@ var Home = {};
                 return field.more_information.price_equation;
               },
 
-              title: "Price/BTC",
+              title: 'Price/' + cryptoCurrencyCode,
               sortable: false,
               width: 100,
               textAlign: 'center'
@@ -366,7 +392,7 @@ var Home = {};
                 return field.more_information.price_equation;
               },
 
-              title: "Price/BTC",
+              title: 'Price/' + cryptoCurrencyCode,
               sortable: false,
               width: 100,
               textAlign: 'center'
@@ -501,7 +527,7 @@ var Home = {};
               return field.more_information.price_equation;
             },
 
-            title: "Price/BTC",
+            title: 'Price/' + cryptoCurrencyCode,
             sortable: false,
             width: 100,
             textAlign: 'center'
@@ -639,7 +665,7 @@ var Home = {};
               return field.more_information.price_equation;
             },
 
-            title: "Price/BTC",
+            title: 'Price/' + cryptoCurrencyCode,
             sortable: false,
             width: 80,
             textAlign: 'center'
