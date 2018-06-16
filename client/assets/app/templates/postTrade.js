@@ -69,10 +69,10 @@ var PostATrade = {};
 
         code = $(this).attr('data-code');
         _core.setValueDropDwn('#titile_cryptocurrency', value)
+        var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
+        $('#id_ad-price_equation').val(htmlpriceEq);
 
-        console.log("Selected Currency code=>", code, value);
-        $('#title_crytpoCurrency').append(value);
-        console.log("currency changed event");
+
         $('.price-info').empty();
         cryptoCurrency = value;
         var dataObjPriceEq = {
@@ -85,7 +85,7 @@ var PostATrade = {};
           console.log("price Equation=>>", res);
           cryptoCurrency_in_usd = res.ticker.price;
 
-          var htmlPriceInfo = cryptoCurrency_in_usd + ' ' + 'USD / ' + ' ' + cryptoCurrency;
+          var htmlPriceInfo = "   " + cryptoCurrency_in_usd + ' ' + 'USD / ' + ' ' + code;
           $('.price-info').append(htmlPriceInfo)
         } else {
           console.log("", res.error);

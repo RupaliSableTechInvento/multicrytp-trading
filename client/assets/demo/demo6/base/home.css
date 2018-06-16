@@ -121,7 +121,7 @@
 }
 
 .down-arrow-header {
-  /* margin-top: 3px !important; */
+  margin-top: 3px !important;
   color: black !important;
 }
 
@@ -367,6 +367,10 @@
   border-radius: 0.25rem!important;
 }
  */
+
+.mCSB_dragger_bar {
+  display: block !important;
+}
 
 .custom-m-menu__hor-arrow {
   color: #22b9ff !important;
