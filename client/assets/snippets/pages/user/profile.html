@@ -114,7 +114,7 @@
                             </span>
                   <span class="m-nav__link-badge">
                               <span class="m-badge m-badge--success">
-                                2
+                                0
                               </span>
                   </span>
                   </span>
@@ -245,7 +245,7 @@
               </ul>
             </div>
             <div class="m-portlet__head-tools">
-              <ul class="m-portlet__nav">
+              <ul class="m-portlet__nav" style="display:none">
                 <li class="m-portlet__nav-item m-portlet__nav-item--last">
                   <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
                     <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
@@ -393,7 +393,7 @@
                             Phone No.
                           </label>
                     <div class="col-7">
-                      <input class="form-control m-input" type="number" name="phone_no" id="phone_no">
+                      <input class="form-control m-input" style="appearance: none;" maxlength="10" type="number" name="phone_no" id="phone_no">
                     </div>
                   </div>
                   <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
@@ -442,6 +442,27 @@
                     </div>
                   </div>
 
+                  <div class="form-group m-form__group row" style="display:block">
+                    <label for="example-text-input" class="col-2 col-form-label">
+                            Change your password
+                          </label>
+                    <div class="col-7">
+                      <label class="phone_no_Verified"></label>
+
+                    </div>
+                  </div>
+                  <div class="form-group m-form__group row set_up_phoneNo" style="display:block">
+                    <!--  <label for="example-text-input" class="col-2 col-form-label">
+                      <a href="#/"> Set up Phone number</a>
+                           </label>
+ -->
+
+                    <a href="#/changepassword" id="m_profile_set_up_email" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">  Set your new password</a>
+
+                    <div class="col-7">
+                    </div>
+                  </div>
+
                   <!-- 
                   <div class="form-group m-form__group row">
                     <label for="example-text-input" class="col-2 col-form-label">
@@ -459,7 +480,7 @@
                 <div class="m-portlet__foot m-portlet__foot--fit">
                   <div class="m-form__actions">
                     <div class="row">
-                      <div class="col-2"></div>
+                      <div class="col-4"></div>
                       <div class="col-7">
                         <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
                                 Save changes

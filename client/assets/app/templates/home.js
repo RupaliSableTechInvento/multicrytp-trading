@@ -732,17 +732,10 @@ var Home = {};
     },
 
     addUserInfo: function() {
-      console.log("adduserInfo...");
       var token = localStorage.getItem('token')
       var checkIfToken = _core.checkIfToken(token);
       if (checkIfToken) {
-        $('.m-card-user__email').empty();
-        $('.m-card-user__name').empty();
-        var email = localStorage.getItem('email');
-        var first_name = localStorage.getItem('first_name');
-        var last_name = localStorage.getItem('last_name');
-        $('.m-card-user__email').append(email);
-        $('.m-card-user__name').append(first_name + '  ' + last_name);
+
         $('#logoutbtn').unbind().click(function() {
           console.log("logout");
           _core.logout(token, function(res) {

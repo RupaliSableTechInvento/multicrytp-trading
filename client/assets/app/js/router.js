@@ -88,6 +88,14 @@
     function checkIfToken() {
       var isToken = localStorage.getItem('token')
       if (isToken && isToken.length > 0) {
+        var email = localStorage.getItem('email');
+        var first_name = localStorage.getItem('first_name');
+        var last_name = localStorage.getItem('last_name');
+        $('.m-card-user__email').append(email);
+        $('.m-card-user__name').append(first_name + '  ' + last_name);
+
+
+
         $('.loginOutUser').hide();
         $('.loginUser').show();
         //  $('.dropdown__wrapper_login').hide();
