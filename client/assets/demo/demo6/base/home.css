@@ -358,8 +358,33 @@
   text-decoration: none !important;
   background-color: #ffa3a31c !important;
 }
+.m-login-to-center{
+display: flex;
+width: 100%!important;
+justify-content: center;
+padding-left: 0px;
+padding-right: 0px;
+}
+.login-wrapper{
+  padding-top: 10px!important;
 
-
+}
+.btn_proprty{
+  text-align: right;
+}
+.m-portlet--full-height{
+      margin-bottom: 5.2rem;
+}
+.center_btn{
+  display: flex;
+    justify-content: center;
+}
+.trade-type-head{
+  padding: 0px!important;
+}
+.signup-head{
+  padding: 5rem 11rem!important;
+}
 /* .custom-dropdown-toggle {
   position: relative;
   outline: none !important;
@@ -405,7 +430,7 @@
 }
 
 
-/* 
+/*
 .container ul::before {
   content: "";
   position: absolute;
