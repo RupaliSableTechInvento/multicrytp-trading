@@ -3,7 +3,7 @@
     -webkit-animation: 1s blink step-end infinite;
     animation: 1s blink step-end infinite;
   }
-  
+
   @keyframes blink {
     from,
     to {
@@ -13,7 +13,7 @@
       border-right-color: transparent;
     }
   }
-  
+
   @-webkit-keyframes blink {
     from,
     to {
@@ -23,11 +23,11 @@
       border-right-color: transparent;
     }
   }
-  
+
   span.im-static {
     color: grey;
   }
-  
+
   div.im-colormask {
     display: inline-block;
     border-style: inset;
@@ -36,7 +36,7 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
-  
+
   div.im-colormask>input {
     position: absolute;
     display: inline-block;
@@ -49,23 +49,23 @@
     left: 0;
     /*calculated*/
   }
-  
+
   div.im-colormask>input:focus {
     outline: none;
   }
-  
+
   div.im-colormask>input::-moz-selection {
     background: none;
   }
-  
+
   div.im-colormask>input::selection {
     background: none;
   }
-  
+
   div.im-colormask>input::-moz-selection {
     background: none;
   }
-  
+
   div.im-colormask>div {
     color: black;
     display: inline-block;
@@ -75,7 +75,7 @@
 </style>
 <style type="text/css">
   /* Chart.js */
-  
+
   @-webkit-keyframes chartjs-render-animation {
     from {
       opacity: 0.99
@@ -84,7 +84,7 @@
       opacity: 1
     }
   }
-  
+
   @keyframes chartjs-render-animation {
     from {
       opacity: 0.99
@@ -93,7 +93,7 @@
       opacity: 1
     }
   }
-  
+
   .chartjs-render-monitor {
     -webkit-animation: chartjs-render-animation 0.001s;
     animation: chartjs-render-animation 0.001s;
@@ -103,12 +103,12 @@
 <!-- end::Head -->
 <div class="m-grid m-grid--hor m-grid--root m-page div-content-Center ">
   <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--signin div-content-Center" id="m_login">
-    <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
+    <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside m-login-to-center" >
       <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
         <div class="m-stack m-stack--hor m-stack--desktop">
           <div class="m-stack__item m-stack__item--fluid">
 
-            <div class="m-login__wrapper">
+            <div class="m-login__wrapper login-wrapper">
 
               <div class="m-login__logo">
                 <a href="#">
@@ -121,6 +121,11 @@
                   <h3 class="m-login__title">Sign In </h3>
                 </div>
                 <form class="m-login__form m-form" action="">
+
+
+
+
+
                   <div class="form-group m-form__group">
                     <input class="form-control m-input" id="txtlogin" type="text" placeholder="Email" name="email" autocomplete="off">
                   </div>
@@ -157,15 +162,7 @@
           </div>
         </div>
 
-        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content">
 
-          <div class="m-grid__item m-grid__item--middle">
-            <!-- <h3 class="m-login__welcome">Join Our Community</h3> -->
-            <p class="m-login__msg">
-              <!-- Lorem ipsum dolor sit amet, coectetuer adipiscing<br>elit sed diam nonummy et nibh euismod -->
-            </p>
-          </div>
-        </div>
       </div>
 
 
