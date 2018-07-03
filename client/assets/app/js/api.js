@@ -164,6 +164,25 @@ var API = {
 
   },
 
+
+
+  sendMessage: function(dataObj, token, cb) {
+    $.ajax({
+      url: "/sendMessage",
+      data: dataObj,
+      type: "POST",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
+
   postTrade: function(dataObj, token, cb) {
     $.ajax({
       url: "/trade",

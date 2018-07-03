@@ -7,6 +7,7 @@ var SellBuyCurrency = {};
     //
   var _core = {
     getCurrencySellerBuyerInfo: API.getCurrencySellerBuyerInfo,
+    sendMessage: API.sendMessage,
     chkNullValue: function(isNull) {
       if (isNull == undefined || '' || isNaN(isNull)) {
         return '';
@@ -99,17 +100,19 @@ var SellBuyCurrency = {};
     setUser: function(user) {
       var htmlTradeHeader = '';
 
+      // $('#userPopUP').popover({ html: true });
 
-      htmlTradeHeader += '<a href="#" class="m-widget2__link">' +
-        user +
-        '</a>';
+      htmlTradeHeader += user;
+
 
       /*  htmlTradeHeader += '<i class="fa fa-user">' + '</i>' +
          user + '<span title="" class="online-status online-status-recent" data-original-title="User ' + user + ' last seen online 19&nbsp;minutes ago">' +
          '<i class="fa fa-circle">' +
          '</i>' +
          '</span>'; */
+
       $(".username").append(htmlTradeHeader);
+
     },
     setTradeLimits: function(max_trans_limit, min_trans_limit) {
       var max_trans_limit = _core.chkNullValue(max_trans_limit);
@@ -204,6 +207,61 @@ var SellBuyCurrency = {};
   var _bind = {
     getCurrencySellerBuyerInfo: function() {
       console.log("sellBuyCurrency.js");
+      var htmlContent = '<div class="popover" style="margin-left:70px" ;padding:20px><div class="arrow">' +
+        '</div><h3 class="popover-title" > This is title</h3>' +
+        '<div class="popover-content" id="popoverContent"></div>' +
+        '<div class="popover-footer" style="  background: ghostwhite; ">' +
+        '<a  class="btn btn-metal m-btn m-btn--icon m-btn--wide">' +
+        '<span id="addClass" onclick="myFunction()">' +
+        '<i class="fa fa-facebook-messenger"></i>' +
+        '<span style="margin-left:10px">Message</span>' +
+        '</span>' +
+        '</a></div></div>';
+
+      $("#removeClass").click(function() {
+        $('#qnimate').removeClass('popup-box-on');
+      });
+
+      $('[data-toggle="popover"]').popover({
+        html: true,
+        placement: "bottom",
+
+        template: htmlContent,
+        onchange: function() {
+          $("#addClass").click(function() {
+            console.log(" clickedddddddd");
+            $('#qnimate').addClass('popup-box-on');
+          });
+        }
+
+        // trigger: "hover",
+        // content = "Some content inside the popover<br>jkjkkfkdjfdkjf<hr>",
+      });
+
+      $('#send_message').click(function() {
+
+        var message = $('#status_message').val();
+        var datObject = {
+          message: message,
+        }
+        var token = localStorage.getItem('token');
+
+        _core.getCurrencySellerBuyerInfo(message, token, function(res) {
+          if (res) {
+            console.log("response when msg send");
+          }
+
+        })
+
+      })
+
+      $('#popup_username').click(function() {
+        console.log("popup user click");
+        $("#addClass").click(function() {
+          console.log(" clickedddddddd");
+          $('#qnimate').addClass('popup-box-on');
+        });
+      })
       var urlParams = _core.getUrlVars();
       var id = urlParams.id;
       console.log("User id=>", id);
@@ -249,3 +307,10 @@ var SellBuyCurrency = {};
     }
   }
 }).bind(SellBuyCurrency))();
+
+function myFunction() {
+  $("#addClass").click(function() {
+    console.log(" clickedddddddd");
+    $('#qnimate').addClass('popup-box-on');
+  });
+}

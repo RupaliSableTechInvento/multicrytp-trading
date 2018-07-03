@@ -1,3 +1,16 @@
+// var mqtt = require('mqtt');
+/* 
+var client = mqtt.createClient('mqtt://user:pass@localhost?clientId=rupaliINDex.html');
+
+// client.subscribe("mqtt/demo");
+
+client.on("message", function(topic, payload) {
+  alert([topic, payload].join(": "));
+  client.end();
+});
+
+client.publish("mqtt/demo", "hello world!");
+client.end(); */
 var Home = {};
 ((function() {
   this.init = function() {
@@ -30,6 +43,9 @@ var Home = {};
   var _bind = {
 
     getByCurrencyLoc: async function(cryptoCurrency) {
+
+
+
 
       $('.m-header').css('display', 'block');
       $('.m-nav-sticky').css('display', 'block');
@@ -132,7 +148,7 @@ var Home = {};
       $('.li_showMore').unbind().click(function() {
         var traderType = $(this).attr("data-traderType")
         var tradeMethod = $(this).attr("data-tradeMethod")
-        console.log("trade type and trade method=>", tradeMethod, traderType);
+          // console.log("trade type and trade method=>", tradeMethod, traderType);
         window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency + '&tradeMethod=' + tradeMethod + '&code=' + cryptoCurrencyCode + '&traderType=' + traderType + '&location=india';
       })
 
@@ -209,12 +225,12 @@ var Home = {};
               field: "firstName",
               template: function(field, type, row) {
                 for (let index = 0; index < activeUSer.length; index++) {
-                  console.log("field.firstName", field.firstName, index, activeUSer[index].name);
+                  // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                   if (Date(activeUSer[index].userActiveTime) <= before) {
-                    console.log("time matched", Date(activeUSer[index].userActiveTime), before);
+                    // console.log("time matched", Date(activeUSer[index].userActiveTime), before);
                   }
                   if (activeUSer[index].name == field.firstName) {
-                    console.log("activeUSer[index].name in if", activeUSer[index].name);
+                    // console.log("activeUSer[index].name in if", activeUSer[index].name);
                     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                   }
                 }
@@ -340,12 +356,12 @@ var Home = {};
               field: "firstName",
               template: function(field, type, row) {
                 for (let index = 0; index < activeUSer.length; index++) {
-                  console.log("field.firstName", field.firstName, index, activeUSer[index].name);
+                  // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                   if (Date(activeUSer[index].userActiveTime) <= before) {
-                    console.log("time matched", Date(activeUSer[index].userActiveTime), before);
+                    // console.log("time matched", Date(activeUSer[index].userActiveTime), before);
                   }
                   if (activeUSer[index].name == field.firstName) {
-                    console.log("activeUSer[index].name in if", activeUSer[index].name);
+                    // console.log("activeUSer[index].name in if", activeUSer[index].name);
                     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                   }
                 }
@@ -474,12 +490,12 @@ var Home = {};
             field: "firstName",
             template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
-                console.log("field.firstName", field.firstName, index, activeUSer[index].name);
+                // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (Date(activeUSer[index].userActiveTime) <= before) {
-                  console.log("time matched", Date(activeUSer[index].userActiveTime), before);
+                  // console.log("time matched", Date(activeUSer[index].userActiveTime), before);
                 }
                 if (activeUSer[index].name == field.firstName) {
-                  console.log("activeUSer[index].name in if", activeUSer[index].name);
+                  // console.log("activeUSer[index].name in if", activeUSer[index].name);
                   return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                 }
               }
@@ -613,9 +629,9 @@ var Home = {};
             field: "firstName",
             template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
-                console.log("field.firstName", field.firstName, index, activeUSer[index].name);
+                // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (Date(activeUSer[index].userActiveTime) <= before) {
-                  console.log("time matched", Date(activeUSer[index].userActiveTime), before);
+                  // console.log("time matched", Date(activeUSer[index].userActiveTime), before);
                 }
                 if (activeUSer[index].name == field.firstName) {
                   console.log("activeUSer[index].name in if", activeUSer[index].name);

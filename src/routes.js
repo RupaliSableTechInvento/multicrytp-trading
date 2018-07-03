@@ -1,6 +1,7 @@
 import usersController from './controller/usersController';
 import tradeController from './controller/tradeController';
 import authController from './controller/authController';
+import inboxController from './controller/inboxController'
 import path from 'path';
 const routes = (route) => {
   route.get('/', (req, res) => {
@@ -38,6 +39,9 @@ const routes = (route) => {
 
   route.route('/users/changeEmail')
     .post(usersController.changeEmail);
+
+  route.route('/sendMessage')
+    .post(inboxController.sendMessage);
 
 
   route.route('/users')

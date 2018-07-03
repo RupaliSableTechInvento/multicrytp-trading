@@ -16,6 +16,10 @@ var _authController = require('./controller/authController');
 
 var _authController2 = _interopRequireDefault(_authController);
 
+var _inboxController = require('./controller/inboxController');
+
+var _inboxController2 = _interopRequireDefault(_inboxController);
+
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -52,6 +56,8 @@ var routes = function routes(route) {
   route.route('/forgetPassword').post(_usersController2.default.forgetPassword);
 
   route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
+
+  route.route('/sendMessage').post(_inboxController2.default.sendMessage);
 
   route.route('/users')
   //console.log("user=>>", req)

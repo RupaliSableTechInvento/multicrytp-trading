@@ -37,6 +37,15 @@ var Profile = {};
 
 
 
+
+      /*    $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+ */
+
+
       $("#input_upload_pic").change(function() {
         _core.readURL(this);
         console.log("img accepting");

@@ -23,7 +23,7 @@ var ChangePassword = {};
     changePassword: function() {
       console.log("change password call");
       // $("#m_login_changePassword_submit").unbind().click(async function() {
-      $(headerElms.changePassword_submit).unbind().click(function() {
+      $("#m_login_changePassword_submit").unbind().click(function() {
         var btn = $(this);
         var form = $(this).closest('form');
 
@@ -33,8 +33,8 @@ var ChangePassword = {};
         var token = localStorage.getItem('token');
         console.log("token=>", token);
         var dataObj1 = {
-          password: $(headerElms.old_Password).val(),
-          new_pasword: $(headerElms.new_password).val(),
+          password: $("#txtoldPassword").val(),
+          new_pasword: $("#txtnewPassword").val(),
           passwordcnfrm: $("#txtconfirmPassword").val(),
         }
         var isError = false;

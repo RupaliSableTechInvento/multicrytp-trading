@@ -3,6 +3,8 @@ import mail_responseModel from '../models/mail_responseModel'
 import postatrade from '../models/postatrade'
 import jwt from 'jsonwebtoken';
 import env from "../env";
+
+
 const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
@@ -338,8 +340,8 @@ const usersController = {
     }
   },
 
-};
 
+};
 
 
 export default usersController;
