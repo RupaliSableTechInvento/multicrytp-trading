@@ -17,4 +17,3 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var usersModel = _mongoose2.default.model('users', _users2.default);
 
 exports.default = usersModel;
-//# sourceMappingURL=usersModel.js.map

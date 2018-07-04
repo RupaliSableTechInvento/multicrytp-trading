@@ -45,4 +45,3 @@ var authenticated = function authenticated(req, res, next) {
 //
 // }
 exports.default = authenticated;
-//# sourceMappingURL=authenticated.js.map

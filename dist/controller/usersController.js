@@ -377,4 +377,3 @@ var usersController = {
 };
 
 exports.default = usersController;
-//# sourceMappingURL=usersController.js.map

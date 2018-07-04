@@ -97,4 +97,3 @@ var routes = function routes(route) {
 };
 
 exports.default = routes;
-//# sourceMappingURL=routes.js.map

@@ -38,4 +38,3 @@ _mongoose2.default.connection.on('disconnected', function () {
 });
 
 exports.default = _mongoose2.default;
-//# sourceMappingURL=db.js.map

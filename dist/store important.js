@@ -39,4 +39,3 @@ var trade = {
   "security_options.trusted_people_only": "true",
   "user": "44444"
 };
-//# sourceMappingURL=store important.js.map

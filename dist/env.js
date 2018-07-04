@@ -9,4 +9,3 @@ exports.default = {
   // DB_URL: 'mongodb://localhost:27017/test' // Your mongodb string
   DB_URL: 'mongodb://admin:admin@ds111529.mlab.com:11529/heroku_1qmzqz96'
 };
-//# sourceMappingURL=env.js.map

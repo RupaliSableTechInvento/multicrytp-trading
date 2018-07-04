@@ -131,4 +131,3 @@ var authController = {
 };
 
 exports.default = authController;
-//# sourceMappingURL=authController.js.map

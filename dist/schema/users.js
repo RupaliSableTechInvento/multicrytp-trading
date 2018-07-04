@@ -133,4 +133,3 @@ usersSchema.plugin(_mongooseUniqueValidator2.default);
 usersSchema.plugin(_mongooseAutoIncrement2.default.plugin, 'id');
 
 exports.default = usersSchema;
-//# sourceMappingURL=users.js.map

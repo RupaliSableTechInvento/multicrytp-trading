@@ -372,4 +372,3 @@ var tradeController = _defineProperty({
 });
 
 exports.default = tradeController;
-//# sourceMappingURL=tradeController.js.map

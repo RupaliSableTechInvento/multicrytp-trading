@@ -17,4 +17,3 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mail_responseModel = _mongoose2.default.model('mail_response', _mail_response2.default);
 
 exports.default = mail_responseModel;
-//# sourceMappingURL=mail_responseModel.js.map
