@@ -139,3 +139,4 @@ client.on('message', function(topic, message) {
 });
 
 console.log('Client started...'); */
+//# sourceMappingURL=inboxController.js.map

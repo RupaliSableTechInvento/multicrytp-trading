@@ -41,3 +41,4 @@ tokenSchema.plugin(_mongooseUniqueValidator2.default);
 // tokenSchema.plugin(autoIncrement.plugin, 'id');
 
 exports.default = tokenSchema;
+//# sourceMappingURL=token.js.map

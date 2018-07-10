@@ -87,6 +87,8 @@ var routes = function routes(route) {
 
   route.route('/recoverPassword').post(_usersController2.default.recoverPassword);
 
+  route.route('/users/addUserInfo').post(_usersController2.default.addUserInfo);
+
   route.route('/users/storeBasicUserInfo').post(_usersController2.default.storeBasicUserInfo);
 
   route.route('/users/changePassword').post(_usersController2.default.changePassword);
@@ -97,3 +99,4 @@ var routes = function routes(route) {
 };
 
 exports.default = routes;
+//# sourceMappingURL=routes.js.map

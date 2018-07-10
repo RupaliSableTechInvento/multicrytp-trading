@@ -1,8 +1,8 @@
 //== Class Definition
-var SnippetLogin = function() {
+var SnippetLogin = function () {
 
   var login = $('#m_login');
-  var showErrorMsg = function(form, type, msg) {
+  var showErrorMsg = function (form, type, msg) {
     var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\
 			<span></span>\
@@ -16,21 +16,21 @@ var SnippetLogin = function() {
 
   //== Private Functions
 
-  var displaySignUpForm = function() {
+  var displaySignUpForm = function () {
     login.removeClass('m-login--forget-password');
     login.removeClass('m-login--signin');
     login.addClass('m-login--signup');
     login.find('.m-login__signup').animateClass('flipInX animated');
   }
 
-  var displaySignInForm = function() {
+  var displaySignInForm = function () {
     login.removeClass('m-login--forget-password');
     login.removeClass('m-login--signup');
     login.addClass('m-login--signin');
     login.find('.m-login__signin').animateClass('flipInX animated');
   }
 
-  var displayForgetPasswordForm = function() {
+  var displayForgetPasswordForm = function () {
     login.removeClass('m-login--signin');
     login.removeClass('m-login--signup');
 
@@ -38,30 +38,30 @@ var SnippetLogin = function() {
     login.find('.m-login__forget-password').animateClass('flipInX animated');
   }
 
-  var handleFormSwitch = function() {
-    $('#m_login_forget_password').click(function(e) {
+  var handleFormSwitch = function () {
+    $('#m_login_forget_password').click(function (e) {
       e.preventDefault();
       displayForgetPasswordForm();
     });
 
-    $('#m_login_forget_password_cancel').click(function(e) {
+    $('#m_login_forget_password_cancel').click(function (e) {
       e.preventDefault();
       displaySignInForm();
     });
 
-    $('#m_login_signup').click(function(e) {
+    $('#m_login_signup').click(function (e) {
       e.preventDefault();
       displaySignUpForm();
     });
 
-    $('#m_login_signup_cancel').click(function(e) {
+    $('#m_login_signup_cancel').click(function (e) {
       e.preventDefault();
       displaySignInForm();
     });
   }
 
-  var handleSignInFormSubmit = function() {
-    $('#m_login_signin_submit').click(function(e) {
+  var handleSignInFormSubmit = function () {
+    $('#m_login_signin_submit').click(function (e) {
       e.preventDefault();
       var btn = $(this);
       var form = $(this).closest('form');
@@ -93,7 +93,7 @@ var SnippetLogin = function() {
         url: "/login",
         //data: dataObj,
         type: "POST",
-        success: function(successData) {
+        success: function (successData) {
           if (successData.isError) {
             console.log("sucessdata=>", successData);
           } else {
@@ -117,20 +117,20 @@ var SnippetLogin = function() {
           }
 
           // similate 2s delay
-          setTimeout(function() {
+          setTimeout(function () {
             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
             showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
           }, 2000);
         },
-        error: function(err) {
+        error: function (err) {
           alert(err);
         }
       });
     });
   }
 
-  var handleSignUpFormSubmit = function() {
-    $('#m_login_signup_submit').click(function(e) {
+  var handleSignUpFormSubmit = function () {
+    $('#m_login_signup_submit').click(function (e) {
       e.preventDefault();
 
       var btn = $(this);
@@ -142,6 +142,9 @@ var SnippetLogin = function() {
             required: true
           },
           last_name: {
+            required: true
+          },
+          phone_no: {
             required: true
           },
           email: {
@@ -169,10 +172,10 @@ var SnippetLogin = function() {
       form.ajaxSubmit({
         url: "/register",
         type: "POST",
-        success: function(successData) {
+        success: function (successData) {
           console.log("registerd successfully", successData);
           // similate 2s delay
-          setTimeout(function() {
+          setTimeout(function () {
             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
             form.clearForm();
             form.validate().resetForm();
@@ -185,7 +188,7 @@ var SnippetLogin = function() {
           }, 2000);
 
         },
-        error: function(err) {
+        error: function (err) {
           console.log("not registerd", err);
         }
 
@@ -193,8 +196,8 @@ var SnippetLogin = function() {
     });
   }
 
-  var handleForgetPasswordFormSubmit = function() {
-    $('#m_login_forget_password_submit').click(function(e) {
+  var handleForgetPasswordFormSubmit = function () {
+    $('#m_login_forget_password_submit').click(function (e) {
       e.preventDefault();
 
       var btn = $(this);
@@ -218,9 +221,9 @@ var SnippetLogin = function() {
       form.ajaxSubmit({
         url: "/forgetPassword",
         type: "POST",
-        success: function(successData) {
+        success: function (successData) {
           console.log("please check your email");
-          setTimeout(function() {
+          setTimeout(function () {
             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove 
             form.clearForm(); // clear form
             form.validate().resetForm(); // reset validation states
@@ -234,7 +237,7 @@ var SnippetLogin = function() {
             showErrorMsg(signInForm, 'success', 'Cool! Password recovery instruction has been sent to your email.');
           }, 2000);
         },
-        error: function(err) {
+        error: function (err) {
           console.log("forgetpassword error =>", err);
         }
 
@@ -245,7 +248,7 @@ var SnippetLogin = function() {
   //== Public Functions
   return {
     // public functions
-    init: function() {
+    init: function () {
       handleFormSwitch();
       handleSignInFormSubmit();
       handleSignUpFormSubmit();
@@ -255,6 +258,6 @@ var SnippetLogin = function() {
 }();
 
 //== Class Initialization
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
   SnippetLogin.init();
 });

@@ -359,3 +359,4 @@ postTradeSchema.plugin(_mongooseUniqueValidator2.default);
 exports.default = postTradeSchema;
 
 // export default postTradeSchema;
+//# sourceMappingURL=trade.js.map

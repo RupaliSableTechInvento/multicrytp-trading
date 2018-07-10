@@ -57,7 +57,9 @@ block_io.get_my_archived_addresses({}, function (err, data) {});
 
 var app = (0, _express2.default)();
 
-app.use(_bodyParser2.default.urlencoded({ extended: true }));
+app.use(_bodyParser2.default.urlencoded({
+  extended: true
+}));
 app.use(_bodyParser2.default.json());
 app.use(_express2.default.static('client'));
 
@@ -132,7 +134,7 @@ server.published = function (packet, client, cb) {
     qos: packet.qos
   };
 
-  console.log('newPacket published', newPacket);
+  // console.log('newPacket published', newPacket);
 
   // server.publish(newPacket, cb);
 };
@@ -161,3 +163,4 @@ server.on('clientDisconnecting', function (client) {
 server.on('clientDisconnected', function (client) {
   console.log('clientDisconnected : ', client.id);
 });
+//# sourceMappingURL=app.js.map

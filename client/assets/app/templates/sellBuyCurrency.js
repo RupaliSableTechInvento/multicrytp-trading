@@ -1,21 +1,22 @@
 var SellBuyCurrency = {};
-((function() {
-  this.init = function() {
-      console.log("init sellBuyCurrency.js");
-      _render.content();
-    }
-    //
+((function () {
+  this.init = function () {
+    console.log("init sellBuyCurrency.js");
+    _render.content();
+  }
+  //
   var _core = {
     getCurrencySellerBuyerInfo: API.getCurrencySellerBuyerInfo,
     sendMessage: API.sendMessage,
-    chkNullValue: function(isNull) {
+
+    chkNullValue: function (isNull) {
       if (isNull == undefined || '' || isNaN(isNull)) {
         return '';
       }
       return isNull;
     },
 
-    getUrlVars: function() {
+    getUrlVars: function () {
       var vars = [],
         hash;
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -32,7 +33,7 @@ var SellBuyCurrency = {};
       console.log("vars=>", vars);
       return vars;
     },
-    setTerms: function(terms_of_trade, user) {
+    setTerms: function (terms_of_trade, user) {
       var terms_of_trade = _core.chkNullValue(terms_of_trade);
       var user = _core.chkNullValue(user);
 
@@ -55,24 +56,24 @@ var SellBuyCurrency = {};
 
 
     },
-    setOpeninghours: function(opening_hours) {
+    setOpeninghours: function (opening_hours) {
       // console.log(" opening_hours=>>", opening_hours);
       // console.log(" opening_hours.saturday.start   opening_hours.saturday.end", parseInt(opening_hours.saturday.start), opening_hours.saturday);
       var htmlTradeHeader = '';
       console.log("opening hours.length=>>", opening_hours.length);
       htmlTradeHeader += '<ul>' +
-        '<li>sunday :' + opening_hours.sunday.start + '-' + opening_hours.sunday.end + '</li>' +
-        '<li>monday :' + opening_hours.monday.start + '-' + opening_hours.monday.end + '</li>' +
-        '<li>  tuesday :' + opening_hours.tuesday.start + '-' + opening_hours.tuesday.end + '</li>' +
-        '<li>wednesday :' + opening_hours.wednesday.start + '-' + opening_hours.wednesday.end + '</li>' +
+        '<li> sunday :' + opening_hours.sunday.start + '-' + opening_hours.sunday.end + '</li>' +
+        '<li> monday :' + opening_hours.monday.start + '-' + opening_hours.monday.end + '</li>' +
+        '<li> tuesday :' + opening_hours.tuesday.start + '-' + opening_hours.tuesday.end + '</li>' +
+        '<li> wednesday :' + opening_hours.wednesday.start + '-' + opening_hours.wednesday.end + '</li>' +
         '<li> thursday :' + opening_hours.thursday.start + '-' + opening_hours.thursday.end + '</li>' +
-        '<li>friday :' + opening_hours.friday.start + '-' + opening_hours.friday.end + '</li>' +
+        '<li> friday :' + opening_hours.friday.start + '-' + opening_hours.friday.end + '</li>' +
         '<li> saturday:' + opening_hours.saturday.start + '-' + opening_hours.saturday.end + '</li>' +
         '</ul>';
       $(".Opening_hours").append(htmlTradeHeader);
     },
 
-    setPrice: function(price) {
+    setPrice: function (price) {
       var price = _core.chkNullValue(price);
       var htmlTradeHeader = '';
       htmlTradeHeader += ' <a href="#" class="m-widget2__link">' +
@@ -88,16 +89,16 @@ var SellBuyCurrency = {};
       $(".ad_price").append(htmlTradeHeader);
       //return htmlTradeHeader;
     },
-    setpaymentMethod: function(payment_details) {
-      var payment_details = _core.chkNullValue(payment_details);
+    setpaymentMethod: function (payment_details) {
+      console.log("payment_method", payment_method)
       var htmlTradeHeader = '';
-      htmlTradeHeader += '<p>' +
-        payment_details + ' ' +
+      htmlTradeHeader += '<p>' + ' <a href="payment_method  `" class="m-widget2__link">' +
+        payment_method + ' </a>' +
         '<i class="fa fa-exclamation-circle" title=" LocalBitcoins.com is not authorized, approved, endorsed or sponsored by this specific payment method or its trademark owner. The payment method is listed here for informative purposes only to display that the advertiser is willing to settle the trade by using this specific payment method. LocalBitcoins.com cannot guarantee that the listed payment method is actually used for making the settlement."> </i>' +
         '</p>'
-      $(".ad_paymentMethod").append(htmlTradeHeader);
+      $(".payment_method").append(htmlTradeHeader);
     },
-    setUser: function(user) {
+    setUser: function (user) {
       var htmlTradeHeader = '';
 
       // $('#userPopUP').popover({ html: true });
@@ -114,7 +115,7 @@ var SellBuyCurrency = {};
       $(".username").append(htmlTradeHeader);
 
     },
-    setTradeLimits: function(max_trans_limit, min_trans_limit) {
+    setTradeLimits: function (max_trans_limit, min_trans_limit) {
       var max_trans_limit = _core.chkNullValue(max_trans_limit);
       var min_trans_limit = _core.chkNullValue(min_trans_limit);
 
@@ -133,15 +134,15 @@ var SellBuyCurrency = {};
       htmlTradeHeader += 'The smallest amount you can sell to this ad is  ' + min_trans_limit + '    INR.';
       $("#over_max_error").append(htmlTradeHeader);
     },
-    setLocation: function(location) {
-      var location = _core.chkNullValue(location);
+    setLocation: function (location) {
+      console.log("location", location)
       var htmlTradeHeader = '';
       htmlTradeHeader += '<p>' +
-        '<a href="/country/IN">' + location + '</a>' +
-        '</p>';
+        '<a href="/country/GB">' + location + '</a>' +
+        '</p>'
       $(".location").append(htmlTradeHeader);
     },
-    verifyTrader: function(currency, traderType, location, payment_details, user, tradeMethod) {
+    verifyTrader: function (currency, traderType, location, payment_details, user, tradeMethod) {
       var currency = _core.chkNullValue(currency);
       var location = _core.chkNullValue(location);
       var payment_details = _core.chkNullValue(payment_details);
@@ -205,7 +206,7 @@ var SellBuyCurrency = {};
   }
 
   var _bind = {
-    getCurrencySellerBuyerInfo: function() {
+    getCurrencySellerBuyerInfo: function () {
       console.log("sellBuyCurrency.js");
       var htmlContent = '<div class="popover" style="margin-left:70px" ;padding:20px><div class="arrow">' +
         '</div><h3 class="popover-title" > This is title</h3>' +
@@ -218,7 +219,7 @@ var SellBuyCurrency = {};
         '</span>' +
         '</a></div></div>';
 
-      $("#removeClass").click(function() {
+      $("#removeClass").click(function () {
         $('#qnimate').removeClass('popup-box-on');
       });
 
@@ -227,8 +228,8 @@ var SellBuyCurrency = {};
         placement: "bottom",
 
         template: htmlContent,
-        onchange: function() {
-          $("#addClass").click(function() {
+        onchange: function () {
+          $("#addClass").click(function () {
             console.log(" clickedddddddd");
             $('#qnimate').addClass('popup-box-on');
           });
@@ -238,7 +239,7 @@ var SellBuyCurrency = {};
         // content = "Some content inside the popover<br>jkjkkfkdjfdkjf<hr>",
       });
 
-      $('#send_message').click(function() {
+      $('#send_message').click(function () {
 
         var message = $('#status_message').val();
         var datObject = {
@@ -246,7 +247,7 @@ var SellBuyCurrency = {};
         }
         var token = localStorage.getItem('token');
 
-        _core.getCurrencySellerBuyerInfo(message, token, function(res) {
+        _core.getCurrencySellerBuyerInfo(message, token, function (res) {
           if (res) {
             console.log("response when msg send");
           }
@@ -255,9 +256,9 @@ var SellBuyCurrency = {};
 
       })
 
-      $('#popup_username').click(function() {
+      $('#popup_username').click(function () {
         console.log("popup user click");
-        $("#addClass").click(function() {
+        $("#addClass").click(function () {
           console.log(" clickedddddddd");
           $('#qnimate').addClass('popup-box-on');
         });
@@ -265,7 +266,7 @@ var SellBuyCurrency = {};
       var urlParams = _core.getUrlVars();
       var id = urlParams.id;
       console.log("User id=>", id);
-      _core.getCurrencySellerBuyerInfo(id, function(res) {
+      _core.getCurrencySellerBuyerInfo(id, function (res) {
         if (res) {
           console.log("response from getCurrencySellerBuyerInfo", res);
           data
@@ -274,7 +275,7 @@ var SellBuyCurrency = {};
           }
           var data = res.data;
           var currency = data.cryptoCurrency.toLowerCase();
-          var traderType1 = data.traderType.toLowerCase();
+          var traderType = data.traderType.toLowerCase();
           var location = data.location.toLowerCase();
           var payment_details = data.online_selling.payment_details.toLowerCase();
           var user = data.firstName;
@@ -298,8 +299,8 @@ var SellBuyCurrency = {};
     }
   }
   var _render = {
-    content: function() {
-      renderMainFrame('assets/snippets/pages/user/sellBuyCurrency.html', 'sellBuyCurrency', function() {
+    content: function () {
+      renderMainFrame('assets/snippets/pages/user/sellBuyCurrency.html', 'sellBuyCurrency', function () {
 
         _bind.getCurrencySellerBuyerInfo();
 
@@ -309,7 +310,7 @@ var SellBuyCurrency = {};
 }).bind(SellBuyCurrency))();
 
 function myFunction() {
-  $("#addClass").click(function() {
+  $("#addClass").click(function () {
     console.log(" clickedddddddd");
     $('#qnimate').addClass('popup-box-on');
   });

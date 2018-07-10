@@ -17,3 +17,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var tokenModel = _mongoose2.default.model('token', _token2.default);
 
 exports.default = tokenModel;
+//# sourceMappingURL=tokenModel.js.map

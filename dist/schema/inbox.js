@@ -37,3 +37,4 @@ var inbox = new _mongoose2.default.Schema({
 inbox.plugin(_mongooseUniqueValidator2.default);
 
 exports.default = inbox;
+//# sourceMappingURL=inbox.js.map

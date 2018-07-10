@@ -17,3 +17,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var tradeModel = _mongoose2.default.model('trade', _trade2.default);
 
 exports.default = tradeModel;
+//# sourceMappingURL=postatrade.js.map

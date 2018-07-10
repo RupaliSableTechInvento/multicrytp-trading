@@ -17,6 +17,9 @@ const usersSchema = new mongoose.Schema({
     type: String,
     default: 'active'
   },
+  phone_no: {
+    type: String,
+  },
   /*  isOnline: {
      type: String,
      default: 'false'

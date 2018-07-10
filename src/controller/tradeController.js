@@ -1,21 +1,27 @@
 import postatrade from '../models/postatrade'
 import tradeMoreInfo from '../models/tradeMoreInfo'
 import usersModel from '../models/usersModel'
-import async from 'async';
+import async from 'async'
 
 var mongoose = require('mongoose');
 
 
 const tradeController = {
 
-  getAll: async(req, res, next) => {
+  getAll: async (req, res, next) => {
     postatrade.find({}, (err, trade) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: trade });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: trade
+      });
     });
   },
 
-  getQuickByCryptocurrency: async(req, res, next) => {
+  getQuickByCryptocurrency: async (req, res, next) => {
     console.log("quickBUY/SELL");
     var request = req.query.query;
     var perpage = req.query.pagination.perpage;
@@ -40,12 +46,19 @@ const tradeController = {
       location: location,
       tradeMethod: tradeMethod,
       traderType: traderType,
-      'more_information.min_trans_limit': { $lte: amount },
-      'more_information.max_trans_limit': { $gte: amount },
+      'more_information.min_trans_limit': {
+        $lte: amount
+      },
+      'more_information.max_trans_limit': {
+        $gte: amount
+      },
       'more_information.currency': currency,
       payment_method: payment_method
-    }, async(err, trade) => {
-      if (err) return res.json({ isError: true, data: err });
+    }, async (err, trade) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
       res.json({
         isError: false,
         meta: {
@@ -55,18 +68,26 @@ const tradeController = {
             location: location,
             tradeMethod: tradeMethod,
             traderType: traderType,
-            'more_information.min_trans_limit': { $lt: amount },
-            'more_information.max_trans_limit': { $gt: amount },
+            'more_information.min_trans_limit': {
+              $lt: amount
+            },
+            'more_information.max_trans_limit': {
+              $gt: amount
+            },
             'more_information.currency': currency,
-            payment_method: payment_method
+            'payment_method': payment_method
 
           }).count() / (10)),
           perpage: req.query.pagination.perpage,
           total: await postatrade.find({
             cryptoCurrency: cryptoCurrency,
             location: location,
-            'more_information.min_trans_limit': { $lt: amount },
-            'more_information.max_trans_limit': { $gt: amount },
+            'more_information.min_trans_limit': {
+              $lt: amount
+            },
+            'more_information.max_trans_limit': {
+              $gt: amount
+            },
             tradeMethod: tradeMethod,
             traderType: traderType,
             'more_information.currency': currency,
@@ -83,7 +104,7 @@ const tradeController = {
     }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
   },
 
-  getByCurrencyLoc: async(req, res, next) => {
+  getByCurrencyLoc: async (req, res, next) => {
     var request = req.query.query;
     var perpage = req.query.pagination.perpage;
     var page = req.query.pagination.page;
@@ -102,8 +123,11 @@ const tradeController = {
       location: location,
       tradeMethod: tradeMethod,
       traderType: traderType,
-    }, async(err, trade) => {
-      if (err) return res.json({ isError: true, data: err });
+    }, async (err, trade) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
       res.json({
         isError: false,
         meta: {
@@ -133,17 +157,28 @@ const tradeController = {
     console.log("req=> for get One tradeController", req.body, req.params, req.query);
     postatrade.findById(req.query.id, (err, trade) => {
       if (err) {
-        res.json({ isError: true, data: err });
+        res.json({
+          isError: true,
+          data: err
+        });
       }
-      res.json({ isError: false, data: trade });
+      res.json({
+        isError: false,
+        data: trade
+      });
     });
   },
 
-  create: async(req, res, next) => {
+  create: async (req, res, next) => {
 
     var params = req.body;
 
-    var userObj = await usersModel.find({ '_id': req.body.user }, { _id: 0, first_name: 1 });
+    var userObj = await usersModel.find({
+      '_id': req.body.user
+    }, {
+      _id: 0,
+      first_name: 1
+    });
 
     /*  params.firstName = await usersModel.findOne({ '_id': req.body.user }, { _id: 0, first_name: 1 }, (err, user) => {
        if (err) {
@@ -153,15 +188,34 @@ const tradeController = {
     params.firstName = userObj[0].first_name;
     console.log("params in posrt trade=>>", params);
 
-    postatrade.create(params, function(err, trade) {
-      if (err) return res.json({ isError: true, data: err });
+    postatrade.create(params, function (err, trade) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
       else {
-        tradeMoreInfo.create({ 'trade_id': trade._id, 'user_id': trade.user }, function(err, tradeInfo) {
-          if (err) return res.json({ isError: true, data: err });
+        tradeMoreInfo.create({
+          'trade_id': trade._id,
+          'user_id': trade.user
+        }, function (err, tradeInfo) {
+          if (err) return res.json({
+            isError: true,
+            data: err
+          });
           else {
-            usersModel.findOneAndUpdate({ '_id': tradeInfo.user_id }, { "trade_info": tradeInfo._id }, function(err, UpdateUser) {
-              if (err) return res.json({ isError: true, data: err });
-              res.json({ isError: false, data: UpdateUser })
+            usersModel.findOneAndUpdate({
+              '_id': tradeInfo.user_id
+            }, {
+              "trade_info": tradeInfo._id
+            }, function (err, UpdateUser) {
+              if (err) return res.json({
+                isError: true,
+                data: err
+              });
+              res.json({
+                isError: false,
+                data: UpdateUser
+              })
             })
           }
         })
@@ -170,24 +224,50 @@ const tradeController = {
   },
 
   update: (req, res, next) => {
-    postatrade.findOneAndUpdate(req.params.id, req.body, { new: true }, (err, trade) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: trade })
+    postatrade.findOneAndUpdate(req.params.id, req.body, {
+      new: true
+    }, (err, trade) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: trade
+      })
     });
   },
 
   delete: (req, res, next) => {
-    postatrade.remove({ _id: req.params.id }, (err, ok) => {
-      if (err) return res.json({ isError: true, data: err });
+    postatrade.remove({
+      _id: req.params.id
+    }, (err, ok) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
     });
-    res.json({ isError: false, data: true })
+    res.json({
+      isError: false,
+      data: true
+    })
   },
 
   update: (req, res, next) => {
     var id = mongoose.Types.ObjectId(req.body.id);
-    postatrade.findOneAndUpdate({ '_id': id }, req.body, { new: true }, (err, user) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user })
+    postatrade.findOneAndUpdate({
+      '_id': id
+    }, req.body, {
+      new: true
+    }, (err, user) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      })
     });
   },
 };

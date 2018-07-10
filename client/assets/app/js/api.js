@@ -1,20 +1,40 @@
 var API = {
-  getByCurrencyLoc: function(dataObj) {
+  getByCurrencyLoc: function (dataObj) {
     return new Promise(resolve => {
       // console.log("dataobject in api.js=>", dataObj);
       $.ajax({
         url: "/tradeByCurrencyLoc",
         type: "get",
         data: dataObj,
-        success: function(successData) {
+        success: function (successData) {
           resolve(successData)
         },
-        error: function(err) {
+        error: function (err) {
           alert(err);
         }
       })
     });
   },
+  addUserInfo: function (dataObj) {
+    return new Promise(resolve => {
+      // console.log("dataobject in api.js=>", dataObj);
+      $.ajax({
+        url: "/users/addUserInfo",
+        type: "post",
+        data: dataObj,
+        success: function (successData) {
+          resolve(successData)
+        },
+        error: function (err) {
+          alert(err);
+        }
+      })
+    });
+  },
+
+
+
+
   /*   getPriceEquation: function(dataObj) {
       return new Promise(resolve => {
         // console.log("dataobject in api.js=>", dataObj);
@@ -32,7 +52,7 @@ var API = {
         })
       });
     }, */
-  getPriceEquation: function(dataObj) {
+  getPriceEquation: function (dataObj) {
     return new Promise(resolve => {
       console.log("dataobject in getPriceEquation=>", dataObj);
 
@@ -40,18 +60,18 @@ var API = {
         url: 'https://api.cryptonator.com/api/ticker/' + dataObj.from + '-' + dataObj.to,
         type: "get",
 
-        success: function(successData) {
+        success: function (successData) {
           console.log("sucesss data in price equation=> ", successData);
           resolve(successData)
         },
-        error: function(err) {
+        error: function (err) {
           alert(err);
         }
       })
     });
   },
 
-  changePassword: function(params, token, cb) {
+  changePassword: function (params, token, cb) {
     console.log("params=>", params, token)
 
     $.ajax({
@@ -61,87 +81,93 @@ var API = {
       headers: {
         "authorization": token,
       },
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })
   },
 
-  logout: function(token, cb) {
+  logout: function (token, cb) {
     $.ajax({
       url: "/logout",
       headers: {
         'authorization': token
       },
       type: "get",
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
 
       },
-      error: function(err) {
+      error: function (err) {
         console.log("logout err=>", err);
       }
     })
   },
-  emailVerification: function(email, cb) {
+  emailVerification: function (email, cb) {
     $.ajax({
       url: "/emailverification",
-      data: { email: email },
+      data: {
+        email: email
+      },
       type: "POST",
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })
 
   },
-  recoverPassword: function(params, token, cb) {
+  recoverPassword: function (params, token, cb) {
     console.log("params=> recover password api call", params, token)
     $.ajax({
       url: "/recoverPassword",
       headers: {
         'authorization': token
       },
-      data: { password: $('#password').val() },
+      data: {
+        password: $('#password').val()
+      },
       type: "post",
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
         console.log(" your password is set  =>", successData.data);
         /*         window.location.replace("#/login");
          */
       },
-      error: function(err) {
+      error: function (err) {
         console.log("recoverpassword err=>", err);
       }
     })
   },
-  getActiveUser: function(cb) {
+  getActiveUser: function (cb) {
     $.ajax({
       url: "/getActiveUser",
       type: "get",
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })
   },
-  getCurrencySellerBuyerInfo: function(id, cb) {
+  getCurrencySellerBuyerInfo: function (id, cb) {
     // console.log("dataobject in api.js=>", dataObj);
     $.ajax({
       url: "/sellerBuyerInfo",
       type: "get",
-      data: { id: id },
-      success: function(successData) {
+      data: {
+        id: id
+      },
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })
@@ -149,15 +175,15 @@ var API = {
   },
 
 
-  verification: function(dataObj, cb) {
+  verification: function (dataObj, cb) {
     $.ajax({
       url: "/isVerified",
       data: dataObj,
       type: "get",
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })
@@ -166,7 +192,7 @@ var API = {
 
 
 
-  sendMessage: function(dataObj, token, cb) {
+  sendMessage: function (dataObj, token, cb) {
     $.ajax({
       url: "/sendMessage",
       data: dataObj,
@@ -174,16 +200,16 @@ var API = {
       headers: {
         "authorization": token,
       },
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })
   },
 
-  postTrade: function(dataObj, token, cb) {
+  postTrade: function (dataObj, token, cb) {
     $.ajax({
       url: "/trade",
       data: dataObj,
@@ -191,10 +217,10 @@ var API = {
       headers: {
         "authorization": token,
       },
-      success: function(successData) {
+      success: function (successData) {
         cb(successData)
       },
-      error: function(err) {
+      error: function (err) {
         alert(err);
       }
     })

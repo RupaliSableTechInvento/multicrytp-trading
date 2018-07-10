@@ -1,12 +1,12 @@
 var RecoverPassword = {};
-((function() {
-  this.init = function() {
+((function () {
+  this.init = function () {
     _render.content();
   }
   var _core = {
     recoverPassword: API.recoverPassword,
 
-    showErrorMsg: function(form, type, msg) {
+    showErrorMsg: function (form, type, msg) {
       var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\
         <span></span>\
@@ -19,8 +19,8 @@ var RecoverPassword = {};
 
   }
   var _bind = {
-    recoverPassword: function() {
-      $('#submit-form_btn').click(function() {
+    recoverPassword: function () {
+      $('#submit-form_btn').click(function () {
         var btn = $(this);
         var form = $(this).closest('form');
 
@@ -67,12 +67,12 @@ var RecoverPassword = {};
         console.log("token", token);
 
 
-        _core.recoverPassword($('#password').val(), token, function(res) {
+        _core.recoverPassword($('#password').val(), token, function (res) {
 
           if (res) {
 
             if (res.isError) {
-              setTimeout(function() {
+              setTimeout(function () {
                 btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 
                 _core.showErrorMsg(form, 'danger', 'Unable to reset your password."' + res.data + '" ');
@@ -80,7 +80,7 @@ var RecoverPassword = {};
               }, 2000)
 
             } else {
-              setTimeout(function() {
+              setTimeout(function () {
                 btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                 form.clearForm();
                 form.validate().resetForm();
@@ -170,8 +170,8 @@ var RecoverPassword = {};
     }
   }
   var _render = {
-    content: function() {
-      renderMainFrame('assets/snippets/pages/user/recover.html', 'recover', function() {
+    content: function () {
+      renderMainFrame('assets/snippets/pages/user/recover.html', 'recover', function () {
         _bind.recoverPassword();
       })
 

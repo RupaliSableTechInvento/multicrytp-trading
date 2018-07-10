@@ -10,29 +10,74 @@ var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 const usersController = {
 
-  getAll: async(req, res, next) => {
+  getAll: async (req, res, next) => {
     console.log("get all web service=>", req.body, req.params, req.query)
     usersModel.find({}, (err, users) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: users });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
     });
 
   },
+  addUserInfo: async (req, res, next) => {
+    console.log("addUserInfo=>>", req.body, req.params, req.query)
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("addUserInfo", decoaded.email)
+    usersModel.findOneAndUpdate({
+
+      'email': decoded.email
+    }, req.body, {
+      new: true
+    }, (err, user) => {
+      if (err) return res.json({
+        success: false,
+        data: err
+      });
+      res.json({
+        success: true,
+        data: user
+      })
+    });
+
+  },
+
+
 
   getOne: (req, res, next) => {
     // console.log("------------",next);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    usersModel.findOne({ 'email': decoded.email }, (err, user) => {
+    usersModel.findOne({
+      'email': decoded.email
+    }, (err, user) => {
       if (err) {
-        res.json({ isError: true, data: err });
-      } else { res.json({ isError: false, data: user }); }
+        res.json({
+          isError: true,
+          data: err
+        });
+      } else {
+        res.json({
+          isError: false,
+          data: user
+        });
+      }
     });
   },
 
   create: (req, res, next) => {
-    usersModel.create(req.body, function(err, user) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user })
+    usersModel.create(req.body, function (err, user) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      })
     })
   },
 
@@ -43,8 +88,14 @@ const usersController = {
     }, req.body, {
       new: true
     }, (err, user) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user })
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      })
     });
   },
 
@@ -52,10 +103,18 @@ const usersController = {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     usersModel.findOneAndUpdate({
       'email': decoded.email
-    }, { isActive: 'inactive' }, (err, ok) => {
-      if (err) return res.json({ isError: true, data: err });
+    }, {
+      isActive: 'inactive'
+    }, (err, ok) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
       else {
-        res.json({ isError: true, data: true })
+        res.json({
+          isError: true,
+          data: true
+        })
       }
     });
   },
@@ -66,9 +125,12 @@ const usersController = {
     console.log("email", email);
     usersModel.find({
       'email': req.body.email
-    }, function(err, result) {
+    }, function (err, result) {
       if (err) {
-        res.json({ isError: true, data: err })
+        res.json({
+          isError: true,
+          data: err
+        })
       } else {
         if (result != "") {
           var d = new Date();
@@ -106,7 +168,11 @@ const usersController = {
               var information = JSON.stringify(info);
 
               console.log('Transporter', err, information);
-              mail_responseModel.create({ 'email': email, 'error': error, 'info': information }, function(err, mail_response) {
+              mail_responseModel.create({
+                'email': email,
+                'error': error,
+                'info': information
+              }, function (err, mail_response) {
                 if (err) {
                   console.log("mail_responseModel error=>", err);
                 } else {
@@ -117,11 +183,17 @@ const usersController = {
 
               if (error) {
                 return console.log("error--11--", error);
-                res.json({ isError: true, data: error });
+                res.json({
+                  isError: true,
+                  data: error
+                });
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({ isError: false, data: 'Please check your Email' });
+                res.json({
+                  isError: false,
+                  data: 'Please check your Email'
+                });
 
               }
 
@@ -135,7 +207,10 @@ const usersController = {
             //    res.json(mailOptions);
           });
         } else {
-          res.json({ isError: true, data: 'please provide a valid mail' });
+          res.json({
+            isError: true,
+            data: 'please provide a valid mail'
+          });
         }
       }
     })
@@ -151,17 +226,31 @@ const usersController = {
     }, {
       new: true
     }, (err, user) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user })
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      })
     });
   },
 
 
   isVerified: (req, res, next) => {
     var decoded = jwt.verify(req.query.token, env.App_key);
-    usersModel.find({ 'email': decoded.email }, (err, user) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+    usersModel.find({
+      'email': decoded.email
+    }, (err, user) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
     });
 
   },
@@ -173,9 +262,12 @@ const usersController = {
 
     usersModel.find({
       'email': req.body.email
-    }, function(err, result) {
+    }, function (err, result) {
       if (err) {
-        res.json({ isError: true, data: err })
+        res.json({
+          isError: true,
+          data: err
+        })
       } else {
         if (result != "") {
           var d = new Date();
@@ -204,7 +296,11 @@ const usersController = {
             };
             transporter.sendMail(mailOptions, (error, info) => {
 
-              mail_responseModel.create({ 'email': email, 'error': error, 'info': info }, function(err, mail_response) {
+              mail_responseModel.create({
+                'email': email,
+                'error': error,
+                'info': info
+              }, function (err, mail_response) {
                 if (err) {
                   console.log("mail_responseModel error=>", err);
                 } else {
@@ -212,17 +308,26 @@ const usersController = {
                 }
               })
               if (error) {
-                res.json({ isError: true, data: error });
+                res.json({
+                  isError: true,
+                  data: error
+                });
                 return console.log("error--11--", error);
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({ isError: false, data: 'Please check your email' });
+                res.json({
+                  isError: false,
+                  data: 'Please check your email'
+                });
               }
             });
           });
         } else {
-          res.json({ isError: true, data: 'please provide a valid mail' });
+          res.json({
+            isError: true,
+            data: 'please provide a valid mail'
+          });
         }
       }
     })
@@ -241,13 +346,20 @@ const usersController = {
           "verification.email_verified": true
         }
       }, (err, user) => {
-        if (err) return res.json({ isError: true, data: err });
+        if (err) return res.json({
+          isError: true,
+          data: err
+        });
         //  res.redirect('/#/profile');
-        res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
+        res.send('verified')
+        //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
 
       });
     } else {
-      res.json({ isError: true, data: "session expire" });
+      res.json({
+        isError: true,
+        data: "session expire"
+      });
     }
   },
 
@@ -267,7 +379,10 @@ const usersController = {
       }, env.App_key);
       res.redirect('/recover/' + token)
     } else {
-      res.json({ isError: true, data: "session expire" });
+      res.json({
+        isError: true,
+        data: "session expire"
+      });
     }
   },
   changePassword: (req, res, next) => {
@@ -286,8 +401,14 @@ const usersController = {
         "password": req.body.new_pasword,
       }
     }, (err, user) => {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
       console.log("user=>", user);
     })
   },
@@ -308,13 +429,22 @@ const usersController = {
           }
         }, (err, user) => {
           if (err) return res.json(err);
-          res.json({ isError: false, data: user });
+          res.json({
+            isError: false,
+            data: user
+          });
         });
       } else {
-        res.json({ isError: true, data: "session expire" });
+        res.json({
+          isError: true,
+          data: "session expire"
+        });
       }
     } else {
-      res.json({ isError: true, data: "Please provide valid password" });
+      res.json({
+        isError: true,
+        data: "Please provide valid password"
+      });
     }
 
   },
@@ -332,11 +462,20 @@ const usersController = {
           "email": req.body.new_email,
         }
       }, (err, user) => {
-        if (err) return res.json({ isError: true, data: err });
-        res.json({ isError: false, data: user });
+        if (err) return res.json({
+          isError: true,
+          data: err
+        });
+        res.json({
+          isError: false,
+          data: user
+        });
       })
     } else {
-      res.json({ isError: true, data: "NULL" });
+      res.json({
+        isError: true,
+        data: "NULL"
+      });
     }
   },
 

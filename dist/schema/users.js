@@ -33,6 +33,9 @@ var usersSchema = new _mongoose2.default.Schema({
     type: String,
     default: 'active'
   },
+  phone_no: {
+    type: String
+  },
   /*  isOnline: {
      type: String,
      default: 'false'
@@ -133,3 +136,4 @@ usersSchema.plugin(_mongooseUniqueValidator2.default);
 usersSchema.plugin(_mongooseAutoIncrement2.default.plugin, 'id');
 
 exports.default = usersSchema;
+//# sourceMappingURL=users.js.map

@@ -17,3 +17,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var inboxModel = _mongoose2.default.model('inbox', _inbox2.default);
 
 exports.default = inboxModel;
+//# sourceMappingURL=inboxModel.js.map

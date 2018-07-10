@@ -34,3 +34,4 @@ var mailResponse = new _mongoose2.default.Schema({
 mailResponse.plugin(_mongooseUniqueValidator2.default);
 
 exports.default = mailResponse;
+//# sourceMappingURL=mail_response.js.map

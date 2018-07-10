@@ -12,7 +12,7 @@
   "url": "https://github.com/mhmardani/express-es6-boilerplate",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^2.6.1",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",

@@ -53,17 +53,47 @@ var authController = {
         var token = new _tokenModel2.default();
         console.log(user.email);
         var currentTime = new Date();
-        var token2 = { 'token': token1, email: user.email, isActive: "active", expiry: v, userActiveTime: currentTime };
-        _tokenModel2.default.findOneAndUpdate({ $and: [{ email: user.email }, { isActive: "active" }] }, { $set: { isActive: "inactive" } }, function (err, data) {
-          if (err) return res.json({ isError: true, data: err });else {
+        var token2 = {
+          'token': token1,
+          email: user.email,
+          isActive: "active",
+          expiry: v,
+          userActiveTime: currentTime
+        };
+        _tokenModel2.default.findOneAndUpdate({
+          $and: [{
+            email: user.email
+          }, {
+            isActive: "active"
+          }]
+        }, {
+          $set: {
+            isActive: "inactive"
+          }
+        }, function (err, data) {
+          if (err) return res.json({
+            isError: true,
+            data: err
+          });else {
             _tokenModel2.default.create(token2, function (err, token) {
               if (err) return res.json(err);
-              res.json({ isError: false, data: token1, user: { first_name: user.first_name, last_name: user.last_name, id: user._id } });
+              res.json({
+                isError: false,
+                data: token1,
+                user: {
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  id: user._id
+                }
+              });
             });
           }
         });
       } else {
-        res.json({ isError: true, data: "email or password incorrect !" });
+        res.json({
+          isError: true,
+          data: "email or password incorrect !"
+        });
       }
     });
   },
@@ -75,8 +105,13 @@ var authController = {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _tokenModel2.default.find({ isActive: "active" }, function (err, tokenModel) {
-                if (err) return res.json({ isError: true, tokenModel: err });else {
+              return _tokenModel2.default.find({
+                isActive: "active"
+              }, function (err, tokenModel) {
+                if (err) return res.json({
+                  isError: true,
+                  tokenModel: err
+                });else {
                   var emailObj = [];
                   console.log("trade model result", tokenModel.length);
                   for (var index = 0; index < tokenModel.length; index++) {
@@ -84,9 +119,20 @@ var authController = {
                   }
                   console.log("active user email ", emailObj);
 
-                  _usersModel2.default.find({ 'email': { $in: emailObj } }, function (err, user) {
-                    if (err) return res.json({ isError: true, user: err });else {
-                      return res.json({ isError: false, tokenModel: tokenModel, user: user });
+                  _usersModel2.default.find({
+                    'email': {
+                      $in: emailObj
+                    }
+                  }, function (err, user) {
+                    if (err) return res.json({
+                      isError: true,
+                      user: err
+                    });else {
+                      return res.json({
+                        isError: false,
+                        tokenModel: tokenModel,
+                        user: user
+                      });
                     }
                   });
                 }
@@ -106,7 +152,7 @@ var authController = {
   }(),
 
   register: function register(req, res, next) {
-    console.log("req.body", req.body, req.params, req.query);
+    console.log("req.body for register", req.body, req.params, req.query);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
       var user = new _usersModel2.default(req.body);
@@ -119,15 +165,34 @@ var authController = {
     }
   },
   logout: function logout(req, res, next) {
+    console.log("logout=>>", req);
+
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    _tokenModel2.default.findOneAndUpdate({ $and: [{ 'email': decoded.email }, { 'isActive': 'active' }] }, { $set: { 'isActive': 'inactive' } }, function (err, data) {
+    _tokenModel2.default.findOneAndUpdate({
+      $and: [{
+        'email': decoded.email
+      }, {
+        'isActive': 'active'
+      }]
+    }, {
+      $set: {
+        'isActive': 'inactive'
+      }
+    }, function (err, data) {
       if (err) {
-        res.json({ isError: true, data: err });
+        res.json({
+          success: false,
+          data: err
+        });
       } else {
-        res.json({ isError: false, data: data });
+        res.json({
+          success: true,
+          data: data
+        });
       }
     });
   }
 };
 
 exports.default = authController;
+//# sourceMappingURL=authController.js.map

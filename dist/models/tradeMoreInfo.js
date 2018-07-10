@@ -17,3 +17,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var tradeMoreInfo = _mongoose2.default.model('trade_more_info', _tradeMoreInfo2.default);
 
 exports.default = tradeMoreInfo;
+//# sourceMappingURL=tradeMoreInfo.js.map

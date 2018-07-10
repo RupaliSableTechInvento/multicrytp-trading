@@ -30,3 +30,4 @@ var tradeMoreInfoSchema = new _mongoose2.default.Schema({
 tradeMoreInfoSchema.plugin(_mongooseUniqueValidator2.default);
 
 exports.default = tradeMoreInfoSchema;
+//# sourceMappingURL=tradeMoreInfo.js.map

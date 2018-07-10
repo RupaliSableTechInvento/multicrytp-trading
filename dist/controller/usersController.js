@@ -41,8 +41,14 @@ var usersController = {
             case 0:
               console.log("get all web service=>", req.body, req.params, req.query);
               _usersModel2.default.find({}, function (err, users) {
-                if (err) return res.json({ isError: true, data: err });
-                res.json({ isError: false, data: users });
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });
+                res.json({
+                  isError: false,
+                  data: users
+                });
               });
 
             case 2:
@@ -57,23 +63,76 @@ var usersController = {
       return _ref.apply(this, arguments);
     };
   }(),
+  addUserInfo: function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res, next) {
+      var decoded;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              console.log("addUserInfo=>>", req.body, req.params, req.query);
+              decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+
+              console.log("addUserInfo", decoaded.email);
+              _usersModel2.default.findOneAndUpdate({
+
+                'email': decoded.email
+              }, req.body, {
+                new: true
+              }, function (err, user) {
+                if (err) return res.json({
+                  success: false,
+                  data: err
+                });
+                res.json({
+                  success: true,
+                  data: user
+                });
+              });
+
+            case 4:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function addUserInfo(_x4, _x5, _x6) {
+      return _ref2.apply(this, arguments);
+    };
+  }(),
 
   getOne: function getOne(req, res, next) {
     // console.log("------------",next);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    _usersModel2.default.findOne({ 'email': decoded.email }, function (err, user) {
+    _usersModel2.default.findOne({
+      'email': decoded.email
+    }, function (err, user) {
       if (err) {
-        res.json({ isError: true, data: err });
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
-        res.json({ isError: false, data: user });
+        res.json({
+          isError: false,
+          data: user
+        });
       }
     });
   },
 
   create: function create(req, res, next) {
     _usersModel2.default.create(req.body, function (err, user) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
     });
   },
 
@@ -84,8 +143,14 @@ var usersController = {
     }, req.body, {
       new: true
     }, function (err, user) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
     });
   },
 
@@ -93,9 +158,17 @@ var usersController = {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     _usersModel2.default.findOneAndUpdate({
       'email': decoded.email
-    }, { isActive: 'inactive' }, function (err, ok) {
-      if (err) return res.json({ isError: true, data: err });else {
-        res.json({ isError: true, data: true });
+    }, {
+      isActive: 'inactive'
+    }, function (err, ok) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });else {
+        res.json({
+          isError: true,
+          data: true
+        });
       }
     });
   },
@@ -108,7 +181,10 @@ var usersController = {
       'email': req.body.email
     }, function (err, result) {
       if (err) {
-        res.json({ isError: true, data: err });
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
         if (result != "") {
           var d = new Date();
@@ -146,7 +222,11 @@ var usersController = {
               var information = JSON.stringify(info);
 
               console.log('Transporter', err, information);
-              _mail_responseModel2.default.create({ 'email': email, 'error': error, 'info': information }, function (err, mail_response) {
+              _mail_responseModel2.default.create({
+                'email': email,
+                'error': error,
+                'info': information
+              }, function (err, mail_response) {
                 if (err) {
                   console.log("mail_responseModel error=>", err);
                 } else {
@@ -156,11 +236,17 @@ var usersController = {
 
               if (error) {
                 return console.log("error--11--", error);
-                res.json({ isError: true, data: error });
+                res.json({
+                  isError: true,
+                  data: error
+                });
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({ isError: false, data: 'Please check your Email' });
+                res.json({
+                  isError: false,
+                  data: 'Please check your Email'
+                });
               }
 
               // Preview only available when sending through an Ethereal account
@@ -173,7 +259,10 @@ var usersController = {
             //    res.json(mailOptions);
           });
         } else {
-          res.json({ isError: true, data: 'please provide a valid mail' });
+          res.json({
+            isError: true,
+            data: 'please provide a valid mail'
+          });
         }
       }
     });
@@ -189,16 +278,30 @@ var usersController = {
     }, {
       new: true
     }, function (err, user) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
     });
   },
 
   isVerified: function isVerified(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.query.token, _env2.default.App_key);
-    _usersModel2.default.find({ 'email': decoded.email }, function (err, user) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+    _usersModel2.default.find({
+      'email': decoded.email
+    }, function (err, user) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
     });
   },
 
@@ -211,7 +314,10 @@ var usersController = {
       'email': req.body.email
     }, function (err, result) {
       if (err) {
-        res.json({ isError: true, data: err });
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
         if (result != "") {
           var d = new Date();
@@ -240,7 +346,11 @@ var usersController = {
             };
             transporter.sendMail(mailOptions, function (error, info) {
 
-              _mail_responseModel2.default.create({ 'email': email, 'error': error, 'info': info }, function (err, mail_response) {
+              _mail_responseModel2.default.create({
+                'email': email,
+                'error': error,
+                'info': info
+              }, function (err, mail_response) {
                 if (err) {
                   console.log("mail_responseModel error=>", err);
                 } else {
@@ -248,17 +358,26 @@ var usersController = {
                 }
               });
               if (error) {
-                res.json({ isError: true, data: error });
+                res.json({
+                  isError: true,
+                  data: error
+                });
                 return console.log("error--11--", error);
               } else {
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                res.json({ isError: false, data: 'Please check your email' });
+                res.json({
+                  isError: false,
+                  data: 'Please check your email'
+                });
               }
             });
           });
         } else {
-          res.json({ isError: true, data: 'please provide a valid mail' });
+          res.json({
+            isError: true,
+            data: 'please provide a valid mail'
+          });
         }
       }
     });
@@ -277,12 +396,19 @@ var usersController = {
           "verification.email_verified": true
         }
       }, function (err, user) {
-        if (err) return res.json({ isError: true, data: err });
+        if (err) return res.json({
+          isError: true,
+          data: err
+        });
         //  res.redirect('/#/profile');
-        res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
+        res.send('verified');
+        //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
       });
     } else {
-      res.json({ isError: true, data: "session expire" });
+      res.json({
+        isError: true,
+        data: "session expire"
+      });
     }
   },
 
@@ -302,7 +428,10 @@ var usersController = {
       }, _env2.default.App_key);
       res.redirect('/recover/' + token);
     } else {
-      res.json({ isError: true, data: "session expire" });
+      res.json({
+        isError: true,
+        data: "session expire"
+      });
     }
   },
   changePassword: function changePassword(req, res, next) {
@@ -321,8 +450,14 @@ var usersController = {
         "password": req.body.new_pasword
       }
     }, function (err, user) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: user });
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: user
+      });
       console.log("user=>", user);
     });
   },
@@ -343,13 +478,22 @@ var usersController = {
           }
         }, function (err, user) {
           if (err) return res.json(err);
-          res.json({ isError: false, data: user });
+          res.json({
+            isError: false,
+            data: user
+          });
         });
       } else {
-        res.json({ isError: true, data: "session expire" });
+        res.json({
+          isError: true,
+          data: "session expire"
+        });
       }
     } else {
-      res.json({ isError: true, data: "Please provide valid password" });
+      res.json({
+        isError: true,
+        data: "Please provide valid password"
+      });
     }
   },
   changeEmail: function changeEmail(req, res, next) {
@@ -366,14 +510,24 @@ var usersController = {
           "email": req.body.new_email
         }
       }, function (err, user) {
-        if (err) return res.json({ isError: true, data: err });
-        res.json({ isError: false, data: user });
+        if (err) return res.json({
+          isError: true,
+          data: err
+        });
+        res.json({
+          isError: false,
+          data: user
+        });
       });
     } else {
-      res.json({ isError: true, data: "NULL" });
+      res.json({
+        isError: true,
+        data: "NULL"
+      });
     }
   }
 
 };
 
 exports.default = usersController;
+//# sourceMappingURL=usersController.js.map

@@ -19,24 +19,43 @@ var _tokenModel2 = _interopRequireDefault(_tokenModel);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var authenticated = function authenticated(req, res, next) {
-  console.log("req.headers", req.headers);
+  // console.log("req.headers", req.headers)
   var token = req.headers['authorization'];
   var today = new Date();
-  _tokenModel2.default.findOne({ $and: [{ 'token': token }, { 'isActive': 'active' }, { expiry: { $gt: today } }] }, function (err, user) {
+  _tokenModel2.default.findOne({
+    $and: [{
+      'token': token
+    }, {
+      'isActive': 'active'
+    }, {
+      expiry: {
+        $gt: today
+      }
+    }]
+  }, function (err, user) {
     if (err) {
-      res.json({ isError: true, data: err });
+      res.json({
+        isError: true,
+        data: err
+      });
     } else {
       if (user != null) {
         // console.log("-------------",user);
         _jsonwebtoken2.default.verify(token, _env2.default.App_key, function (err, decode) {
           if (err) {
-            res.json({ isError: true, data: err });
+            res.json({
+              isError: true,
+              data: err
+            });
           } else {
             next();
           }
         });
       } else {
-        res.json({ isError: true, data: "Middle Order Login Again" });
+        res.json({
+          isError: true,
+          data: "Middle Order Login Again"
+        });
       }
     }
   });
@@ -45,3 +64,4 @@ var authenticated = function authenticated(req, res, next) {
 //
 // }
 exports.default = authenticated;
+//# sourceMappingURL=authenticated.js.map

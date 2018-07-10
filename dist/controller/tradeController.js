@@ -37,8 +37,14 @@ var tradeController = _defineProperty({
           switch (_context.prev = _context.next) {
             case 0:
               _postatrade2.default.find({}, function (err, trade) {
-                if (err) return res.json({ isError: true, data: err });
-                res.json({ isError: false, data: trade });
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });
+                res.json({
+                  isError: false,
+                  data: trade
+                });
               });
 
             case 1:
@@ -87,8 +93,12 @@ var tradeController = _defineProperty({
                 location: location,
                 tradeMethod: tradeMethod,
                 traderType: traderType,
-                'more_information.min_trans_limit': { $lte: amount },
-                'more_information.max_trans_limit': { $gte: amount },
+                'more_information.min_trans_limit': {
+                  $lte: amount
+                },
+                'more_information.max_trans_limit': {
+                  $gte: amount
+                },
                 'more_information.currency': currency,
                 payment_method: payment_method
               }, function () {
@@ -102,7 +112,10 @@ var tradeController = _defineProperty({
                             break;
                           }
 
-                          return _context2.abrupt('return', res.json({ isError: true, data: err }));
+                          return _context2.abrupt('return', res.json({
+                            isError: true,
+                            data: err
+                          }));
 
                         case 2:
                           _context2.t0 = res;
@@ -113,10 +126,14 @@ var tradeController = _defineProperty({
                             location: location,
                             tradeMethod: tradeMethod,
                             traderType: traderType,
-                            'more_information.min_trans_limit': { $lt: amount },
-                            'more_information.max_trans_limit': { $gt: amount },
+                            'more_information.min_trans_limit': {
+                              $lt: amount
+                            },
+                            'more_information.max_trans_limit': {
+                              $gt: amount
+                            },
                             'more_information.currency': currency,
-                            payment_method: payment_method
+                            'payment_method': payment_method
 
                           }).count();
 
@@ -128,8 +145,12 @@ var tradeController = _defineProperty({
                           return _postatrade2.default.find({
                             cryptoCurrency: cryptoCurrency,
                             location: location,
-                            'more_information.min_trans_limit': { $lt: amount },
-                            'more_information.max_trans_limit': { $gt: amount },
+                            'more_information.min_trans_limit': {
+                              $lt: amount
+                            },
+                            'more_information.max_trans_limit': {
+                              $gt: amount
+                            },
                             tradeMethod: tradeMethod,
                             traderType: traderType,
                             'more_information.currency': currency
@@ -221,7 +242,10 @@ var tradeController = _defineProperty({
                             break;
                           }
 
-                          return _context4.abrupt('return', res.json({ isError: true, data: err }));
+                          return _context4.abrupt('return', res.json({
+                            isError: true,
+                            data: err
+                          }));
 
                         case 2:
                           _context4.t0 = res;
@@ -294,9 +318,15 @@ var tradeController = _defineProperty({
     console.log("req=> for get One tradeController", req.body, req.params, req.query);
     _postatrade2.default.findById(req.query.id, function (err, trade) {
       if (err) {
-        res.json({ isError: true, data: err });
+        res.json({
+          isError: true,
+          data: err
+        });
       }
-      res.json({ isError: false, data: trade });
+      res.json({
+        isError: false,
+        data: trade
+      });
     });
   },
 
@@ -309,7 +339,12 @@ var tradeController = _defineProperty({
             case 0:
               params = req.body;
               _context6.next = 3;
-              return _usersModel2.default.find({ '_id': req.body.user }, { _id: 0, first_name: 1 });
+              return _usersModel2.default.find({
+                '_id': req.body.user
+              }, {
+                _id: 0,
+                first_name: 1
+              });
 
             case 3:
               userObj = _context6.sent;
@@ -324,12 +359,31 @@ var tradeController = _defineProperty({
               console.log("params in posrt trade=>>", params);
 
               _postatrade2.default.create(params, function (err, trade) {
-                if (err) return res.json({ isError: true, data: err });else {
-                  _tradeMoreInfo2.default.create({ 'trade_id': trade._id, 'user_id': trade.user }, function (err, tradeInfo) {
-                    if (err) return res.json({ isError: true, data: err });else {
-                      _usersModel2.default.findOneAndUpdate({ '_id': tradeInfo.user_id }, { "trade_info": tradeInfo._id }, function (err, UpdateUser) {
-                        if (err) return res.json({ isError: true, data: err });
-                        res.json({ isError: false, data: UpdateUser });
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });else {
+                  _tradeMoreInfo2.default.create({
+                    'trade_id': trade._id,
+                    'user_id': trade.user
+                  }, function (err, tradeInfo) {
+                    if (err) return res.json({
+                      isError: true,
+                      data: err
+                    });else {
+                      _usersModel2.default.findOneAndUpdate({
+                        '_id': tradeInfo.user_id
+                      }, {
+                        "trade_info": tradeInfo._id
+                      }, function (err, UpdateUser) {
+                        if (err) return res.json({
+                          isError: true,
+                          data: err
+                        });
+                        res.json({
+                          isError: false,
+                          data: UpdateUser
+                        });
                       });
                     }
                   });
@@ -350,25 +404,52 @@ var tradeController = _defineProperty({
   }(),
 
   update: function update(req, res, next) {
-    _postatrade2.default.findOneAndUpdate(req.params.id, req.body, { new: true }, function (err, trade) {
-      if (err) return res.json({ isError: true, data: err });
-      res.json({ isError: false, data: trade });
+    _postatrade2.default.findOneAndUpdate(req.params.id, req.body, {
+      new: true
+    }, function (err, trade) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: trade
+      });
     });
   },
 
   delete: function _delete(req, res, next) {
-    _postatrade2.default.remove({ _id: req.params.id }, function (err, ok) {
-      if (err) return res.json({ isError: true, data: err });
+    _postatrade2.default.remove({
+      _id: req.params.id
+    }, function (err, ok) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
     });
-    res.json({ isError: false, data: true });
+    res.json({
+      isError: false,
+      data: true
+    });
   }
 
 }, 'update', function update(req, res, next) {
   var id = mongoose.Types.ObjectId(req.body.id);
-  _postatrade2.default.findOneAndUpdate({ '_id': id }, req.body, { new: true }, function (err, user) {
-    if (err) return res.json({ isError: true, data: err });
-    res.json({ isError: false, data: user });
+  _postatrade2.default.findOneAndUpdate({
+    '_id': id
+  }, req.body, {
+    new: true
+  }, function (err, user) {
+    if (err) return res.json({
+      isError: true,
+      data: err
+    });
+    res.json({
+      isError: false,
+      data: user
+    });
   });
 });
 
 exports.default = tradeController;
+//# sourceMappingURL=tradeController.js.map
