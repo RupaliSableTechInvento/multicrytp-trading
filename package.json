@@ -25,6 +25,7 @@
     "hashcode": "^1.0.3",
     "http": "0.0.0",
     "jsonwebtoken": "^8.0.1",
+    "moment": "^2.22.2",
     "mongodb": "^2.2.31",
     "mongodb-migrate": "^2.0.2",
     "mongodb-migrations": "^0.8.5",
