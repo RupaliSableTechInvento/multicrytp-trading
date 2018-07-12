@@ -281,9 +281,7 @@ const postTradeSchema = new mongoose.Schema({
     },
   },
   online_selling: {
-    payment_details: {
-      type: String,
-    },
+
     minimum_volume: {
       type: Number,
     },

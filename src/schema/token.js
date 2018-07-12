@@ -17,6 +17,10 @@ const tokenSchema = new mongoose.Schema({
   },
   userActiveTime: {
     type: Date,
+  },
+  userInactiveTime: {
+    type: Date,
+    default: ''
   }
 
 });

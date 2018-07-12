@@ -17,6 +17,10 @@ const usersSchema = new mongoose.Schema({
     type: String,
     default: 'active'
   },
+  account_created: {
+    type: Date,
+    default: new Date(),
+  },
   phone_no: {
     type: String,
   },

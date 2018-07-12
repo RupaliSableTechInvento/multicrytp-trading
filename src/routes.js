@@ -43,11 +43,13 @@ const routes = (route) => {
   route.route('/sendMessage')
     .post(inboxController.sendMessage);
 
+  route.route('/userProfile')
+    .get(usersController.userProfile)
 
   route.route('/users')
     //console.log("user=>>", req)
     .get(usersController.getAll)
-  //.delete(usersController.delete);
+    //.delete(usersController.delete);
 
   route.route('/seller')
     .get(usersController.getOne)
@@ -82,6 +84,10 @@ const routes = (route) => {
  */
   route.route('/tradeByCurrencyLoc')
     .get(tradeController.getByCurrencyLoc);
+
+  route.route('/getTrade')
+    .get(tradeController.getTrade);
+
 
 
   route.route('/getQuickByCryptocurrency')

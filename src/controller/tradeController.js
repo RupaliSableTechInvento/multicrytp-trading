@@ -2,13 +2,13 @@ import postatrade from '../models/postatrade'
 import tradeMoreInfo from '../models/tradeMoreInfo'
 import usersModel from '../models/usersModel'
 import async from 'async'
-
+var moment = require('moment');
 var mongoose = require('mongoose');
 
 
 const tradeController = {
 
-  getAll: async (req, res, next) => {
+  getAll: async(req, res, next) => {
     postatrade.find({}, (err, trade) => {
       if (err) return res.json({
         isError: true,
@@ -21,7 +21,7 @@ const tradeController = {
     });
   },
 
-  getQuickByCryptocurrency: async (req, res, next) => {
+  getQuickByCryptocurrency: async(req, res, next) => {
     console.log("quickBUY/SELL");
     var request = req.query.query;
     var perpage = req.query.pagination.perpage;
@@ -54,7 +54,7 @@ const tradeController = {
       },
       'more_information.currency': currency,
       payment_method: payment_method
-    }, async (err, trade) => {
+    }, async(err, trade) => {
       if (err) return res.json({
         isError: true,
         data: err
@@ -104,7 +104,7 @@ const tradeController = {
     }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
   },
 
-  getByCurrencyLoc: async (req, res, next) => {
+  getByCurrencyLoc: async(req, res, next) => {
     var request = req.query.query;
     var perpage = req.query.pagination.perpage;
     var page = req.query.pagination.page;
@@ -123,7 +123,7 @@ const tradeController = {
       location: location,
       tradeMethod: tradeMethod,
       traderType: traderType,
-    }, async (err, trade) => {
+    }, async(err, trade) => {
       if (err) return res.json({
         isError: true,
         data: err
@@ -153,6 +153,56 @@ const tradeController = {
 
     }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
   },
+
+
+
+  getTrade: async(req, res, next) => {
+    var request = req.query.query;
+    var perpage = req.query.pagination.perpage;
+    var page = req.query.pagination.page;
+    var skip = 0;
+    if (page > 1) {
+      skip = perpage * (page - 1);
+      console.log("perpage page skip=>", perpage, page, skip);
+
+    }
+    var user = req.query.query.user;
+    // var cryptoCurrency = req.query.query.cryptoCurrency;
+    // var location = req.query.query.location;
+    // var tradeMethod = req.query.query.tradeMethod;
+    // var traderType = req.query.query.traderType;
+
+    postatrade.find({
+      user: user
+
+    }, async(err, trade) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        meta: {
+          page: req.query.pagination.page,
+          pages: (await postatrade.find({
+            user: user
+
+          }).count() / (10)),
+          perpage: req.query.pagination.perpage,
+          total: await postatrade.find({
+            user: user
+
+          }).count(),
+          sort: "asc",
+          field: "_id",
+        },
+        data: trade,
+      }, )
+
+    }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
+  },
+
+
   getOne: (req, res, next) => {
     console.log("req=> for get One tradeController", req.body, req.params, req.query);
     postatrade.findById(req.query.id, (err, trade) => {
@@ -169,7 +219,7 @@ const tradeController = {
     });
   },
 
-  create: async (req, res, next) => {
+  create: async(req, res, next) => {
 
     var params = req.body;
 
@@ -188,7 +238,7 @@ const tradeController = {
     params.firstName = userObj[0].first_name;
     console.log("params in posrt trade=>>", params);
 
-    postatrade.create(params, function (err, trade) {
+    postatrade.create(params, function(err, trade) {
       if (err) return res.json({
         isError: true,
         data: err
@@ -197,7 +247,7 @@ const tradeController = {
         tradeMoreInfo.create({
           'trade_id': trade._id,
           'user_id': trade.user
-        }, function (err, tradeInfo) {
+        }, function(err, tradeInfo) {
           if (err) return res.json({
             isError: true,
             data: err
@@ -207,7 +257,7 @@ const tradeController = {
               '_id': tradeInfo.user_id
             }, {
               "trade_info": tradeInfo._id
-            }, function (err, UpdateUser) {
+            }, function(err, UpdateUser) {
               if (err) return res.json({
                 isError: true,
                 data: err

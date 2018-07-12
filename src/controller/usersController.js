@@ -1,16 +1,17 @@
 import usersModel from '../models/usersModel'
+import tokenModel from './../models/tokenModel';
+
 import mail_responseModel from '../models/mail_responseModel'
 import postatrade from '../models/postatrade'
 import jwt from 'jsonwebtoken';
 import env from "../env";
-
 
 const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 const usersController = {
 
-  getAll: async (req, res, next) => {
+  getAll: async(req, res, next) => {
     console.log("get all web service=>", req.body, req.params, req.query)
     usersModel.find({}, (err, users) => {
       if (err) return res.json({
@@ -24,7 +25,7 @@ const usersController = {
     });
 
   },
-  addUserInfo: async (req, res, next) => {
+  addUserInfo: async(req, res, next) => {
     console.log("addUserInfo=>>", req.body, req.params, req.query)
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     console.log("addUserInfo", decoaded.email)
@@ -45,7 +46,31 @@ const usersController = {
     });
 
   },
+  userProfile: (req, res, next) => {
+    var _id = Number(req.query.id);
+    console.log("id=>", _id);
+    usersModel.findOne({
+      _id: _id
+    }, (err, user) => {
 
+      if (err) {
+        res.json({
+          isError: true,
+          data: err
+        });
+      } else {
+        var email = user.email;
+        console.log("Email==>", email);
+        tokenModel.findOne({ 'email': email }, (err, tokenData) => {
+          res.json({
+            isError: false,
+            data: { user: user, tokenData: tokenData }
+          });
+        }).sort({ _id: -1 }).limit(1)
+
+      }
+    });
+  },
 
 
   getOne: (req, res, next) => {
@@ -69,7 +94,7 @@ const usersController = {
   },
 
   create: (req, res, next) => {
-    usersModel.create(req.body, function (err, user) {
+    usersModel.create(req.body, function(err, user) {
       if (err) return res.json({
         isError: true,
         data: err
@@ -125,7 +150,7 @@ const usersController = {
     console.log("email", email);
     usersModel.find({
       'email': req.body.email
-    }, function (err, result) {
+    }, function(err, result) {
       if (err) {
         res.json({
           isError: true,
@@ -172,7 +197,7 @@ const usersController = {
                 'email': email,
                 'error': error,
                 'info': information
-              }, function (err, mail_response) {
+              }, function(err, mail_response) {
                 if (err) {
                   console.log("mail_responseModel error=>", err);
                 } else {
@@ -262,7 +287,7 @@ const usersController = {
 
     usersModel.find({
       'email': req.body.email
-    }, function (err, result) {
+    }, function(err, result) {
       if (err) {
         res.json({
           isError: true,
@@ -300,7 +325,7 @@ const usersController = {
                 'email': email,
                 'error': error,
                 'info': info
-              }, function (err, mail_response) {
+              }, function(err, mail_response) {
                 if (err) {
                   console.log("mail_responseModel error=>", err);
                 } else {
@@ -352,7 +377,7 @@ const usersController = {
         });
         //  res.redirect('/#/profile');
         res.send('verified')
-        //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
+          //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
 
       });
     } else {

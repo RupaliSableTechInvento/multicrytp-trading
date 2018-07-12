@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import env from "../env";
 import tradeModel from '../models/postatrade';
 var encode = require('hashcode').hashCode;
+
 const authController = {
   login: (req, res, next) => {
     console.log("login api=>", req.body)
@@ -51,7 +52,7 @@ const authController = {
             data: err
           });
           else {
-            tokenModel.create(token2, function (err, token) {
+            tokenModel.create(token2, function(err, token) {
               if (err) return res.json(err);
               res.json({
                 isError: false,
@@ -74,7 +75,7 @@ const authController = {
     });
   },
 
-  getActiveUser: async (req, res, next) => {
+  getActiveUser: async(req, res, next) => {
     await tokenModel.find({
       isActive: "active"
     }, (err, tokenModel) => {
@@ -112,11 +113,14 @@ const authController = {
   },
 
   register: (req, res, next) => {
-    console.log("req.body for register", req.body, req.params, req.query)
+    console.log("req.body for register", req.body)
+    var account_created = new Date();
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
       let user = new usersModel(req.body);
-      user.save(req.body, function (err, user) {
+      req.body.account_created = account_created;
+      console.log("Account Created==>", account_created);
+      user.save(req.body, function(err, user) {
         if (err) return res.json(err);
         res.json(user)
       })
@@ -126,17 +130,20 @@ const authController = {
   },
   logout: (req, res, next) => {
     console.log("logout=>>", req);
-
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("logout headers..", req.headers['authorization']);
     tokenModel.findOneAndUpdate({
       $and: [{
         'email': decoded.email
       }, {
         'isActive': 'active'
+      }, {
+        'token': req.headers['authorization']
       }]
     }, {
       $set: {
-        'isActive': 'inactive'
+        'isActive': 'inactive',
+        'userInactiveTime': new Date()
       }
     }, (err, data) => {
       if (err) {
