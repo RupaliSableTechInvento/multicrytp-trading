@@ -11,27 +11,310 @@
     <!--End::Section-->
     <!--Begin::Section-->
     <div class="row">
-      <div class="col-xl-12">
+      <div class="col-xl-6">
         <div class="m-portlet m-portlet--mobile ">
           <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
-              <div class="m-portlet__head-title headTitle">
-                <label>Rupali</label>
+              <div class="m-portlet__head-title headTitle" style="display:flex ;align-items:center">
+                <div id="userName">
+
+                </div>
+
               </div>
             </div>
           </div>
           <div class="m-portlet__body">
-            <!--begin: Datatable -->
-            <div>
-              <div class="m_datatable" id="m_datatable_showMore" style="min-height:0">
-              </div>
-            </div>
 
+            <table cellpadding="10">
+              <tr>
+                <th> Trade volume</th>
+                <td id="trade_volume"></td>
+              </tr>
+              <tr>
+                <th> Number of confirmed trades</th>
+                <td id="confirmed_trades"></td>
+              </tr>
+              <tr>
+                <th> Feedback score</th>
+                <td id="feedback_score"></td>
+              </tr>
+              <tr>
+                <th> First purchase</th>
+                <td id="first_purchase"></td>
+              </tr>
+              <tr>
+                <th> Account created</th>
+                <td id="account_created"></td>
+              </tr>
+              <tr>
+                <th> Last seen</th>
+                <td id="last_seen"></td>
+              </tr>
+              <tr>
+                <th> Language</th>
+                <td id="Language"> English</td>
+              </tr>
+              <tr>
+                <th> Phone number</th>
+                <td id="Phone_number"></td>
+              </tr>
+              <tr>
+                <th> Email</th>
+                <td id="email"> </td>
+              </tr>
+              <tr>
+                <th> Trust</th>
+                <td id="trust"> </td>
+              </tr>
+              <tr>
+                <th> Blocks</th>
+                <td id="blocks"> </td>
+              </tr>
+
+
+            </table>
           </div>
+
+
         </div>
       </div>
 
+      <div class="col-xl-6">
+        <div class="m-portlet m-portlet--mobile ">
+          <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+              <div class="m-portlet__head-title headTitle">
+
+              </div>
+            </div>
+          </div>
+          <div class="m-portlet__body">
+            <div id="userNotTrusted" class="col-xl-6">
+              <a id="trustBtn" class="btn btn-warning m-btn m-btn--icon" style="align-items: center;
+            justify-content: center;
+            display: flex;
+            height: 100px;">
+                <div style=" color: white;
+              font-size: 30px;">
+                  <i class="la la-star-o" style="font-size:30px"></i>
+                  <span id="trustUser"></span>
+                </div>
+              </a>
+
+            </div>
+
+            <div id="userTrusted" class="col-xl-7" style="display:none">
+              <a id="trustBtn1" class="btn btn-success m-btn m-btn--icon" style="align-items: center;
+                justify-content: center; 
+                display: flex;
+                height: 100px;">
+                <div style=" color: white;
+                  font-size: 30px;">
+                  <i class="la la-star-o" style="font-size:30px"></i>
+                  <span id="AlreadytrustUser"></span>
+                </div>
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-xl-12">
+        <div class=" ">
+          <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+              <div class="m-portlet__head-title headTitle">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="">
+            <div class="m-portlet m-portlet--mobile">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <div class="Buy_Online">
+                      <div class="m-portlet__head-title headTitle" style=" -webkit-box-align: center;
+                    
+                      align-items: center;
+                      font-size: 1.3rem;
+                      font-weight: 500;
+                      font-family: Roboto;
+                      display: -webkit-box;
+                      box-sizing: border-box;
+                      margin-left: 50px;
+                      margin-top:30px;">
+                        <h4>
+                          <center>
+                            <b>BUY ONLINE</b>
+                          </center>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersOB" style="min-height:0; cursor:pointer;">
+                </div>
+                <div class="btn_proprty">
+                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;margin-right: 20px; margin-top: 20px;" data-tradeMethod="ONLINE" data-traderType="SELL">
+                    <span>
+                            <i class="fa flaticon-menu-button"></i>
+                            <span class="showMore">Show more</span>
+                    </span>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet m-portlet--mobile" style="display:none">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <div class="Buy_Local">
+                      <div class="m-portlet__head-title headTitle" style=" -webkit-box-align: center;
+                      
+                      align-items: center;
+                      font-size: 1.3rem;
+                      font-weight: 500;
+                      font-family: Roboto;
+                      display: -webkit-box;
+                      box-sizing: border-box;
+                      margin-left: 50px;
+                      margin-top:30px;">
+                        <h4>
+                          <center>
+                            <b>BUY LOCALLY</b>
+                          </center>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersLB" style="min-height:0;cursor:pointer;">
+                </div>
+
+                <div class="btn_proprty">
+                  <a class="btn btn-success   m-btn--icon  li_showMore" style="color:white;margin-right: 20px; margin-top: 20px;" data-tradeMethod="LOCAL" data-traderType="SELL">
+                    <span>
+                            <i class="fa flaticon-menu-button"></i>
+                            <span class="showMore">Show more</span>
+                    </span>
+                  </a>
+                </div>
+
+
+                <div>
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="m-portlet m-portlet--mobile" style="display:none">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <div class="Sell_Online">
+                      <div class="m-portlet__head-title headTitle" style="
+                      -webkit-box-align: center;
+                      
+                      align-items: center;
+                      font-size: 1.3rem;
+                      font-weight: 500;
+                      font-family: Roboto;
+                      display: -webkit-box;
+                      box-sizing: border-box;
+                      margin-left: 50px;
+                      margin-top:30px;">
+                        <h4>
+                          <center>
+                            <b>SELL ONLINE</b>
+                          </center>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersOS" style="min-height:0;cursor:pointer;">
+                </div>
+                <div class="btn_proprty">
+
+                  <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;margin-right: 20px;margin-top: 20px;" data-tradeMethod="ONLINE" data-traderType="BUY">
+                    <span>
+                            <i class="fa flaticon-menu-button"></i>
+                            <span class="showMore">Show more</span>
+                    </span>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet m-portlet--mobile" style="display:none">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <div class="Sell_Local">
+                      <div class="m-portlet__head-text headTitle" style=" -webkit-box-align: center;
+                      
+                      align-items: center;
+                      font-size: 1.3rem;
+                      font-weight: 500;
+                      font-family: Roboto;
+                      display: -webkit-box;
+                      box-sizing: border-box;
+                      margin-left: 50px;
+                      margin-top: 30px;">
+                        <h4>
+                          <center>
+                            <b>SELL LOCALLY</b>
+                          </center>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <div class="m_datatable" id="m_datatable_latest_ordersLS" style="min-height:0;cursor:pointer;">
+                </div>
+
+                <div class="btn_proprty">
+                  <a class="btn btn-success m-btn--icon  li_showMore" style="color:white;margin-right: 20px;" data-tradeMethod="LOCAL" data-traderType="BUY">
+                    <span>
+                            <i class="fa flaticon-menu-button"></i>
+                            <span class="showMore">Show more</span>
+                    </span>
+                  </a>
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
     </div>
+
+
+
+
 
 
   </div>

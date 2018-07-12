@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row" style="margin-top:10px">
   <div class="col-xl-6">
     <!--begin:: Widgets/Tasks -->
     <div class="m-portlet m-portlet--full-height ">
       <div class="m-portlet__head">
-        <div class="m-portlet__head-caption">
-          <div class="m-portlet__head-title  headTitle">
+        <div class="m-portlet__head-caption  ">
+          <div class="m-portlet__head-title headTitle">
             <!--   <h3 class="m-portlet__head-text">
               Sell bitcoin using national bank transfer india with Indian Rupee (INR)
             </h3> -->
@@ -41,9 +41,8 @@
                     Payment Method
                   </span>
 
-
                   <br>
-                  <span class="m-widget2__user-name ">
+                  <span class="m-widget2__user-name " id="ad_paymentMethod">
 
                   </span>
                 </div>
@@ -52,7 +51,7 @@
                 <div class="m-widget2__checkbox">
                 </div>
                 <div class="m-widget2__desc" id="user1">
-                  <span class="m-widget2__text">
+                  <span class="m-widget2__text  username">
                     User:
                   </span>
                   <br>
@@ -66,12 +65,15 @@
                       </a> -->
 
 
-
-
-                      <a data-toggle="popover" title="Popover header">
-                        <label class="username"></label>
+                      <a href="/#">
+                        <label class=""> </label>
                       </a>
 
+                      <!--                       
+                      <a data-toggle="popover" href="#" title="Popover header">
+                        <label class="username"> </label>
+                      </a>  -->
+                      <!-- <label class="username"> </label> -->
 
 
                     </div>
@@ -634,16 +636,14 @@
         <h4>
           How much you wish to buy?
         </h4>
-        <form class="form-inline ad-calculator-form-old" action="/ad/638558/cash-out-your-bitcoins-imps-bank-transfer-india" method="POST"
-          onsubmit="trade_button.disabled = true; return true;">
+        <form class="form-inline ad-calculator-form-old" action="/ad/638558/cash-out-your-bitcoins-imps-bank-transfer-india" method="POST" onsubmit="trade_button.disabled = true; return true;">
           <input type="hidden" name="csrfmiddlewaretoken" value="3ofrhu068mEVpdkTBfWIe95EmlkOj43Y">
           <input id="id_price_equation" maxlength="500" name="price_equation" type="hidden" value="577000">
           <span class="formerror"></span>
           <span class="formerror"></span>
           <div id="amountdiv" class="row">
             <div class="col-md-6 span amount">INR
-              <input autocomplete="off" class="form-control" id="amountinput" name="amount" placeholder="0.00" title="Remember to suggest trade sum amount between limit"
-                type="text">
+              <input autocomplete="off" class="form-control" id="amountinput" name="amount" placeholder="0.00" title="Remember to suggest trade sum amount between limit" type="text">
             </div>
             <div class="col-md-6 span btc">BTC
               <input class="form-control" id="btcinput" name="btcinput" type="text">
@@ -671,15 +671,14 @@
     <div class=" BUY_ONLINE" style="display:none;">
       <p class="send-request-fail-reason">
         You need to verify your email a ddress
-        <strong>rupali@techinvento.com</strong> before you can make a trade request. Check your inbox for the verification message
-        and then return to this page.
+        <strong>rupali@techinvento.com</strong> before you can make a trade request. Check your inbox for the verification message and then return to this page.
         <br> If this issue persists, please
         <a href="/support/request/">contact support</a>.
         <br> Your email verification mail has expired.
         <a href="/accounts/profile-edit/change-email/" class="btn btn-default full-width">Set up email</a>
         <script>
           // Allow using reset form in calculator form
-          $(".resend-verification-button").on("click", function (e) {
+          $(".resend-verification-button").on("click", function(e) {
             e.preventDefault();
             var form = document.createElement("form");
             form.setAttribute("method", "POST");
@@ -713,8 +712,7 @@
     <div class="col-md-12 SELL_ONLINE" style="display:none;">
       <p class="send-request-fail-reason">
         You need to verify your email address
-        <strong>rupali@techinvento.com</strong> before you can make a trade request. Check your inbox for the verification message
-        and then return to this page.
+        <strong>rupali@techinvento.com</strong> before you can make a trade request. Check your inbox for the verification message and then return to this page.
         <br> If this issue persists, please
         <a href="/support/request/">contact support</a>.
         <br> Your email verification mail has expired.
@@ -723,7 +721,7 @@
 
         <script>
           // Allow using reset form in calculator form
-          $(".resend-verification-button").on("click", function (e) {
+          $(".resend-verification-button").on("click", function(e) {
             e.preventDefault();
             var form = document.createElement("form");
             form.setAttribute("method", "POST");
