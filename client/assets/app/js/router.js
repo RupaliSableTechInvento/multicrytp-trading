@@ -1,9 +1,9 @@
-(function () {
-  $(document).ready(function () {
+(function() {
+  $(document).ready(function() {
     console.log("")
-    var app = $.sammy(function () {
+    var app = $.sammy(function() {
       this.element_selector = '#main-frame';
-      this.get('#/', function (context) {
+      this.get('#/', function(context) {
         if (!checkIfToken()) {
           Home.init();
           return;
@@ -14,7 +14,7 @@
 
       });
 
-      this.get('#/login', function (context) {
+      this.get('#/login', function(context) {
         if (checkIfToken()) {
           Home.init();
           return;
@@ -22,24 +22,24 @@
         Login.init();
       });
 
-      this.get('#/showMoreDetail', function (context) {
+      this.get('#/showMoreDetail', function(context) {
         console.log("showmoredetail in router .js");
         ShowMoreDetail.init();
       });
-      this.get('#/quickOnline', function (context) {
+      this.get('#/quickOnline', function(context) {
         console.log("quickOnline in router .js");
         QuickOnline.init();
       });
 
-      this.get('#/signup', function (context) {
+      this.get('#/signup', function(context) {
         console.log("router.js signup");
         SignUp.init();
       });
-      this.get('#/recoverPassword', function (context) {
+      this.get('#/recoverPassword', function(context) {
         console.log("recoverPassword in router.js");
         RecoverPassword.init();
       });
-      this.get('#/forgetPassword', function (context) {
+      this.get('#/forgetPassword', function(context) {
         console.log("router.js forgetPassword");
         /*  if (checkIfToken()) {
            window.location = '#/';
@@ -47,7 +47,7 @@
          } */
         ForgetPassword.init();
       });
-      this.get('#/changepassword', function (context) {
+      this.get('#/changepassword', function(context) {
         console.log("#/changepassword");
         if (checkIfToken()) {
           ChangePassword.init();
@@ -55,7 +55,7 @@
         }
         Home.init();
       });
-      this.get('#/profile', function (context) {
+      this.get('#/profile', function(context) {
         if (checkIfToken()) {
           Profile.init();
           return;
@@ -63,7 +63,16 @@
         Home.init();
 
       });
-      this.get('#/sellBuyCurrency', function (context) {
+      this.get('#/userProfile', function(context) {
+
+        UserProfile.init();
+
+      });
+
+
+
+
+      this.get('#/sellBuyCurrency', function(context) {
         console.log("Sell  By currency  in route");
         SellBuyCurrency.init();
         // if (checkIfToken()) {
@@ -75,14 +84,14 @@
 
       });
 
-      this.get('#/postatrade', function (context) {
+      this.get('#/postatrade', function(context) {
         if (checkIfToken()) {
           PostATrade.init();
           return;
         }
         Home.init();
       });
-      this.get('#/currencySellerBuyerInfo', function (context) {
+      this.get('#/currencySellerBuyerInfo', function(context) {
         console.log("CurrencySellerBuyerInfo in router .js");
         CurrencySellerBuyerInfo.init();
       });
