@@ -1,22 +1,23 @@
 var SellBuyCurrency = {};
-((function () {
-  this.init = function () {
-    console.log("init sellBuyCurrency.js");
-    _render.content();
-  }
-  //
+((function() {
+  this.init = function() {
+      console.log("init sellBuyCurrency.js");
+      _render.content();
+    }
+    //
   var _core = {
     getCurrencySellerBuyerInfo: API.getCurrencySellerBuyerInfo,
     sendMessage: API.sendMessage,
 
-    chkNullValue: function (isNull) {
-      if (isNull == undefined || '' || isNaN(isNull)) {
+    chkNullValue: function(isNull) {
+
+      if (isNull == undefined || '') {
         return '';
       }
       return isNull;
     },
 
-    getUrlVars: function () {
+    getUrlVars: function() {
       var vars = [],
         hash;
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -31,12 +32,12 @@ var SellBuyCurrency = {};
         vars[hash[0]] = hash[1];
       }
       console.log("vars=>", vars);
+
       return vars;
     },
-    setTerms: function (terms_of_trade, user) {
+    setTerms: function(terms_of_trade, user) {
       var terms_of_trade = _core.chkNullValue(terms_of_trade);
       var user = _core.chkNullValue(user);
-
 
       var htmlTradeHeader = '';
       htmlTradeHeader += '<h5 class="m-portlet__head-text ">' + ' ' +
@@ -56,7 +57,7 @@ var SellBuyCurrency = {};
 
 
     },
-    setOpeninghours: function (opening_hours) {
+    setOpeninghours: function(opening_hours) {
       // console.log(" opening_hours=>>", opening_hours);
       // console.log(" opening_hours.saturday.start   opening_hours.saturday.end", parseInt(opening_hours.saturday.start), opening_hours.saturday);
       var htmlTradeHeader = '';
@@ -73,11 +74,18 @@ var SellBuyCurrency = {};
       $(".Opening_hours").append(htmlTradeHeader);
     },
 
-    setPrice: function (price) {
+    setPrice: function(price, code) {
       var price = _core.chkNullValue(price);
+
+      if (price == undefined || '') {
+
+      } else {
+        price = Number(price);
+        price = price.toFixed(2);
+      }
       var htmlTradeHeader = '';
       htmlTradeHeader += ' <a href="#" class="m-widget2__link">' +
-        price + 'INR / BTC' +
+        price + ' INR /' + code +
         '</a>';
       /*  htmlTradeHeader += '<div class="col-md-4">' +
          ' <h4>Price:</h4>' +
@@ -89,22 +97,24 @@ var SellBuyCurrency = {};
       $(".ad_price").append(htmlTradeHeader);
       //return htmlTradeHeader;
     },
-    setpaymentMethod: function (payment_details) {
-      console.log("payment_method", payment_method)
+    setpaymentMethod: function(payment_details) {
+      console.log("payment_method", payment_details)
       var htmlTradeHeader = '';
-      htmlTradeHeader += '<p>' + ' <a href="payment_method  `" class="m-widget2__link">' +
-        payment_method + ' </a>' +
+      htmlTradeHeader += '<p>' + ' <a href="payment_method" class="m-widget2__link">' +
+        payment_details + ' </a>' +
         '<i class="fa fa-exclamation-circle" title=" LocalBitcoins.com is not authorized, approved, endorsed or sponsored by this specific payment method or its trademark owner. The payment method is listed here for informative purposes only to display that the advertiser is willing to settle the trade by using this specific payment method. LocalBitcoins.com cannot guarantee that the listed payment method is actually used for making the settlement."> </i>' +
         '</p>'
       $(".payment_method").append(htmlTradeHeader);
     },
-    setUser: function (user) {
+    setUser: function(user, user_id, currency) {
       var htmlTradeHeader = '';
 
       // $('#userPopUP').popover({ html: true });
 
-      htmlTradeHeader += user;
-
+      htmlTradeHeader +=
+        '<p>' +
+        '<a href="#/userProfile?id=' + user_id + '&currency=' + currency + '">' + user + '</a>' +
+        '</p>';
 
       /*  htmlTradeHeader += '<i class="fa fa-user">' + '</i>' +
          user + '<span title="" class="online-status online-status-recent" data-original-title="User ' + user + ' last seen online 19&nbsp;minutes ago">' +
@@ -115,7 +125,7 @@ var SellBuyCurrency = {};
       $(".username").append(htmlTradeHeader);
 
     },
-    setTradeLimits: function (max_trans_limit, min_trans_limit) {
+    setTradeLimits: function(max_trans_limit, min_trans_limit) {
       var max_trans_limit = _core.chkNullValue(max_trans_limit);
       var min_trans_limit = _core.chkNullValue(min_trans_limit);
 
@@ -134,7 +144,7 @@ var SellBuyCurrency = {};
       htmlTradeHeader += 'The smallest amount you can sell to this ad is  ' + min_trans_limit + '    INR.';
       $("#over_max_error").append(htmlTradeHeader);
     },
-    setLocation: function (location) {
+    setLocation: function(location) {
       console.log("location", location)
       var htmlTradeHeader = '';
       htmlTradeHeader += '<p>' +
@@ -142,12 +152,14 @@ var SellBuyCurrency = {};
         '</p>'
       $(".location").append(htmlTradeHeader);
     },
-    verifyTrader: function (currency, traderType, location, payment_details, user, tradeMethod) {
+    verifyTrader: function(currency, traderType, location, payment_details, user, tradeMethod, code) {
       var currency = _core.chkNullValue(currency);
       var location = _core.chkNullValue(location);
       var payment_details = _core.chkNullValue(payment_details);
       var tradeMethod = _core.chkNullValue(tradeMethod);
       var user = _core.chkNullValue(user);
+
+      console.log("To set Header currency, location, payment_details, tradeMethod, user==>", currency, location, payment_details, tradeMethod, user);
       /*  tradeMethod: 'LOCAL',
        traderType: 'SELL' */
       var htmlTradeHeader = '';
@@ -155,58 +167,61 @@ var SellBuyCurrency = {};
         $('.paymentWindow').show();
         if (traderType == 'SELL') {
           // $('.Opening_hours_main').show();
-          htmlTradeHeader += '<h3 class="m-portlet__head-text">' + ' ' +
-            'Sell ' + currency + ' using' + ' ' + payment_details + ' ' + location + ' ' + '  with Indian Rupee (INR)' +
-            '</h3>' +
-            '<p class="ad-description">' +
-            'LocalBitcoins.com' + ' user' + ' <i>' +
-            user + '  ' +
-            '</i>' + ' wishes to buy bitcoins from you.'
-          '</p>';
+          htmlTradeHeader +=
+            '<h3 class="m-portlet__head-text">' + ' ' +
+            'Buy ' + currency + ' using' + ' ' + payment_details + ' ' + location + ' ' + '  with Indian Rupee (INR)' +
+            '</h3> ';
+          // 'LocalBitcoins.com' + ' user' + ' <i>' +
+          // user + '  ' +
+          // '</i>' + ' wishes to buy bitcoins from you.';
         } else {
           // $('.Opening_hours_main').hide();
 
-          htmlTradeHeader += '<h3 class="m-portlet__head-text ">' + ' ' +
+          htmlTradeHeader +=
+            '<h3 class="m-portlet__head-text ">' + ' ' +
             'Buy' + ' ' + currency + ' using' + ' ' + payment_details + '  Transfer   ' + location + ' ' + '  with Indian Rupee (INR)' +
-            '</h3>' +
-            '<p class="ad-description">' +
-            'LocalBitcoins.com' + ' user' + ' <i>' +
-            user + '  ' +
-            '</i>' + ' wishes to sell bitcoins to you.'
-          '</p>';
+            '</h3>';
+          //   '<p class="ad-description">' +
+          //   'LocalBitcoins.com' + ' user' + ' <i>' +
+          //   user + '  ' +
+          //   '</i>' + ' wishes to sell bitcoins to you.'
+          // '</p>';
         }
 
       } else {
         if (traderType == 'SELL') {
           // $('.Opening_hours_main').hide();
 
-          htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
+          htmlTradeHeader +=
+            '<h3  class="m-portlet__head-text ">' + ' ' +
             'Sell your ' + currency + '  ' + '  with cash' +
-            '</h3>' +
-            '<p class="ad-description">' +
-            'LocalBitcoins.com' + ' user' + ' <i>' +
-            user + '  ' +
-            '</i>' + ' wishes to buy bitcoins from you.'
-          '</p>';
+            '</h3> ';
+          //   '<p class="ad-description">' +
+          //   'LocalBitcoins.com' + ' user' + ' <i>' +
+          //   user + '  ' +
+          //   '</i>' + ' wishes to buy bitcoins from you.'
+          // '</p>';
         } else {
           // $('.Opening_hours_main').show();
           htmlTradeHeader += '<h3 class="m-portlet__head-text ">' + ' ' +
             'Buy' + ' ' + currency + '  with cash ' +
-            '</h3>' +
-            '<p class="ad-description">' +
-            'LocalBitcoins.com' + ' user' + ' <i>' +
-            user + '  ' +
-            '</i>' + ' wishes to sell bitcoins to you.'
-          '</p>';
+            '</h3> ';
+          //   '<p class="ad-description">' +
+          //   'LocalBitcoins.com' + ' user' + ' <i>' +
+          //   user + '  ' +
+          //   '</i>' + ' wishes to sell bitcoins to you.'
+          // '</p>';
         }
       }
       $(".headTitle").append(htmlTradeHeader);
+
+
     }
 
   }
 
   var _bind = {
-    getCurrencySellerBuyerInfo: function () {
+    getCurrencySellerBuyerInfo: function() {
       console.log("sellBuyCurrency.js");
       var htmlContent = '<div class="popover" style="margin-left:70px" ;padding:20px><div class="arrow">' +
         '</div><h3 class="popover-title" > This is title</h3>' +
@@ -219,7 +234,7 @@ var SellBuyCurrency = {};
         '</span>' +
         '</a></div></div>';
 
-      $("#removeClass").click(function () {
+      $("#removeClass").click(function() {
         $('#qnimate').removeClass('popup-box-on');
       });
 
@@ -228,8 +243,8 @@ var SellBuyCurrency = {};
         placement: "bottom",
 
         template: htmlContent,
-        onchange: function () {
-          $("#addClass").click(function () {
+        onchange: function() {
+          $("#addClass").click(function() {
             console.log(" clickedddddddd");
             $('#qnimate').addClass('popup-box-on');
           });
@@ -239,7 +254,7 @@ var SellBuyCurrency = {};
         // content = "Some content inside the popover<br>jkjkkfkdjfdkjf<hr>",
       });
 
-      $('#send_message').click(function () {
+      $('#send_message').click(function() {
 
         var message = $('#status_message').val();
         var datObject = {
@@ -247,7 +262,7 @@ var SellBuyCurrency = {};
         }
         var token = localStorage.getItem('token');
 
-        _core.getCurrencySellerBuyerInfo(message, token, function (res) {
+        _core.getCurrencySellerBuyerInfo(message, token, function(res) {
           if (res) {
             console.log("response when msg send");
           }
@@ -256,20 +271,22 @@ var SellBuyCurrency = {};
 
       })
 
-      $('#popup_username').click(function () {
+      $('#popup_username').click(function() {
         console.log("popup user click");
-        $("#addClass").click(function () {
+        $("#addClass").click(function() {
           console.log(" clickedddddddd");
           $('#qnimate').addClass('popup-box-on');
         });
       })
       var urlParams = _core.getUrlVars();
       var id = urlParams.id;
-      console.log("User id=>", id);
-      _core.getCurrencySellerBuyerInfo(id, function (res) {
+      var code = urlParams.code;
+
+      console.log("User id=>", id, code);
+      _core.getCurrencySellerBuyerInfo(id, function(res) {
         if (res) {
           console.log("response from getCurrencySellerBuyerInfo", res);
-          data
+
           if (res.isError) {
             console.log("response from getCurrencySellerBuyerInfo", res.isError);
           }
@@ -277,7 +294,8 @@ var SellBuyCurrency = {};
           var currency = data.cryptoCurrency.toLowerCase();
           var traderType = data.traderType.toLowerCase();
           var location = data.location.toLowerCase();
-          var payment_details = data.online_selling.payment_details.toLowerCase();
+          var payment_details = data.payment_method;
+          var user_id = data.user;
           var user = data.firstName;
           var traderType = data.traderType;
           var tradeMethod = data.tradeMethod;
@@ -286,11 +304,13 @@ var SellBuyCurrency = {};
           var price = data.more_information.price_equation;
           var terms_of_trade = data.more_information.terms_of_trade;
           var opening_hours = data.more_information.opening_hours;
-          _core.verifyTrader(currency, traderType, location, payment_details, user, tradeMethod)
-          _core.setPrice(price);
+          $('#ad_paymentMethod').append(payment_details);
+
+          _core.verifyTrader(currency, traderType, location, payment_details, user, tradeMethod);
+          _core.setPrice(price, code);
           _core.setLocation(location);
           _core.setOpeninghours(opening_hours);
-          _core.setUser(user);
+          _core.setUser(user, user_id, currency);
           _core.setTerms(terms_of_trade, user);
           _core.setTradeLimits(max_trans_limit, min_trans_limit);
         }
@@ -299,8 +319,8 @@ var SellBuyCurrency = {};
     }
   }
   var _render = {
-    content: function () {
-      renderMainFrame('assets/snippets/pages/user/sellBuyCurrency.html', 'sellBuyCurrency', function () {
+    content: function() {
+      renderMainFrame('assets/snippets/pages/user/sellBuyCurrency.html', 'sellBuyCurrency', function() {
 
         _bind.getCurrencySellerBuyerInfo();
 
@@ -310,7 +330,7 @@ var SellBuyCurrency = {};
 }).bind(SellBuyCurrency))();
 
 function myFunction() {
-  $("#addClass").click(function () {
+  $("#addClass").click(function() {
     console.log(" clickedddddddd");
     $('#qnimate').addClass('popup-box-on');
   });

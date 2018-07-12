@@ -1,14 +1,14 @@
 var PostATrade = {};
-((function () {
+((function() {
 
-  this.init = function () {
+  this.init = function() {
     _render.content();
   }
   var _core = {
     postTrade: API.postTrade,
     getPriceEquation: API.getPriceEquation,
-    validateFields: function () {},
-    priceEquation: function (cryptoCurrency_in_usd, USD_in_currency, margin) {
+    validateFields: function() {},
+    priceEquation: function(cryptoCurrency_in_usd, USD_in_currency, margin) {
       var equation = cryptoCurrency_in_usd * USD_in_currency;
       var priceEq = '';
       if (margin == 0) {
@@ -20,13 +20,13 @@ var PostATrade = {};
       }
     },
 
-    setValueDropDwn: function (id, value) {
+    setValueDropDwn: function(id, value) {
       console.log(" Set Drop Down ", id, value);
       $(id).empty();
       $(id).append(value);
     },
 
-    showErrorMsg: function (form, type, msg) {
+    showErrorMsg: function(form, type, msg) {
       var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\
         <span></span>\
@@ -41,14 +41,14 @@ var PostATrade = {};
   }
 
   var _bind = {
-    ckEditor: function () {
+    ckEditor: function() {
       CKEDITOR.replace('editor1');
 
       var getData = CKEDITOR.instances.editor1.getData();
       console.log(" CKEDITOR.instances.editor1.getData()", getData);
     },
 
-    postTrade: async function () {
+    postTrade: async function() {
       var btn, form;
       var margin = $("#margin_ad-commission").val();
       var cryptoCurrency, location;
@@ -63,7 +63,7 @@ var PostATrade = {};
       var endTimeValid = false;
 
 
-      $('#select_ad-cryptocurrency li').on('click', async function () {
+      $('#select_ad-cryptocurrency li').on('click', async function() {
         var value = $(this).attr('name');
 
 
@@ -91,12 +91,12 @@ var PostATrade = {};
           console.log("", res.error);
         }
       });
-      $('#select_ad-online_provide li').on('click', function () {
+      $('#select_ad-online_provide li').on('click', function() {
         var value = $(this).attr('name');
         _core.setValueDropDwn('#title_online_provide', value)
         payment_method = value;
       })
-      await $('#select_ad-currency li').on('click', async function () {
+      await $('#select_ad-currency li').on('click', async function() {
         $('.price-info').empty();
         var value = $(this).attr('name');
         _core.setValueDropDwn('#titile_currency', value)
@@ -131,7 +131,7 @@ var PostATrade = {};
 
 
 
-      await $("#margin_ad-commission").change(async function () {
+      await $("#margin_ad-commission").change(async function() {
         $('.price-info').empty();
         if (margin == '' || undefined) {
           margin = 0;
@@ -145,7 +145,7 @@ var PostATrade = {};
 
       })
 
-      $('#ad-reference_type li').on('click', function () {
+      $('#ad-reference_type li').on('click', function() {
 
         var value = $(this).attr('name');
         _core.setValueDropDwn('#titile_reference_type', value)
@@ -153,14 +153,14 @@ var PostATrade = {};
 
       })
 
-      $('#select_ad-location li').on('click', function () {
+      $('#select_ad-location li').on('click', function() {
         var value = $(this).attr('name');
         _core.setValueDropDwn('#titile_location', value)
 
         var country_code = $(this).attr('data-country-code');
         console.log("country code=>", country_code, this);
 
-        $('#select_ad-currency li').each(function (i) {
+        $('#select_ad-currency li').each(function(i) {
           var temp = $(this).attr('name');
           console.log("Temp =>", temp, this);
           if (temp == country_code) {
@@ -180,7 +180,7 @@ var PostATrade = {};
 
 
       /* Opening hours  */
-      $('#ad-opening_hours_sun_start li').on('click', function () {
+      $('#ad-opening_hours_sun_start li').on('click', function() {
         $('#ad-opening_hours_sun_start li').removeClass('selected');
         var value = $(this).attr('name');
         // $(this).attr('selected', 'selected');
@@ -191,7 +191,7 @@ var PostATrade = {};
 
 
       })
-      $('#ad-opening_hours_sun_end li').on('click', function () {
+      $('#ad-opening_hours_sun_end li').on('click', function() {
 
         $('#ad-opening_hours_sun_end li').removeClass('selected');
         $(this).addClass('selected');
@@ -228,7 +228,7 @@ var PostATrade = {};
         console.log("sun end", sun_end);
       })
 
-      $('#ad-opening_hours_mon_start li').on('click', function () {
+      $('#ad-opening_hours_mon_start li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
@@ -239,7 +239,7 @@ var PostATrade = {};
 
 
       })
-      $('#ad-opening_hours_mon_end li').on('click', function () {
+      $('#ad-opening_hours_mon_end li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).addClass('selected');
@@ -266,7 +266,7 @@ var PostATrade = {};
         }
       })
 
-      $('#ad-opening_hours_tue_start li').on('click', function () {
+      $('#ad-opening_hours_tue_start li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
@@ -275,7 +275,7 @@ var PostATrade = {};
         tue_start = value;
 
       })
-      $('#ad-opening_hours_tue_end li').on('click', function () {
+      $('#ad-opening_hours_tue_end li').on('click', function() {
         var value = $(this).attr('name');
         $(this).addClass('selected');
         var startTime = $(this).parents().parents().parents().find(".start_time li.selected").attr('value');
@@ -302,7 +302,7 @@ var PostATrade = {};
 
       })
 
-      $('#ad-opening_hours_wed_start li').on('click', function () {
+      $('#ad-opening_hours_wed_start li').on('click', function() {
 
 
         var value = $(this).attr('name');
@@ -313,7 +313,7 @@ var PostATrade = {};
         wed_start = value;
 
       })
-      $('#ad-opening_hours_wed_end li').on('click', function () {
+      $('#ad-opening_hours_wed_end li').on('click', function() {
         var value = $(this).attr('name');
         $(this).addClass('selected');
         var startTime = $(this).parents().parents().parents().find(".start_time li.selected").attr('value');
@@ -340,7 +340,7 @@ var PostATrade = {};
 
       })
 
-      $('#ad-opening_hours_thu_start li').on('click', function () {
+      $('#ad-opening_hours_thu_start li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
@@ -351,7 +351,7 @@ var PostATrade = {};
 
 
       })
-      $('#ad-opening_hours_thu_end li').on('click', function () {
+      $('#ad-opening_hours_thu_end li').on('click', function() {
         var value = $(this).attr('name');
         $(this).addClass('selected');
         var startTime = $(this).parents().parents().parents().find(".start_time li.selected").attr('value');
@@ -377,7 +377,7 @@ var PostATrade = {};
         }
       })
 
-      $('#ad-opening_hours_fri_start li').on('click', function () {
+      $('#ad-opening_hours_fri_start li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
@@ -387,7 +387,7 @@ var PostATrade = {};
         fri_start = value;
 
       })
-      $('#ad-opening_hours_fri_end li').on('click', function () {
+      $('#ad-opening_hours_fri_end li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).addClass('selected');
@@ -415,7 +415,7 @@ var PostATrade = {};
 
       })
 
-      $('#ad-opening_hours_sat_start li').on('click', function () {
+      $('#ad-opening_hours_sat_start li').on('click', function() {
 
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
@@ -426,7 +426,7 @@ var PostATrade = {};
 
 
       })
-      $('#ad-opening_hours_sat_end li').on('click', function () {
+      $('#ad-opening_hours_sat_end li').on('click', function() {
         var value = $(this).attr('name');
         $(this).addClass('selected');
         var startTime = $(this).parents().parents().parents().find(".start_time li.selected").attr('value');
@@ -454,7 +454,7 @@ var PostATrade = {};
       })
 
 
-      $('#btn_publish_advertisement').unbind().click(function () {
+      $('#btn_publish_advertisement').unbind().click(function() {
         btn = $(this);
         form = $(this).closest('form');
         btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
@@ -469,7 +469,7 @@ var PostATrade = {};
 
         var dataObj = {
           "tradeMethod": $(".add-adform-radio:checked").attr("data-trade-type"),
-          "traderType": $("#local_bitcoin_sell").val(),
+          "traderType": $(".add-adform-radio:checked").val(),
           "cryptoCurrency": cryptoCurrency,
           "location": location,
           "payment_method": payment_method,
@@ -516,11 +516,11 @@ var PostATrade = {};
         }
         var token = localStorage.getItem('token');
         console.log("published");
-        _core.postTrade(dataObj, token, function (res) {
+        _core.postTrade(dataObj, token, function(res) {
           $(window).scrollTop(0);
           if (res) {
             console.log("res", res);
-            setTimeout(function () {
+            setTimeout(function() {
               btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
               form.clearForm();
               form.validate().resetForm();
@@ -534,7 +534,7 @@ var PostATrade = {};
 
           } else {
 
-            setTimeout(function () {
+            setTimeout(function() {
               btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 
               _core.showErrorMsg(form, 'danger', 'Unable to post a trade."' + res.data + '" ');
@@ -543,60 +543,60 @@ var PostATrade = {};
           }
         })
       })
-      $(".trade_type input").unbind().click(function () {
-        if ($(this).attr("data-trade-type") == "ONLINE") {
-          $('.ad-online_provider').show();
-          $('.ad-bank_name').show();
-          if ($(this).attr("value") == "SELL") {
-            console.log("online sell");
-            $('.online_Buying').hide();
-            $('.online_Selling').show();
-            $('.sell_online_options').show();
+      $(".trade_type input").unbind().click(function() {
+          if ($(this).attr("data-trade-type") == "ONLINE") {
+            $('.ad-online_provider').show();
+            $('.ad-bank_name').show();
+            if ($(this).attr("value") == "SELL") {
+              console.log("online sell");
+              $('.online_Buying').hide();
+              $('.online_Selling').show();
+              $('.sell_online_options').show();
 
-          } else {
-            console.log("online buy");
+            } else {
+              console.log("online buy");
+              $('.online_Selling').hide();
+              $('.online_Buying').show();
+              $('.sell_online_options').hide();
+            }
+          }
+          if ($(this).attr("data-trade-type") == "LOCAL") {
+            $('.online_Buying').hide();
             $('.online_Selling').hide();
-            $('.online_Buying').show();
+            $('.ad-online_provider').hide();
+            $('.ad-bank_name').hide();
+
             $('.sell_online_options').hide();
           }
-        }
-        if ($(this).attr("data-trade-type") == "LOCAL") {
-          $('.online_Buying').hide();
-          $('.online_Selling').hide();
-          $('.ad-online_provider').hide();
-          $('.ad-bank_name').hide();
-
-          $('.sell_online_options').hide();
-        }
-      })
-      /* 
-            $('.opening_hours_row >.end_timeday').unbind().click(async function() {
-              console.log("end time clicked===");
-              var startTime = await parseInt($(this).parent().find(".start_time li.selected").attr('value'));
-              console.log('start time=>>', startTime);
-              var endTime = parseInt($(this).find(".end_time li.selected").attr('value'));
-              console.log('End time=>', endTime);
-              if (endTime > 0 && startTime >= endTime) {
-                endTimeValid = false;
-                console.log("endtime valid=>  end time start time", endTimeValid, endTime, startTime);
-                setTimeout(function() {
-                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-                  _core.showErrorMsg(form, 'danger', ' select time according to 24 hrs.');
-
-                }, 2000)
-                alert(" select time according to 24 hrs");
-                 $(this).find(".end_time li").val("-1");
-              } else if (endTime != '' && endTime != undefined && !isNaN(endTime)) {
-                if (startTime >= endTime) {
+        })
+        /* 
+              $('.opening_hours_row >.end_timeday').unbind().click(async function() {
+                console.log("end time clicked===");
+                var startTime = await parseInt($(this).parent().find(".start_time li.selected").attr('value'));
+                console.log('start time=>>', startTime);
+                var endTime = parseInt($(this).find(".end_time li.selected").attr('value'));
+                console.log('End time=>', endTime);
+                if (endTime > 0 && startTime >= endTime) {
                   endTimeValid = false;
+                  console.log("endtime valid=>  end time start time", endTimeValid, endTime, startTime);
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 
-                } else {
-                  endTimeValid = true;
+                    _core.showErrorMsg(form, 'danger', ' select time according to 24 hrs.');
+
+                  }, 2000)
+                  alert(" select time according to 24 hrs");
+                   $(this).find(".end_time li").val("-1");
+                } else if (endTime != '' && endTime != undefined && !isNaN(endTime)) {
+                  if (startTime >= endTime) {
+                    endTimeValid = false;
+
+                  } else {
+                    endTimeValid = true;
+                  }
+                  console.log("endtime valid=>", endTimeValid);
                 }
-                console.log("endtime valid=>", endTimeValid);
-              }
-            }) */
+              }) */
 
 
     },
@@ -604,8 +604,8 @@ var PostATrade = {};
   }
 
   var _render = {
-    content: function () {
-      renderMainFrame('assets/snippets/pages/user/postTrade.html', 'postTrade', function () {
+    content: function() {
+      renderMainFrame('assets/snippets/pages/user/postTrade.html', 'postTrade', function() {
         _bind.postTrade()
         _bind.ckEditor();
 

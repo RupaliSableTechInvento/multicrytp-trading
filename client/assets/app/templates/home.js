@@ -12,8 +12,8 @@ client.on("message", function(topic, payload) {
 client.publish("mqtt/demo", "hello world!");
 client.end(); */
 var Home = {};
-((function () {
-  this.init = function () {
+((function() {
+  this.init = function() {
 
     _render.content();
   }
@@ -25,14 +25,14 @@ var Home = {};
     getByCurrencyLoc: API.getByCurrencyLoc,
     getActiveUser: API.getActiveUser,
     logout: API.logout,
-    checkIfToken: function (token) {
+    checkIfToken: function(token) {
       if (token && token.length > 0) {
         return true;
       }
       return false;
     },
 
-    setValueDropDwn: function (id, value) {
+    setValueDropDwn: function(id, value) {
       console.log(" Set Drop Down ", id, value);
       $(id).empty();
       $(id).append(value);
@@ -42,7 +42,7 @@ var Home = {};
 
   var _bind = {
 
-    getByCurrencyLoc: async function (cryptoCurrency) {
+    getByCurrencyLoc: async function(cryptoCurrency) {
 
 
 
@@ -88,7 +88,7 @@ var Home = {};
       }
 
 
-      $('#select_ad-cryptocurrency li').on('click', async function () {
+      $('#select_ad-cryptocurrency li').on('click', async function() {
         var value = $(this).attr('name');
         $(this).addClass('  m-menu__item--active')
         cryptoCurrencyCode = $(this).attr('data-code');
@@ -98,13 +98,13 @@ var Home = {};
 
       });
 
-      $('#trade-tabs li').on('click', function () {
+      $('#trade-tabs li').on('click', function() {
         console.log("Quick tab clickeddd");
         $('#trade-tabs li').removeClass('active')
         $(this).addClass('active')
       })
 
-      $('#trade-tabs li').on('click', function () {
+      $('#trade-tabs li').on('click', function() {
         $('#trade-tabs li').removeClass('active')
         $(this).addClass('active')
       })
@@ -118,18 +118,18 @@ var Home = {};
             })
 
        */
-      $('#select_ad-online_provide li').on('click', function () {
+      $('#select_ad-online_provide li').on('click', function() {
         var value = $(this).attr('name');
         console.log("value for pm=>>", value)
         _core.setValueDropDwn('#title_online_provide', value)
         payment_method = value;
       })
-      $('#select_ad-country li').on('click', function () {
+      $('#select_ad-country li').on('click', function() {
         var value = $(this).attr('name');
         var country_code = $(this).attr('data-country-code');
         console.log("country code=>", country_code, this);
 
-        $('#select_ad-currency li').each(function (i) {
+        $('#select_ad-currency li').each(function(i) {
           var temp = $(this).attr('name');
           console.log("Temp =>", temp, this);
           if (temp == country_code) {
@@ -141,21 +141,21 @@ var Home = {};
         _core.setValueDropDwn('#titile_country', value)
         country = value;
       })
-      $('#select_ad-currency li').on('click', function () {
+      $('#select_ad-currency li').on('click', function() {
         var value = $(this).attr('name');
         _core.setValueDropDwn('#titile_currency', value)
         currency = value;
       })
 
       htmlShowMore = '';
-      $('.li_showMore').unbind().click(function () {
+      $('.li_showMore').unbind().click(function() {
         var traderType = $(this).attr("data-traderType")
         var tradeMethod = $(this).attr("data-tradeMethod")
-        // console.log("trade type and trade method=>", tradeMethod, traderType);
+          // console.log("trade type and trade method=>", tradeMethod, traderType);
         window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency + '&tradeMethod=' + tradeMethod + '&code=' + cryptoCurrencyCode + '&traderType=' + traderType + '&location=india';
       })
 
-      $('.search_btn').unbind().click(function () {
+      $('.search_btn').unbind().click(function() {
         amount = $('#txt_amt').val();
         var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
         console.log("quickTraderType", quickTraderType);
@@ -167,7 +167,7 @@ var Home = {};
 
 
 
-      await _core.getActiveUser(function (res) {
+      await _core.getActiveUser(function(res) {
         activeUSerData = res;
         if (res) {
           console.log("response in getActive User=>>", res);
@@ -191,6 +191,8 @@ var Home = {};
         }
       })
 
+
+      //Data Table start
       await $('#m_datatable_latest_ordersOB').mDatatable({
         data: {
           type: 'remote',
@@ -201,7 +203,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'india',
+                  location: 'India',
                   tradeMethod: 'ONLINE',
                   traderType: 'SELL',
 
@@ -230,7 +232,7 @@ var Home = {};
          pagination: true, */
         columns: [{
             field: "firstName",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
                 // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (Date(activeUSer[index].userActiveTime) <= before) {
@@ -257,7 +259,7 @@ var Home = {};
           },
           {
             field: "",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               /*  if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
                  field.online_selling.payment_details = '';
                }
@@ -265,7 +267,7 @@ var Home = {};
                  field.location = '';
                } */
 
-              return field.online_selling.payment_details + ' ' + field.location;
+              return field.payment_method + ' :' + field.location;
             },
             title: "Payment Method",
             sortable: false,
@@ -277,12 +279,15 @@ var Home = {};
           {
             field: "more_information.price_equation",
 
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
+              } else {
+                var priceTemp = field.more_information.price_equation;
+                var price = Number(priceTemp).toFixed(2);
+                return price;
               }
 
-              return field.more_information.price_equation;
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -292,7 +297,7 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = 0;
               }
@@ -312,10 +317,10 @@ var Home = {};
             field: "traderType",
             title: "Trader Type",
             sortable: false,
-            template: function (row) {
+            template: function(row) {
 
-              return '<a href="./#/sellBuyCurrency?id=' + row._id + '">' +
-                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
+              return '<a href="./#/sellBuyCurrency?id=' + row._id + '&code=' + cryptoCurrencyCode + ' ">' +
+                '<input type="button" class="btn btn-info  " name="Buy" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
             }
           }
@@ -333,7 +338,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'india',
+                  location: 'India',
                   tradeMethod: 'LOCAL',
                   traderType: 'SELL',
 
@@ -362,7 +367,7 @@ var Home = {};
         pagination: true,
         columns: [{
             field: "firstName",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
                 // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (Date(activeUSer[index].userActiveTime) <= before) {
@@ -389,7 +394,7 @@ var Home = {};
           },
           {
             field: "",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               /*   if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
                   field.online_selling.payment_details = '';
                 }
@@ -397,7 +402,7 @@ var Home = {};
                   field.location = '';
                 } */
 
-              return field.online_selling.payment_details + ' ' + field.location;
+              return field.payment_method + ' :' + field.location;
             },
             title: "Payment Method",
             sortable: false,
@@ -408,12 +413,14 @@ var Home = {};
           },
           {
             field: "more_information.price_equation",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
+              } else {
+                var priceTemp = field.more_information.price_equation;
+                var price = Number(priceTemp).toFixed(2);
+                return price;
               }
-
-              return field.more_information.price_equation;
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -423,7 +430,7 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = 0;
               }
@@ -443,9 +450,9 @@ var Home = {};
             field: "traderType",
             sortable: false,
             title: "Trader Type",
-            template: function (row) {
+            template: function(row) {
               return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
-                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
+                '<input type="button" class="btn btn-info  " name="Buy" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
 
               /* '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
@@ -467,7 +474,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'india',
+                  location: 'India',
                   tradeMethod: 'ONLINE',
                   traderType: 'BUY',
 
@@ -496,7 +503,7 @@ var Home = {};
         pagination: true,
         columns: [{
             field: "firstName",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
                 // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (Date(activeUSer[index].userActiveTime) <= before) {
@@ -523,7 +530,7 @@ var Home = {};
           },
           {
             field: "",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               /*  if (field.online_selling.payment_details == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.online_selling.payment_details = '';
               }
@@ -531,7 +538,7 @@ var Home = {};
                 field.location = '';
               }
  */
-              return field.online_selling.payment_details + ' ' + field.location;
+              return field.payment_method + ' :' + field.location;
             },
             title: "Payment Method",
             sortable: false,
@@ -543,12 +550,14 @@ var Home = {};
           {
             field: "more_information.price_equation",
 
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
+              } else {
+                var priceTemp = field.more_information.price_equation;
+                var price = Number(priceTemp).toFixed(2);
+                return price;
               }
-
-              return field.more_information.price_equation;
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -558,7 +567,7 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = 0;
               }
@@ -578,10 +587,10 @@ var Home = {};
             field: "traderType",
             sortable: false,
             title: "Trader Type",
-            template: function (row) {
-              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+            template: function(row) {
+              return ' <a href="./#/sellBuyCurrency?id=' + row._id + ' ">' +
 
-                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
+                '<input type="button" class="btn btn-info  " name="Sell" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
 
               /*     '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
@@ -605,7 +614,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'india',
+                  location: 'India',
                   tradeMethod: 'LOCAL',
                   traderType: 'BUY',
 
@@ -635,7 +644,7 @@ var Home = {};
 
         columns: [{
             field: "firstName",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               for (let index = 0; index < activeUSer.length; index++) {
                 // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
                 if (Date(activeUSer[index].userActiveTime) <= before) {
@@ -662,7 +671,7 @@ var Home = {};
           },
           {
             field: "",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               /*   if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
                 field.online_selling.payment_details = '';
               }
@@ -670,7 +679,7 @@ var Home = {};
                 field.location = '';
               }
  */
-              return field.online_selling.payment_details + ' ' + field.location;
+              return field.payment_method + ' :' + field.location;
             },
             title: "Payment Method",
             sortable: false,
@@ -681,12 +690,14 @@ var Home = {};
           },
           {
             field: "more_information.price_equation",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
+              } else {
+                var priceTemp = field.more_information.price_equation;
+                var price = Number(priceTemp).toFixed(2);
+                return price;
               }
-
-              return field.more_information.price_equation;
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -696,7 +707,7 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function (field, type, row) {
+            template: function(field, type, row) {
               if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
                 field.more_information.min_trans_limit = 0;
               }
@@ -717,12 +728,12 @@ var Home = {};
             title: "Trader Type",
             sortable: false,
 
-            template: function (row) {
+            template: function(row) {
               return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
                 /*   '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                   '</a>';
                 */
-                '<input type="button" class="btn btn-info  " name="' + row.traderType + '" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
+                '<input type="button" class="btn btn-info  " name="Sell" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
             }
           }
@@ -736,7 +747,7 @@ var Home = {};
 
 
 
-    getUrlVars: function () {
+    getUrlVars: function() {
       var vars = [],
         hash;
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -751,18 +762,18 @@ var Home = {};
       return vars;
     },
 
-    changeBuyActiveTab: function (elem, className) {
+    changeBuyActiveTab: function(elem, className) {
       $(elem).addClass(className)
     },
 
-    addUserInfo: function () {
+    addUserInfo: function() {
       var token = localStorage.getItem('token')
       var checkIfToken = _core.checkIfToken(token);
       if (checkIfToken) {
         logoutbtn
-        $('#logoutbtn').unbind().click(function () {
+        $('#logoutbtn').unbind().click(function() {
           console.log("logout btn clicked");
-          _core.logout(token, function (res) {
+          _core.logout(token, function(res) {
             console.log("res in logout=>>", res);
 
             if (res.success) {
@@ -781,7 +792,7 @@ var Home = {};
         })
       } else {
 
-        $('#loginbtn').unbind().click(function () {
+        $('#loginbtn').unbind().click(function() {
           window.location.replace("#/login");
         })
 
@@ -792,15 +803,15 @@ var Home = {};
 
   }
   var _render = {
-    content: function () {
-      renderMainFrame('assets/snippets/pages/user/home.html', 'home', function () {
-        _bind.addUserInfo();
-        _bind.getByCurrencyLoc('BITCOIN');
-        // _bind.changeCurrency();  
-        _bind.changeBuyActiveTab(_tabs.buy, 'active');
+    content: function() {
+      renderMainFrame('assets/snippets/pages/user/home.html', 'home', function() {
+          _bind.addUserInfo();
+          _bind.getByCurrencyLoc('BITCOIN');
+          // _bind.changeCurrency();  
+          _bind.changeBuyActiveTab(_tabs.buy, 'active');
 
-      })
-      // $( "#maintradeblock" ).load( "ajax/test.html" );
+        })
+        // $( "#maintradeblock" ).load( "ajax/test.html" );
     }
   }
 }).bind(Home))()

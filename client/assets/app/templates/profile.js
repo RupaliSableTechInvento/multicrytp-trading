@@ -1,7 +1,7 @@
 var Profile = {};
-((function () {
+((function() {
   console.log("profile.js=>");
-  this.init = function () {
+  this.init = function() {
     _render.content();
   }
   var _core = {
@@ -11,10 +11,10 @@ var Profile = {};
     emailVerification: API.emailVerification,
     addUserInfo: API.addUserInfo,
 
-    readURL: function (imgInput) {
+    readURL: function(imgInput) {
       if (imgInput.files && imgInput.files[0]) {
         var reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = function(e) {
           console.log("img changed");
           $("#img_upload_pic").attr('src', e.target.result);
         }
@@ -22,7 +22,7 @@ var Profile = {};
       }
     },
 
-    showErrorMsg: function (form, type, msg) {
+    showErrorMsg: function(form, type, msg) {
       var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
         <button type="button" class="close" style="margin-top:10px" data-dismiss="alert" aria-label="Close"></button>\
         <span></span>\
@@ -37,13 +37,13 @@ var Profile = {};
 
   }
   var _bind = {
-    profileSettings: function () {
+    profileSettings: function() {
       var token = localStorage.getItem('token')
 
 
-      $('#logoutbtn').unbind().click(function () {
+      $('#logoutbtn').unbind().click(function() {
         console.log("logout btn clicked");
-        _core.logout(token, function (res) {
+        _core.logout(token, function(res) {
           console.log("res in logout=>>", res);
 
           if (res.success) {
@@ -61,7 +61,7 @@ var Profile = {};
 
       })
 
-      $('#save-changes').unbind().click(function () {
+      $('#save-changes').unbind().click(function() {
 
         var dataObj = {
           first_name: $('#first_name').val(),
@@ -70,7 +70,7 @@ var Profile = {};
           phone_no: $('#phone_no').val()
         }
 
-        _core.addUserInfo(dataObj, function (res) {
+        _core.addUserInfo(dataObj, function(res) {
 
           if (res.success) {
             console.log("Sucess..", res);
@@ -80,24 +80,24 @@ var Profile = {};
       })
 
 
-      $("#input_upload_pic").change(function () {
+      $("#input_upload_pic").change(function() {
         _core.readURL(this);
         console.log("img accepting");
 
       });
-      $(".upload_profile_pic").click(function (e) {
+      $(".upload_profile_pic").click(function(e) {
         $(headerElms.input_upload_pic).click()
       })
     },
 
-    verification: function () {
+    verification: function() {
       var token = localStorage.getItem('token');
 
       var dataObj = {
         token: token
       }
 
-      _core.verification(dataObj, function (res) {
+      _core.verification(dataObj, function(res) {
 
         if (res) {
 
@@ -136,17 +136,17 @@ var Profile = {};
           //on setUp Email
 
 
-          $('#m_profile_set_up_email').click(function (e) {
+          $('#m_profile_set_up_email').click(function(e) {
             e.preventDefault();
             var btn = $(this);
             var form = $(this).closest('form');
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
-            _core.emailVerification(email, function (res) {
+            _core.emailVerification(email, function(res) {
               if (res) {
                 if (res.isError) {
 
-                  setTimeout(function () {
+                  setTimeout(function() {
                     _core.showErrorMsg(form, 'danger', 'Email is not verified. ');
 
                   }, 2000)
@@ -156,7 +156,7 @@ var Profile = {};
                   console.log("res=>>", res);
 
 
-                  setTimeout(function () {
+                  setTimeout(function() {
                     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                     form.clearForm();
                     form.validate().resetForm();
@@ -169,7 +169,7 @@ var Profile = {};
                   }, 2000);
                   if (res.data == 'email_verified') {
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                       btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                       form.clearForm();
                       form.validate().resetForm();
@@ -225,8 +225,8 @@ var Profile = {};
 
   }
   var _render = {
-    content: function () {
-      renderMainFrame('assets/snippets/pages/user/profile.html', 'profile', function () {
+    content: function() {
+      renderMainFrame('assets/snippets/pages/user/profile.html', 'profile', function() {
         console.log("render in profile.js");
         _bind.verification();
         _bind.profileSettings();
