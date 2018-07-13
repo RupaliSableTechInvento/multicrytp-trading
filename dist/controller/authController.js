@@ -29,6 +29,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var encode = require('hashcode').hashCode;
+
 var authController = {
   login: function login(req, res, next) {
     console.log("login api=>", req.body);
@@ -152,10 +153,13 @@ var authController = {
   }(),
 
   register: function register(req, res, next) {
-    console.log("req.body for register", req.body, req.params, req.query);
+    console.log("req.body for register", req.body);
+    var account_created = new Date();
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
       var user = new _usersModel2.default(req.body);
+      req.body.account_created = account_created;
+      console.log("Account Created==>", account_created);
       user.save(req.body, function (err, user) {
         if (err) return res.json(err);
         res.json(user);
@@ -166,17 +170,20 @@ var authController = {
   },
   logout: function logout(req, res, next) {
     console.log("logout=>>", req);
-
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("logout headers..", req.headers['authorization']);
     _tokenModel2.default.findOneAndUpdate({
       $and: [{
         'email': decoded.email
       }, {
         'isActive': 'active'
+      }, {
+        'token': req.headers['authorization']
       }]
     }, {
       $set: {
-        'isActive': 'inactive'
+        'isActive': 'inactive',
+        'userInactiveTime': new Date()
       }
     }, function (err, data) {
       if (err) {

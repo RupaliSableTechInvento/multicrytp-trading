@@ -8,6 +8,10 @@ var _usersModel = require('../models/usersModel');
 
 var _usersModel2 = _interopRequireDefault(_usersModel);
 
+var _tokenModel = require('./../models/tokenModel');
+
+var _tokenModel2 = _interopRequireDefault(_tokenModel);
+
 var _mail_responseModel = require('../models/mail_responseModel');
 
 var _mail_responseModel2 = _interopRequireDefault(_mail_responseModel);
@@ -102,6 +106,30 @@ var usersController = {
       return _ref2.apply(this, arguments);
     };
   }(),
+  userProfile: function userProfile(req, res, next) {
+    var _id = Number(req.query.id);
+    console.log("id=>", _id);
+    _usersModel2.default.findOne({
+      _id: _id
+    }, function (err, user) {
+
+      if (err) {
+        res.json({
+          isError: true,
+          data: err
+        });
+      } else {
+        var email = user.email;
+        console.log("Email==>", email);
+        _tokenModel2.default.findOne({ 'email': email }, function (err, tokenData) {
+          res.json({
+            isError: false,
+            data: { user: user, tokenData: tokenData }
+          });
+        }).sort({ _id: -1 }).limit(1);
+      }
+    });
+  },
 
   getOne: function getOne(req, res, next) {
     // console.log("------------",next);

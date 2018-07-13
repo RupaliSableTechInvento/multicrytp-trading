@@ -33,6 +33,10 @@ var tokenSchema = new _mongoose2.default.Schema({
   },
   userActiveTime: {
     type: Date
+  },
+  userInactiveTime: {
+    type: Date,
+    default: ''
   }
 
 });

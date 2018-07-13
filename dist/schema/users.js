@@ -33,6 +33,10 @@ var usersSchema = new _mongoose2.default.Schema({
     type: String,
     default: 'active'
   },
+  account_created: {
+    type: Date,
+    default: new Date()
+  },
   phone_no: {
     type: String
   },

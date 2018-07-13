@@ -59,6 +59,8 @@ var routes = function routes(route) {
 
   route.route('/sendMessage').post(_inboxController2.default.sendMessage);
 
+  route.route('/userProfile').get(_usersController2.default.userProfile);
+
   route.route('/users')
   //console.log("user=>>", req)
   .get(_usersController2.default.getAll);
@@ -82,6 +84,8 @@ var routes = function routes(route) {
     .get(tradeController.getPriceEquation);
   */
   route.route('/tradeByCurrencyLoc').get(_tradeController2.default.getByCurrencyLoc);
+
+  route.route('/getTrade').get(_tradeController2.default.getTrade);
 
   route.route('/getQuickByCryptocurrency').get(_tradeController2.default.getQuickByCryptocurrency);
 
