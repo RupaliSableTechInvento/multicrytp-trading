@@ -189,6 +189,41 @@ var API = {
     })
 
   },
+  getFriendsList: function(token, cb) {
+    $.ajax({
+      url: "/getFriendsList",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+
+  },
+
+  friendReq: function(token, dataObj, cb) {
+    $.ajax({
+      url: "/friendReq",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: dataObj,
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+
+
+  },
 
 
   verification: function(dataObj, cb) {

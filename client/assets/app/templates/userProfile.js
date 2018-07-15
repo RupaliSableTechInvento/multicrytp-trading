@@ -2,6 +2,9 @@ var UserProfile = {};
 ((function() {
   var id = '';
   var currency = '';
+  var token = localStorage.getItem('token');
+  var friendsList = [];
+  var pending = [];
   this.init = function() {
     console.log("USer profie js==>");
     _render.content();
@@ -9,6 +12,8 @@ var UserProfile = {};
 
   var _core = {
     userProfile: API.userProfile,
+    friendReq: API.friendReq,
+    getFriendsList: API.getFriendsList,
 
     getUrlVars: function() {
       var vars = [],
@@ -29,22 +34,45 @@ var UserProfile = {};
       return vars;
     },
 
-
-
-
   }
   var _bind = {
+
+    getFriendsList: function() {
+
+      _core.getFriendsList(token, function(res) {
+        if (!res.isError) {
+          var friendsReqList = res.data[0].friends;
+
+          for (let index = 0; index < friendsReqList.length; index++) {
+            if (friendsReqList[index].status == "Friend") {
+              friendsList.push(friendsReqList[index].friendsEmail)
+            } else if (friendsReqList[index].status == "Pending") {
+              pending.push(friendsReqList[index].friendsEmail);
+            } else {
+              continue;
+            }
+
+          }
+
+
+        }
+
+
+
+      })
+
+    },
+
     userProfile: function() {
       var urlParams = _core.getUrlVars();
       id = urlParams.id;
-      //   currency = urlParams.currency;
+      _bind.getFriendsList();
 
       _core.userProfile(id, function(res) {
         console.log("user profiles response==>", res);
         if (res) {
           if (!res.isError) {
             var Data = res.data;
-
             _bind.SetUserData(Data);
           }
         }
@@ -55,10 +83,8 @@ var UserProfile = {};
         $('#userTrusted').show();
       })
 
-
     },
     SetUserData: function(Data) {
-
       var first_name = Data.user.first_name;
       var last_name = Data.user.last_name;
       var email_verified = Data.user.verification.email_verified;
@@ -75,6 +101,38 @@ var UserProfile = {};
       $('#AlreadytrustUser').append('Already Trusting  <br>' + first_name);
       $('#account_created').append(account_created);
       $('#last_seen').append(moment(userActiveTime).format('LLLL'));
+
+
+
+      for (let index = 0; index < friendsList.length; index++) {
+        console.log("Friendlist==>", friendsList[index], Data.user.email);
+        if (friendsList[index].trim() == Data.user.email.trim()) {
+          $("#sendFriendReq").hide();
+          $("#sendUnFriendReq").show();
+          console.log("Friends True ==>>");
+        }
+      }
+
+
+
+
+      $("#sendFriendReq").unbind().click(function() {
+        var dataObj = {
+          friendsEmail: Data.user.email,
+          friendsName: Data.user.first_name,
+          status: 'Pending'
+        }
+        _core.friendReq(token, dataObj, function(res) {
+          if (res) {
+
+          }
+
+        })
+
+      })
+
+
+
       _bind.setDataTable();
 
     },

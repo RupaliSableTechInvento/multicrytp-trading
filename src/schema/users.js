@@ -24,10 +24,10 @@ const usersSchema = new mongoose.Schema({
   phone_no: {
     type: String,
   },
-  /*  isOnline: {
-     type: String,
-     default: 'false'
-   }, */
+  friends: {
+    type: Array,
+
+  },
   email: {
     type: String,
     index: true,

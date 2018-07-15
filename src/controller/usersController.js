@@ -11,8 +11,48 @@ var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 const usersController = {
 
+  getFriendsList: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("addUserInfo", decoded.email)
+    usersModel.find({
+      'email': decoded.email
+    }, { "friends": 1, "_id": 0 }, (err, users) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
+    });
+  },
+
+  friendReq: (req, res, next) => {
+
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var dataObj = req.body;
+    console.log(dataObj);
+
+    usersModel.findOneAndUpdate({
+      'email': decoded.email
+    }, { $push: { friends: dataObj } }, {
+      upsert: true
+    }, (err, users) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
+    });
+
+  },
+
+
   getAll: async(req, res, next) => {
-    console.log("get all web service=>", req.body, req.params, req.query)
     usersModel.find({}, (err, users) => {
       if (err) return res.json({
         isError: true,
@@ -26,9 +66,7 @@ const usersController = {
 
   },
   addUserInfo: async(req, res, next) => {
-    console.log("addUserInfo=>>", req.body, req.params, req.query)
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("addUserInfo", decoaded.email)
     usersModel.findOneAndUpdate({
 
       'email': decoded.email
@@ -265,7 +303,7 @@ const usersController = {
 
   isVerified: (req, res, next) => {
     var decoded = jwt.verify(req.query.token, env.App_key);
-    usersModel.find({
+    usersModel.findOneAndUpdate({
       'email': decoded.email
     }, (err, user) => {
       if (err) return res.json({

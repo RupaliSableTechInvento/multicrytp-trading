@@ -5,17 +5,26 @@ import env from "../env";
 import tradeModel from '../models/postatrade';
 var encode = require('hashcode').hashCode;
 
+
+import express from 'express';
+const app = express();
+
+// var http = require('http')(9004);
+var io = require('socket.io')(9004);
+// global = {};
+
 const authController = {
   login: (req, res, next) => {
-    console.log("login api=>", req.body)
     req.body.password = encode().value(req.body.password);
     const credential = req.body;
+    global.email = credential.email;
     usersModel.findOne({
       email: credential.email,
       password: credential.password
     }, (err, user) => {
       if (err) res.json(err);
       if (user !== null) {
+        require('./messagesController')(app, io);
         console.log("User=>", user)
         var d = new Date();
         var v = new Date();
@@ -129,9 +138,7 @@ const authController = {
     }
   },
   logout: (req, res, next) => {
-    console.log("logout=>>", req);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("logout headers..", req.headers['authorization']);
     tokenModel.findOneAndUpdate({
       $and: [{
         'email': decoded.email

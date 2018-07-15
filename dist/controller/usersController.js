@@ -37,13 +37,51 @@ var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 var usersController = {
 
+  getFriendsList: function getFriendsList(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("addUserInfo", decoded.email);
+    _usersModel2.default.find({
+      'email': decoded.email
+    }, { "friends": 1, "_id": 0 }, function (err, users) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
+    });
+  },
+
+  friendReq: function friendReq(req, res, next) {
+
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var dataObj = req.body;
+    console.log(dataObj);
+
+    _usersModel2.default.findOneAndUpdate({
+      'email': decoded.email
+    }, { $push: { friends: dataObj } }, {
+      upsert: true
+    }, function (err, users) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
+    });
+  },
+
   getAll: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log("get all web service=>", req.body, req.params, req.query);
               _usersModel2.default.find({}, function (err, users) {
                 if (err) return res.json({
                   isError: true,
@@ -55,7 +93,7 @@ var usersController = {
                 });
               });
 
-            case 2:
+            case 1:
             case 'end':
               return _context.stop();
           }
@@ -74,10 +112,8 @@ var usersController = {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              console.log("addUserInfo=>>", req.body, req.params, req.query);
               decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
 
-              console.log("addUserInfo", decoaded.email);
               _usersModel2.default.findOneAndUpdate({
 
                 'email': decoded.email
@@ -94,7 +130,7 @@ var usersController = {
                 });
               });
 
-            case 4:
+            case 2:
             case 'end':
               return _context2.stop();
           }
@@ -319,7 +355,7 @@ var usersController = {
 
   isVerified: function isVerified(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.query.token, _env2.default.App_key);
-    _usersModel2.default.find({
+    _usersModel2.default.findOneAndUpdate({
       'email': decoded.email
     }, function (err, user) {
       if (err) return res.json({

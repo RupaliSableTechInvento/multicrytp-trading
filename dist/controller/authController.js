@@ -24,23 +24,34 @@ var _postatrade = require('../models/postatrade');
 
 var _postatrade2 = _interopRequireDefault(_postatrade);
 
+var _express = require('express');
+
+var _express2 = _interopRequireDefault(_express);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var encode = require('hashcode').hashCode;
 
+var app = (0, _express2.default)();
+
+// var http = require('http')(9004);
+var io = require('socket.io')(9004);
+// global = {};
+
 var authController = {
   login: function login(req, res, next) {
-    console.log("login api=>", req.body);
     req.body.password = encode().value(req.body.password);
     var credential = req.body;
+    global.email = credential.email;
     _usersModel2.default.findOne({
       email: credential.email,
       password: credential.password
     }, function (err, user) {
       if (err) res.json(err);
       if (user !== null) {
+        require('./messagesController')(app, io);
         console.log("User=>", user);
         var d = new Date();
         var v = new Date();
@@ -169,9 +180,7 @@ var authController = {
     }
   },
   logout: function logout(req, res, next) {
-    console.log("logout=>>", req);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("logout headers..", req.headers['authorization']);
     _tokenModel2.default.findOneAndUpdate({
       $and: [{
         'email': decoded.email

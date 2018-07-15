@@ -99,8 +99,38 @@
     })
     app.run('#/');
 
+    $('#logoutbtn').unbind().click(function() {
+      console.log("logout btn clicked");
+      var token = localStorage.getItem('token')
+      $.ajax({
+        url: "/logout",
+        headers: {
+          'authorization': token
+        },
+        type: "get",
+        success: function(successData) {
+          if (successData.success) {
+            localStorage.removeItem("token");
+            localStorage.removeItem('email');
+            localStorage.removeItem("first_name");
+            localStorage.removeItem("last_name");
+            localStorage.removeItem('user_id');
+            window.location.replace("#/login");
 
+          }
 
+          socket.disconnect()
+        },
+        error: function(err) {
+          console.log("logout err=>", err);
+        }
+      })
+
+    })
+
+    $('#loginbtn').unbind().click(function() {
+      window.location.replace("#/login");
+    })
 
     function checkIfToken() {
       var isToken = localStorage.getItem('token')
@@ -120,6 +150,9 @@
 
         return true;
       }
+
+
+
       $('.loginUser').hide();
       $('.loginOutUser').show();
       // $('.loginOutUser').removeAttr("style")

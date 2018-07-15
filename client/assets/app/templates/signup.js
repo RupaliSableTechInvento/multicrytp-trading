@@ -1,13 +1,13 @@
 var SignUp = {};
-((function () {
+((function() {
   console.log("signup.js");
-  this.init = function () {
+  this.init = function() {
     _render.content();
   }
   var _core = {
     signup: API.signup,
-    validateFields: function () {},
-    showErrorMsg: function (form, type, msg) {
+    validateFields: function() {},
+    showErrorMsg: function(form, type, msg) {
       var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\
         <span></span>\
@@ -21,8 +21,8 @@ var SignUp = {};
   }
 
   var _bind = {
-    signup: function () {
-      $('#m_login_signup_submit').click(function (e) {
+    signup: function() {
+      $('#m_login_signup_submit').click(function(e) {
         e.preventDefault();
         var btn = $(this);
         var form = $(this).closest('form');
@@ -39,7 +39,6 @@ var SignUp = {};
               required: true,
 
             },
-
             email: {
               required: true,
               email: true
@@ -99,10 +98,10 @@ var SignUp = {};
         form.ajaxSubmit({
           url: "/register",
           type: "POST",
-          success: function (successData) {
+          success: function(successData) {
             console.log("registerd successfully", successData);
             // similate 2s delay
-            setTimeout(function () {
+            setTimeout(function() {
               btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
               form.clearForm();
               form.validate().resetForm();
@@ -116,8 +115,8 @@ var SignUp = {};
             window.location.replace("#/login");
 
           },
-          error: function (err) {
-            setTimeout(function () {
+          error: function(err) {
+            setTimeout(function() {
               _core.showErrorMsg(form, 'danger', 'registration is not completed. ');
 
             }, 2000)
@@ -127,7 +126,7 @@ var SignUp = {};
 
         });
       });
-      $('#m_login_signIn').click(function () {
+      $('#m_login_signIn').click(function() {
         window.location.replace("#/login");
 
       })
@@ -135,8 +134,8 @@ var SignUp = {};
     }
   }
   var _render = {
-    content: function () {
-      renderMainFrame('assets/snippets/pages/user/signup.html', 'signup', function () {
+    content: function() {
+      renderMainFrame('assets/snippets/pages/user/signup.html', 'signup', function() {
         _bind.signup()
 
 

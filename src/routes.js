@@ -1,9 +1,10 @@
 import usersController from './controller/usersController';
 import tradeController from './controller/tradeController';
 import authController from './controller/authController';
-import inboxController from './controller/inboxController'
+import messagesController from './controller/messagesController';
 import path from 'path';
 const routes = (route) => {
+
   route.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname + '/../client/' + 'index.html'));
   });
@@ -36,12 +37,19 @@ const routes = (route) => {
   route.route('/forgetPassword')
     .post(usersController.forgetPassword);
 
+  route.route('/friendReq')
+    .post(function(req, res, next) {
+      messagesController.friendReq(req, res, next, route)
+    });
+
+
+  route.route('/getFriendsList')
+    .get(usersController.getFriendsList);
+
 
   route.route('/users/changeEmail')
     .post(usersController.changeEmail);
 
-  route.route('/sendMessage')
-    .post(inboxController.sendMessage);
 
   route.route('/userProfile')
     .get(usersController.userProfile)
@@ -113,6 +121,8 @@ const routes = (route) => {
 
   route.route('/logout')
     .get(authController.logout)
+
+
 };
 
 export default routes;

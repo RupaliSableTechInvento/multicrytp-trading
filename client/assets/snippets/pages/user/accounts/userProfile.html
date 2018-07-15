@@ -17,7 +17,6 @@
             <div class="m-portlet__head-caption">
               <div class="m-portlet__head-title headTitle" style="display:flex ;align-items:center">
                 <div id="userName">
-
                 </div>
 
               </div>
@@ -88,8 +87,8 @@
               </div>
             </div>
           </div>
-          <div class="m-portlet__body">
-            <div id="userNotTrusted" class="col-xl-6">
+          <div class="m-portlet__body row">
+            <div id="userNotTrusted" class="col-xl-5">
               <a id="trustBtn" class="btn btn-warning m-btn m-btn--icon" style="align-items: center;
             justify-content: center;
             display: flex;
@@ -103,7 +102,7 @@
 
             </div>
 
-            <div id="userTrusted" class="col-xl-7" style="display:none">
+            <div id="userTrusted" class="col-xl-6" style="display:none">
               <a id="trustBtn1" class="btn btn-success m-btn m-btn--icon" style="align-items: center;
                 justify-content: center; 
                 display: flex;
@@ -116,6 +115,36 @@
               </a>
 
             </div>
+
+            <button type="button" id="sendFriendReq">
+              Send Friend Request
+            </button>
+
+            <button type="button" id="sendUnFriendReq" style="display:none">
+              Unfriend
+            </button>
+
+            <!-- <div class="col-xl-6">
+              <div class="m-accordion m-accordion--default m-accordion--toggle-arrow" id="m_accordion_5" role="tablist">
+
+                <div class="m-accordion__item m-accordion__item--danger">
+                  <div class="m-accordion__item-head collapsed" srole="tab" id="m_accordion_5_item_1_head" data-toggle="collapse" href="#m_accordion_5_item_1_body" aria-expanded="false">
+                    <span class="m-accordion__item-title"></span>
+
+                    <span class="m-accordion__item-mode"></span>
+                  </div>
+
+                  <div class="m-accordion__item-body collapse" id="m_accordion_5_item_1_body" role="tabpanel" aria-labelledby="m_accordion_5_item_1_head" data-parent="#m_accordion_5" style="">
+                    <div class="m-accordion__item-content">
+                      <p>
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
 
           </div>
 
@@ -296,17 +325,10 @@
                     </span>
                   </a>
 
-
-
-
                 </div>
               </div>
             </div>
           </div>
-
-
-
-
 
         </div>
       </div>
@@ -316,6 +338,25 @@
 
 
 
+
+  </div>
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Are you sure you want to connect to {{friend}}?</h4>
+      </div>
+      <div class="modal-footer">
+
+        <!-- insted on ng-click call click event -->
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="confirm()">ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+      </div>
+    </div>
 
   </div>
 </div>

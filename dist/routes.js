@@ -16,9 +16,9 @@ var _authController = require('./controller/authController');
 
 var _authController2 = _interopRequireDefault(_authController);
 
-var _inboxController = require('./controller/inboxController');
+var _messagesController = require('./controller/messagesController');
 
-var _inboxController2 = _interopRequireDefault(_inboxController);
+var _messagesController2 = _interopRequireDefault(_messagesController);
 
 var _path = require('path');
 
@@ -27,6 +27,7 @@ var _path2 = _interopRequireDefault(_path);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = function routes(route) {
+
   route.get('/', function (req, res) {
     res.sendFile(_path2.default.resolve(__dirname + '/../client/' + 'index.html'));
   });
@@ -55,9 +56,13 @@ var routes = function routes(route) {
 
   route.route('/forgetPassword').post(_usersController2.default.forgetPassword);
 
-  route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
+  route.route('/friendReq').post(function (req, res, next) {
+    _messagesController2.default.friendReq(req, res, next, route);
+  });
 
-  route.route('/sendMessage').post(_inboxController2.default.sendMessage);
+  route.route('/getFriendsList').get(_usersController2.default.getFriendsList);
+
+  route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 
   route.route('/userProfile').get(_usersController2.default.userProfile);
 

@@ -168,11 +168,13 @@ var Home = {};
 
 
       await _core.getActiveUser(function(res) {
+        var friendList = '';
         activeUSerData = res;
         if (res) {
           console.log("response in getActive User=>>", res);
           for (let index = 0; index < res.tokenModel.length; index++) {
             for (let j = 0; j < res.user.length; j++) {
+              friendList = "<li>" + res.user[j]["first_name"] + "</li>";
               console.log("Email=>", res.tokenModel[index].email, res.user[j].email);
               if (res.tokenModel[index].email == res.user[j].email) {
                 activeUSer.push({
@@ -183,6 +185,8 @@ var Home = {};
               }
 
             }
+
+            $(".olUserList").html(friendList);
 
           }
 
@@ -773,6 +777,9 @@ var Home = {};
         logoutbtn
         $('#logoutbtn').unbind().click(function() {
           console.log("logout btn clicked");
+
+
+
           _core.logout(token, function(res) {
             console.log("res in logout=>>", res);
 
@@ -789,6 +796,7 @@ var Home = {};
 
           })
 
+          socket.disconnect()
         })
       } else {
 
@@ -804,8 +812,9 @@ var Home = {};
   }
   var _render = {
     content: function() {
+
       renderMainFrame('assets/snippets/pages/user/home.html', 'home', function() {
-          _bind.addUserInfo();
+          // _bind.addUserInfo();
           _bind.getByCurrencyLoc('BITCOIN');
           // _bind.changeCurrency();  
           _bind.changeBuyActiveTab(_tabs.buy, 'active');
