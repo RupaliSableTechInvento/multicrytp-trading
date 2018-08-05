@@ -116,11 +116,11 @@
 
             </div>
 
-            <button type="button" id="sendFriendReq">
+            <button type="button" id="sendFriendReq" data-toggle="modal" data-target="#myModal">
               Send Friend Request
             </button>
 
-            <button type="button" id="sendUnFriendReq" style="display:none">
+            <button type="button" id="sendUnFriendReq" style="display:none" data-toggle="modal" data-target="#myModal2">
               Unfriend
             </button>
 
@@ -342,18 +342,34 @@
   </div>
 </div>
 
-
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Are you sure you want to connect to {{friend}}?</h4>
+        <h4 class="modal-title" id="frndReqModalTitle"></h4>
       </div>
       <div class="modal-footer">
 
         <!-- insted on ng-click call click event -->
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="confirm()">ok</button>
+        <button type="button" id="btn_Confirm" class="btn btn-default" data-dismiss="modal">ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="allreadyFrndModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="allreadyFrndModalTitle">
+          Friend Request Allready Sent
+        </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn_Confirm" class="btn btn-default" data-dismiss="modal">ok</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
       </div>
     </div>

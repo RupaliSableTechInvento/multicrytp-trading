@@ -41,25 +41,25 @@ var Profile = {};
       var token = localStorage.getItem('token')
 
 
-      $('#logoutbtn').unbind().click(function() {
-        console.log("logout btn clicked");
-        _core.logout(token, function(res) {
-          console.log("res in logout=>>", res);
+      // $('#logoutbtn').unbind().click(function() {
+      //   console.log("logout btn clicked");
+      //   _core.logout(token, function(res) {
+      //     console.log("res in logout=>>", res);
 
-          if (res.success) {
-            localStorage.removeItem("token");
-            localStorage.removeItem('email');
-            localStorage.removeItem("first_name");
-            localStorage.removeItem("last_name");
-            localStorage.removeItem('user_id');
-            window.location.replace("#/login");
+      //     if (res.success) {
+      //       localStorage.removeItem("token");
+      //       localStorage.removeItem('email');
+      //       localStorage.removeItem("first_name");
+      //       localStorage.removeItem("last_name");
+      //       localStorage.removeItem('user_id');
+      //       window.location.replace("#/login");
 
-          }
+      //     }
 
 
-        })
+      //   })
 
-      })
+      // })
 
       $('#save-changes').unbind().click(function() {
 

@@ -162,7 +162,6 @@ var PostATrade = {};
 
         $('#select_ad-currency li').each(function(i) {
           var temp = $(this).attr('name');
-          console.log("Temp =>", temp, this);
           if (temp == country_code) {
             console.log("currency matched", $(this).attr('name'), country_code);
             _core.setValueDropDwn('#titile_currency', country_code)
@@ -201,7 +200,6 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
           _core.setValueDropDwn('#titile_EndTime_sun', "End")
           endTimeValid = false;
@@ -220,7 +218,6 @@ var PostATrade = {};
 
         }
         if (endTimeValid) {
-          console.log('endtime valid in sun end  =>', endTimeValid);
           _core.setValueDropDwn('#titile_EndTime_sun', value)
           sun_end = value;
 
@@ -247,16 +244,13 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
           _core.setValueDropDwn('#titile_EndTime_mon', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
             endTimeValid = true;
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
           } else {
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
             endTimeValid = false;
           }
         }
@@ -289,9 +283,7 @@ var PostATrade = {};
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
             endTimeValid = true;
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
           } else {
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
             endTimeValid = false;
           }
         }
@@ -320,16 +312,13 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
           _core.setValueDropDwn('#titile_EndTime_wed', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
             endTimeValid = true;
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
           } else {
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
             endTimeValid = false;
           }
         }
@@ -358,14 +347,12 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
           _core.setValueDropDwn('#titile_EndTime_thu', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
             endTimeValid = true;
-            console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
           } else {
             console.log(" end time start time in sun else", endTime, startTime, endTimeValid);
             endTimeValid = false;

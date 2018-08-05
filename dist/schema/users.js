@@ -137,7 +137,7 @@ var BuyerSchema = new _mongoose2.default.Schema({
 });
 
 usersSchema.plugin(_mongooseUniqueValidator2.default);
-usersSchema.plugin(_mongooseAutoIncrement2.default.plugin, 'id');
+// usersSchema.plugin(autoIncrement.plugin, 'id');
 
 exports.default = usersSchema;
 //# sourceMappingURL=users.js.map

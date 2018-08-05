@@ -1,6 +1,6 @@
 var Login = {};
 ((function() {
-  console.log("loginNew.js");
+
   this.init = function() {
     _render.content();
   }
@@ -24,7 +24,7 @@ var Login = {};
   var _bind = {
     login: function() {
       $('#m_aside_left').css('display', 'none');
-      // $('.m-header').css('display', 'none');
+
       $('.m-nav-sticky').css('display', 'none');
 
       $('#m_login_signin_submit').click(function(e) {
@@ -65,15 +65,13 @@ var Login = {};
           email: $('#txtlogin').val(),
           password: $('#txtpwd').val(),
         }
-        console.log("email=>", dataObj.email, dataObj.password);
 
         form.ajaxSubmit({
           url: "/login",
-          //data: dataObj,
+
           type: "POST",
           success: function(successData) {
             if (successData.isError) {
-              console.log("sucessdata=>", successData);
             } else {
               console.log("sucessdata=>", successData);
               var first_name = successData.user.first_name;
@@ -84,9 +82,61 @@ var Login = {};
               localStorage.setItem("last_name", last_name);
               localStorage.setItem('email', dataObj.email);
               localStorage.setItem('user_id', successData.user.id);
-              // window.location.href = "/";
-              /*  $('#m-card-user__name').html(first_name);
-               $('#m-card-user__email').html(dataObj.email); */
+              // var socket = io.connect('http://localhost:9004');
+
+              // socket.on('connect', function() {
+              //   socket.emit('setUser', 'hello world');
+              // });
+
+              // socket.emit('get friends', function(data) {
+              //   console.log("data get freinds", data)
+              // });
+
+              // socket.on('users', function(data) {
+              //   console.log("users using soket io ", data);
+              // });
+
+              // socket.on('friend_list', function(data) {
+              //   var friendList = '';
+              //   $(".olUserList").empty();
+              //   console.log("users friend_list using soket io", data);
+              //   for (let index = 0; index < data.length; index++) {
+              //     console.log("Friend list==>", data[index].senderFirstName);
+              //     friendList += "<li data-email=" + data[index].senderEmail + ">" + data[index].senderFirstName + "</li>";
+
+              //   }
+
+              //   $(".olUserList").append(friendList);
+
+              // });
+
+              // socket.on('pending_list', function(data) {
+              //   console.log("users pending_list using soket io", data);
+              //   var requestCount = data.length;
+              //   console.log("Request count==>", requestCount);
+              //   var friend_req_list = '';
+
+              //   $('.friend_req_count').html(requestCount + "  New")
+              //   if (requestCount > 0) {
+              //     $('.friend_req_list').empty();
+              //     for (let index = 0; index < data.length; index++) {
+              //       friend_req_list += `<div class="m-list-timeline__item">
+              //                                     <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+              //                                     <span class="m-list-timeline__text">` +
+              //         data[index].senderFirstName + `</span>
+              //                                     <span class="m-list-timeline__time ">
+
+              //                                   <button type="button" data-user="` + data[index].senderEmail + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent  btnAcceptReq">Accept</button>
+
+              //                                     </span>
+              //                                   </div>`;
+
+              //     }
+              //     $('.friend_req_list').append(friend_req_list);
+              //   }
+
+              // });
+
               $('.m-dropdown__inner ').css('display', 'block');
               window.location.replace("/");
               // window.location = 'updateProductById/' + sku;
@@ -108,11 +158,9 @@ var Login = {};
       });
 
       $('#m_login_forget_password').click(function() {
-        console.log("m_login_forget_password button click");
         window.location.replace("#/forgetPassword");
       });
       $('#m_login_signup').click(function() {
-        console.log("signUp button click");
         window.location.replace("#/signup");
       });
 
@@ -122,6 +170,7 @@ var Login = {};
   var _render = {
     content: function() {
       renderMainFrame('assets/snippets/pages/user/login.html', 'login', function() {
+
         _bind.login()
 
       })

@@ -31,7 +31,22 @@ var API = {
       })
     });
   },
-
+  acceptFriendRequest: function(token, senderEmail, cb) {
+    $.ajax({
+      url: "/acceptFriendRequest",
+      type: "post",
+      data: { senderEmail: senderEmail },
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
 
 
 
@@ -204,6 +219,22 @@ var API = {
       }
     })
 
+  },
+  addMessage: function(dataObj, token, cb) {
+    $.ajax({
+      url: "/addMessage",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: dataObj,
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
   },
 
   friendReq: function(token, dataObj, cb) {

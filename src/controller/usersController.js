@@ -1,5 +1,6 @@
 import usersModel from '../models/usersModel'
 import tokenModel from './../models/tokenModel';
+import messagesModel from '../models/messagesModel'
 
 import mail_responseModel from '../models/mail_responseModel'
 import postatrade from '../models/postatrade'
@@ -28,26 +29,133 @@ const usersController = {
     });
   },
 
+
+  acceptFriendRequest: (req, res, next) => {
+
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var senderEmail = req.body.senderEmail;
+    console.log("senderEmail==>", senderEmail);
+
+    var query = {
+      'email': decoded.email
+    }
+
+    usersModel.find(query, (err, result) => {
+      if (!err) {
+        console.log("friends list", result);
+        var friendsList = result[0].friends;
+        friendsList.forEach((item, index) => {
+          if (item.senderEmail == senderEmail) {
+            usersModel.findOneAndUpdate({
+              [`friends.${index}.senderEmail`]: item.senderEmail
+            }, {
+              $set: {
+                [`friends.${index}.status`]: 'Friend'
+              }
+            }, (errFriend, resultFriend) => {
+
+              if (errFriend) return res.json({
+                isError: true,
+                data: err
+              });
+              // res.json({
+              //   isError: false,
+              //   data: resultFriend
+              // });
+
+              var dataObj = {
+                senderEmail: decoded.email,
+                senderFirstName: decoded.first_name,
+                status: 'Friend'
+              }
+
+              usersModel.findOneAndUpdate({
+                'email': senderEmail
+              }, { $push: { friends: dataObj } }, {
+                upsert: true
+              }, (err, users) => {
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });
+                res.json({
+                  isError: false,
+                  data: users
+                });
+              });
+
+
+            })
+          }
+        })
+
+
+      }
+    })
+
+  },
+  addMessage: (req, res, next) => {
+
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var sender = decoded.email;
+    console.log("in addmessage");
+    var data = req.body;
+    data.sender = sender;
+    data.date = new Date();
+    console.log("Data for message==>", data);
+    messagesModel.create(data, function(err, message) {
+      if (err) return res.json(err);
+      res.json({
+        isError: false,
+        data: message,
+      })
+    })
+  },
+
   friendReq: (req, res, next) => {
 
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    var dataObj = req.body;
-    console.log(dataObj);
+    var to = req.body.To;
+    console.log("To  Details=>", to);
 
-    usersModel.findOneAndUpdate({
-      'email': decoded.email
-    }, { $push: { friends: dataObj } }, {
-      upsert: true
-    }, (err, users) => {
-      if (err) return res.json({
-        isError: true,
-        data: err
-      });
-      res.json({
-        isError: false,
-        data: users
-      });
-    });
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'Pending'
+    }
+    console.log("Senders Details=>", dataObj);
+    usersModel.find({ 'email': to }, (errParent, resultParent) => {
+      if (!errParent) {
+        var friendsList = resultParent[0].friends || [];
+        console.log("friendList==>", friendsList);
+        var isFound = friendsList.find((item) => item.senderEmail == decoded.email);
+        if (isFound) {
+          res.json({
+            isError: false,
+            isFound: true
+          });
+        }
+        console.log("isfound==>", isFound);
+        if (!isFound || friendsList.length === 0) {
+          console.log("not found");
+          usersModel.findOneAndUpdate({
+            'email': to
+          }, { $push: { friends: dataObj } }, {
+            upsert: true
+          }, (err, users) => {
+            if (err) return res.json({
+              isError: true,
+              data: err
+            });
+            res.json({
+              isError: false,
+              data: users
+            });
+          });
+        }
+      }
+    })
+
 
   },
 
@@ -85,7 +193,9 @@ const usersController = {
 
   },
   userProfile: (req, res, next) => {
-    var _id = Number(req.query.id);
+    // var _id = Number(req.query.id);
+
+    var _id = mongoose.Types.ObjectId(req.query.id);
     console.log("id=>", _id);
     usersModel.findOne({
       _id: _id

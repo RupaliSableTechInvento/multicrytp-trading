@@ -12,6 +12,10 @@ var _tokenModel = require('./../models/tokenModel');
 
 var _tokenModel2 = _interopRequireDefault(_tokenModel);
 
+var _messagesModel = require('../models/messagesModel');
+
+var _messagesModel2 = _interopRequireDefault(_messagesModel);
+
 var _mail_responseModel = require('../models/mail_responseModel');
 
 var _mail_responseModel2 = _interopRequireDefault(_mail_responseModel);
@@ -31,6 +35,8 @@ var _env2 = _interopRequireDefault(_env);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
@@ -54,25 +60,123 @@ var usersController = {
     });
   },
 
+  acceptFriendRequest: function acceptFriendRequest(req, res, next) {
+
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var senderEmail = req.body.senderEmail;
+    console.log("senderEmail==>", senderEmail);
+
+    var query = {
+      'email': decoded.email
+    };
+
+    _usersModel2.default.find(query, function (err, result) {
+      if (!err) {
+        console.log("friends list", result);
+        var friendsList = result[0].friends;
+        friendsList.forEach(function (item, index) {
+          if (item.senderEmail == senderEmail) {
+            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+              $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
+            }, function (errFriend, resultFriend) {
+
+              if (errFriend) return res.json({
+                isError: true,
+                data: err
+              });
+              // res.json({
+              //   isError: false,
+              //   data: resultFriend
+              // });
+
+              var dataObj = {
+                senderEmail: decoded.email,
+                senderFirstName: decoded.first_name,
+                status: 'Friend'
+              };
+
+              _usersModel2.default.findOneAndUpdate({
+                'email': senderEmail
+              }, { $push: { friends: dataObj } }, {
+                upsert: true
+              }, function (err, users) {
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });
+                res.json({
+                  isError: false,
+                  data: users
+                });
+              });
+            });
+          }
+        });
+      }
+    });
+  },
+  addMessage: function addMessage(req, res, next) {
+
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var sender = decoded.email;
+    console.log("in addmessage");
+    var data = req.body;
+    data.sender = sender;
+    data.date = new Date();
+    console.log("Data for message==>", data);
+    _messagesModel2.default.create(data, function (err, message) {
+      if (err) return res.json(err);
+      res.json({
+        isError: false,
+        data: message
+      });
+    });
+  },
+
   friendReq: function friendReq(req, res, next) {
 
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    var dataObj = req.body;
-    console.log(dataObj);
+    var to = req.body.To;
+    console.log("To  Details=>", to);
 
-    _usersModel2.default.findOneAndUpdate({
-      'email': decoded.email
-    }, { $push: { friends: dataObj } }, {
-      upsert: true
-    }, function (err, users) {
-      if (err) return res.json({
-        isError: true,
-        data: err
-      });
-      res.json({
-        isError: false,
-        data: users
-      });
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'Pending'
+    };
+    console.log("Senders Details=>", dataObj);
+    _usersModel2.default.find({ 'email': to }, function (errParent, resultParent) {
+      if (!errParent) {
+        var friendsList = resultParent[0].friends || [];
+        console.log("friendList==>", friendsList);
+        var isFound = friendsList.find(function (item) {
+          return item.senderEmail == decoded.email;
+        });
+        if (isFound) {
+          res.json({
+            isError: false,
+            isFound: true
+          });
+        }
+        console.log("isfound==>", isFound);
+        if (!isFound || friendsList.length === 0) {
+          console.log("not found");
+          _usersModel2.default.findOneAndUpdate({
+            'email': to
+          }, { $push: { friends: dataObj } }, {
+            upsert: true
+          }, function (err, users) {
+            if (err) return res.json({
+              isError: true,
+              data: err
+            });
+            res.json({
+              isError: false,
+              data: users
+            });
+          });
+        }
+      }
     });
   },
 
@@ -143,7 +247,9 @@ var usersController = {
     };
   }(),
   userProfile: function userProfile(req, res, next) {
-    var _id = Number(req.query.id);
+    // var _id = Number(req.query.id);
+
+    var _id = mongoose.Types.ObjectId(req.query.id);
     console.log("id=>", _id);
     _usersModel2.default.findOne({
       _id: _id

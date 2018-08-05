@@ -1,16 +1,3 @@
-// var mqtt = require('mqtt');
-/* 
-var client = mqtt.createClient('mqtt://user:pass@localhost?clientId=rupaliINDex.html');
-
-// client.subscribe("mqtt/demo");
-
-client.on("message", function(topic, payload) {
-  alert([topic, payload].join(": "));
-  client.end();
-});
-
-client.publish("mqtt/demo", "hello world!");
-client.end(); */
 var Home = {};
 ((function() {
   this.init = function() {
@@ -24,6 +11,9 @@ var Home = {};
   var _core = {
     getByCurrencyLoc: API.getByCurrencyLoc,
     getActiveUser: API.getActiveUser,
+    acceptFriendRequest: API.acceptFriendRequest,
+    addMessage: API.addMessage,
+
     logout: API.logout,
     checkIfToken: function(token) {
       if (token && token.length > 0) {
@@ -33,7 +23,6 @@ var Home = {};
     },
 
     setValueDropDwn: function(id, value) {
-      console.log(" Set Drop Down ", id, value);
       $(id).empty();
       $(id).append(value);
     },
@@ -43,14 +32,9 @@ var Home = {};
   var _bind = {
 
     getByCurrencyLoc: async function(cryptoCurrency) {
-
-
-
-
       $('.m-header').css('display', 'block');
       $('.m-nav-sticky').css('display', 'block');
       $('.m-datatable__pager').css('display', 'none');
-
       $('.m-datatable__pager-info').css('display', 'none');
       $('.m-datatable--paging-loaded').css('display', 'none');
 
@@ -64,23 +48,18 @@ var Home = {};
       var cryptoCurrencyCode;
       before = new Date();
       before.setMinutes(before.getMinutes() - 15);
-      console.log("time -15 min from current time", currentTimeSys, before);
-      console.log("getByCurrencyLoc", cryptoCurrency)
+
       var params = {
         cryptoCurrency: cryptoCurrency
       }
-      console.log("params=>", params);
       var urlParams = _bind.getUrlVars();
 
-
-      console.log("url params=>", urlParams);
       currencyUrl = urlParams.cryptoCurrency;
       if (urlParams.cryptoCurrency) {
         var str = urlParams.cryptoCurrency;
         cryptoCurrency = str.toString(),
           cryptoCurrency = urlParams.cryptoCurrency;
         cryptoCurrencyCode = urlParams.code;
-        console.log("cryptoCurrency in if", cryptoCurrency, cryptoCurrencyCode);
       } else {
         cryptoCurrency = 'BITCOIN';
         cryptoCurrencyCode = 'BTC';
@@ -99,7 +78,7 @@ var Home = {};
       });
 
       $('#trade-tabs li').on('click', function() {
-        console.log("Quick tab clickeddd");
+
         $('#trade-tabs li').removeClass('active')
         $(this).addClass('active')
       })
@@ -108,6 +87,57 @@ var Home = {};
         $('#trade-tabs li').removeClass('active')
         $(this).addClass('active')
       })
+
+      $('.olUserList li').on('click', function() {
+        $(this).addClass('addClass');
+        var chatTimeStamp = new Date();
+        chatTimeStamp = moment(chatTimeStamp).format('MMMM Do YYYY')
+        $(".addClass").click(function() {
+          $('#qnimate').addClass('popup-box-on');
+          $('#chatTimeStamp').html(chatTimeStamp);
+          var olUserName = $(this).text();
+          var olUserEmail = $(this).attr('data-email');
+          $('#olUserName').html(olUserName);
+
+          var token = localStorage.getItem('token')
+          $('#status_message').keydown(function() {
+            var message = $("#status_message").val();
+            if (event.keyCode == 13) {
+              if (message == "") {
+                alert("Enter Some Text In Textarea");
+              } else {
+                var first_name = localStorage.getItem('first_name');
+                var dataObj = {
+                  message: $("#status_message").val(),
+                  reciever: olUserEmail,
+                }
+                var msg = { dataObj, token }
+                  // msg = JSON.stringify(msg)
+                socket.emit('private_message', msg)
+                  // socket.on('private message', { dataObj, token }, function(addMsgData) {
+                  //   console.log("private message", addMsgData);
+                  // })
+
+                // _core.addMessage(dataObj, token, function(res) {
+                //   if (res) {
+                //     console.log("response for addmessage", res);
+                //   }
+                // })
+
+              }
+              $("#status_message").val('');
+              return false;
+            }
+          });
+
+
+        });
+
+        $("#removeClass").click(function() {
+          $('#qnimate').removeClass('popup-box-on');
+        });
+      })
+
 
 
 
@@ -120,20 +150,16 @@ var Home = {};
        */
       $('#select_ad-online_provide li').on('click', function() {
         var value = $(this).attr('name');
-        console.log("value for pm=>>", value)
         _core.setValueDropDwn('#title_online_provide', value)
         payment_method = value;
       })
       $('#select_ad-country li').on('click', function() {
         var value = $(this).attr('name');
         var country_code = $(this).attr('data-country-code');
-        console.log("country code=>", country_code, this);
 
         $('#select_ad-currency li').each(function(i) {
           var temp = $(this).attr('name');
-          console.log("Temp =>", temp, this);
           if (temp == country_code) {
-            console.log("currency matched", $(this).attr('name'), country_code);
             _core.setValueDropDwn('#titile_currency', country_code)
 
           }
@@ -156,26 +182,35 @@ var Home = {};
       })
 
       $('.search_btn').unbind().click(function() {
-        amount = $('#txt_amt').val();
-        var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
-        console.log("quickTraderType", quickTraderType);
+          amount = $('#txt_amt').val();
+          var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
+          console.log("quickTraderType", quickTraderType);
 
-        window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
-          '&payment_method=' + payment_method +
-          '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
+          window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
+            '&payment_method=' + payment_method +
+            '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
+        })
+        //Frnd Request Accept Button Click
+      $('.btnAcceptReq').unbind().click(function() {
+        var senderEmail = $(this).attr('data-user');
+
+
+        var token = localStorage.getItem('token');
+        _core.acceptFriendRequest(token, senderEmail, function(res) {
+
+        })
+
       })
-
 
 
       await _core.getActiveUser(function(res) {
         var friendList = '';
         activeUSerData = res;
         if (res) {
-          console.log("response in getActive User=>>", res);
+
           for (let index = 0; index < res.tokenModel.length; index++) {
             for (let j = 0; j < res.user.length; j++) {
               friendList = "<li>" + res.user[j]["first_name"] + "</li>";
-              console.log("Email=>", res.tokenModel[index].email, res.user[j].email);
               if (res.tokenModel[index].email == res.user[j].email) {
                 activeUSer.push({
                   email: res.tokenModel[index].email,
@@ -186,11 +221,10 @@ var Home = {};
 
             }
 
-            $(".olUserList").html(friendList);
 
           }
 
-          console.log("active user data=>", activeUSer);
+
 
         }
       })
@@ -264,12 +298,12 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              /*  if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
-                 field.online_selling.payment_details = '';
-               }
-               if (field.location == undefined || '' || isNaN(field.location)) {
-                 field.location = '';
-               } */
+              if (field.payment_method == undefined || '') {
+                field.payment_method = '';
+              }
+              if (field.location == undefined || '') {
+                field.location = '';
+              }
 
               return field.payment_method + ' :' + field.location;
             },
@@ -399,12 +433,12 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              /*   if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
-                  field.online_selling.payment_details = '';
-                }
-                if (field.location == undefined || '' || isNaN(field.location)) {
-                  field.location = '';
-                } */
+              if (field.payment_method == undefined || '') {
+                field.payment_method = '';
+              }
+              if (field.location == undefined || '') {
+                field.location = '';
+              }
 
               return field.payment_method + ' :' + field.location;
             },
@@ -535,13 +569,13 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              /*  if (field.online_selling.payment_details == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.online_selling.payment_details = '';
+              if (field.payment_method == undefined || '') {
+                field.payment_method = '';
               }
-              if (field.location == undefined || '' || isNaN(field.location)) {
+              if (field.location == undefined || '') {
                 field.location = '';
               }
- */
+
               return field.payment_method + ' :' + field.location;
             },
             title: "Payment Method",
@@ -596,10 +630,6 @@ var Home = {};
 
                 '<input type="button" class="btn btn-info  " name="Sell" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
-
-              /*     '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
-                  '</a>';
-               */
             }
           }
 
@@ -676,13 +706,13 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              /*   if (field.online_selling.payment_details == undefined || '' || isNaN(field.online_selling.payment_details)) {
-                field.online_selling.payment_details = '';
+              if (field.payment_method == undefined || '') {
+                field.payment_method = '';
               }
-              if (field.location == undefined || '' || isNaN(field.location)) {
+              if (field.location == undefined || '') {
                 field.location = '';
               }
- */
+
               return field.payment_method + ' :' + field.location;
             },
             title: "Payment Method",
@@ -749,8 +779,6 @@ var Home = {};
 
     },
 
-
-
     getUrlVars: function() {
       var vars = [],
         hash;
@@ -769,44 +797,39 @@ var Home = {};
     changeBuyActiveTab: function(elem, className) {
       $(elem).addClass(className)
     },
+    // addUserInfo: function() {
+    //   var token = localStorage.getItem('token')
+    //   var checkIfToken = _core.checkIfToken(token);
+    //   if (checkIfToken) {
 
-    addUserInfo: function() {
-      var token = localStorage.getItem('token')
-      var checkIfToken = _core.checkIfToken(token);
-      if (checkIfToken) {
-        logoutbtn
-        $('#logoutbtn').unbind().click(function() {
-          console.log("logout btn clicked");
+    //     $('#logoutbtn').unbind().click(function() {
+    //       console.log("logout btn clicked");
+    //       _core.logout(token, function(res) {
+    //         console.log("res in logout=>>", res);
 
+    //         if (res.success) {
+    //           localStorage.removeItem("token");
+    //           localStorage.removeItem('email');
+    //           localStorage.removeItem("first_name");
+    //           localStorage.removeItem("last_name");
+    //           localStorage.removeItem('user_id');
+    //           window.location.replace("#/login");
 
+    //         }
 
-          _core.logout(token, function(res) {
-            console.log("res in logout=>>", res);
+    //       })
 
-            if (res.success) {
-              localStorage.removeItem("token");
-              localStorage.removeItem('email');
-              localStorage.removeItem("first_name");
-              localStorage.removeItem("last_name");
-              localStorage.removeItem('user_id');
-              window.location.replace("#/login");
+    //       socket.disconnect()
+    //     })
+    //   } else {
 
-            }
+    //     $('#loginbtn').unbind().click(function() {
+    //       window.location.replace("#/login");
+    //     })
 
+    //   }
 
-          })
-
-          socket.disconnect()
-        })
-      } else {
-
-        $('#loginbtn').unbind().click(function() {
-          window.location.replace("#/login");
-        })
-
-      }
-
-    },
+    // },
 
 
   }

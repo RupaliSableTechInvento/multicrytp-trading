@@ -69,9 +69,6 @@
 
       });
 
-
-
-
       this.get('#/sellBuyCurrency', function(context) {
         console.log("Sell  By currency  in route");
         SellBuyCurrency.init();
@@ -95,42 +92,43 @@
         console.log("CurrencySellerBuyerInfo in router .js");
         CurrencySellerBuyerInfo.init();
       });
-
+      GlobalEvent.init();
     })
     app.run('#/');
 
-    $('#logoutbtn').unbind().click(function() {
-      console.log("logout btn clicked");
-      var token = localStorage.getItem('token')
-      $.ajax({
-        url: "/logout",
-        headers: {
-          'authorization': token
-        },
-        type: "get",
-        success: function(successData) {
-          if (successData.success) {
-            localStorage.removeItem("token");
-            localStorage.removeItem('email');
-            localStorage.removeItem("first_name");
-            localStorage.removeItem("last_name");
-            localStorage.removeItem('user_id');
-            window.location.replace("#/login");
+    // $('#logoutbtn').unbind().click(function() {
+    //   console.log("logout btn clicked");
+    //   var token = localStorage.getItem('token')
+    //   console.log("token in logout=>", token);
 
-          }
+    //   $.ajax({
+    //     url: "/logout",
+    //     headers: {
+    //       'authorization': token
+    //     },
+    //     type: "get",
+    //     success: function(successData) {
+    //       if (successData.success) {
+    //         localStorage.removeItem("token");
+    //         localStorage.removeItem('email');
+    //         localStorage.removeItem("first_name");
+    //         localStorage.removeItem("last_name");
+    //         localStorage.removeItem('user_id');
+    //         window.location.replace("#/login");
 
-          socket.disconnect()
-        },
-        error: function(err) {
-          console.log("logout err=>", err);
-        }
-      })
+    //       }
+    //       socket.disconnect()
+    //     },
+    //     error: function(err) {
+    //       console.log("logout err=>", err);
+    //     }
+    //   })
 
-    })
+    // })
 
-    $('#loginbtn').unbind().click(function() {
-      window.location.replace("#/login");
-    })
+    // $('#loginbtn').unbind().click(function() {
+    //   window.location.replace("#/login");
+    // })
 
     function checkIfToken() {
       var isToken = localStorage.getItem('token')
@@ -140,12 +138,8 @@
         var last_name = localStorage.getItem('last_name');
         $('.m-card-user__email').html(email);
         $('.m-card-user__name').html(first_name + '  ' + last_name);
-
-
-
         $('.loginOutUser').hide();
         $('.loginUser').show();
-        //  $('.dropdown__wrapper_login').hide();
 
 
         return true;
@@ -155,9 +149,6 @@
 
       $('.loginUser').hide();
       $('.loginOutUser').show();
-      // $('.loginOutUser').removeAttr("style")
-
-
       return false;
     }
   });

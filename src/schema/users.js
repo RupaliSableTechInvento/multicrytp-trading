@@ -123,6 +123,6 @@ const BuyerSchema = new mongoose.Schema({
 
 
 usersSchema.plugin(uniqueValidator);
-usersSchema.plugin(autoIncrement.plugin, 'id');
+// usersSchema.plugin(autoIncrement.plugin, 'id');
 
 export default usersSchema;

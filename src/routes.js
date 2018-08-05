@@ -37,14 +37,19 @@ const routes = (route) => {
   route.route('/forgetPassword')
     .post(usersController.forgetPassword);
 
+  // route.route('/friendReq')
+  //   .post(messagesController.friendReq);
   route.route('/friendReq')
-    .post(function(req, res, next) {
-      messagesController.friendReq(req, res, next, route)
-    });
+    .post(usersController.friendReq)
 
+  route.route('/addMessage')
+    .post(usersController.addMessage)
 
   route.route('/getFriendsList')
     .get(usersController.getFriendsList);
+
+  route.route('/acceptFriendRequest')
+    .post(usersController.acceptFriendRequest);
 
 
   route.route('/users/changeEmail')
@@ -85,11 +90,6 @@ const routes = (route) => {
     .post(tradeController.create)
     .patch(tradeController.update);
 
-
-
-  /* route.route('/getPriceEquation')
-    .get(tradeController.getPriceEquation);
- */
   route.route('/tradeByCurrencyLoc')
     .get(tradeController.getByCurrencyLoc);
 

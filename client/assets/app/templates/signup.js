@@ -99,7 +99,6 @@ var SignUp = {};
           url: "/register",
           type: "POST",
           success: function(successData) {
-            console.log("registerd successfully", successData);
             // similate 2s delay
             setTimeout(function() {
               btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);

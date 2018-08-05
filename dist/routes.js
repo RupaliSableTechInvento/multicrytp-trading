@@ -56,11 +56,15 @@ var routes = function routes(route) {
 
   route.route('/forgetPassword').post(_usersController2.default.forgetPassword);
 
-  route.route('/friendReq').post(function (req, res, next) {
-    _messagesController2.default.friendReq(req, res, next, route);
-  });
+  // route.route('/friendReq')
+  //   .post(messagesController.friendReq);
+  route.route('/friendReq').post(_usersController2.default.friendReq);
+
+  route.route('/addMessage').post(_usersController2.default.addMessage);
 
   route.route('/getFriendsList').get(_usersController2.default.getFriendsList);
+
+  route.route('/acceptFriendRequest').post(_usersController2.default.acceptFriendRequest);
 
   route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
 
@@ -85,9 +89,6 @@ var routes = function routes(route) {
 
   route.route('/trade').get(_tradeController2.default.getAll).post(_tradeController2.default.create).patch(_tradeController2.default.update);
 
-  /* route.route('/getPriceEquation')
-    .get(tradeController.getPriceEquation);
-  */
   route.route('/tradeByCurrencyLoc').get(_tradeController2.default.getByCurrencyLoc);
 
   route.route('/getTrade').get(_tradeController2.default.getTrade);
