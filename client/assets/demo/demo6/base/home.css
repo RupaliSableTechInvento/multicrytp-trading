@@ -507,10 +507,9 @@ body {
 }
  */
 
-
-/* .mCSB_draggerContainer {
+.hidden {
   display: none;
-} */
+}
 
 
 /* .tab_content_txt {

@@ -11,7 +11,7 @@ var keys = {};
 
 
 module.exports = function(app, io) {
-  console.log("global");
+  //console.log("global");
   var app = app;
   var io = io;
   app.use(bodyParser.json());
@@ -21,196 +21,232 @@ module.exports = function(app, io) {
 
   var email = global.email || null;
   // var email = "sablerupali358@gmail.com"
-  console.log("Email id in messages Controller=>", email);
+  //console.log("Email id in messages Controller=>", email);
 
   var friends = [];
   var pending = [];
   var all_friends = [];
   var curentUserEmail = '';
 
-  if (email) {
-    io.on('connection', function(socket) {
-      // socket.on('private_message', function(privateMsg) {
-      //   console.log("privateMsg1111", privateMsg);
-      //   io.emit('private_message', 'hello');
+  // io.sockets.on('connection', function(socket) {
+  io.on('connection', function(socket) {
+    console.log("On Connection=>", socket.id);
+    // socket.on('private_message', function(privateMsg) {
+    //   //console.log("privateMsg1111", privateMsg);
+    //   io.emit('private_message', 'hello');
 
-      // })
+    // })
 
-      socket.on('getActiveList', function(token) {
+    socket.on('getActiveList', function(token) {
 
-        console.log("getActiveList=>>", token);
-        var decoded = jwt.verify(token, env.App_key);
-        curentUserEmail = decoded.email;
-        const isEmailFound = users.find(item => item && item.email && item.email == curentUserEmail);
-        console.log("isEmailFound in users", users, isEmailFound);
-        if (!isEmailFound) {
-          users.push({
+      //console.log("getActiveList=>>", token);
+      var decoded = jwt.verify(token, env.App_key);
+      curentUserEmail = decoded.email;
+      const isEmailFound = users.find(item => item && item.email && item.email == curentUserEmail);
+      //console.log("isEmailFound in users", users, isEmailFound);
+      if (!isEmailFound) {
+        users.push({
             email: curentUserEmail,
             socketId: socket.id
           })
-          console.log("Email Not present=>", users, curentUserEmail);
-        } else {
+          //console.log("Email Not present=>", users, curentUserEmail);
+      } else {
 
-          users.forEach(item => {
-            item.email = curentUserEmail,
-              item.socketId = socket.id
-          })
-          console.log("Email present=>", users, curentUserEmail);
-        }
+        users.forEach(item => {
+            if (item.email == curentUserEmail) {
+              item.email = curentUserEmail;
+              item.socketId = socket.id;
 
-
-
-        if (curentUserEmail) {
-          usersModel.findOneAndUpdate({ "email": curentUserEmail }, { $set: { isActive: "active" } }, { friends: 1, _id: 0 }, function(err, doc) {
-            if (err) {
-              console.log("error in io connection.=>", err);
-              // res.json(err); 
-
-            } else {
-              friends = [];
-              pending = [];
-              all_friends = [];
-              // console.log("friends list: " + doc);
-              var list = doc.friends.slice();
-              console.log(list);
-
-              for (var i in list) {
-                if (list[i].status == "Friend") {
-                  friends.push(list[i]);
-                  // console.log("users[list[i].senderEmail]", users, users[list[i].senderEmail]);
-                  users.forEach(item => {
-                    if (item.curentUserEmail && list[i].senderEmail == item.curentUserEmail) {
-                      console.log("email found", item.socketId, curentUserEmail);
-                      io.to(item.socketId).emit('friend_me', curentUserEmail);
-                      io.emit('friend_all', curentUserEmail);
-                    }
-                  })
-
-                } else if (list[i].status == "Pending") {
-                  pending.push(list[i]);
-                } else {
-                  continue;
-                }
-              }
-
-              // console.log("pending list: " + pending);
-              // console.log("friends list: " + friends);
-              io.to(socket.id).emit('friend_list', friends);
-              io.to(socket.id).emit('pending_list', pending);
-
-
-              //  io.emit('users', users);
             }
-          });
-        }
+
+            // item.email = curentUserEmail,
+            //   item.socketId = socket.id
+          })
+          //console.log("Email present=>", users, curentUserEmail);
+      }
 
 
-      })
-      socket.on('private_message', function(msgObj) {
-        console.log("private message", msgObj);
 
-        var decoded = jwt.verify(msgObj.token, env.App_key);
-        var sender = decoded.email;
-        console.log("in addmessage");
-        var data = msgObj.dataObj;
-        data.sender = sender;
-        data.date = new Date();
-        console.log("Data for message==>", data);
-        messagesModel.create(data, function(err, message) {
-          if (err) { console.log("Error in add message", err) } else {
+      if (curentUserEmail) {
+        usersModel.findOneAndUpdate({ "email": curentUserEmail }, { $set: { isActive: "active" } }, { friends: 1, _id: 0 }, function(err, doc) {
+          if (err) {
+            //console.log("error in io connection.=>", err);
+            // res.json(err); 
 
-            console.log("  message added..", users[msgObj.dataObj.reciever]);
+          } else {
+            friends = [];
+            pending = [];
+            all_friends = [];
+            // //console.log("friends list: " + doc);
+            var list = doc.friends.slice();
+            //console.log(list);
 
-            io.to(users[msgObj.dataObj.reciever]).emit('private_message', msgObj);
+            for (var i in list) {
+              if (list[i].status == "Friend") {
+                friends.push(list[i]);
+                // //console.log("users[list[i].senderEmail]", users, users[list[i].senderEmail]);
+                users.forEach(item => {
+                  //console.log("In friends Item ==>", item);
+                  if (item.email && list[i].senderEmail == item.email) {
+                    //console.log("item.socketId, curentUserEmail ", item.socketId, curentUserEmail);
+                    io.to(item.socketId).emit('friend_me', curentUserEmail);
+                    io.emit('friend_all', curentUserEmail);
+                  }
+                })
+
+              } else if (list[i].status == "Pending") {
+                pending.push(list[i]);
+              } else {
+                continue;
+              }
+            }
+
+
+            io.to(socket.id).emit('friend_list', friends);
+            io.to(socket.id).emit('pending_list', pending);
+
+
+            //  io.emit('users', users);
           }
-        })
-      });
+        });
+      }
 
 
-      console.log("Connection :User is connected  ", socket.id, email);
+    })
 
-      io.to(socket.id).emit('handle', email);
+    // io.sockets.connected[clients[1]].emit("greeting", "Hey there, User 2");
 
-
-      // const isEmailFound = users.find(item => item && item.email && item.email == email);
-
-      console.log("users", users);
-      // users[email] = socket.id;
-      keys[socket.id] = email;
-      console.log("Users list : " + users);
-      console.log("keys list : " + keys);
-
-
-      socket.on('group message', function(msg) {
-        // console.log(msg);
-        io.emit('group', msg);
-      });
+    socket.on('private_message', function(msgObj) {
+      //console.log("private message", msgObj);
+      var decoded = jwt.verify(msgObj.token, env.App_key);
+      var sender = decoded.email;
+      var data = msgObj.dataObj;
+      data.sender = sender;
+      data.date = new Date();
+      data.isRead = false;
+      //   //console.log("Data for message==>", data);
+      messagesModel.create(data, function(err, message) {
+        if (err) { //console.log("Error in add message", err) } else {
 
 
+          //   //console.log("In msg==> ", users, message);
 
-      // socket.on('private_message', function(msgObj) {
-      //   console.log("private message", msgObj);
+          users.forEach((item, index) => {
+            if (item && item.email == data.reciever) {
+              //   //console.log("Reciever found=>> ", item.email, data.reciever);
+
+              io.to(item.socketId).emit('Notification_for_msg', message);
+            }
+          })
 
 
-      //   var decoded = jwt.verify(msgObj.token, env.App_key);
-      //   var sender = decoded.email;
-      //   console.log("in addmessage");
-      //   var data = msgObj.dataObj;
-      //   data.sender = sender;
-      //   data.date = new Date();
-      //   console.log("Data for message==>", data);
+
+
+        }
+      })
+
+      // users.forEach((item, index) => {
+      //   if (item && item.email == data.reciever) {
+      //     //console.log("Reciever found=>> ", item.email, data.reciever);
+
+
+      //     io.to(item.socketId).emit('Notification_for_msg', data);
+      //     data.isRead = true;
+      //   } else {
+      //     data.isRead = false;
+      //   }
       //   messagesModel.create(data, function(err, message) {
-      //     if (err) { console.log("Error in add message", err) } else {
+      //     if (err) { //console.log("Error in add message", err) } else {
 
-      //       console.log("  message added..", users[msgObj.dataObj.reciever]);
+      //       //console.log("Message added.", data);
 
-      //       io.to(users[msgObj.dataObj.reciever]).emit('private_message', msgObj);
       //     }
       //   })
-      // });
+
+      // })
 
 
 
-      // socket.on('private message', function(msg) {
-      //   console.log('message  :' + msg.split("#*@")[0]);
-      //   models.messages.create({
-      //     "message": msg.split("#*@")[1],
-      //     "sender": msg.split("#*@")[2],
-      //     "reciever": msg.split("#*@")[0],
-      //     "date": new Date()
-      //   });
-      //   io.to(users[msg.split("#*@")[0]]).emit('private message', msg);
-      // });
 
-      socket.on('disconnect', function() {
-        console.log("disconned call", socket.id);
-        // var decoded = jwt.verify(token, env.App_key);
-        // var curentUserEmail = decoded.email;
-        usersModel.findOneAndUpdate({ "email": curentUserEmail }, { $set: { isActive: "inactive" } },
-          function(err, doc) {
-            if (err) {
-              // res.json(err);
-            } else {
-              console.log("logout=>", doc)
-            }
-          });
-
-        // delete global.email;
-        // email = null;
-        users.forEach((item, index) => {
-            if (item && item.curentUserEmail == curentUserEmail) {
-
-              users.splice(index, 1);
-            }
-          })
-          // delete users[keys[socket.id]];
-        delete keys[socket.id];
-        io.emit('users', users);
-        // console.log(users);
-      });
     });
 
-  }
+
+    //console.log("Connection :User is connected  ", socket.id, email);
+
+    // io.to(socket.id).emit('handle', email);
+
+
+    // const isEmailFound = users.find(item => item && item.email && item.email == email);
+
+    // users[email] = socket.id;
+    keys[socket.id] = email;
+    //console.log("Users list : " + users);
+    //console.log("keys list : " + keys);
+
+
+    socket.on('group message', function(msg) {
+      // //console.log(msg);
+      io.emit('group', msg);
+    });
+
+
+
+    // socket.on('private_message', function(msgObj) {
+    //   //console.log("private message", msgObj);
+
+
+    //   var decoded = jwt.verify(msgObj.token, env.App_key);
+    //   var sender = decoded.email;
+    //   //console.log("in addmessage");
+    //   var data = msgObj.dataObj;
+    //   data.sender = sender;
+    //   data.date = new Date();
+    //   //console.log("Data for message==>", data);
+    //   messagesModel.create(data, function(err, message) {
+    //     if (err) { //console.log("Error in add message", err) } else {
+
+    //       //console.log("  message added..", users[msgObj.dataObj.reciever]);
+
+    //       io.to(users[msgObj.dataObj.reciever]).emit('private_message', msgObj);
+    //     }
+    //   })
+    // });
+
+
+
+
+
+    socket.on('disconnect', function() {
+      console.log("disconned call", socket.id);
+      // // var decoded = jwt.verify(token, env.App_key);
+      // // var curentUserEmail = decoded.email;
+      // socket.disconnect(true);
+      // usersModel.findOneAndUpdate({ "email": curentUserEmail }, { $set: { isActive: "inactive" } },
+      //   function(err, doc) {
+      //     if (err) {
+      //       // res.json(err);
+      //     } else {
+      //       //console.log("logout=>", doc)
+      //     }
+      //   });
+
+      // // delete global.email;
+      // // email = null;
+      // users.forEach((item, index) => {
+      //   if (item && item.email == curentUserEmail) {
+      //     users.splice(index, 1);
+      //   }
+      // })
+      // delete socket.id;
+      // //console.log("After Disconnect Users List==>", users);
+      // // delete users[keys[socket.id]];
+      // // delete keys[socket.id];
+      // io.emit('users', users);
+      // // //console.log(users);
+    });
+  });
+
+
 
 
 
@@ -220,11 +256,11 @@ module.exports = function(app, io) {
     friend = true;
     models.user.find({ "handle": req.body.my_handle, "friends.name": req.body.friend_handle }, function(err, doc) {
       if (err) { res.json(err); } else if (doc.length != 0) {
-        console.log("Friend request : " + doc.length);
-        console.log("Friend request : friend request already sent " + doc);
+        //console.log("Friend request : " + doc.length);
+        //console.log("Friend request : friend request already sent " + doc);
         res.send("Friend request already sent ");
       } else {
-        console.log("Friend request : " + doc.length);
+        //console.log("Friend request : " + doc.length);
         models.user.update({
           handle: req.body.my_handle
         }, {
@@ -239,7 +275,7 @@ module.exports = function(app, io) {
         }, function(err, doc) {
           if (err) { res.json(err); }
           //            else{
-          //                console.log(doc);
+          //                //console.log(doc);
           //            }
         });
         io.to(users[req.body.friend_handle]).emit('message', req.body);
@@ -248,7 +284,7 @@ module.exports = function(app, io) {
   });
 
   app.post('/friend_request/confirmed', function(req, res) {
-    console.log("friend request confirmed : " + req.body);
+    //console.log("friend request confirmed : " + req.body);
     if (req.body.confirm == "Yes") {
       models.user.find({
         "handle": req.body.friend_handle,
@@ -257,8 +293,8 @@ module.exports = function(app, io) {
         if (err) {
           res.json(err);
         } else if (doc.length != 0) {
-          console.log("Friend request confirmed : " + doc.length);
-          console.log("Friend request confirmed : friend request already sent " + doc);
+          //console.log("Friend request confirmed : " + doc.length);
+          //console.log("Friend request confirmed : friend request already sent " + doc);
           res.send("Friend request already accepted");
         } else {
           models.user.update({
@@ -271,7 +307,7 @@ module.exports = function(app, io) {
           }, function(err, doc) {
             if (err) { res.json(err); } else {
 
-              console.log("friend request confirmed : Inside yes confirmed");
+              //console.log("friend request confirmed : Inside yes confirmed");
               io.to(users[req.body.friend_handle]).emit('friend', req.body.my_handle);
               io.to(users[req.body.my_handle]).emit('friend', req.body.friend_handle);
             }
@@ -288,14 +324,14 @@ module.exports = function(app, io) {
           }, { upsert: true }, function(err, doc) {
             if (err) { res.json(err); }
             //            else{
-            //                console.log(doc);
+            //                //console.log(doc);
             //            }
           });
         }
       });
     } else {
 
-      console.log("friend request confirmed : Inside No confirmed");
+      //console.log("friend request confirmed : Inside No confirmed");
       models.user.update({
         "handle": req.body.my_handle
       }, {
@@ -306,7 +342,7 @@ module.exports = function(app, io) {
         }
       }, function(err, doc) {
         if (err) { res.json(err); } else {
-          console.log("No");
+          //console.log("No");
         }
       });
     }

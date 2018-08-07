@@ -31,6 +31,8 @@ var Home = {};
 
   var _bind = {
 
+
+
     getByCurrencyLoc: async function(cryptoCurrency) {
       $('.m-header').css('display', 'block');
       $('.m-nav-sticky').css('display', 'block');
@@ -88,58 +90,93 @@ var Home = {};
         $(this).addClass('active')
       })
 
-      $('.olUserList li').on('click', function() {
+      // $('.olUserList li').on('click', function() {
+      //   $(this).addClass('addClass');
+      //   var chatTimeStamp = new Date();
+      //   chatTimeStamp = moment(chatTimeStamp).format('MMMM Do YYYY')
+      //   var chatTime = (moment(new Date()).format('LTS'));
+
+      //   $(".addClass").click(function() {
+      //     $('#qnimate').addClass('popup-box-on');
+      //     $('#chatTimeStamp').html(chatTimeStamp);
+
+
+      //     var olUserName = $(this).text();
+      //     var olUserEmail = $(this).attr('data-email');
+      //     $('#olUserName').html(olUserName);
+
+      //     var token = localStorage.getItem('token')
+      //     $('#status_message').keydown(function() {
+      //       var message = $("#status_message").val();
+      //       if (event.keyCode == 13) {
+      //         if (message == "") {
+      //           alert("Enter Some Text In Textarea");
+      //         } else {
+      //           var first_name = localStorage.getItem('first_name');
+      //           var last_name = localStorage.getItem('last_name');
+      //           var dataObj = {
+      //             message: $("#status_message").val(),
+      //             reciever: olUserEmail,
+      //           }
+      //           var msg = { dataObj, token }
+      //             // msg = JSON.stringify(msg)
+      //           socket.emit('private_message', msg)
+
+      //           var htmlChatMSg = ` <div class="direct-chat-msg doted-border">
+      //           <div class="direct-chat-info clearfix">
+      //             <span class="direct-chat-name pull-left">` + first_name + `</span>
+      //           </div>
+      //           <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img">
+      //           <!-- /.direct-chat-img -->
+      //           <div class="direct-chat-text" id="direct-chat-text">` + message + `
+
+      //           </div>
+      //           <div class="direct-chat-info clearfix">
+      //             <span class="direct-chat-timestamp pull-right" id="chatTime"></span>
+      //           </div>
+      //           <div class="direct-chat-info clearfix">
+      //             <span class="direct-chat-img-reply-small pull-left">
+
+      //       </span>
+      //             <span class="direct-chat-reply-name">` + last_name + `</span>
+      //           </div>
+      //         </div>`;
+      //           $('#chatTime').html(chatTime);
+
+      //           $('#direct-chat-msg').append(htmlChatMSg);
+      //           // socket.on('private message', { dataObj, token }, function(addMsgData) {
+      //           //   console.log("private message", addMsgData);
+      //           // })
+
+      //           // _core.addMessage(dataObj, token, function(res) {
+      //           //   if (res) {
+      //           //     console.log("response for addmessage", res);
+      //           //   }
+      //           // })
+
+      //         }
+      //         $("#status_message").val('');
+      //         return false;
+      //       }
+      //     });
+
+
+      //   });
+
+      //   $("#removeClass").click(function() {
+      //     $('#qnimate').removeClass('popup-box-on');
+      //   });
+      // })
+
+      $(document).on('click', '.olUserList li', function() {
         $(this).addClass('addClass');
-        var chatTimeStamp = new Date();
-        chatTimeStamp = moment(chatTimeStamp).format('MMMM Do YYYY')
-        $(".addClass").click(function() {
-          $('#qnimate').addClass('popup-box-on');
-          $('#chatTimeStamp').html(chatTimeStamp);
-          var olUserName = $(this).text();
-          var olUserEmail = $(this).attr('data-email');
-          $('#olUserName').html(olUserName);
-
-          var token = localStorage.getItem('token')
-          $('#status_message').keydown(function() {
-            var message = $("#status_message").val();
-            if (event.keyCode == 13) {
-              if (message == "") {
-                alert("Enter Some Text In Textarea");
-              } else {
-                var first_name = localStorage.getItem('first_name');
-                var dataObj = {
-                  message: $("#status_message").val(),
-                  reciever: olUserEmail,
-                }
-                var msg = { dataObj, token }
-                  // msg = JSON.stringify(msg)
-                socket.emit('private_message', msg)
-                  // socket.on('private message', { dataObj, token }, function(addMsgData) {
-                  //   console.log("private message", addMsgData);
-                  // })
-
-                // _core.addMessage(dataObj, token, function(res) {
-                //   if (res) {
-                //     console.log("response for addmessage", res);
-                //   }
-                // })
-
-              }
-              $("#status_message").val('');
-              return false;
-            }
-          });
-
-
-        });
-
-        $("#removeClass").click(function() {
-          $('#qnimate').removeClass('popup-box-on');
-        });
+        _bind.userList();
       })
 
 
-
+      $("#removeClass").unbind().click(function() {
+        $('#qnimate').removeClass('popup-box-on');
+      });
 
       /*       $('#select_ad-online_provide li').on('click', function () {
               var value = $(this).attr('name');
@@ -792,6 +829,84 @@ var Home = {};
       }
       console.log("vars=>", vars);
       return vars;
+    },
+
+
+    userList: function() {
+
+      $(".addClass").unbind().click(function() {
+        $('#qnimate').addClass('popup-box-on');
+        var chatTimeStamp = new Date();
+        chatTimeStamp = moment(chatTimeStamp).format('MMMM Do YYYY')
+        $('#chatTimeStamp').html(chatTimeStamp);
+
+
+        var olUserName = $(this).text();
+        var olUserEmail = $(this).attr('data-email');
+        $('#olUserName').html(olUserName);
+        _bind.sendMessage(olUserEmail);
+      });
+
+    },
+
+    sendMessage: function(olUserEmail) {
+
+      var token = localStorage.getItem('token')
+
+      $('#status_message').keydown(function() {
+        var chatTime = (moment(new Date()).format('LTS'));
+        var message = $("#status_message").val();
+        if (event.keyCode == 13) {
+          if (message == "") {
+            alert("Enter Some Text In Textarea");
+          } else {
+            var first_name = localStorage.getItem('first_name');
+            var last_name = localStorage.getItem('last_name');
+            var dataObj = {
+              message: $("#status_message").val(),
+              reciever: olUserEmail,
+            }
+            var msg = { dataObj, token }
+              // msg = JSON.stringify(msg)
+            socket.emit('private_message', msg);
+
+            var htmlChatMSg = ` <div class="direct-chat-msg doted-border">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left">` + first_name + `</span>
+          </div>
+          <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img">
+          <!-- /.direct-chat-img -->
+          <div class="direct-chat-text" id="direct-chat-text">` + message + `
+           
+          </div>
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-timestamp pull-right" id="chatTime"></span>
+          </div>
+             <div class="direct-chat-info clearfix">
+              <span class="direct-chat-img-reply-small pull-left">
+        
+            </span>
+            <span class="direct-chat-reply-name">` + last_name + `</span>
+            </div>
+            </div>`;
+            $('#chatTime').html(chatTime);
+
+            $('#direct-chat-msg').append(htmlChatMSg);
+            // socket.on('private message', { dataObj, token }, function(addMsgData) {
+            //   console.log("private message", addMsgData);
+            // })
+
+            // _core.addMessage(dataObj, token, function(res) {
+            //   if (res) {
+            //     console.log("response for addmessage", res);
+            //   }
+            // })
+
+          }
+          $("#status_message").val('');
+          return false;
+        }
+      });
     },
 
     changeBuyActiveTab: function(elem, className) {

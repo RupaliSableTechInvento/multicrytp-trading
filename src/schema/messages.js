@@ -13,7 +13,10 @@ const messages = new mongoose.Schema({
     type: String,
   },
   date: {
-    type: Date
+    type: Date,
+  },
+  isRead: {
+    type: Boolean,
   }
 });
 

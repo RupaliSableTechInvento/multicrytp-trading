@@ -504,7 +504,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   </li>
                   <li class="m-nav__item m-topbar__notifications m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" data-dropdown-toggle="click" data-dropdown-persistent="true">
                     <a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_messages_icon">
-                      <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
+                      <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger hidden" id="m_topbar_msgNotification_icon"></span>
                       <span class="m-nav__link-icon">
                         <span class="m-nav__link-icon-wrapper">
                           <i class="flaticon-chat-1"></i>
@@ -515,8 +515,8 @@ License: You must have a valid license purchased only from themeforest(the above
                       <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
                       <div class="m-dropdown__inner">
                         <div class="m-dropdown__header m--align-center">
-                          <span class="m-dropdown__header-title">
-                            9 New
+                          <span class="m-dropdown__header-title" id="msgNotification_count">
+                           
                           </span>
                           <span class="m-dropdown__header-subtitle">
                             User Messages
@@ -2133,28 +2133,91 @@ License: You must have a valid license purchased only from themeforest(the above
   <script>
     var token = localStorage.getItem('token')
     if (token && (token.length > 0)) {
-
-      var socket = io.connect('http://localhost:9004');
-
+      var socket = null;
 
 
-      socket.emit('getActiveList', token, function(data) {
-        console.log("getActiveList Data", data);
+      // $(".olUserList").empty();
+      socket = io.connect('http://localhost:9004');
 
-      })
 
-      var friendList = '';
       socket.on('connect', function() {
+
+        socket.emit('getActiveList', token, function(data) {
+          console.log("getActiveList Data", data);
+        })
+
+        socket.emit('get friends', function(data) {
+          console.log("data get freinds", data)
+        });
+
+        socket.on('users', function(data) {
+          console.log("users using soket io ", data);
+        });
+
         socket.emit('setUser', 'hello world');
+
+        socket.on('friend_me', function(data) {
+          console.log(" Online user => ", data);
+        });
+        socket.on('Notification_for_msg', function(data) {
+
+          console.log("Notification_for_msg => ", data);
+          Notifications();
+
+        });
+
+
+        socket.on('friend_all', function(data) {
+          console.log(" Online user  friend_all => ", data);
+        });
+        socket.on('greeting', function(data) {
+          console.log(" greeting => ", data);
+        });
+
+        socket.on('friend_list', function(friendListData) {
+          var friendList = '';
+          console.log("users friend_list using soket io", friendListData);
+          for (let index = 0; index < friendListData.length; index++) {
+
+            friendList += "<li data-email=" + friendListData[index].senderEmail + ">" + friendListData[index].senderFirstName + "</li>";
+
+          }
+
+
+          $(".olUserList").html(friendList);
+
+        });
+
+        socket.on('pending_list', function(data) {
+
+          var requestCount = data.length;
+
+          var friend_req_list = '';
+
+          $('.friend_req_count').html(requestCount + "  New")
+          if (requestCount > 0) {
+            $('.friend_req_list').empty();
+            for (let index = 0; index < data.length; index++) {
+              friend_req_list += `<div class="m-list-timeline__item">
+                                        <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+                                        <span class="m-list-timeline__text">` +
+                data[index].senderFirstName + `</span>
+                                        <span class="m-list-timeline__time ">
+
+                                      <button type="button" data-user="` + data[index].senderEmail + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent  btnAcceptReq">Accept</button>
+
+                                        </span>
+                                      </div>`;
+
+            }
+            $('.friend_req_list').append(friend_req_list);
+          }
+
+        });
+
       });
 
-      socket.emit('get friends', function(data) {
-        console.log("data get freinds", data)
-      });
 
-      socket.on('users', function(data) {
-        console.log("users using soket io ", data);
-      });
       // var dataObj = 'adsfaf';
       // var token = 'adsfaf';
       // timeout
@@ -2165,61 +2228,10 @@ License: You must have a valid license purchased only from themeforest(the above
       //   console.log("private message", addMsgData);
       // })
 
-      socket.on('private_message', function(data) {
-        console.log(" private_message using soket io=> ", data);
-      });
-      socket.on('friend_me', function(data) {
-        console.log(" Online user => ", data);
-      });
+      // socket.on('private_message_ack', function(data) {
+      //   console.log(" private_message using soket io=> ", data);
+      // }); 
 
-      socket.on('friend_all', function(data) {
-        console.log(" Online user  friend_all => ", data);
-      });
-
-
-
-      socket.on('friend_list', function(friendListData) {
-
-
-        // $(".olUserList").empty();
-        console.log("users friend_list using soket io", friendListData);
-        for (let index = 0; index < friendListData.length; index++) {
-
-          friendList += "<li data-email=" + friendListData[index].senderEmail + ">" + friendListData[index].senderFirstName + "</li>";
-
-        }
-
-
-        $(".olUserList").append(friendList);
-
-      });
-
-      socket.on('pending_list', function(data) {
-
-        var requestCount = data.length;
-
-        var friend_req_list = '';
-
-        $('.friend_req_count').html(requestCount + "  New")
-        if (requestCount > 0) {
-          $('.friend_req_list').empty();
-          for (let index = 0; index < data.length; index++) {
-            friend_req_list += `<div class="m-list-timeline__item">
-                                        <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-                                        <span class="m-list-timeline__text">` +
-              data[index].senderFirstName + `</span>
-                                        <span class="m-list-timeline__time ">
-
-                                      <button type="button" data-user="` + data[index].senderEmail + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent  btnAcceptReq">Accept</button>
-
-                                        </span>
-                                      </div>`;
-
-          }
-          $('.friend_req_list').append(friend_req_list);
-        }
-
-      });
 
       // socket.emit('disconnect', {
       //   msg: 'ghkjhjgj'
@@ -2228,7 +2240,17 @@ License: You must have a valid license purchased only from themeforest(the above
 
     }
 
+    function Notifications() {
 
+      if (typeof Notification.counter == 'undefined') {
+        Notification.counter = 0;
+      }
+      $('#m_topbar_msgNotification_icon').removeClass('hidden')
+      Notification.counter++;
+      console.log("Notification counter=>", Notification.counter);
+      $('#msgNotification_count').html(Notification.counter + '  New')
+
+    }
 
     $('#logoutbtn').unbind().click(function() {
       console.log("logout btn clicked");

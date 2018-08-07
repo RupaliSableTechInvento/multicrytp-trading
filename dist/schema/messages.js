@@ -30,6 +30,9 @@ var messages = new _mongoose2.default.Schema({
   },
   date: {
     type: Date
+  },
+  isRead: {
+    type: Boolean
   }
 });
 

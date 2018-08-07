@@ -10,7 +10,6 @@ import express from 'express';
 const app = express();
 
 // var http = require('http')(9004);
-var io = require('socket.io')(9004);
 // global = {};
 
 const authController = {
@@ -24,7 +23,6 @@ const authController = {
     }, (err, user) => {
       if (err) res.json(err);
       if (user !== null) {
-        require('./messagesController')(app, io);
         console.log("User=>", user)
         var d = new Date();
         var v = new Date();
