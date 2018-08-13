@@ -62,6 +62,8 @@ var routes = function routes(route) {
 
   route.route('/addMessage').post(_usersController2.default.addMessage);
 
+  route.route('/getAllMessagesWithFriend').get(_usersController2.default.getAllMessagesWithFriend);
+  route.route('/getAllMessages').get(_usersController2.default.getAllMessages);
   route.route('/getFriendsList').get(_usersController2.default.getFriendsList);
 
   route.route('/acceptFriendRequest').post(_usersController2.default.acceptFriendRequest);

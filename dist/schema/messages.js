@@ -25,6 +25,9 @@ var messages = new _mongoose2.default.Schema({
   sender: {
     type: String
   },
+  senderName: {
+    type: String
+  },
   reciever: {
     type: String
   },

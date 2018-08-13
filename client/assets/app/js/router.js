@@ -92,7 +92,7 @@
         console.log("CurrencySellerBuyerInfo in router .js");
         CurrencySellerBuyerInfo.init();
       });
-      GlobalEvent.init();
+      // GlobalEvent.init();
     })
     app.run('#/');
 

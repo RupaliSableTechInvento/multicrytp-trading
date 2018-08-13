@@ -9,7 +9,10 @@ import async from 'async';
 
 
 const app = express();
-var io = require('socket.io')(9004);
+var server = require('http').createServer(app);
+// console.log("Server in app.js", server);
+// var io = require('socket.io')(8080);
+var io = require('socket.io')(server);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -22,7 +25,7 @@ routes(app);
 // require('./controller/messagesController')(app, io);
 
 require('./controller/messagesController')(app, io);
-app.listen(env.Api_port, () => {
+server.listen(env.Api_port, () => {
 
 
   console.log(`Api listening on port ${env.Api_port}!`);

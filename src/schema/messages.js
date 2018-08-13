@@ -9,6 +9,9 @@ const messages = new mongoose.Schema({
   sender: {
     type: String,
   },
+  senderName: {
+    type: String,
+  },
   reciever: {
     type: String,
   },

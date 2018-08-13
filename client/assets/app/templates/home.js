@@ -1,4 +1,5 @@
 var Home = {};
+
 ((function() {
   this.init = function() {
 
@@ -13,8 +14,7 @@ var Home = {};
     getActiveUser: API.getActiveUser,
     acceptFriendRequest: API.acceptFriendRequest,
     addMessage: API.addMessage,
-
-    logout: API.logout,
+    getAllMessages: API.getAllMessages,
     checkIfToken: function(token) {
       if (token && token.length > 0) {
         return true;
@@ -31,7 +31,60 @@ var Home = {};
 
   var _bind = {
 
+    // getAllMessages: function() {
+    //   var msgListCountHTML = '';
+    //   var Data = [];
+    //   var count = '';
+    //   var tempArray = [];
+    //   var token = localStorage.getItem('token');
+    //   var isToken = checkIfToken(token)
+    //   if (isToken) {
+    //     _core.getAllMessages(token, function(res) {
+    //       if (!res.isError) {
+    //         var unReadMsgsCount = res.data.length;
+    //         Data = res.data;
+    //         var count = parseInt(unReadMsgsCount);
+    //         if (count > 0) {
+    //           $('#m_topbar_msgNotification_icon').removeClass('hidden')
+    //           $('#msgNotification_count').html(unReadMsgsCount + '  New')
+    //         }
+    //         console.log("unReadMsgsCount==>", unReadMsgsCount, Data.length);
+    //         for (var index = 0; index < Data.length; index++) {
+    //           console.log(" msgListCountHTML==>", Data[index])
+    //           if (!tempArray.includes(Data[index].senderName)) {
+    //             tempArray.push(Data[index].senderName);
+    //           }
+    //         }
+    //         console.log("Temp Array=>", tempArray);
+    //         for (var index = 0; index < tempArray.length; index++) {
 
+    //           for (var i = 0; i < Data.length; i++) {
+    //             if (Data[i].senderName == tempArray[index]) {
+    //               console.log("Matched..");
+    //               count = count++;
+    //             }
+    //           }
+
+    //           msgListCountHTML += ` <div class="m-list-timeline__item">
+    //         <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+    //         <span class="m-list-timeline__text">` +
+    //             tempArray[index] +
+    //             `     
+    //         </span>
+    //         <span class="m-list-timeline__time">` +
+    //             count +
+    //             `   
+    //         </span>
+    //       </div>`;
+
+    //         }
+
+    //         $('.UnreadMsgData').append(msgListCountHTML);
+
+    //       }
+    //     })
+    //   }
+    // },
 
     getByCurrencyLoc: async function(cryptoCurrency) {
       $('.m-header').css('display', 'block');
@@ -90,101 +143,6 @@ var Home = {};
         $(this).addClass('active')
       })
 
-      // $('.olUserList li').on('click', function() {
-      //   $(this).addClass('addClass');
-      //   var chatTimeStamp = new Date();
-      //   chatTimeStamp = moment(chatTimeStamp).format('MMMM Do YYYY')
-      //   var chatTime = (moment(new Date()).format('LTS'));
-
-      //   $(".addClass").click(function() {
-      //     $('#qnimate').addClass('popup-box-on');
-      //     $('#chatTimeStamp').html(chatTimeStamp);
-
-
-      //     var olUserName = $(this).text();
-      //     var olUserEmail = $(this).attr('data-email');
-      //     $('#olUserName').html(olUserName);
-
-      //     var token = localStorage.getItem('token')
-      //     $('#status_message').keydown(function() {
-      //       var message = $("#status_message").val();
-      //       if (event.keyCode == 13) {
-      //         if (message == "") {
-      //           alert("Enter Some Text In Textarea");
-      //         } else {
-      //           var first_name = localStorage.getItem('first_name');
-      //           var last_name = localStorage.getItem('last_name');
-      //           var dataObj = {
-      //             message: $("#status_message").val(),
-      //             reciever: olUserEmail,
-      //           }
-      //           var msg = { dataObj, token }
-      //             // msg = JSON.stringify(msg)
-      //           socket.emit('private_message', msg)
-
-      //           var htmlChatMSg = ` <div class="direct-chat-msg doted-border">
-      //           <div class="direct-chat-info clearfix">
-      //             <span class="direct-chat-name pull-left">` + first_name + `</span>
-      //           </div>
-      //           <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img">
-      //           <!-- /.direct-chat-img -->
-      //           <div class="direct-chat-text" id="direct-chat-text">` + message + `
-
-      //           </div>
-      //           <div class="direct-chat-info clearfix">
-      //             <span class="direct-chat-timestamp pull-right" id="chatTime"></span>
-      //           </div>
-      //           <div class="direct-chat-info clearfix">
-      //             <span class="direct-chat-img-reply-small pull-left">
-
-      //       </span>
-      //             <span class="direct-chat-reply-name">` + last_name + `</span>
-      //           </div>
-      //         </div>`;
-      //           $('#chatTime').html(chatTime);
-
-      //           $('#direct-chat-msg').append(htmlChatMSg);
-      //           // socket.on('private message', { dataObj, token }, function(addMsgData) {
-      //           //   console.log("private message", addMsgData);
-      //           // })
-
-      //           // _core.addMessage(dataObj, token, function(res) {
-      //           //   if (res) {
-      //           //     console.log("response for addmessage", res);
-      //           //   }
-      //           // })
-
-      //         }
-      //         $("#status_message").val('');
-      //         return false;
-      //       }
-      //     });
-
-
-      //   });
-
-      //   $("#removeClass").click(function() {
-      //     $('#qnimate').removeClass('popup-box-on');
-      //   });
-      // })
-
-      $(document).on('click', '.olUserList li', function() {
-        $(this).addClass('addClass');
-        _bind.userList();
-      })
-
-
-      $("#removeClass").unbind().click(function() {
-        $('#qnimate').removeClass('popup-box-on');
-      });
-
-      /*       $('#select_ad-online_provide li').on('click', function () {
-              var value = $(this).attr('name');
-              _core.setValueDropDwn('#title_online_provide', value)
-              payment_method = value;
-            })
-
-       */
       $('#select_ad-online_provide li').on('click', function() {
         var value = $(this).attr('name');
         _core.setValueDropDwn('#title_online_provide', value)
@@ -219,15 +177,14 @@ var Home = {};
       })
 
       $('.search_btn').unbind().click(function() {
-          amount = $('#txt_amt').val();
-          var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
-          console.log("quickTraderType", quickTraderType);
+        amount = $('#txt_amt').val();
+        var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
+        console.log("quickTraderType", quickTraderType);
 
-          window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
-            '&payment_method=' + payment_method +
-            '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
-        })
-        //Frnd Request Accept Button Click
+        window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
+          '&payment_method=' + payment_method +
+          '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
+      })
       $('.btnAcceptReq').unbind().click(function() {
         var senderEmail = $(this).attr('data-user');
 
@@ -260,8 +217,6 @@ var Home = {};
 
 
           }
-
-
 
         }
       })
@@ -827,124 +782,14 @@ var Home = {};
         vars.push(hash[0]);
         vars[hash[0]] = hash[1];
       }
-      console.log("vars=>", vars);
+      // console.log("vars=>", vars);
       return vars;
-    },
-
-
-    userList: function() {
-
-      $(".addClass").unbind().click(function() {
-        $('#qnimate').addClass('popup-box-on');
-        var chatTimeStamp = new Date();
-        chatTimeStamp = moment(chatTimeStamp).format('MMMM Do YYYY')
-        $('#chatTimeStamp').html(chatTimeStamp);
-
-
-        var olUserName = $(this).text();
-        var olUserEmail = $(this).attr('data-email');
-        $('#olUserName').html(olUserName);
-        _bind.sendMessage(olUserEmail);
-      });
-
-    },
-
-    sendMessage: function(olUserEmail) {
-
-      var token = localStorage.getItem('token')
-
-      $('#status_message').keydown(function() {
-        var chatTime = (moment(new Date()).format('LTS'));
-        var message = $("#status_message").val();
-        if (event.keyCode == 13) {
-          if (message == "") {
-            alert("Enter Some Text In Textarea");
-          } else {
-            var first_name = localStorage.getItem('first_name');
-            var last_name = localStorage.getItem('last_name');
-            var dataObj = {
-              message: $("#status_message").val(),
-              reciever: olUserEmail,
-            }
-            var msg = { dataObj, token }
-              // msg = JSON.stringify(msg)
-            socket.emit('private_message', msg);
-
-            var htmlChatMSg = ` <div class="direct-chat-msg doted-border">
-          <div class="direct-chat-info clearfix">
-            <span class="direct-chat-name pull-left">` + first_name + `</span>
-          </div>
-          <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img">
-          <!-- /.direct-chat-img -->
-          <div class="direct-chat-text" id="direct-chat-text">` + message + `
-           
-          </div>
-          <div class="direct-chat-info clearfix">
-            <span class="direct-chat-timestamp pull-right" id="chatTime"></span>
-          </div>
-             <div class="direct-chat-info clearfix">
-              <span class="direct-chat-img-reply-small pull-left">
-        
-            </span>
-            <span class="direct-chat-reply-name">` + last_name + `</span>
-            </div>
-            </div>`;
-            $('#chatTime').html(chatTime);
-
-            $('#direct-chat-msg').append(htmlChatMSg);
-            // socket.on('private message', { dataObj, token }, function(addMsgData) {
-            //   console.log("private message", addMsgData);
-            // })
-
-            // _core.addMessage(dataObj, token, function(res) {
-            //   if (res) {
-            //     console.log("response for addmessage", res);
-            //   }
-            // })
-
-          }
-          $("#status_message").val('');
-          return false;
-        }
-      });
     },
 
     changeBuyActiveTab: function(elem, className) {
       $(elem).addClass(className)
     },
-    // addUserInfo: function() {
-    //   var token = localStorage.getItem('token')
-    //   var checkIfToken = _core.checkIfToken(token);
-    //   if (checkIfToken) {
 
-    //     $('#logoutbtn').unbind().click(function() {
-    //       console.log("logout btn clicked");
-    //       _core.logout(token, function(res) {
-    //         console.log("res in logout=>>", res);
-
-    //         if (res.success) {
-    //           localStorage.removeItem("token");
-    //           localStorage.removeItem('email');
-    //           localStorage.removeItem("first_name");
-    //           localStorage.removeItem("last_name");
-    //           localStorage.removeItem('user_id');
-    //           window.location.replace("#/login");
-
-    //         }
-
-    //       })
-
-    //       socket.disconnect()
-    //     })
-    //   } else {
-
-    //     $('#loginbtn').unbind().click(function() {
-    //       window.location.replace("#/login");
-    //     })
-
-    //   }
-
-    // },
 
 
   }
@@ -956,7 +801,8 @@ var Home = {};
           _bind.getByCurrencyLoc('BITCOIN');
           // _bind.changeCurrency();  
           _bind.changeBuyActiveTab(_tabs.buy, 'active');
-
+          _bind.getAllMessages();
+          // _bind.userList();
         })
         // $( "#maintradeblock" ).load( "ajax/test.html" );
     }

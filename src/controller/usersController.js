@@ -11,6 +11,48 @@ const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 const usersController = {
+  getAllMessages: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("getAllMessages reqest from==>", decoded.email)
+    messagesModel.find({
+      'reciever': decoded.email,
+      'isRead': false,
+    }, (err, messages) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: messages
+      });
+    });
+
+  },
+
+
+  getAllMessagesWithFriend: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.friend)
+    var friend = req.query.friend;
+    messagesModel.find({
+      $or: [
+        { $and: [{ sender: decoded.email }, { reciever: friend }] },
+        { $and: [{ sender: friend }, { reciever: decoded.email }] }
+      ]
+
+    }, (err, messages) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: messages
+      });
+    });
+
+  },
 
   getFriendsList: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);

@@ -42,6 +42,42 @@ var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 var usersController = {
+  getAllMessages: function getAllMessages(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("getAllMessages reqest from==>", decoded.email);
+    _messagesModel2.default.find({
+      'reciever': decoded.email,
+      'isRead': false
+    }, function (err, messages) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: messages
+      });
+    });
+  },
+
+  getAllMessagesWithFriend: function getAllMessagesWithFriend(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.friend);
+    var friend = req.query.friend;
+    _messagesModel2.default.find({
+      $or: [{ $and: [{ sender: decoded.email }, { reciever: friend }] }, { $and: [{ sender: friend }, { reciever: decoded.email }] }]
+
+    }, function (err, messages) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: messages
+      });
+    });
+  },
 
   getFriendsList: function getFriendsList(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);

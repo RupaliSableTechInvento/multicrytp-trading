@@ -291,6 +291,38 @@ var API = {
     })
   },
 
+
+
+  getAllMessagesWithFriend: function(token, cb) {
+    $.ajax({
+      url: "/getAllMessagesWithFriend",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
+  getAllMessages: function(token, cb) {
+    $.ajax({
+      url: "/getAllMessages",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
   postTrade: function(dataObj, token, cb) {
     $.ajax({
       url: "/trade",

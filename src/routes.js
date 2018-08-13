@@ -45,6 +45,11 @@ const routes = (route) => {
   route.route('/addMessage')
     .post(usersController.addMessage)
 
+
+  route.route('/getAllMessagesWithFriend')
+    .get(usersController.getAllMessagesWithFriend)
+  route.route('/getAllMessages')
+    .get(usersController.getAllMessages)
   route.route('/getFriendsList')
     .get(usersController.getFriendsList);
 
