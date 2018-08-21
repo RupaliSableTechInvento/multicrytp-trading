@@ -32,16 +32,37 @@ const usersController = {
 
 
   getAllMessagesWithFriend: (req, res, next) => {
-    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.friend)
-    var friend = req.query.friend;
-    messagesModel.find({
-      $or: [
-        { $and: [{ sender: decoded.email }, { reciever: friend }] },
-        { $and: [{ sender: friend }, { reciever: decoded.email }] }
-      ]
 
-    }, (err, messages) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
+    var friend = req.query.data.friend;
+    var date = req.query.data.date;
+    var query = '';
+    if (date) {
+      query = {
+        $or: [
+          { $and: [{ sender: decoded.email }, { reciever: friend }] },
+          { $and: [{ sender: friend }, { reciever: decoded.email }] }
+        ],
+        "date": { $lt: date }
+      }
+    } else {
+      query = {
+        $or: [
+          { $and: [{ sender: decoded.email }, { reciever: friend }] },
+          { $and: [{ sender: friend }, { reciever: decoded.email }] }
+        ]
+      }
+    }
+
+
+
+    messagesModel.find(
+      query
+    ).sort({ 'date': -1 }).limit(10)
+
+
+    .exec(function(err, messages) {
       if (err) return res.json({
         isError: true,
         data: err
@@ -52,6 +73,25 @@ const usersController = {
       });
     });
 
+
+
+    // messagesModel.find({
+    //   $or: [
+    //     { $and: [{ sender: decoded.email }, { reciever: friend }] },
+    //     { $and: [{ sender: friend }, { reciever: decoded.email }] }
+    //   ]
+
+    // }, (err, messages) => {
+    //   if (err) return res.json({
+    //     isError: true,
+    //     data: err
+    //   });
+    //   res.json({
+    //     isError: false,
+    //     data: messages
+    //   });
+    // }).limit(10);
+
   },
 
   getFriendsList: (req, res, next) => {
@@ -60,6 +100,21 @@ const usersController = {
     usersModel.find({
       'email': decoded.email
     }, { "friends": 1, "_id": 0 }, (err, users) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
+    });
+  },
+  getUserInfo: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    usersModel.find({
+      'email': decoded.email
+    }, (err, users) => {
       if (err) return res.json({
         isError: true,
         data: err
@@ -135,6 +190,31 @@ const usersController = {
       }
     })
 
+  },
+
+  addUserProfilePic: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+
+    var imgURL = req.body.imgURL;
+
+    usersModel.findOneAndUpdate({
+      'email': decoded.email
+    }, {
+      $set: {
+        imgURL: imgURL
+      }
+    }, (err, data) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      else {
+        res.json({
+          isError: false,
+          data: data
+        })
+      }
+    });
   },
   addMessage: (req, res, next) => {
 
@@ -471,12 +551,11 @@ const usersController = {
   },
 
   emailVerification: (req, res, next) => {
-    console.log("Email Verification=>", req.body, req.params, req.query);
-    var email = req.body.email;
     var host = req.headers.host;
-
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("Emailverification==>", decoded.email);
     usersModel.find({
-      'email': req.body.email
+      'email': decoded.email
     }, function(err, result) {
       if (err) {
         res.json({
@@ -490,7 +569,7 @@ const usersController = {
           v.setMinutes(d.getMinutes() + 30);
           const token = jwt.sign({
             exp: Math.floor(v),
-            email: req.body.email,
+            email: decoded.email,
           }, env.App_key);
           console.log(result);
           nodemailer.createTestAccount((err, account) => {
@@ -502,26 +581,26 @@ const usersController = {
                 pass: 'techinvento123'
               }
             });
+            var htmlforemail = ``;
             let mailOptions = {
               from: 'itstechinvento@gmail.com', // sender address
-              to: email, // list of receivers
+              to: decoded.email, // list of receivers
               subject: 'Email Verification', // Subject line
               text: 'Please Click below link to Verify Your Email address', // plain text body
-              html: 'Please<a href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>' // html body
+              html: 'Please<a id ="varified"href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>',
             };
             transporter.sendMail(mailOptions, (error, info) => {
-
-              mail_responseModel.create({
-                'email': email,
-                'error': error,
-                'info': info
-              }, function(err, mail_response) {
-                if (err) {
-                  console.log("mail_responseModel error=>", err);
-                } else {
-                  console.log("mail_responseModel ", mail_response);
-                }
-              })
+              // mail_responseModel.create({
+              //   'email': decoded.email,
+              //   'error': error,
+              //   'info': info
+              // }, function(err, mail_response) {
+              //   if (err) {
+              //     console.log("mail_responseModel error=>", err);
+              //   } else {
+              //     console.log("mail_responseModel ", mail_response);
+              //   }
+              // })
               if (error) {
                 res.json({
                   isError: true,
@@ -565,9 +644,9 @@ const usersController = {
           isError: true,
           data: err
         });
-        //  res.redirect('/#/profile');
-        res.send('verified')
-          //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
+        res.redirect('/#/profile');
+        // res.send('verified')
+        //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
 
       });
     } else {

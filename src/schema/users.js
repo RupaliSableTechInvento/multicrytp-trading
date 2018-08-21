@@ -17,6 +17,9 @@ const usersSchema = new mongoose.Schema({
     type: String,
     default: 'active'
   },
+  imgURL: {
+    type: Object,
+  },
   account_created: {
     type: Date,
     default: new Date(),

@@ -61,13 +61,24 @@ var usersController = {
   },
 
   getAllMessagesWithFriend: function getAllMessagesWithFriend(req, res, next) {
-    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.friend);
-    var friend = req.query.friend;
-    _messagesModel2.default.find({
-      $or: [{ $and: [{ sender: decoded.email }, { reciever: friend }] }, { $and: [{ sender: friend }, { reciever: decoded.email }] }]
 
-    }, function (err, messages) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data);
+    var friend = req.query.data.friend;
+    var date = req.query.data.date;
+    var query = '';
+    if (date) {
+      query = {
+        $or: [{ $and: [{ sender: decoded.email }, { reciever: friend }] }, { $and: [{ sender: friend }, { reciever: decoded.email }] }],
+        "date": { $lt: date }
+      };
+    } else {
+      query = {
+        $or: [{ $and: [{ sender: decoded.email }, { reciever: friend }] }, { $and: [{ sender: friend }, { reciever: decoded.email }] }]
+      };
+    }
+
+    _messagesModel2.default.find(query).sort({ 'date': -1 }).limit(10).exec(function (err, messages) {
       if (err) return res.json({
         isError: true,
         data: err
@@ -77,6 +88,23 @@ var usersController = {
         data: messages
       });
     });
+
+    // messagesModel.find({
+    //   $or: [
+    //     { $and: [{ sender: decoded.email }, { reciever: friend }] },
+    //     { $and: [{ sender: friend }, { reciever: decoded.email }] }
+    //   ]
+
+    // }, (err, messages) => {
+    //   if (err) return res.json({
+    //     isError: true,
+    //     data: err
+    //   });
+    //   res.json({
+    //     isError: false,
+    //     data: messages
+    //   });
+    // }).limit(10);
   },
 
   getFriendsList: function getFriendsList(req, res, next) {
@@ -85,6 +113,21 @@ var usersController = {
     _usersModel2.default.find({
       'email': decoded.email
     }, { "friends": 1, "_id": 0 }, function (err, users) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: users
+      });
+    });
+  },
+  getUserInfo: function getUserInfo(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    _usersModel2.default.find({
+      'email': decoded.email
+    }, function (err, users) {
       if (err) return res.json({
         isError: true,
         data: err
@@ -147,6 +190,30 @@ var usersController = {
               });
             });
           }
+        });
+      }
+    });
+  },
+
+  addUserProfilePic: function addUserProfilePic(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+
+    var imgURL = req.body.imgURL;
+
+    _usersModel2.default.findOneAndUpdate({
+      'email': decoded.email
+    }, {
+      $set: {
+        imgURL: imgURL
+      }
+    }, function (err, data) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });else {
+        res.json({
+          isError: false,
+          data: data
         });
       }
     });
@@ -512,12 +579,11 @@ var usersController = {
   },
 
   emailVerification: function emailVerification(req, res, next) {
-    console.log("Email Verification=>", req.body, req.params, req.query);
-    var email = req.body.email;
     var host = req.headers.host;
-
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("Emailverification==>", decoded.email);
     _usersModel2.default.find({
-      'email': req.body.email
+      'email': decoded.email
     }, function (err, result) {
       if (err) {
         res.json({
@@ -531,7 +597,7 @@ var usersController = {
           v.setMinutes(d.getMinutes() + 30);
           var token = _jsonwebtoken2.default.sign({
             exp: Math.floor(v),
-            email: req.body.email
+            email: decoded.email
           }, _env2.default.App_key);
           console.log(result);
           nodemailer.createTestAccount(function (err, account) {
@@ -543,26 +609,26 @@ var usersController = {
                 pass: 'techinvento123'
               }
             });
+            var htmlforemail = '';
             var mailOptions = {
               from: 'itstechinvento@gmail.com', // sender address
-              to: email, // list of receivers
+              to: decoded.email, // list of receivers
               subject: 'Email Verification', // Subject line
               text: 'Please Click below link to Verify Your Email address', // plain text body
-              html: 'Please<a href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>' // html body
+              html: 'Please<a id ="varified"href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>'
             };
             transporter.sendMail(mailOptions, function (error, info) {
-
-              _mail_responseModel2.default.create({
-                'email': email,
-                'error': error,
-                'info': info
-              }, function (err, mail_response) {
-                if (err) {
-                  console.log("mail_responseModel error=>", err);
-                } else {
-                  console.log("mail_responseModel ", mail_response);
-                }
-              });
+              // mail_responseModel.create({
+              //   'email': decoded.email,
+              //   'error': error,
+              //   'info': info
+              // }, function(err, mail_response) {
+              //   if (err) {
+              //     console.log("mail_responseModel error=>", err);
+              //   } else {
+              //     console.log("mail_responseModel ", mail_response);
+              //   }
+              // })
               if (error) {
                 res.json({
                   isError: true,
@@ -606,8 +672,8 @@ var usersController = {
           isError: true,
           data: err
         });
-        //  res.redirect('/#/profile');
-        res.send('verified');
+        res.redirect('/#/profile');
+        // res.send('verified')
         //res.json({ isError: false, data: "your E-Mail address is verified sucessfully" });
       });
     } else {

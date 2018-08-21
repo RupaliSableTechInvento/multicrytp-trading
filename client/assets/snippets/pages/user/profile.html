@@ -84,9 +84,11 @@
               </div>
               <div class="m-card-profile__pic">
                 <div class="m-card-profile__pic-wrapper">
-                  <img src="assets/app/media/img/users/user4.jpg" id="img_upload_pic" alt="">
-
+                  <img src="" style="width: 100px;  height: 100px;" id="img_upload_pic" alt="">
                 </div>
+                <span>
+                    <input type="file" accept="image/*" id="imgupload" style="display:none"/> 
+                     <i id="userProfilePic" class="flaticon-edit-1"></i></span>
               </div>
               <div class="m-card-profile__details">
                 <span class="m-card-profile__name">
@@ -112,12 +114,12 @@
                       <span class="m-nav__link-text">
                         My Profile
                       </span>
-                      <span class="m-nav__link-badge">
+                  <span class="m-nav__link-badge">
                         <span class="m-badge m-badge--success">
                           0
                         </span>
-                      </span>
-                    </span>
+                  </span>
+                  </span>
                   </span>
                 </a>
               </li>
@@ -247,8 +249,7 @@
             <div class="m-portlet__head-tools">
               <ul class="m-portlet__nav" style="display:none">
                 <li class="m-portlet__nav-item m-portlet__nav-item--last">
-                  <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover"
-                    aria-expanded="true">
+                  <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
                     <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
                       <i class="la la-gear"></i>
                     </a>
@@ -409,23 +410,18 @@
                     <label for="example-text-input" class="col-2 col-form-label">
                       E-mail verified:
                     </label>
-                    <div class="col-7 E_mail_Verified">
+                    <div class="col-7 E_mail_Verified" id="email_verified">
 
                     </div>
+
                   </div>
-                  <div class="form-group m-form__group row set_up_email" style="display:none; margin-left :20px;">
+                  <div class="form-group m-form__group row  hidden" id="set_up_email" style="margin-left :20px;display:inline-flex">
 
                     <button id="m_profile_set_up_email" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air"> Set Up Email</button>
-
-
-                    <!-- 
-                    <label for="example-text-input" class="col-2 col-form-label " style="color:#5867dd">
-                       Set Up Email
-                    </label>
- -->
                     <div class="col-7">
                     </div>
                   </div>
+
                   <div class="form-group m-form__group row" style="display:none">
                     <label for="example-text-input" class="col-2 col-form-label">
                       Phone number verified:

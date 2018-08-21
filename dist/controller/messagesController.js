@@ -93,7 +93,7 @@ module.exports = function (app, io) {
                   //console.log("In friends Item ==>", item);
                   if (item.email && list[i].senderEmail == item.email) {
                     //console.log("item.socketId, curentUserEmail ", item.socketId, curentUserEmail);
-                    io.to(item.socketId).emit('friend_me', curentUserEmail);
+                    io.to(item.socketId).emit('friend_Ol', curentUserEmail);
                     io.emit('friend_all', curentUserEmail);
                   }
                 });

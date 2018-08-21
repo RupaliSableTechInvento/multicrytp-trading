@@ -14,7 +14,7 @@ var Home = {};
     getActiveUser: API.getActiveUser,
     acceptFriendRequest: API.acceptFriendRequest,
     addMessage: API.addMessage,
-    getAllMessages: API.getAllMessages,
+    // getAllMessages: API.getAllMessages,
     checkIfToken: function(token) {
       if (token && token.length > 0) {
         return true;
@@ -801,7 +801,7 @@ var Home = {};
           _bind.getByCurrencyLoc('BITCOIN');
           // _bind.changeCurrency();  
           _bind.changeBuyActiveTab(_tabs.buy, 'active');
-          _bind.getAllMessages();
+          // _bind.getAllMessages();
           // _bind.userList();
         })
         // $( "#maintradeblock" ).load( "ajax/test.html" );

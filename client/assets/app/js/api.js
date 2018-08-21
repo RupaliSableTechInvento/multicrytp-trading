@@ -121,11 +121,11 @@ var API = {
       }
     })
   },
-  emailVerification: function(email, cb) {
+  emailVerification: function(token, cb) {
     $.ajax({
       url: "/emailverification",
-      data: {
-        email: email
+      headers: {
+        'authorization': token
       },
       type: "POST",
       success: function(successData) {
@@ -290,8 +290,38 @@ var API = {
       }
     })
   },
-
-
+  getUserInfo: function(token, cb) {
+    $.ajax({
+      url: "/getUserInfo",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
+  addUserProfilePic: function(imgURL, token, cb) {
+    console.log(" addUserProfilePic ==>", imgURL);
+    $.ajax({
+      url: "/addUserProfilePic",
+      type: "POST",
+      data: { imgURL: imgURL },
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        alert(err);
+      }
+    })
+  },
 
   getAllMessagesWithFriend: function(token, cb) {
     $.ajax({
