@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
 const usersController = {
-  getAllMessages: (req, res, next) => {
+  getAllUnreadMessages: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     console.log("getAllMessages reqest from==>", decoded.email)
     messagesModel.find({
@@ -26,17 +26,25 @@ const usersController = {
         isError: false,
         data: messages
       });
-    });
 
+    });
   },
 
 
   getAllMessagesWithFriend: (req, res, next) => {
 
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
+    // console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
     var friend = req.query.data.friend;
     var date = req.query.data.date;
+    var temp = req.query.data.limit;
+    var limit = '';
+    // var limit=parseInt(temp)
+    if (temp && temp < 10) {
+      limit = temp
+    } else {
+      limit = 10;
+    }
     var query = '';
     if (date) {
       query = {
@@ -59,7 +67,7 @@ const usersController = {
 
     messagesModel.find(
       query
-    ).sort({ 'date': -1 }).limit(10)
+    ).sort({ 'date': -1 }).limit(parseInt(limit))
 
 
     .exec(function(err, messages) {
@@ -93,7 +101,64 @@ const usersController = {
     // }).limit(10);
 
   },
+  setMsgRead: (req, res, next) => {
+    // console.log("setMsgRead ==>", req.body, req.query);
+    var arrMsgID = [];
+    arrMsgID = req.body.data;
+    console.log("arrMsgID", arrMsgID);
 
+    var arrMsgIDList = arrMsgID.map(function(aField) {
+      return mongoose.Types.ObjectId(aField);
+      console.log(aField);
+    })
+    messagesModel.find({ "_id": { $in: arrMsgIDList } }, {
+      $set: {
+        isRead: true
+      },
+    }).lean().exec(function(err, isRead) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: isRead
+      });
+    });
+
+
+    // arrMsgID.forEach((item) => {
+    //   var _id = mongoose.Types.ObjectId(item)
+    //   messagesModel.findOneAndUpdate({
+    //     _id: _id
+    //   }, {
+    //     $set: {
+    //       isRead: true
+    //     }
+    //   }, (err, isRead) => {
+
+    //     if (err) return
+    //     res.json({
+    //       isError: true,
+    //       data: err
+    //     });
+    //     res.json({
+    //       isError: false,
+    //       data: isRead
+    //     });
+
+
+    //   })
+
+    // })
+
+
+
+
+
+
+
+  },
   getFriendsList: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     console.log("addUserInfo", decoded.email)
@@ -416,8 +481,7 @@ const usersController = {
   forgetPassword: (req, res, next) => {
     var email = req.body.email;
     var host = req.headers.host;
-    console.log("req.domain=>", req.headers.host);
-    console.log("email", email);
+
     usersModel.find({
       'email': req.body.email
     }, function(err, result) {
@@ -450,8 +514,8 @@ const usersController = {
             let mailOptions = {
               from: 'itstechinvento@gmail.com', // sender address
               to: email, // list of receivers
-              subject: 'Change Password', // Subject line
-              text: 'Please Click below link to change password', // plain text body
+              subject: 'Create New Password', // Subject line
+              text: 'As requested,here is a link to allow you to select a new password', // plain text body
               html: '<a href=http://' + host + '/recover?accessToken=' + token + '>Click to recover password</a>' // html body
 
               // html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body

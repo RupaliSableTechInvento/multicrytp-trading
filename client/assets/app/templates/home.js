@@ -425,16 +425,14 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              if (field.payment_method == undefined || '') {
-                field.payment_method = '';
-              }
+
               if (field.location == undefined || '') {
                 field.location = '';
               }
 
-              return field.payment_method + ' :' + field.location;
+              return field.location;
             },
-            title: "Payment Method",
+            title: "Location",
             sortable: false,
             width: 250,
             responsive: {
@@ -698,16 +696,14 @@ var Home = {};
           {
             field: "",
             template: function(field, type, row) {
-              if (field.payment_method == undefined || '') {
-                field.payment_method = '';
-              }
+
               if (field.location == undefined || '') {
                 field.location = '';
               }
 
-              return field.payment_method + ' :' + field.location;
+              return field.location;
             },
-            title: "Payment Method",
+            title: "Location",
             sortable: false,
             width: 250,
             responsive: {

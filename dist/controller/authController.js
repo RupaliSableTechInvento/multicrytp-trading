@@ -168,6 +168,7 @@ var authController = {
       req.body.password = encode().value(req.body.password);
       var user = new _usersModel2.default(req.body);
       req.body.account_created = account_created;
+
       console.log("Account Created==>", account_created);
       user.save(req.body, function (err, user) {
         if (err) return res.json(err);

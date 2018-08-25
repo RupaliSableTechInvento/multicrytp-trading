@@ -56,9 +56,15 @@ var Profile = {};
           $('#first_name').val(userData.first_name),
             $('#last_name').val(userData.last_name),
             $('#email').val(userData.email),
-            $('#phone_no').val(userData.phone_no),
+            $('#phone_no').val(userData.phone_no)
+          if (!userData.imgURL) {
+            $('#img_upload_pic').attr('src', 'assets/app/media/img/users/Defaultuser.png')
+          } else {
             $('#img_upload_pic').attr('src', userData.imgURL)
-            // $('#email_verified').html('' + userData.verification.email_verified);
+
+          }
+          // $('#img_upload_pic').attr('src', userData.imgURL)
+          // $('#email_verified').html('' + userData.verification.email_verified);
           if (!userData.verification.email_verified) {
             $('#set_up_email').removeClass('hidden')
             $('#email_verified').html('<label style="color: red";>' + userData.verification.email_verified + '</label>')

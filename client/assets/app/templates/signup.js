@@ -98,6 +98,9 @@ var SignUp = {};
         form.ajaxSubmit({
           url: "/register",
           type: "POST",
+          data: {
+            imgURL: "assets/app/media/img/users/Defaultuser.png"
+          },
           success: function(successData) {
             // similate 2s delay
             setTimeout(function() {

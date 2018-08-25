@@ -67,12 +67,14 @@ var routes = function routes(route) {
   route.route('/addUserProfilePic').post(_usersController2.default.addUserProfilePic);
 
   route.route('/getAllMessagesWithFriend').get(_usersController2.default.getAllMessagesWithFriend);
-  route.route('/getAllMessages').get(_usersController2.default.getAllMessages);
+  route.route('/getAllUnreadMessages').get(_usersController2.default.getAllUnreadMessages);
   route.route('/getFriendsList').get(_usersController2.default.getFriendsList);
 
   route.route('/acceptFriendRequest').post(_usersController2.default.acceptFriendRequest);
 
   route.route('/users/changeEmail').post(_usersController2.default.changeEmail);
+
+  route.route('/setMsgRead').post(_usersController2.default.setMsgRead);
 
   route.route('/userProfile').get(_usersController2.default.userProfile);
 
@@ -89,6 +91,7 @@ var routes = function routes(route) {
 
   route.route('/isVerified').get(_usersController2.default.isVerified);
 
+  route.route('/getPriceEquation').get(_tradeController2.default.getPriceEquation);
   route.route('/emailverification').post(_usersController2.default.emailVerification);
 
   route.route('/ev/:token').get(_usersController2.default.emailVerified);

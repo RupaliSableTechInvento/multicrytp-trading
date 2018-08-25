@@ -69,14 +69,17 @@ var API = {
     }, */
   getPriceEquation: function(dataObj) {
     return new Promise(resolve => {
-      console.log("dataobject in getPriceEquation=>", dataObj);
-
+      // console.log("dataobject in getPriceEquation=>", dataObj);
+      var much = 100;
       $.ajax({
+        // url: "/getPriceEquation",
+        // data: { dataObj: dataObj },
+        // url: 'http://www.xe.com/currencyconverter/convert/?Amount=' + much + '&From=' + dataObj.from + '&To=' + dataObj.to,
         url: 'https://api.cryptonator.com/api/ticker/' + dataObj.from + '-' + dataObj.to,
         type: "get",
 
         success: function(successData) {
-          console.log("sucesss data in price equation=> ", successData);
+          console.log("sucesss data in price equation in api.js=> ", successData);
           resolve(successData)
         },
         error: function(err) {

@@ -21,7 +21,7 @@ var PostATrade = {};
     },
 
     setValueDropDwn: function(id, value) {
-      console.log(" Set Drop Down ", id, value);
+      // console.log(" Set Drop Down ", id, value);
       $(id).empty();
       $(id).append(value);
     },
@@ -81,7 +81,6 @@ var PostATrade = {};
         }
         const res = await _core.getPriceEquation(dataObjPriceEq);
         if (res.success) {
-
           console.log("price Equation=>>", res);
           cryptoCurrency_in_usd = res.ticker.price;
 
@@ -99,6 +98,8 @@ var PostATrade = {};
       await $('#select_ad-currency li').on('click', async function() {
         $('.price-info').empty();
         var value = $(this).attr('name');
+        form = $(this).closest('form');
+        // console.log("form in ad-currency==>", form);
         _core.setValueDropDwn('#titile_currency', value)
         currency = value;
 
@@ -124,7 +125,18 @@ var PostATrade = {};
           var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
           $('.price-info').append(htmlPriceInfo)
         } else {
-          console.log("", res.error);
+          // console.log("", res.error);
+          var error = res.error.trim();
+          if (error == "Pair not found") {
+            // console.log("matched..", error);
+            setTimeout(function() {
+              // btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+              _core.showErrorMsg(form, 'danger', 'Pair not found."' + dataObjPriceEq.from + ' to  ' + dataObjPriceEq.to);
+
+            }, 2000);
+          }
+
         }
 
       })
@@ -167,10 +179,6 @@ var PostATrade = {};
             _core.setValueDropDwn('#titile_currency', country_code)
           }
         })
-
-
-
-
 
         location = value;
       })
@@ -469,7 +477,6 @@ var PostATrade = {};
           "more_information.opening_hours.tuesday.end": tue_end,
           "more_information.opening_hours.wednesday.start": wed_start,
           "more_information.opening_hours.wednesday.end": wed_end,
-
           "more_information.opening_hours.thursday.start": thu_start,
           "more_information.opening_hours.thursday.end": thu_end,
 
@@ -480,10 +487,7 @@ var PostATrade = {};
           "more_information.opening_hours.saturday.start": sat_start,
 
           "more_information.opening_hours.saturday.end": sat_end,
-
-
           "online_selling.payment_details": $("#ad-account_info").val(),
-
           "online_selling.minimum_volume": $("#ad-require_trade_volume").val(),
 
           "online_selling.minimum_feedback": $("#ad-require_feedback_score").val(),

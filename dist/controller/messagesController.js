@@ -34,11 +34,12 @@ module.exports = function (app, io) {
   }));
 
   var email = global.email || null;
-
+  var arrImgURL = [];
   var friends = [];
   var pending = [];
   var all_friends = [];
   var curentUserEmail = '';
+  var friendsData = {};
   io.sockets.on('connection', function (socket) {
     console.log("On Connection=>", socket.id);
 
@@ -78,21 +79,19 @@ module.exports = function (app, io) {
             // res.json(err); 
 
           } else {
-            friends = [];
-            pending = [];
-            all_friends = [];
-            // //console.log("friends list: " + doc);
-            var list = doc.friends.slice();
-            //console.log(list);
 
+            pending = [];
+            var tempImgURL = '';
+            all_friends = [];
+
+            var list = doc.friends.slice();
+            friends = [];
+            arrImgURL = [];
             for (var i in list) {
               if (list[i].status == "Friend") {
                 friends.push(list[i]);
-                // //console.log("users[list[i].senderEmail]", users, users[list[i].senderEmail]);
                 users.forEach(function (item) {
-                  //console.log("In friends Item ==>", item);
                   if (item.email && list[i].senderEmail == item.email) {
-                    //console.log("item.socketId, curentUserEmail ", item.socketId, curentUserEmail);
                     io.to(item.socketId).emit('friend_Ol', curentUserEmail);
                     io.emit('friend_all', curentUserEmail);
                   }
@@ -103,10 +102,23 @@ module.exports = function (app, io) {
                 continue;
               }
             }
+            var senderEmailList = friends.map(function (aField) {
+              return aField.senderEmail;
+            });
+            _usersModel2.default.find({ "email": { $in: senderEmailList } }, { imgURL: 1, email: 1, _id: 0 }).lean().exec(function (err, imgURL) {
+              if (err) {} else {
+                // console.log("friends ==>", curentUserEmail, friends);
+                friendsData = {
+                  friends: friends,
+                  arrImgURL: imgURL
+                };
 
-            io.to(socket.id).emit('friend_list', friends);
-            io.to(socket.id).emit('pending_list', pending);
+                io.to(socket.id).emit('friend_list', friendsData);
+                io.to(socket.id).emit('pending_list', pending);
+              }
+            });
 
+            // console.log("friendData=>", friendsData);
             //  io.emit('users', users);
           }
         });
@@ -166,9 +178,9 @@ module.exports = function (app, io) {
 
       delete socket.id;
     });
-    socket.on('reconnect', function () {
-      console.log("soket reconnceting..");
-    });
+    // socket.on('reconnect', function() {
+    //   console.log("soket reconnceting..");
+    // })
   });
 
   app.post('/friend_request', function (req, res) {

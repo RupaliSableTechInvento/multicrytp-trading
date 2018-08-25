@@ -12,6 +12,7 @@ const messages = new mongoose.Schema({
   senderName: {
     type: String,
   },
+
   reciever: {
     type: String,
   },

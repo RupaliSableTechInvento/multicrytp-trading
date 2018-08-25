@@ -702,6 +702,11 @@ body {
   display: none !important;
 }
 
+.m-subheader-search {
+  background: #564FC1 !important;
+  padding: 40px 30px 40px 30px;
+}
+
 .m-datatable__pager {
   display: none !important;
 }

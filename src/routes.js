@@ -54,8 +54,8 @@ const routes = (route) => {
 
   route.route('/getAllMessagesWithFriend')
     .get(usersController.getAllMessagesWithFriend)
-  route.route('/getAllMessages')
-    .get(usersController.getAllMessages)
+  route.route('/getAllUnreadMessages')
+    .get(usersController.getAllUnreadMessages)
   route.route('/getFriendsList')
     .get(usersController.getFriendsList);
 
@@ -66,6 +66,10 @@ const routes = (route) => {
   route.route('/users/changeEmail')
     .post(usersController.changeEmail);
 
+
+
+  route.route('/setMsgRead')
+    .post(usersController.setMsgRead);
 
   route.route('/userProfile')
     .get(usersController.userProfile)
@@ -90,6 +94,8 @@ const routes = (route) => {
     .get(usersController.isVerified);
 
 
+  route.route('/getPriceEquation')
+    .get(tradeController.getPriceEquation)
   route.route('/emailverification')
     .post(usersController.emailVerification);
 

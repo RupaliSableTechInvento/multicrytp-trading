@@ -19,6 +19,7 @@ const usersSchema = new mongoose.Schema({
   },
   imgURL: {
     type: Object,
+    // default: "../../assets/app/media/img/users/userProfileNew.png"
   },
   account_created: {
     type: Date,

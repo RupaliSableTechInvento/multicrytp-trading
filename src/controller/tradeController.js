@@ -4,7 +4,7 @@ import usersModel from '../models/usersModel'
 import async from 'async'
 var moment = require('moment');
 var mongoose = require('mongoose');
-
+// var request = require('request');
 
 const tradeController = {
 
@@ -19,6 +19,38 @@ const tradeController = {
         data: trade
       });
     });
+  },
+  getPriceEquation: (req, res, next) => {
+    // console.log("Req for getPriceEquation=>", req.query);
+    // var dataObj = req.query.dataObj;
+    // var much = 100;
+    // var url = 'http://www.xe.com/currencyconverter/convert/?Amount=' + much + '&From=' + dataObj.from + '&To=' + dataObj.to;
+
+    // console.log("url==>", url);
+    // request(url, function(err, resp, body) {
+    //   // body = JSON.parse(body);
+    //   console.log(" response for getPriceEquation==>", body)
+    //     // logic used to compare search results with the input from user
+    //   if (!body.query.results.RDF.item) {
+    //     craig = "No results found. Try again.";
+    //   } else {
+    //     craig = body.query.results.RDF.item[0]['about'];
+    //     console.log("in else==>craig", craig);
+    //   }
+    // });
+    // $.ajax({
+    //   url: 'http://www.xe.com/currencyconverter/convert/?Amount=' + much + '&From=' + dataObj.from + '&To=' + dataObj.to,
+    //   // url: 'https://api.cryptonator.com/api/ticker/' + dataObj.from + '-' + dataObj.to,
+    //   type: "get",
+    //   success: function(successData) {
+    //     console.log("sucesss data in price equation in api.js=> ", successData);
+    //     // resolve(successData)
+    //   },
+    //   error: function(err) {
+    //     alert(err);
+    //   }
+    // })
+
   },
 
   getQuickByCryptocurrency: async(req, res, next) => {
