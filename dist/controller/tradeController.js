@@ -262,7 +262,7 @@ var tradeController = _defineProperty({
 
               _postatrade2.default.find({
                 cryptoCurrency: cryptoCurrency,
-                location: location,
+                // location: location,
                 tradeMethod: tradeMethod,
                 traderType: traderType
               }, function () {

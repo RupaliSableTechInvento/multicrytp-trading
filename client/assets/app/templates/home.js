@@ -233,7 +233,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'India',
+                  // location: 'India',
                   tradeMethod: 'ONLINE',
                   traderType: 'SELL',
 
@@ -314,8 +314,11 @@ var Home = {};
                 field.more_information.price_equation = '';
               } else {
                 var priceTemp = field.more_information.price_equation;
+                var currency = field.more_information.currency;
                 var price = Number(priceTemp).toFixed(2);
-                return price;
+                return `<div>` + price + `</div>
+               <div>` + currency + `</div>
+                `;
               }
 
             },
@@ -368,7 +371,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'India',
+                  // location: 'India',
                   tradeMethod: 'LOCAL',
                   traderType: 'SELL',
 
@@ -447,7 +450,10 @@ var Home = {};
               } else {
                 var priceTemp = field.more_information.price_equation;
                 var price = Number(priceTemp).toFixed(2);
-                return price;
+                var currency = field.more_information.currency;
+                return `<div>` + price + `</div>
+                <div>` + currency + `</div>
+                 `;;
               }
             },
 
@@ -502,7 +508,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'India',
+                  // location: 'India',
                   tradeMethod: 'ONLINE',
                   traderType: 'BUY',
 
@@ -583,8 +589,11 @@ var Home = {};
                 field.more_information.price_equation = '';
               } else {
                 var priceTemp = field.more_information.price_equation;
+                var currency = field.more_information.currency;
                 var price = Number(priceTemp).toFixed(2);
-                return price;
+                return `<div>` + price + `</div>
+               <div>` + currency + `</div>
+                `;
               }
             },
 
@@ -638,7 +647,7 @@ var Home = {};
               params: {
                 query: {
                   cryptoCurrency: cryptoCurrency,
-                  location: 'India',
+                  // location: 'India',
                   tradeMethod: 'LOCAL',
                   traderType: 'BUY',
 
@@ -717,8 +726,11 @@ var Home = {};
                 field.more_information.price_equation = '';
               } else {
                 var priceTemp = field.more_information.price_equation;
+                var currency = field.more_information.currency;
                 var price = Number(priceTemp).toFixed(2);
-                return price;
+                return `<div>` + price + `</div>
+               <div>` + currency + `</div>
+                `;
               }
             },
 

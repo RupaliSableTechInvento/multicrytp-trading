@@ -152,7 +152,7 @@ const tradeController = {
 
     postatrade.find({
       cryptoCurrency: cryptoCurrency,
-      location: location,
+      // location: location,
       tradeMethod: tradeMethod,
       traderType: traderType,
     }, async(err, trade) => {
