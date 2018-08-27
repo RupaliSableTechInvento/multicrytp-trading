@@ -195,7 +195,7 @@ var QuickOnline = {};
               return field.more_information.price_equation;
             },
 
-
+            //add cryptoCurrencyCode
             title: "price/BTC",
             sortable: false,
             width: 80,

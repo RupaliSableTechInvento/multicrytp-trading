@@ -64,30 +64,32 @@ var PostATrade = {};
 
 
       $('#select_ad-cryptocurrency li').on('click', async function() {
-        var value = $(this).attr('name');
-
-
+        cryptoCurrency = $(this).attr('name');
         code = $(this).attr('data-code');
-        _core.setValueDropDwn('#titile_cryptocurrency', value)
-        var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
-        $('#id_ad-price_equation').val(htmlpriceEq);
-
-
-        $('.price-info').empty();
-        cryptoCurrency = value;
+        _core.setValueDropDwn('#title_cryptocurrency', cryptoCurrency)
+          // var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
+          // $('#id_ad-price_equation').val(htmlpriceEq);
+          // $('.price-info').empty();
         var dataObjPriceEq = {
           from: code,
           to: USD,
         }
         const res = await _core.getPriceEquation(dataObjPriceEq);
-        if (res.success) {
+        var resultCount = res.query.count;
+        if (parseInt(resultCount) > 0) {
           console.log("price Equation=>>", res);
-          cryptoCurrency_in_usd = res.ticker.price;
 
+
+          for (const key in res.results) {
+            if (res.results.hasOwnProperty(key)) {
+              cryptoCurrency_in_usd = res.results[key].val
+              console.log("cryptoCurrency_in_usd==>", cryptoCurrency_in_usd);
+            }
+          }
           var htmlPriceInfo = "   " + cryptoCurrency_in_usd + ' ' + 'USD / ' + ' ' + code;
           $('.price-info').append(htmlPriceInfo)
         } else {
-          console.log("", res.error);
+          console.log("", res.query);
         }
       });
       $('#select_ad-online_provide li').on('click', function() {
@@ -96,52 +98,64 @@ var PostATrade = {};
         payment_method = value;
       })
       await $('#select_ad-currency li').on('click', async function() {
-        $('.price-info').empty();
-        var value = $(this).attr('name');
-        form = $(this).closest('form');
-        // console.log("form in ad-currency==>", form);
-        _core.setValueDropDwn('#titile_currency', value)
-        currency = value;
 
-        var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
-        $('#id_ad-price_equation').val(htmlpriceEq);
+        if (code) {
+          $('.price-info').empty();
+          var value = $(this).attr('name');
+          form = $(this).closest('form');
+          // console.log("form in ad-currency==>", form);
+          _core.setValueDropDwn('#title_currency', value)
+          currency = value;
 
-        var dataObjPriceEq = {
-          from: USD,
-          to: currency,
-        }
+          var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
+          $('#id_ad-price_equation').val(htmlpriceEq);
 
-        const res = await _core.getPriceEquation(dataObjPriceEq);
-        console.log("price Equation=>>", res);
-        if (res.success) {
-          USD_in_currency = res.ticker.price;
-          if (margin == '' || undefined) {
-            margin = 0;
+          var dataObjPriceEq = {
+            from: USD,
+            to: currency,
           }
-          price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
-          console.log("Price Equation=>>", price_equation);
+
+          const res = await _core.getPriceEquation(dataObjPriceEq);
+          console.log("price Equation=>>", res);
+          var resultCount = res.query.count;
 
 
-          var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
-          $('.price-info').append(htmlPriceInfo)
+          if (parseInt(resultCount) > 0) {
+            // USD_in_currency = res.results.val;
+            if (margin == '' || undefined) {
+              margin = 0;
+            }
+            for (const key in res.results) {
+              if (res.results.hasOwnProperty(key)) {
+                USD_in_currency = res.results[key].val
+                console.log("USD_in_currency==>", USD_in_currency);
+              }
+            }
+            price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
+            console.log("Price Equation=>>", price_equation);
+
+
+            var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
+            $('.price-info').append(htmlPriceInfo)
+          } else {
+            // console.log("", res.error);
+            if (res.query.count == 0) {
+              // console.log("matched..", error);
+              setTimeout(function() {
+                // btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+                _core.showErrorMsg(form, 'danger', 'Pair not found."' + dataObjPriceEq.from + ' to  ' + dataObjPriceEq.to);
+
+              }, 2000);
+            }
+
+          }
         } else {
-          // console.log("", res.error);
-          var error = res.error.trim();
-          if (error == "Pair not found") {
-            // console.log("matched..", error);
-            setTimeout(function() {
-              // btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-              _core.showErrorMsg(form, 'danger', 'Pair not found."' + dataObjPriceEq.from + ' to  ' + dataObjPriceEq.to);
-
-            }, 2000);
-          }
+          alert("Select CryptoCurrency first.")
 
         }
 
       })
-
-
 
       await $("#margin_ad-commission").change(async function() {
         $('.price-info').empty();
@@ -160,14 +174,14 @@ var PostATrade = {};
       $('#ad-reference_type li').on('click', function() {
 
         var value = $(this).attr('name');
-        _core.setValueDropDwn('#titile_reference_type', value)
+        _core.setValueDropDwn('#title_reference_type', value)
         reference_type = value;
 
       })
 
       $('#select_ad-location li').on('click', function() {
         var value = $(this).attr('name');
-        _core.setValueDropDwn('#titile_location', value)
+        _core.setValueDropDwn('#title_location', value)
 
         var country_code = $(this).attr('data-country-code');
         console.log("country code=>", country_code, this);
@@ -176,7 +190,7 @@ var PostATrade = {};
           var temp = $(this).attr('name');
           if (temp == country_code) {
             console.log("currency matched", $(this).attr('name'), country_code);
-            _core.setValueDropDwn('#titile_currency', country_code)
+            _core.setValueDropDwn('#title_currency', country_code)
           }
         })
 
@@ -193,7 +207,7 @@ var PostATrade = {};
         // $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
-        _core.setValueDropDwn('#titile_StartTime_sun', value)
+        _core.setValueDropDwn('#title_StartTime_sun', value)
         sun_start = value;
 
 
@@ -209,7 +223,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_sun', "End")
+          _core.setValueDropDwn('#title_EndTime_sun', "End")
           endTimeValid = false;
           // $("#ad-opening_hours_sun_end li").val("-1");
 
@@ -226,7 +240,7 @@ var PostATrade = {};
 
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_sun', value)
+          _core.setValueDropDwn('#title_EndTime_sun', value)
           sun_end = value;
 
         }
@@ -239,7 +253,7 @@ var PostATrade = {};
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
-        _core.setValueDropDwn('#titile_StartTime_mon', value)
+        _core.setValueDropDwn('#title_StartTime_mon', value)
         mon_start = value;
 
 
@@ -253,7 +267,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_mon', "End")
+          _core.setValueDropDwn('#title_EndTime_mon', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
@@ -263,7 +277,7 @@ var PostATrade = {};
           }
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_mon', value)
+          _core.setValueDropDwn('#title_EndTime_mon', value)
           mon_end = value;
         }
       })
@@ -273,7 +287,7 @@ var PostATrade = {};
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
-        _core.setValueDropDwn('#titile_StartTime_tue', value)
+        _core.setValueDropDwn('#title_StartTime_tue', value)
         tue_start = value;
 
       })
@@ -286,7 +300,7 @@ var PostATrade = {};
           endTimeValid = false;
           console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_tue', "End")
+          _core.setValueDropDwn('#title_EndTime_tue', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
@@ -296,7 +310,7 @@ var PostATrade = {};
           }
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_tue', value)
+          _core.setValueDropDwn('#title_EndTime_tue', value)
           mon_end = value;
         }
 
@@ -309,7 +323,7 @@ var PostATrade = {};
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
-        _core.setValueDropDwn('#titile_StartTime_wed', value)
+        _core.setValueDropDwn('#title_StartTime_wed', value)
         wed_start = value;
 
       })
@@ -321,7 +335,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_wed', "End")
+          _core.setValueDropDwn('#title_EndTime_wed', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
@@ -331,7 +345,7 @@ var PostATrade = {};
           }
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_wed', value)
+          _core.setValueDropDwn('#title_EndTime_wed', value)
           mon_end = value;
         }
 
@@ -343,7 +357,7 @@ var PostATrade = {};
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
-        _core.setValueDropDwn('#titile_StartTime_thu', value)
+        _core.setValueDropDwn('#title_StartTime_thu', value)
         thu_start = value;
 
 
@@ -356,7 +370,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_thu', "End")
+          _core.setValueDropDwn('#title_EndTime_thu', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
@@ -367,7 +381,7 @@ var PostATrade = {};
           }
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_thu', value)
+          _core.setValueDropDwn('#title_EndTime_thu', value)
           mon_end = value;
         }
       })
@@ -378,7 +392,7 @@ var PostATrade = {};
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
-        _core.setValueDropDwn('#titile_StartTime_fri', value)
+        _core.setValueDropDwn('#title_StartTime_fri', value)
         fri_start = value;
 
       })
@@ -392,7 +406,7 @@ var PostATrade = {};
           endTimeValid = false;
           console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_fri', "End")
+          _core.setValueDropDwn('#title_EndTime_fri', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
@@ -404,7 +418,7 @@ var PostATrade = {};
           }
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_fri', value)
+          _core.setValueDropDwn('#title_EndTime_fri', value)
           mon_end = value;
         }
 
@@ -416,7 +430,7 @@ var PostATrade = {};
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
-        _core.setValueDropDwn('#titile_StartTime_sat', value)
+        _core.setValueDropDwn('#title_StartTime_sat', value)
         sat_start = value;
 
 
@@ -430,7 +444,7 @@ var PostATrade = {};
           endTimeValid = false;
           console.log(" end time start time ", endTime, startTime, endTimeValid);
           alert(" select time according to 24 hrs");
-          _core.setValueDropDwn('#titile_EndTime_sat', "End")
+          _core.setValueDropDwn('#title_EndTime_sat', "End")
           endTimeValid = false;
         } else {
           if ((endTime > 0) && (endTime > startTime) && (startTime != undefined)) {
@@ -442,7 +456,7 @@ var PostATrade = {};
           }
         }
         if (endTimeValid) {
-          _core.setValueDropDwn('#titile_EndTime_sat', value)
+          _core.setValueDropDwn('#title_EndTime_sat', value)
           mon_end = value;
         }
 

@@ -40,11 +40,11 @@ const usersController = {
     var temp = req.query.data.limit;
     var limit = '';
     // var limit=parseInt(temp)
-    if (temp && temp < 10) {
-      limit = temp
-    } else {
-      limit = 10;
-    }
+    // if (temp && temp < 10) {
+    //   limit = temp
+    // } else {
+    //   limit = 10;
+    // }
     var query = '';
     if (date) {
       query = {
@@ -67,7 +67,7 @@ const usersController = {
 
     messagesModel.find(
       query
-    ).sort({ 'date': -1 }).limit(parseInt(limit))
+    ).sort({ 'date': -1 }).limit(10)
 
 
     .exec(function(err, messages) {
@@ -106,51 +106,67 @@ const usersController = {
     var arrMsgID = [];
     arrMsgID = req.body.data;
     console.log("arrMsgID", arrMsgID);
-
+    var _id = '';
     var arrMsgIDList = arrMsgID.map(function(aField) {
-      return mongoose.Types.ObjectId(aField);
-      console.log(aField);
+        // return mongoose.Types.ObjectId(aField);
+        return aField
+        console.log(aField);
+      })
+      // messagesModel.findByIdAndUpdate({ "_id": { $in: arrMsgIDList } }, {
+      //   $set: {
+      //     isRead: true
+      //   },
+      // }).lean().exec(function(err, isRead) {
+      //   if (err) return res.json({
+      //     isError: true,
+      //     data: err
+      //   });
+      //   res.json({
+      //     isError: false,
+      //     data: isRead
+      //   });
+      // });
+
+    var bulk = messagesModel.collection.initializeUnorderedBulkOp();
+
+    arrMsgID.forEach((item, index) => {
+      _id = mongoose.Types.ObjectId(item)
+        // var id = arrMsgID[index];
+      bulk.find({ _id: _id }).updateOne({ $set: { isRead: true } });
+
+      // _id = mongoose.Types.ObjectId(item)
+      // messagesModel.findOneAndUpdate({
+      //   _id: _id
+      // }, {
+      //   $set: {
+      //     isRead: true
+      //   }
+      // }, (err, isRead) => {
+
+      //   if (err) return
+      //   res.json({
+      //     isError: true,
+      //     data: err
+      //   });
+      //   res.json({
+      //     isError: false,
+      //     data: isRead
+      //   });
+
+
+      // })
+
     })
-    messagesModel.find({ "_id": { $in: arrMsgIDList } }, {
-      $set: {
-        isRead: true
-      },
-    }).lean().exec(function(err, isRead) {
+    bulk.execute((err, messages) => {
       if (err) return res.json({
         isError: true,
         data: err
       });
       res.json({
         isError: false,
-        data: isRead
+        data: messages
       });
     });
-
-
-    // arrMsgID.forEach((item) => {
-    //   var _id = mongoose.Types.ObjectId(item)
-    //   messagesModel.findOneAndUpdate({
-    //     _id: _id
-    //   }, {
-    //     $set: {
-    //       isRead: true
-    //     }
-    //   }, (err, isRead) => {
-
-    //     if (err) return
-    //     res.json({
-    //       isError: true,
-    //       data: err
-    //     });
-    //     res.json({
-    //       isError: false,
-    //       data: isRead
-    //     });
-
-
-    //   })
-
-    // })
 
 
 

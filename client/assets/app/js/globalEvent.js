@@ -367,7 +367,7 @@ var GlobalEvent = {};
   }
 
   function getAllMessageswithFriend(data, cb) {
-
+    console.log("getAllMessageswithFriend request=>", data);
     // var token = localStorage.getItem('token');
     var isToken = checkIfToken(token)
     if (isToken) {
@@ -442,7 +442,6 @@ var GlobalEvent = {};
     } else {
       totalUnReadMsgsCount = Notification.counter;
     }
-    // console.log("totalUnReadMsgsCount=>", totalUnReadMsgsCount);
     $('#msgNotification_count').html(totalUnReadMsgsCount + '  New')
 
 
@@ -468,7 +467,7 @@ var GlobalEvent = {};
       }
       if (st == 0) {
         // alert('top of the div');
-        // console.log("Scroll top reached......", date);
+        //  console.log("gart", date);
         getAllMessageswithFriend(data, function(dataMsg) {
           console.log("getAllMessageswithFriend =>dataMsg", dataMsg);
           dataMsg = (dataMsg).reverse();
@@ -514,7 +513,8 @@ var GlobalEvent = {};
 
             }
             if (arrSetReadMsg.length > 0) {
-              setMsgRead(arrSetReadMsg);
+              console.log("on Page Scroll==>", arrSetReadMsg);
+              setMsgRead(arrSetReadMsg, friendEmail);
             }
           }
         })
@@ -591,15 +591,29 @@ var GlobalEvent = {};
     return htmlChatMSg;
   }
 
-  function setMsgRead(data) {
+  function setMsgRead(data, toEmail) {
     console.log("setMsgRead==>", data);
+    var str = toEmail.replace(/[^A-Z0-9]/ig, "_");
+    str = str + 'listId';
     $.ajax({
       url: "/setMsgRead",
       data: { data: data },
       type: "POST",
       success: function(successData) {
-        console.log(successData);
-        // cb(successData)
+        console.log("successData==>setMsgRead ", successData);
+        // if (successData.data.nModified > 0) {}
+        var previousCount = $("#" + str).find('.m-list-timeline__time').text();
+        var currentCount = parseInt(previousCount) - successData.data.nModified;
+        if (currentCount > 0) {
+          $("#" + str).find('.m-list-timeline__time').text(currentCount);
+
+        }
+
+        var currenttotalUnReadMsgsCount = parseInt(totalUnReadMsgsCount) - successData.data.nModified;
+        if (currenttotalUnReadMsgsCount) {
+          $('#msgNotification_count').html(currenttotalUnReadMsgsCount + '  New')
+
+        }
       },
       error: function(err) {
         alert(err);
@@ -720,7 +734,7 @@ var GlobalEvent = {};
               $('#' + toChatboxId + ' .chat-msg').append(htmlChatMSg);
             }
             if (arrSetReadMsg.length > 0) {
-              setMsgRead(arrSetReadMsg);
+              setMsgRead(arrSetReadMsg, toEmail);
             }
 
           }
@@ -750,6 +764,7 @@ var GlobalEvent = {};
       var data_userProfile = '';
       var str = toEmail.replace(/[^A-Z0-9]/ig, "_");
       var toChatboxId = str;
+      var arrSetReadMsg = [];
       var newChatHtml = '';
       var dataMsg = {
         friend: toEmail,
@@ -790,11 +805,18 @@ var GlobalEvent = {};
 
               if (dataMsg[index].sender == toEmail) {
                 htmlChatMSg = renderImgTextMsgReceive(data)
+                if (!dataMsg[index].isRead) {
+                  arrSetReadMsg.push(dataMsg[index]._id);
+                }
               } else {
                 htmlChatMSg = renderImgTextMsgSend(data)
               }
               $('#' + toChatboxId + ' .chat-msg').append(htmlChatMSg);
             }
+            if (arrSetReadMsg.length > 0) {
+              setMsgRead(arrSetReadMsg, toEmail);
+            }
+
           }
 
         });
