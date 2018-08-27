@@ -72,7 +72,7 @@ module.exports = function(app, io) {
             var list = doc.friends.slice();
             friends = [];
             arrImgURL = [];
-            if (list > 0) {
+            if (list) {
               console.log("List is not empty");
               for (var i in list) {
                 if (list[i].status == "Friend") {
