@@ -48,6 +48,45 @@ var GlobalEvent = {};
 
   })
 
+  function acceptFriendRequest() {
+    $('.btnAcceptReq').unbind().click(function() {
+      var senderEmail = $(this).attr('data-user');
+      console.log("senderEmail==>", senderEmail);
+      var token = localStorage.getItem('token');
+      var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
+      var strid = str + 'btnAcceptReq';
+      var reqAccepted = str + 'reqAccepted';
+
+      $.ajax({
+        url: "/acceptFriendRequest",
+        type: "post",
+        data: { senderEmail: senderEmail },
+        headers: {
+          "authorization": token,
+        },
+        success: function(successData) {
+          $('#' + strid).addClass('hidden')
+          $('#' + reqAccepted).removeClass('hidden')
+        },
+        error: function(err) {
+          alert("Accept friend request ", err);
+        }
+      })
+
+
+      // _core.acceptFriendRequest(token, senderEmail, function(res) {
+      //   if (res.success) {
+      //     $(this).removeClass('m-btn--gradient-from-success')
+      //     $(this).addClass('m-btn--gradient-from-primary')
+      //     $(this).text('friends')
+
+      //   }
+      // })
+
+    })
+  }
+
+
   if (token && (token.length > 0)) {
 
     // $(".olUserList").empty();
@@ -166,19 +205,27 @@ var GlobalEvent = {};
         if (requestCount > 0) {
           $('.friend_req_list').empty();
           for (let index = 0; index < data.length; index++) {
+            var email = data[index].senderEmail;
+            // tempNotifArray = [];
+            // tempNotifObj = {};
+            var str = email.replace(/[^A-Z0-9]/ig, "_");
+            var strid = str + 'btnAcceptReq';
+            var reqAccepted = str + 'reqAccepted';
             friend_req_list += `<div class="m-list-timeline__item">
                                       <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
                                       <span class="m-list-timeline__text">` +
               data[index].senderFirstName + `</span>
-                                      <span class="m-list-timeline__time ">
-
-                                    <button type="button" data-user="` + data[index].senderEmail + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent  btnAcceptReq">Accept</button>
-
-                                      </span>
+                                      <span class="m-list-timeline__time acceptReq">
+                                    <button type="button" data-user="` + data[index].senderEmail + `" id="` + strid + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btnAcceptReq">Accept</button>
+                                    <a type="button" data-user="` + data[index].senderEmail + `" id="` + reqAccepted + `"class="btn m-btn m-btn--gradient-from-info m-btn--gradient-to-accent hidden  reqAccepted">Friend</a>
+ 
+                                    </span>
+                                  
                                     </div>`;
 
           }
           $('.friend_req_list').append(friend_req_list);
+          acceptFriendRequest();
         }
 
       });

@@ -185,16 +185,7 @@ var Home = {};
           '&payment_method=' + payment_method +
           '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
       })
-      $('.btnAcceptReq').unbind().click(function() {
-        var senderEmail = $(this).attr('data-user');
 
-
-        var token = localStorage.getItem('token');
-        _core.acceptFriendRequest(token, senderEmail, function(res) {
-
-        })
-
-      })
 
 
       await _core.getActiveUser(function(res) {

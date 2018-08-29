@@ -81,11 +81,12 @@ module.exports = function (app, io) {
             pending = [];
             var tempImgURL = '';
             all_friends = [];
+            console.log("list==>", doc);
 
             var list = doc.friends.slice();
             friends = [];
             arrImgURL = [];
-            if (list) {
+            if (list.length > 0) {
               console.log("List is not empty");
               for (var i in list) {
                 if (list[i].status == "Friend") {

@@ -32,6 +32,7 @@ var API = {
     });
   },
   acceptFriendRequest: function(token, senderEmail, cb) {
+    console.log("acceptFriendRequest==>");
     $.ajax({
       url: "/acceptFriendRequest",
       type: "post",
@@ -67,6 +68,24 @@ var API = {
         })
       });
     }, */
+
+  getCryptoCurrencyPriceEquation: function(params) {
+    return new Promise(resolve => {
+      $.ajax({
+        // url: 'http://free.currencyconverterapi.com/api/v5/convert?q=' + dataObj.from + '_' + dataObj.to,
+        url: 'https://api.cryptonator.com/api/ticker/' + params.from + '-' + params.to,
+        type: "get",
+
+        success: function(successData) {
+          console.log("sucesss data in getCryptoCurrencyPriceEquation in api.js=> ", successData);
+          resolve(successData)
+        },
+        error: function(err) {
+          alert(err);
+        }
+      })
+    });
+  },
   getPriceEquation: function(dataObj) {
     return new Promise(resolve => {
       // console.log("dataobject in getPriceEquation=>", dataObj);
@@ -171,6 +190,8 @@ var API = {
       },
       error: function(err) {
         alert(err);
+        console.log("getActiveUser==>error", err);
+
       }
     })
   },
@@ -304,7 +325,9 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        // alert(err);
+        console.log("getUserInfo==>error", err);
+
       }
     })
   },
@@ -337,7 +360,9 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        // alert(err);
+        console.log("getAllMessagesWithFriend==>error", err);
+
       }
     })
   },
@@ -353,6 +378,8 @@ var API = {
       },
       error: function(err) {
         alert(err);
+        console.log("getAllMessages==>error", err);
+
       }
     })
   },

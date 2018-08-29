@@ -216,12 +216,11 @@ var usersController = {
 
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var senderEmail = req.body.senderEmail;
-    console.log("senderEmail==>", senderEmail);
+    console.log("acceptFriendRequest senderEmail==>", senderEmail);
 
     var query = {
       'email': decoded.email
     };
-
     _usersModel2.default.find(query, function (err, result) {
       if (!err) {
         console.log("friends list", result);

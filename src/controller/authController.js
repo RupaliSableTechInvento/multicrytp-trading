@@ -5,7 +5,6 @@ import env from "../env";
 import tradeModel from '../models/postatrade';
 var encode = require('hashcode').hashCode;
 
-
 import express from 'express';
 const app = express();
 

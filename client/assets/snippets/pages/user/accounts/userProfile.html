@@ -93,8 +93,10 @@
             justify-content: center;
             display: flex;
             height: 100px;">
-                <div style=" color: white;
-              font-size: 30px;">
+                <div style=" color: white;                      
+      overflow: hidden;
+      text-overflow: ellipsis;
+              font-size: 20px;">
                   <i class="la la-star-o" style="font-size:30px"></i>
                   <span id="trustUser"></span>
                 </div>
@@ -108,7 +110,7 @@
                 display: flex;
                 height: 100px;">
                 <div style=" color: white;
-                  font-size: 30px;">
+                  font-size: 20px; overflow: hidden;text-overflow: ellipsis;">
                   <i class="la la-star-o" style="font-size:30px"></i>
                   <span id="AlreadytrustUser"></span>
                 </div>
@@ -119,7 +121,9 @@
             <button type="button" id="sendFriendReq" data-toggle="modal" data-target="#myModal">
               Send Friend Request
             </button>
-
+            <button type="button" id="friendReqAlreadySend" style="display:none" data-toggle="modal" data-target="#myModal">
+             Friend Request Send
+            </button>
             <button type="button" id="sendUnFriendReq" style="display:none" data-toggle="modal" data-target="#myModal2">
               Unfriend
             </button>

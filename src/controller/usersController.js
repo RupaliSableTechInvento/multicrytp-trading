@@ -212,12 +212,11 @@ const usersController = {
 
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var senderEmail = req.body.senderEmail;
-    console.log("senderEmail==>", senderEmail);
+    console.log("acceptFriendRequest senderEmail==>", senderEmail);
 
     var query = {
       'email': decoded.email
     }
-
     usersModel.find(query, (err, result) => {
       if (!err) {
         console.log("friends list", result);

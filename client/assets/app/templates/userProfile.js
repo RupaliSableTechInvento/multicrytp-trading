@@ -86,7 +86,6 @@ var UserProfile = {};
     },
     SetUserData: function(Data) {
       var firstName = Data.user.first_name;
-
       var last_name = Data.user.last_name;
       var email_verified = Data.user.verification.email_verified;
       var mobile_verified = Data.user.verification.mobile_verified;
@@ -102,14 +101,24 @@ var UserProfile = {};
       $('#AlreadytrustUser').append('Already Trusting  <br>' + firstName);
       $('#account_created').append(account_created);
       $('#last_seen').append(moment(userActiveTime).format('LLLL'));
-
       $('#frndReqModalTitle').html("Are you sure you want to connect to" + firstName);
 
       for (let index = 0; index < friendsList.length; index++) {
         console.log("Friendlist==>", friendsList[index], Data.user.email);
         if (friendsList[index].trim() == Data.user.email.trim()) {
           $("#sendFriendReq").hide();
+          $("#friendReqAlreadySend").hide();
           $("#sendUnFriendReq").show();
+          console.log("Friends True ==>>");
+        }
+      }
+
+      for (let index = 0; index < pending.length; index++) {
+        console.log("Pending List==>", pending[index], Data.user.email);
+        if (pending[index].trim() == Data.user.email.trim()) {
+          $("#sendFriendReq").hide();
+          $("#sendUnFriendReq").hide();
+          $("#friendReqAlreadySend").show();
           console.log("Friends True ==>>");
         }
       }
@@ -121,7 +130,6 @@ var UserProfile = {};
         var dataObj = {
           To: Data.user.email,
         }
-
         _core.friendReq(token, dataObj, function(res) {
           if (res) {
             console.log("friend Request response:", res);
@@ -130,13 +138,12 @@ var UserProfile = {};
               console.log("Request already sent");
               $('#allreadyFrndModal').modal('show');
 
-
+              $("#sendFriendReq").hide();
+              $("#sendUnFriendReq").hide();
+              $("#friendReqAlreadySend").show();
             }
-
           }
-
         })
-
       })
 
 
