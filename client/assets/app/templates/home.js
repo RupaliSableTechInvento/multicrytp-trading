@@ -304,6 +304,9 @@ var Home = {};
               if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
                 field.more_information.price_equation = '';
               } else {
+                if (field.more_information.currency == undefined || '') {
+                  field.more_information.currency = '';
+                }
                 var priceTemp = field.more_information.price_equation;
                 var currency = field.more_information.currency;
                 var price = Number(priceTemp).toFixed(2);
@@ -440,6 +443,9 @@ var Home = {};
                 field.more_information.price_equation = '';
               } else {
                 var priceTemp = field.more_information.price_equation;
+                if (field.more_information.currency == undefined || '') {
+                  field.more_information.currency = '';
+                }
                 var price = Number(priceTemp).toFixed(2);
                 var currency = field.more_information.currency;
                 return `<div>` + price + `</div>
@@ -580,6 +586,9 @@ var Home = {};
                 field.more_information.price_equation = '';
               } else {
                 var priceTemp = field.more_information.price_equation;
+                if (field.more_information.currency == undefined || '') {
+                  field.more_information.currency = '';
+                }
                 var currency = field.more_information.currency;
                 var price = Number(priceTemp).toFixed(2);
                 return `<div>` + price + `</div>
@@ -717,6 +726,9 @@ var Home = {};
                 field.more_information.price_equation = '';
               } else {
                 var priceTemp = field.more_information.price_equation;
+                if (field.more_information.currency == undefined || '') {
+                  field.more_information.currency = '';
+                }
                 var currency = field.more_information.currency;
                 var price = Number(priceTemp).toFixed(2);
                 return `<div>` + price + `</div>
