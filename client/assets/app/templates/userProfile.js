@@ -97,7 +97,7 @@ var UserProfile = {};
       $('#userName').html(htmlUserName);
       $('#email').append(email_verified);
       $('#Phone_number').append(mobile_verified);
-      $('#trustUser').append('Trust  ' + firstName);
+      $('#trustUser').append('Trust   <br>' + firstName);
       $('#AlreadytrustUser').append('Already Trusting  <br>' + firstName);
       $('#account_created').append(account_created);
       $('#last_seen').append(moment(userActiveTime).format('LLLL'));
