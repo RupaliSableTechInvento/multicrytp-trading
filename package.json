@@ -20,7 +20,7 @@
     "body-parser": "^1.18.1",
     "cookie-parser": "^1.4.3",
     "crypto-price": "0.0.6",
-    "express": "^4.15.4",
+    "express": "^4.16.3",
     "hashcode": "^1.0.3",
     "http": "0.0.0",
     "jsonwebtoken": "^8.0.1",
