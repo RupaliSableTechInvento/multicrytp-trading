@@ -67,8 +67,9 @@ var UserProfile = {};
       } else {
         $("#sendFriendReq").attr('disabled', 'disabled');
         console.log("TOken is not present");
+        $("#userNotTrusted").off("click");
 
-        $("#userNotTrusted").attr('disabled', 'disabled');
+        // $("#userNotTrusted").children().attr('disabled', 'disabled');
 
       }
 
