@@ -585,7 +585,7 @@ var PostATrade = {};
             "user": localStorage.getItem('user_id') || null
           }
           var token = localStorage.getItem('token');
-          var isToken = checkIfToken(token)
+          var isToken = _core.checkIfToken(token)
           if (isToken) {
 
 
@@ -619,7 +619,7 @@ var PostATrade = {};
           }
         }
         //if Unchecked 
-        {
+        else {
           // alert("it's unchecked")
           if (!location) {
             setTimeout(function() {
