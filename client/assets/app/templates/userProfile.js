@@ -33,33 +33,45 @@ var UserProfile = {};
 
       return vars;
     },
+    checkIfToken: function(token) {
+      if (token && token.length > 0) {
+        return true;
+      }
+      return false;
+    },
 
   }
   var _bind = {
 
     getFriendsList: function() {
+      var isToken = _core.checkIfToken(token);
+      if (isToken) {
+        _core.getFriendsList(token, function(res) {
+          if (!res.isError) {
+            var friendsReqList = res.data[0].friends;
 
-      _core.getFriendsList(token, function(res) {
-        if (!res.isError) {
-          var friendsReqList = res.data[0].friends;
+            for (let index = 0; index < friendsReqList.length; index++) {
+              if (friendsReqList[index].status == "Friend") {
+                friendsList.push(friendsReqList[index].senderEmail)
+              } else if (friendsReqList[index].status == "Pending") {
+                pending.push(friendsReqList[index].senderEmail);
+              } else {
+                continue;
+              }
 
-          for (let index = 0; index < friendsReqList.length; index++) {
-            if (friendsReqList[index].status == "Friend") {
-              friendsList.push(friendsReqList[index].senderEmail)
-            } else if (friendsReqList[index].status == "Pending") {
-              pending.push(friendsReqList[index].senderEmail);
-            } else {
-              continue;
             }
 
+
           }
+        })
+      } else {
+        $("#sendFriendReq").attr('disabled', 'disabled');
+        console.log("TOken is not present");
 
+        $("#userNotTrusted").attr('disabled', 'disabled');
 
-        }
+      }
 
-
-
-      })
 
     },
 
@@ -99,32 +111,36 @@ var UserProfile = {};
       $('#Phone_number').append(mobile_verified);
       // $('#trustUser').append('Trust    <br>' + firstName);
       $('#trustUser').html('TrustNewUser <br>' + firstName);
-
       $('#AlreadytrustUser').html('Already Trusting  <br>' + firstName);
       $('#account_created').append(account_created);
       $('#last_seen').append(moment(userActiveTime).format('LLLL'));
       $('#frndReqModalTitle').html("Are you sure you want to connect to" + firstName);
-
-      for (let index = 0; index < friendsList.length; index++) {
-        console.log("Friendlist==>", friendsList[index], Data.user.email);
-        if (friendsList[index].trim() == Data.user.email.trim()) {
-          $("#sendFriendReq").hide();
-          $("#friendReqAlreadySend").hide();
-          $("#sendUnFriendReq").show();
-          console.log("Friends True ==>>");
+      if (friendsList.length > 0) {
+        for (let index = 0; index < friendsList.length; index++) {
+          console.log("Friendlist==>", friendsList[index], Data.user.email);
+          if (friendsList[index].trim() == Data.user.email.trim()) {
+            $("#sendFriendReq").hide();
+            $("#friendReqAlreadySend").hide();
+            $("#sendUnFriendReq").show();
+            console.log("Friends True ==>>");
+          }
         }
+
       }
 
-      for (let index = 0; index < pending.length; index++) {
-        console.log("Pending List==>", pending[index], Data.user.email);
-        if (pending[index].trim() == Data.user.email.trim()) {
-          $("#sendFriendReq").hide();
-          $("#sendUnFriendReq").hide();
-          $("#friendReqAlreadySend").show();
-          console.log("Friends True ==>>");
+      if (pending.length > 0) {
+        for (let index = 0; index < pending.length; index++) {
+          console.log("Pending List==>", pending[index], Data.user.email);
+          if (pending[index].trim() == Data.user.email.trim()) {
+            $("#sendFriendReq").hide();
+            $("#sendUnFriendReq").hide();
+            $("#friendReqAlreadySend").show();
+            console.log("Friends True ==>>");
+          }
         }
-      }
 
+
+      }
 
 
 
