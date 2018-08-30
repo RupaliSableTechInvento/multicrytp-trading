@@ -98,7 +98,7 @@ var UserProfile = {};
       $('#email').append(email_verified);
       $('#Phone_number').append(mobile_verified);
       // $('#trustUser').append('Trust    <br>' + firstName);
-      $('#trustUser').html('TrustNew <br>' + firstName);
+      $('#trustUser').html('TrustNewUser <br>' + firstName);
 
       $('#AlreadytrustUser').html('Already Trusting  <br>' + firstName);
       $('#account_created').append(account_created);
