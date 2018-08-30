@@ -18,13 +18,14 @@ var PostATrade = {};
 
     priceEquation: function(cryptoCurrency_in_usd, USD_in_currency, margin) {
       var equation = cryptoCurrency_in_usd * USD_in_currency;
+
       var priceEq = '';
       if (margin == 0) {
-        return priceEq = equation * 1;
+        return priceEq = parseFloat(equation) * 1;
       } else if (margin > 0) {
-        return priceEq = equation * (1 + margin / 100);
+        return priceEq = parseFloat(equation) * (1 + parseInt(margin) / 100);
       } else {
-        return priceEq = equation * (1 - margin / 100);
+        return priceEq = parseFloat(equation) * (1 - parseInt(margin) / 100);
       }
     },
 
@@ -152,7 +153,7 @@ var PostATrade = {};
             price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
             console.log("Price Equation=>>", price_equation);
             var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
-            $('.price-info').append(htmlPriceInfo)
+            $('.price-info').html(htmlPriceInfo)
           } else {
             // console.log("", res.error);
             if (res.query.count == 0) {
@@ -193,22 +194,74 @@ var PostATrade = {};
         reference_type = value;
       })
 
-      $('#select_ad-location li').on('click', function() {
-          var value = $(this).attr('name');
-          _core.setValueDropDwn('#title_location', value)
+      $('#select_ad-location li').on('click', async function() {
+          if (code) {
 
-          var country_code = $(this).attr('data-country-code');
-          console.log("country code=>", country_code, this);
 
-          $('#select_ad-currency li').each(function(i) {
-            var temp = $(this).attr('name');
-            if (temp == country_code) {
-              // console.log("currency matched", $(this).attr('name'), country_code);
-              _core.setValueDropDwn('#title_currency', country_code)
+            var value = $(this).attr('name');
+            _core.setValueDropDwn('#title_location', value)
+
+            var country_code = $(this).attr('data-country-code');
+            console.log("country code=>", country_code, this);
+            var currency = country_code;
+            var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
+            $('#id_ad-price_equation').val(htmlpriceEq);
+
+            var dataObjPriceEq = {
+              from: USD,
+              to: currency,
             }
-          })
 
-          location = value;
+            const res = await _core.getPriceEquation(dataObjPriceEq);
+            console.log("price Equation=>>", res);
+            var resultCount = res.query.count;
+
+
+            if (parseInt(resultCount) > 0) {
+              // USD_in_currency = res.results.val;
+              if (margin == '' || undefined) {
+                margin = 0;
+              }
+              for (const key in res.results) {
+                if (res.results.hasOwnProperty(key)) {
+                  USD_in_currency = res.results[key].val
+                  console.log("USD_in_currency==>", USD_in_currency);
+                }
+              }
+              price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
+              console.log("Price Equation=>>", price_equation);
+              var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
+              $('.price-info').html(htmlPriceInfo)
+            } else {
+              // console.log("", res.error);
+              if (res.query.count == 0) {
+                // console.log("matched..", error);
+                setTimeout(function() {
+                  // btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+                  _core.showErrorMsg(form, 'danger', 'Pair not found."' + dataObjPriceEq.from + ' to  ' + dataObjPriceEq.to);
+
+                }, 2000);
+              }
+
+            }
+
+
+
+
+            $('#select_ad-currency li').each(function(i) {
+              var temp = $(this).attr('name');
+              if (temp == country_code) {
+                _core.setValueDropDwn('#title_currency', country_code)
+              }
+            })
+
+            location = value;
+
+          } else {
+            alert("Select CryptoCurrency first.")
+
+          }
         })
         /* Opening hours  */
       $('#ad-opening_hours_sun_start li').on('click', function() {

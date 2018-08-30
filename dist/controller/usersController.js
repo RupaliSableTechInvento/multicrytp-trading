@@ -291,7 +291,6 @@ var usersController = {
     });
   },
   addMessage: function addMessage(req, res, next) {
-
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var sender = decoded.email;
     console.log("in addmessage");

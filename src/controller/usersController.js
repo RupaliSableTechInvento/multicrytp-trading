@@ -297,7 +297,6 @@ const usersController = {
     });
   },
   addMessage: (req, res, next) => {
-
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var sender = decoded.email;
     console.log("in addmessage");
