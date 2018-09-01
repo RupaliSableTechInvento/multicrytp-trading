@@ -300,7 +300,9 @@ const usersController = {
       }
     })
   },
+  unfriend: (req, res, next) => {
 
+  },
 
   getAll: async(req, res, next) => {
     usersModel.find({}, (err, users) => {

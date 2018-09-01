@@ -297,6 +297,7 @@ var usersController = {
       }
     });
   },
+  unfriend: function unfriend(req, res, next) {},
 
   getAll: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {

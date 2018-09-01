@@ -97,6 +97,10 @@ var GlobalEvent = {
   $('#logoutbtn').unbind().click(function() {
     logOut(token);
   })
+  $('#m_topbar_messages_icon').unbind().click(function() {
+    $('#m_topbar_msgNotification_icon').removeClass('m-animate-blink');
+    $('#msgNotification').removeClass('m-animate-shake');
+  })
 
   function acceptFriendRequest() {
     $('.btnAcceptReq').unbind().click(function() {
@@ -163,7 +167,9 @@ var GlobalEvent = {
           arrNotificationMsgId.push(dataMsg._id)
           var email = dataMsg.sender;
           console.log("Email to spit in notification");
-
+          $('#m_topbar_msgNotification_icon').show();
+          $('#m_topbar_msgNotification_icon').addClass('m-animate-blink');
+          $('#msgNotification').addClass('m-animate-shake');
           var str = email.replace(/[^A-Z0-9]/ig, "_");
           // var toChatboxId = str[0];
           var toChatboxId = str;
@@ -284,56 +290,34 @@ var GlobalEvent = {
 
   }
 
-  // function checkIfToken(token) {
-  //   if (token && token.length > 0) {
-  //     $.ajax({
-  //       url: "/getUserInfo",
-  //       type: "get",
-  //       headers: {
-  //         "authorization": token,
-  //       },
-  //       success: function(successData) {
-  //         if (!successData.isError) {
-  //           if (successData.data.length > 0) {
-  //             var userData = successData.data[0];
-  //             console.log(successData.data);
-  //             if (userData.length > 0) {
-  //               $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
+  function blockUser(params) {
+    $('#liBlockUser').unbind().click(function() {
+      var isToken = GlobalEvent.checkIfToken(token)
+      if (isToken) {
+        $.ajax({
+          url: "/blockUser",
+          type: "post",
+          data: params,
+          headers: {
+            "authorization": token,
+          },
+          success: function(successData) {
+            cb(successData)
+          },
+          error: function(err) {
+            console.log("blockUser error =>", err);
+          }
+        })
 
-  //                 $('.m-card-user__email').html(userData.email)
-  //                 // $('#phone_no').val(userData.phone_no),
-  //               if (!userData.imgURL) {
-  //                 console.log("in img url not found");
+      }
+    })
 
-  //                 $('#m-card-user__img').attr('src', 'assets/app/media/img/users/Defaultuser.png')
-  //                   // $('#img_upload_pic').attr('src', 'assets/app/media/img/users/userProfile.png')
-  //               } else {
-  //                 $('#m-card-user__img').attr('src', userData.imgURL)
-
-  //               }
-  //             }
-  //           } else {
-
-  //             logOut(token);
-  //           }
-
-  //         }
-
-  //       },
-  //       error: function(err) {
-  //         console.log("getUserInfo err=>", err);
-  //       }
-  //     })
-  //     $('.loginOutUser').hide();
-  //     $('.loginUser').show();
-  //     return true;
-  //   }
-  //   $('.loginUser').hide();
-  //   $('.loginOutUser').show();
-  //   return false;
-  // }
+  }
 
   function chatPopUP(data) {
+    if (totalUnReadMsgsCount <= 0) {
+      $('#m_topbar_msgNotification_icon').hide();
+    }
     var toChatboxId = data.toChatboxId;
     var olUserName = data.olUserName;
     var data_FrndEmail = data.data_FrndEmail;
@@ -349,9 +333,9 @@ var GlobalEvent = {
           <i class="flaticon-cogwheel-2"></i></i> </button>
           <ul role="menu" class="dropdown-menu pull-right">
             <li><a href="#">Media</a></li>
-            <li><a href="#">Block</a></li>
+            <li id="liBlockUser"><a href="#">Block</a></li>
             <li><a href="#">Clear Chat</a></li>
-            <li><a href="#">Email Chat</a></li>
+            <li id="liunfriend"><a href="#">Unfriend</a></li>
           </ul>
         </div>
         <button data-widget="remove" class="closePopUp chat-header-button pull-right la la-close" type="button"><i class="glyphicon glyphicon-off"></i></button>
@@ -528,11 +512,11 @@ var GlobalEvent = {
     }
     console.log("tempNotifObj==>", tempNotifObj);
     if ($("#" + str).length == 0) {
-      console.log("list not present for notification");
+      // console.log("list not present for notification");
       msgListCountHTML += renderUnreadMsgData(email, dataMsg.senderName, tempNotifObj[dataMsg.sender].count);
       $('.UnreadMsgData').append(msgListCountHTML);
     } else {
-      console.log("list present for notification");
+      // console.log("list present for notification");
       $("#" + str).find('.m-list-timeline__time').text(tempNotifObj[dataMsg.sender].count);
     }
 
