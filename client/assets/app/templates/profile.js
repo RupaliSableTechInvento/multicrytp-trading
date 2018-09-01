@@ -155,7 +155,6 @@ var Profile = {};
 
       })
     },
-
     verification: function() {
       var token = localStorage.getItem('token')
       var dataObj = {
@@ -167,7 +166,6 @@ var Profile = {};
         if (res) {}
       })
     }
-
   }
   var _render = {
     content: function() {

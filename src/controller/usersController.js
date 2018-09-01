@@ -258,7 +258,6 @@ const usersController = {
   },
 
   friendReq: (req, res, next) => {
-
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var to = req.body.To;
     console.log("To  Details=>", to);
@@ -300,8 +299,6 @@ const usersController = {
         }
       }
     })
-
-
   },
 
 

@@ -253,7 +253,6 @@ var usersController = {
   },
 
   friendReq: function friendReq(req, res, next) {
-
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var to = req.body.To;
     console.log("To  Details=>", to);

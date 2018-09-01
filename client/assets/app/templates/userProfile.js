@@ -33,18 +33,13 @@ var UserProfile = {};
 
       return vars;
     },
-    checkIfToken: function(token) {
-      if (token && token.length > 0) {
-        return true;
-      }
-      return false;
-    },
+
 
   }
   var _bind = {
 
     getFriendsList: function() {
-      var isToken = _core.checkIfToken(token);
+      var isToken = GlobalEvent.checkIfToken(token)
       if (isToken) {
         _core.getFriendsList(token, function(res) {
           if (!res.isError) {
@@ -88,8 +83,8 @@ var UserProfile = {};
         if (res) {
           if (!res.isError) {
             var Data = res.data;
-            var isToken = _core.checkIfToken(token);
-            if (!isToken) {
+            var isToken = GlobalEvent.checkIfToken(token)
+            if (isToken) {
               var htmlLoginSignup = '';
               htmlLoginSignup = ` <p>
               Please

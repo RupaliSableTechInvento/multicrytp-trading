@@ -1,6 +1,5 @@
 var GlobalEvent = {
   checkIfToken: function(token) {
-    console.log("GlobalFunction called", token);
     if (token && token.length > 0) {
       $.ajax({
         url: "/getUserInfo",
