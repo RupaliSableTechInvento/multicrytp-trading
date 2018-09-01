@@ -531,101 +531,128 @@ var PostATrade = {};
         more_information.min_trans_limit = $("#ad-min_amount").val();
         more_information.max_trans_limit = $("#ad-max_amount").val();
         more_information.bank_name = $("#ad-bank_name").val();
-        if ($('.add-adform-radio').is(':checked') && location) {
+        if ($('.add-adform-radio').is(':checked') && location && cryptoCurrency) {
+          var tradeMethod = $(".add-adform-radio:checked").attr("data-trade-type")
+          var isValidForm = false;
+          if (tradeMethod == 'ONLINE') {
+            if (payment_method) {
+              isValidForm = true;
+            }
 
-          // alert("it's checked");
-          var dataObj = {
-            "tradeMethod": $(".add-adform-radio:checked").attr("data-trade-type"),
-            "traderType": $(".add-adform-radio:checked").val(),
-            "cryptoCurrency": cryptoCurrency,
-            "location": location,
-            "payment_method": payment_method,
-            more_information: more_information,
-            "more_information.opening_hours.sunday.start": sun_start,
-            "more_information.opening_hours.sunday.end": sun_end,
-            "more_information.opening_hours.monday.start": mon_start,
-            "more_information.opening_hours.monday.end": mon_end,
-            "more_information.opening_hours.tuesday.start": tue_start,
-            "more_information.opening_hours.tuesday.end": tue_end,
-            "more_information.opening_hours.wednesday.start": wed_start,
-            "more_information.opening_hours.wednesday.end": wed_end,
-            "more_information.opening_hours.thursday.start": thu_start,
-            "more_information.opening_hours.thursday.end": thu_end,
-
-            "more_information.opening_hours.friday.start": fri_start,
-
-            "more_information.opening_hours.friday.end": fri_end,
-
-            "more_information.opening_hours.saturday.start": sat_start,
-
-            "more_information.opening_hours.saturday.end": sat_end,
-            "online_selling.payment_details": $("#ad-account_info").val(),
-            "online_selling.minimum_volume": $("#ad-require_trade_volume").val(),
-
-            "online_selling.minimum_feedback": $("#ad-require_feedback_score").val(),
-
-            "online_selling.new_buyer_limit": $("#ad-first_time_limit_btc").val(),
-            "online_selling.transaction_volume_coefficient": $("#ad-volume_coefficient_btc").val(),
-            "online_selling.display_reference": $("#id_ad-display_reference").is(':checked'),
-            "online_selling.reference_type": reference_type,
-            " payment_window": $("#ad-payment_window_minutes").val(),
-            "liquidity_options.track_liquidity": $("#ad-track_max_amount").is(':checked'),
-            "security_options.identified_people_only": $("#ad-require_identification ").is(':checked'),
-            "security_options.identify_user_before": $("#ad-require_p2p_identification").is(':checked'),
-            "security_options.real_name_required": $("#ad-real_name_required").is(':checked'),
-            "security_options.sms_verification_required": $("#ad-sms_verification_required").is(':checked'),
-            "security_options.trusted_people_only": $("#ad-require_trusted_by_advertiser ").is(':checked'),
-            "user": localStorage.getItem('user_id') || null
-          }
-          var token = localStorage.getItem('token');
-
-          var isToken = GlobalEvent.checkIfToken(token)
-          if (isToken) {
-            _core.postTrade(dataObj, token, function(res) {
-              $(window).scrollTop(0);
-              if (res) {
-                console.log("res", res);
-                setTimeout(function() {
-                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                  form.clearForm();
-                  form.validate().resetForm();
-
-                  _core.showErrorMsg(form, 'success', 'Your trade request post sucessfully');
-                }, 2000);
-
-              } else {
-
-                setTimeout(function() {
-                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-                  _core.showErrorMsg(form, 'danger', 'Unable to post a trade."' + res.data + '" ');
-
-                }, 2000);
-              }
-            })
 
           } else {
-            btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+            if (tradeMethod == 'LOCAL') {
+              isValidForm = true;
+
+            }
+          }
+
+          if (isValidForm) {
+            var dataObj = {
+              "tradeMethod": tradeMethod,
+              "traderType": $(".add-adform-radio:checked").val(),
+              "cryptoCurrency": cryptoCurrency,
+              "location": location,
+              "payment_method": payment_method,
+              more_information: more_information,
+              "more_information.opening_hours.sunday.start": sun_start,
+              "more_information.opening_hours.sunday.end": sun_end,
+              "more_information.opening_hours.monday.start": mon_start,
+              "more_information.opening_hours.monday.end": mon_end,
+              "more_information.opening_hours.tuesday.start": tue_start,
+              "more_information.opening_hours.tuesday.end": tue_end,
+              "more_information.opening_hours.wednesday.start": wed_start,
+              "more_information.opening_hours.wednesday.end": wed_end,
+              "more_information.opening_hours.thursday.start": thu_start,
+              "more_information.opening_hours.thursday.end": thu_end,
+
+              "more_information.opening_hours.friday.start": fri_start,
+
+              "more_information.opening_hours.friday.end": fri_end,
+
+              "more_information.opening_hours.saturday.start": sat_start,
+
+              "more_information.opening_hours.saturday.end": sat_end,
+              "online_selling.payment_details": $("#ad-account_info").val(),
+              "online_selling.minimum_volume": $("#ad-require_trade_volume").val(),
+
+              "online_selling.minimum_feedback": $("#ad-require_feedback_score").val(),
+
+              "online_selling.new_buyer_limit": $("#ad-first_time_limit_btc").val(),
+              "online_selling.transaction_volume_coefficient": $("#ad-volume_coefficient_btc").val(),
+              "online_selling.display_reference": $("#id_ad-display_reference").is(':checked'),
+              "online_selling.reference_type": reference_type,
+              " payment_window": $("#ad-payment_window_minutes").val(),
+              "liquidity_options.track_liquidity": $("#ad-track_max_amount").is(':checked'),
+              "security_options.identified_people_only": $("#ad-require_identification ").is(':checked'),
+              "security_options.identify_user_before": $("#ad-require_p2p_identification").is(':checked'),
+              "security_options.real_name_required": $("#ad-real_name_required").is(':checked'),
+              "security_options.sms_verification_required": $("#ad-sms_verification_required").is(':checked'),
+              "security_options.trusted_people_only": $("#ad-require_trusted_by_advertiser ").is(':checked'),
+              "user": localStorage.getItem('user_id') || null
+            }
+            var token = localStorage.getItem('token');
+
+            var isToken = GlobalEvent.checkIfToken(token)
+            if (isToken) {
+              _core.postTrade(dataObj, token, function(res) {
+                $(window).scrollTop(0);
+                if (res) {
+                  console.log("res", res);
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    form.clearForm();
+                    form.validate().resetForm();
+
+                    _core.showErrorMsg(form, 'success', 'Your trade request post sucessfully');
+                  }, 2000);
+
+                } else {
+
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+                    _core.showErrorMsg(form, 'danger', 'Unable to post a trade."' + res.data + '" ');
+
+                  }, 2000);
+                }
+              })
+
+            } else {
+              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+            }
+
+          } else {
+            setTimeout(function() {
+              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+              _core.showErrorMsg(form, 'danger', 'please select Payment Method');
+
+            }, 2000);
           }
         }
         //if Unchecked 
         else {
-          // alert("it's unchecked")
-          if (!location) {
-            setTimeout(function() {
-              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+          setTimeout(function() {
+            btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 
-              _core.showErrorMsg(form, 'danger', 'please select What kind of trade advertisement do you wish to create and Location');
+            _core.showErrorMsg(form, 'danger', 'Trade Type all fields are mandatory');
 
-            }, 2000);
-          } else {
-            setTimeout(function() {
-              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+          }, 2000);
+          // if (!location) {
+          //   setTimeout(function() {
+          //     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 
-              _core.showErrorMsg(form, 'danger', 'please select What kind of trade advertisement do you wish to create ');
+          //     _core.showErrorMsg(form, 'danger', 'please select Country');
 
-            }, 2000);
-          }
+          //   }, 2000);
+          // } else {
+          //   alert("it's unchecked")
+          //   setTimeout(function() {
+          //     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+          //     _core.showErrorMsg(form, 'danger', 'please select What kind of trade advertisement do you wish to create ');
+          //   }, 2000);
+          // }
 
         }
 
