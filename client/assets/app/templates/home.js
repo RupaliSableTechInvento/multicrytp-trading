@@ -14,13 +14,6 @@ var Home = {};
     getActiveUser: API.getActiveUser,
     acceptFriendRequest: API.acceptFriendRequest,
     addMessage: API.addMessage,
-    // getAllMessages: API.getAllMessages,
-    checkIfToken: function(token) {
-      if (token && token.length > 0) {
-        return true;
-      }
-      return false;
-    },
 
     setValueDropDwn: function(id, value) {
       $(id).empty();
@@ -31,60 +24,6 @@ var Home = {};
 
   var _bind = {
 
-    // getAllMessages: function() {
-    //   var msgListCountHTML = '';
-    //   var Data = [];
-    //   var count = '';
-    //   var tempArray = [];
-    //   var token = localStorage.getItem('token');
-    //   var isToken = checkIfToken(token)
-    //   if (isToken) {
-    //     _core.getAllMessages(token, function(res) {
-    //       if (!res.isError) {
-    //         var unReadMsgsCount = res.data.length;
-    //         Data = res.data;
-    //         var count = parseInt(unReadMsgsCount);
-    //         if (count > 0) {
-    //           $('#m_topbar_msgNotification_icon').removeClass('hidden')
-    //           $('#msgNotification_count').html(unReadMsgsCount + '  New')
-    //         }
-    //         console.log("unReadMsgsCount==>", unReadMsgsCount, Data.length);
-    //         for (var index = 0; index < Data.length; index++) {
-    //           console.log(" msgListCountHTML==>", Data[index])
-    //           if (!tempArray.includes(Data[index].senderName)) {
-    //             tempArray.push(Data[index].senderName);
-    //           }
-    //         }
-    //         console.log("Temp Array=>", tempArray);
-    //         for (var index = 0; index < tempArray.length; index++) {
-
-    //           for (var i = 0; i < Data.length; i++) {
-    //             if (Data[i].senderName == tempArray[index]) {
-    //               console.log("Matched..");
-    //               count = count++;
-    //             }
-    //           }
-
-    //           msgListCountHTML += ` <div class="m-list-timeline__item">
-    //         <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-    //         <span class="m-list-timeline__text">` +
-    //             tempArray[index] +
-    //             `     
-    //         </span>
-    //         <span class="m-list-timeline__time">` +
-    //             count +
-    //             `   
-    //         </span>
-    //       </div>`;
-
-    //         }
-
-    //         $('.UnreadMsgData').append(msgListCountHTML);
-
-    //       }
-    //     })
-    //   }
-    // },
 
     getByCurrencyLoc: async function(cryptoCurrency) {
       $('.m-header').css('display', 'block');
@@ -92,34 +31,17 @@ var Home = {};
       $('.m-datatable__pager').css('display', 'none');
       $('.m-datatable__pager-info').css('display', 'none');
       $('.m-datatable--paging-loaded').css('display', 'none');
-
-      var htmlShowMore;
+      var subQuery = {};
+      var htmlShowMore = '';
       var activeUSer = [];
       var currentTime = [];
-      var params;
       var currentTimeSys = new Date();
       var payment_method, country, currency, amount;
       var quickTraderType;
-      var cryptoCurrencyCode;
+      var cryptoCurrencyCode = 'BTC';
       before = new Date();
       before.setMinutes(before.getMinutes() - 15);
 
-      var params = {
-        cryptoCurrency: cryptoCurrency
-      }
-      var urlParams = _bind.getUrlVars();
-
-      currencyUrl = urlParams.cryptoCurrency;
-      if (urlParams.cryptoCurrency) {
-        var str = urlParams.cryptoCurrency;
-        cryptoCurrency = str.toString(),
-          cryptoCurrency = urlParams.cryptoCurrency;
-        cryptoCurrencyCode = urlParams.code;
-      } else {
-        cryptoCurrency = 'BITCOIN';
-        cryptoCurrencyCode = 'BTC';
-
-      }
 
 
       $('#select_ad-cryptocurrency li').on('click', async function() {
@@ -186,8 +108,6 @@ var Home = {};
           '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
       })
 
-
-
       await _core.getActiveUser(function(res) {
         var friendList = '';
         activeUSerData = res;
@@ -212,6 +132,42 @@ var Home = {};
         }
       })
 
+      var urlParams = _bind.getUrlVars();
+
+      currencyUrl = urlParams.cryptoCurrency;
+      if (urlParams.location) {
+        var location = urlParams.location;
+        var str = urlParams.cryptoCurrency;
+        cryptoCurrency = str.toString(),
+          cryptoCurrency = urlParams.cryptoCurrency;
+        cryptoCurrencyCode = urlParams.code;
+
+        subQuery = {
+          location: location,
+          cryptoCurrency: cryptoCurrency,
+          cryptoCurrencyCode: cryptoCurrencyCode,
+        }
+
+      } else if (urlParams.cryptoCurrency) {
+        var str = urlParams.cryptoCurrency;
+        cryptoCurrency = str.toString(),
+          cryptoCurrency = urlParams.cryptoCurrency;
+        cryptoCurrencyCode = urlParams.code;
+
+        subQuery = {
+          cryptoCurrency: cryptoCurrency,
+          cryptoCurrencyCode: cryptoCurrencyCode,
+        }
+
+      } else {
+
+        $('#title_crytpocurrency').text('BITCOIN');
+        subQuery = {
+          cryptoCurrency: 'BITCOIN',
+          cryptoCurrencyCode: 'BTC',
+        }
+
+      }
 
       //Data Table start
       await $('#m_datatable_latest_ordersOB').mDatatable({
@@ -223,11 +179,9 @@ var Home = {};
               method: 'GET',
               params: {
                 query: {
-                  cryptoCurrency: cryptoCurrency,
-                  // location: 'India',
+                  subQuery: subQuery,
                   tradeMethod: 'ONLINE',
                   traderType: 'SELL',
-
                 },
               }
             }
@@ -280,15 +234,14 @@ var Home = {};
           },
           {
             field: "",
-            template: function(field, type, row) {
-              if (field.payment_method == undefined || '') {
-                field.payment_method = '';
-              }
-              if (field.location == undefined || '') {
-                field.location = '';
-              }
 
-              return field.payment_method + ' :' + field.location;
+            template: function(_ref) {
+              var _ref$payment_method = _ref.payment_method;
+              _ref$payment_method = _ref$payment_method === undefined ? {} : _ref$payment_method;
+              var _ref$location = _ref.location;
+              _ref$location = _ref$location === undefined ? {} : _ref$location;
+
+              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
             title: "Payment Method",
             sortable: false,
@@ -300,20 +253,16 @@ var Home = {};
           {
             field: "more_information.price_equation",
 
-            template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.more_information.price_equation = '';
-              } else {
-                if (field.more_information.currency == undefined || '') {
-                  field.more_information.currency = '';
-                }
-                var priceTemp = field.more_information.price_equation;
-                var currency = field.more_information.currency;
-                var price = Number(priceTemp).toFixed(2);
-                return `<div>` + price + `</div>
-               <div>` + currency + `</div>
-                `;
-              }
+            template: function(_ref) {
+              var _ref$more_information = _ref.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information OB==>", _ref, _ref$more_information);
+              var price_equation = _ref$more_information.price_equation;
+              price_equation = parseFloat(price_equation);
+              var currency = _ref$more_information.currency;
+              return `<div>` + (price_equation.toFixed(2) || 0) + `</div>
+              <div>` + (currency || '') + `</div>
+               `;
 
             },
 
@@ -324,15 +273,14 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
-                field.more_information.min_trans_limit = 0;
-              }
-              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
-                field.more_information.max_trans_limit = 0;
-              }
-
-              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            template: function(field) {
+              console.log("more_information field=>", field);
+              var _ref$more_information = field.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information1==>", _ref$more_information);
+              var min_trans_limit = _ref$more_information.min_trans_limit;
+              var max_trans_limit = _ref$more_information.max_trans_limit;
+              return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
             },
             title: "Limits",
             sortable: false,
@@ -364,8 +312,7 @@ var Home = {};
               method: 'GET',
               params: {
                 query: {
-                  cryptoCurrency: cryptoCurrency,
-                  // location: 'India',
+                  subQuery: subQuery,
                   tradeMethod: 'LOCAL',
                   traderType: 'SELL',
 
@@ -421,14 +368,13 @@ var Home = {};
           },
           {
             field: "",
-            template: function(field, type, row) {
+            template: function(_ref) {
+              var _ref$location = _ref.location;
+              _ref$location = _ref$location === undefined ? {} : _ref$location;
 
-              if (field.location == undefined || '') {
-                field.location = '';
-              }
-
-              return field.location;
+              return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
+
             title: "Location",
             sortable: false,
             width: 250,
@@ -438,20 +384,17 @@ var Home = {};
           },
           {
             field: "more_information.price_equation",
-            template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.more_information.price_equation = '';
-              } else {
-                var priceTemp = field.more_information.price_equation;
-                if (field.more_information.currency == undefined || '') {
-                  field.more_information.currency = '';
-                }
-                var price = Number(priceTemp).toFixed(2);
-                var currency = field.more_information.currency;
-                return `<div>` + price + `</div>
-                <div>` + currency + `</div>
-                 `;;
-              }
+            template: function(_ref) {
+              var _ref$more_information = _ref.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information LB==>", _ref, _ref$more_information);
+              var price_equation = _ref$more_information.price_equation;
+              price_equation = parseFloat(price_equation);
+
+              var currency = _ref$more_information.currency;
+              return `<div>` + (price_equation.toFixed(2) || 0) + `</div>
+              <div>` + (currency || '') + `</div>
+               `;
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -461,15 +404,14 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
-                field.more_information.min_trans_limit = 0;
-              }
-              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
-                field.more_information.max_trans_limit = 0;
-              }
-
-              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            template: function(field) {
+              console.log("more_information field=>", field);
+              var _ref$more_information = field.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information1==>", _ref$more_information);
+              var min_trans_limit = _ref$more_information.min_trans_limit;
+              var max_trans_limit = _ref$more_information.max_trans_limit;
+              return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
             },
             title: "Limits",
             sortable: false,
@@ -503,9 +445,9 @@ var Home = {};
               url: '/tradeByCurrencyLoc',
               method: 'GET',
               params: {
+                // query: query,
                 query: {
-                  cryptoCurrency: cryptoCurrency,
-                  // location: 'India',
+                  subQuery: subQuery,
                   tradeMethod: 'ONLINE',
                   traderType: 'BUY',
 
@@ -561,15 +503,13 @@ var Home = {};
           },
           {
             field: "",
-            template: function(field, type, row) {
-              if (field.payment_method == undefined || '') {
-                field.payment_method = '';
-              }
-              if (field.location == undefined || '') {
-                field.location = '';
-              }
+            template: function(_ref) {
+              var _ref$payment_method = _ref.payment_method;
+              _ref$payment_method = _ref$payment_method === undefined ? {} : _ref$payment_method;
+              var _ref$location = _ref.location;
+              _ref$location = _ref$location === undefined ? {} : _ref$location;
 
-              return field.payment_method + ' :' + field.location;
+              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
             title: "Payment Method",
             sortable: false,
@@ -581,20 +521,18 @@ var Home = {};
           {
             field: "more_information.price_equation",
 
-            template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.more_information.price_equation = '';
-              } else {
-                var priceTemp = field.more_information.price_equation;
-                if (field.more_information.currency == undefined || '') {
-                  field.more_information.currency = '';
-                }
-                var currency = field.more_information.currency;
-                var price = Number(priceTemp).toFixed(2);
-                return `<div>` + price + `</div>
-               <div>` + currency + `</div>
-                `;
-              }
+            template: function(_ref) {
+
+              var _ref$more_information = _ref.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information OS==>", _ref, _ref$more_information);
+              var price_equation = _ref$more_information.price_equation;
+              price_equation = parseFloat(price_equation);
+
+              var currency = _ref$more_information.currency;
+              return `<div>` + (price_equation.toFixed(2) || 0) + `</div>
+              <div>` + (currency || '') + `</div>
+               `;
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -604,15 +542,14 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
-                field.more_information.min_trans_limit = 0;
-              }
-              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
-                field.more_information.max_trans_limit = 0;
-              }
-
-              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            template: function(field) {
+              console.log("more_information field=>", field);
+              var _ref$more_information = field.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information1==>", _ref$more_information);
+              var min_trans_limit = _ref$more_information.min_trans_limit;
+              var max_trans_limit = _ref$more_information.max_trans_limit;
+              return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
             },
             title: "Limits",
             sortable: false,
@@ -645,9 +582,9 @@ var Home = {};
               processing: true,
               serverSide: true,
               params: {
+                // query: query,
                 query: {
-                  cryptoCurrency: cryptoCurrency,
-                  // location: 'India',
+                  subQuery: subQuery,
                   tradeMethod: 'LOCAL',
                   traderType: 'BUY',
 
@@ -704,13 +641,11 @@ var Home = {};
           },
           {
             field: "",
-            template: function(field, type, row) {
+            template: function(_ref) {
+              var _ref$location = _ref.location;
+              _ref$location = _ref$location === undefined ? {} : _ref$location;
 
-              if (field.location == undefined || '') {
-                field.location = '';
-              }
-
-              return field.location;
+              return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
             title: "Location",
             sortable: false,
@@ -721,20 +656,19 @@ var Home = {};
           },
           {
             field: "more_information.price_equation",
-            template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.more_information.price_equation = '';
-              } else {
-                var priceTemp = field.more_information.price_equation;
-                if (field.more_information.currency == undefined || '') {
-                  field.more_information.currency = '';
-                }
-                var currency = field.more_information.currency;
-                var price = Number(priceTemp).toFixed(2);
-                return `<div>` + price + `</div>
-               <div>` + currency + `</div>
-                `;
-              }
+            template: function(_ref) {
+
+              var _ref$more_information = _ref.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information LS==>", _ref, _ref$more_information);
+              var price_equation = _ref$more_information.price_equation;
+              price_equation = parseFloat(price_equation);
+
+              var currency = _ref$more_information.currency;
+              return `<div>` + (price_equation.toFixed(2) || 0) + `</div>
+              <div>` + (currency || '') + `</div>
+               `;
+
             },
 
             title: 'Price/' + cryptoCurrencyCode,
@@ -744,15 +678,14 @@ var Home = {};
           },
           {
             field: "more_information.max_trans_limit",
-            template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
-                field.more_information.min_trans_limit = 0;
-              }
-              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
-                field.more_information.max_trans_limit = 0;
-              }
-
-              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            template: function(field) {
+              console.log("more_information field=>", field);
+              var _ref$more_information = field.more_information;
+              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              console.log("more_information1==>", _ref$more_information);
+              var min_trans_limit = _ref$more_information.min_trans_limit;
+              var max_trans_limit = _ref$more_information.max_trans_limit;
+              return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
             },
             title: "Limits",
             sortable: false,

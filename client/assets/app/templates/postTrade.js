@@ -9,13 +9,6 @@ var PostATrade = {};
     getPriceEquation: API.getPriceEquation,
     getCryptoCurrencyPriceEquation: API.getCryptoCurrencyPriceEquation,
     validateFields: function() {},
-    checkIfToken: function(token) {
-      if (token && token.length > 0) {
-        return true;
-      }
-      return false;
-    },
-
     priceEquation: function(cryptoCurrency_in_usd, USD_in_currency, margin) {
       var equation = cryptoCurrency_in_usd * USD_in_currency;
 
@@ -117,7 +110,6 @@ var PostATrade = {};
         payment_method = value;
       })
       await $('#select_ad-currency li').on('click', async function() {
-
         if (code) {
           $('.price-info').empty();
           var value = $(this).attr('name');
@@ -173,17 +165,20 @@ var PostATrade = {};
         }
 
       })
-      await $("#margin_ad-commission").change(async function() {
+      await $("#margin_ad-commission").change(function() {
         $('.price-info').empty();
-        if (margin == '' || undefined) {
+        if (!margin) {
           margin = 0;
         }
         margin = $("#margin_ad-commission").val();
-        price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
-        console.log("Price Equation=>>", price_equation);
+        if (cryptoCurrency_in_usd && USD_in_currency) {
+          price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
+          console.log("Price Equation=>>", price_equation);
 
-        var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
-        $('.price-info').append(htmlPriceInfo)
+          var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
+          $('.price-info').html(htmlPriceInfo)
+        }
+
 
       })
 
@@ -196,14 +191,12 @@ var PostATrade = {};
 
       $('#select_ad-location li').on('click', async function() {
           if (code) {
-
-
             var value = $(this).attr('name');
             _core.setValueDropDwn('#title_location', value)
 
             var country_code = $(this).attr('data-country-code');
             console.log("country code=>", country_code, this);
-            var currency = country_code;
+            currency = country_code;
             var htmlpriceEq = code + '_in_USD  *  USD_in_' + currency;
             $('#id_ad-price_equation').val(htmlpriceEq);
 
@@ -229,7 +222,6 @@ var PostATrade = {};
                 }
               }
               price_equation = _core.priceEquation(cryptoCurrency_in_usd, USD_in_currency, margin);
-              console.log("Price Equation=>>", price_equation);
               var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
               $('.price-info').html(htmlPriceInfo)
             } else {
@@ -249,7 +241,7 @@ var PostATrade = {};
 
 
 
-            $('#select_ad-currency li').each(function(i) {
+            $('#select_ad-currency li').each(function() {
               var temp = $(this).attr('name');
               if (temp == country_code) {
                 _core.setValueDropDwn('#title_currency', country_code)
@@ -531,8 +523,9 @@ var PostATrade = {};
         form = $(this).closest('form');
         btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
         var more_information = {};
-        more_information.terms_of_trade = CKEDITOR.instances.editor1.getData();
-        more_information.currency = currency;
+        var terms_of_trade = CKEDITOR.instances.editor1.getData();
+        more_information.terms_of_trade = terms_of_trade = terms_of_trade === undefined || '' ? 'No terms of Trade added' : terms_of_trade;
+        more_information.currency = $('#title_currency').text();
         more_information.margin = $("#margin_ad-commission").val();
         more_information.price_equation = price_equation;
         more_information.min_trans_limit = $("#ad-min_amount").val();
@@ -585,10 +578,9 @@ var PostATrade = {};
             "user": localStorage.getItem('user_id') || null
           }
           var token = localStorage.getItem('token');
-          var isToken = _core.checkIfToken(token)
+
+          var isToken = GlobalEvent.checkIfToken(token)
           if (isToken) {
-
-
             _core.postTrade(dataObj, token, function(res) {
               $(window).scrollTop(0);
               if (res) {
@@ -597,11 +589,7 @@ var PostATrade = {};
                   btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                   form.clearForm();
                   form.validate().resetForm();
-                  // display signup form
-                  // displaySignInForm();
-                  // var signInForm = login.find('.m-login__signin form');
-                  //signInForm.clearForm();
-                  //signInForm.validate().resetForm();
+
                   _core.showErrorMsg(form, 'success', 'Your trade request post sucessfully');
                 }, 2000);
 
@@ -616,6 +604,8 @@ var PostATrade = {};
               }
             })
 
+          } else {
+            btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
           }
         }
         //if Unchecked 

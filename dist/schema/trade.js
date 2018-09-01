@@ -47,16 +47,20 @@ var postTradeSchema = new _mongoose2.default.Schema({
       type: String
     },
     margin: {
-      type: Number
+      type: Number,
+      default: 0
     },
     price_equation: {
-      type: String
-    },
-    min_trans_limit: {
-      type: Number
+      type: String,
+      default: 0
     },
     max_trans_limit: {
-      type: Number
+      type: Number,
+      default: 0
+    },
+    min_trans_limit: {
+      type: Number,
+      default: 0
     },
     opening_hours: {
       sunday: {
@@ -138,10 +142,12 @@ var postTradeSchema = new _mongoose2.default.Schema({
   online_selling: {
 
     minimum_volume: {
-      type: Number
+      type: Number,
+      default: 0
     },
     minimum_feedback: {
-      type: Number
+      type: Number,
+      default: 0
     },
     new_buyer_limit: {
       type: Number

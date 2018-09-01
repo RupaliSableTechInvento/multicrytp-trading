@@ -68,12 +68,7 @@ var usersController = {
     var date = req.query.data.date;
     var temp = req.query.data.limit;
     var limit = '';
-    // var limit=parseInt(temp)
-    // if (temp && temp < 10) {
-    //   limit = temp
-    // } else {
-    //   limit = 10;
-    // }
+
     var query = '';
     if (date) {
       query = {
@@ -96,23 +91,6 @@ var usersController = {
         data: messages
       });
     });
-
-    // messagesModel.find({
-    //   $or: [
-    //     { $and: [{ sender: decoded.email }, { reciever: friend }] },
-    //     { $and: [{ sender: friend }, { reciever: decoded.email }] }
-    //   ]
-
-    // }, (err, messages) => {
-    //   if (err) return res.json({
-    //     isError: true,
-    //     data: err
-    //   });
-    //   res.json({
-    //     isError: false,
-    //     data: messages
-    //   });
-    // }).limit(10);
   },
   setMsgRead: function setMsgRead(req, res, next) {
     // console.log("setMsgRead ==>", req.body, req.query);
@@ -125,20 +103,6 @@ var usersController = {
       return aField;
       console.log(aField);
     });
-    // messagesModel.findByIdAndUpdate({ "_id": { $in: arrMsgIDList } }, {
-    //   $set: {
-    //     isRead: true
-    //   },
-    // }).lean().exec(function(err, isRead) {
-    //   if (err) return res.json({
-    //     isError: true,
-    //     data: err
-    //   });
-    //   res.json({
-    //     isError: false,
-    //     data: isRead
-    //   });
-    // });
 
     var bulk = _messagesModel2.default.collection.initializeUnorderedBulkOp();
 
@@ -146,28 +110,6 @@ var usersController = {
       _id = mongoose.Types.ObjectId(item);
       // var id = arrMsgID[index];
       bulk.find({ _id: _id }).updateOne({ $set: { isRead: true } });
-
-      // _id = mongoose.Types.ObjectId(item)
-      // messagesModel.findOneAndUpdate({
-      //   _id: _id
-      // }, {
-      //   $set: {
-      //     isRead: true
-      //   }
-      // }, (err, isRead) => {
-
-      //   if (err) return
-      //   res.json({
-      //     isError: true,
-      //     data: err
-      //   });
-      //   res.json({
-      //     isError: false,
-      //     data: isRead
-      //   });
-
-
-      // })
     });
     bulk.execute(function (err, messages) {
       if (err) return res.json({
@@ -198,6 +140,7 @@ var usersController = {
   },
   getUserInfo: function getUserInfo(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("decoded.email=>", decoded.email);
     _usersModel2.default.find({
       'email': decoded.email
     }, function (err, users) {
@@ -205,10 +148,15 @@ var usersController = {
         isError: true,
         data: err
       });
-      res.json({
-        isError: false,
-        data: users
-      });
+      console.log("users==>", users);
+      if (users) {
+        res.json({
+          isError: false,
+          data: users
+        });
+      } else {
+        res.redirect('/#/login');
+      }
     });
   },
 
@@ -269,9 +217,7 @@ var usersController = {
 
   addUserProfilePic: function addUserProfilePic(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-
     var imgURL = req.body.imgURL;
-
     _usersModel2.default.findOneAndUpdate({
       'email': decoded.email
     }, {
@@ -293,7 +239,6 @@ var usersController = {
   addMessage: function addMessage(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var sender = decoded.email;
-    console.log("in addmessage");
     var data = req.body;
     data.sender = sender;
     data.date = new Date();

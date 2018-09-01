@@ -39,12 +39,7 @@ const usersController = {
     var date = req.query.data.date;
     var temp = req.query.data.limit;
     var limit = '';
-    // var limit=parseInt(temp)
-    // if (temp && temp < 10) {
-    //   limit = temp
-    // } else {
-    //   limit = 10;
-    // }
+
     var query = '';
     if (date) {
       query = {
@@ -80,26 +75,6 @@ const usersController = {
         data: messages
       });
     });
-
-
-
-    // messagesModel.find({
-    //   $or: [
-    //     { $and: [{ sender: decoded.email }, { reciever: friend }] },
-    //     { $and: [{ sender: friend }, { reciever: decoded.email }] }
-    //   ]
-
-    // }, (err, messages) => {
-    //   if (err) return res.json({
-    //     isError: true,
-    //     data: err
-    //   });
-    //   res.json({
-    //     isError: false,
-    //     data: messages
-    //   });
-    // }).limit(10);
-
   },
   setMsgRead: (req, res, next) => {
     // console.log("setMsgRead ==>", req.body, req.query);
@@ -108,24 +83,11 @@ const usersController = {
     console.log("arrMsgID", arrMsgID);
     var _id = '';
     var arrMsgIDList = arrMsgID.map(function(aField) {
-        // return mongoose.Types.ObjectId(aField);
-        return aField
-        console.log(aField);
-      })
-      // messagesModel.findByIdAndUpdate({ "_id": { $in: arrMsgIDList } }, {
-      //   $set: {
-      //     isRead: true
-      //   },
-      // }).lean().exec(function(err, isRead) {
-      //   if (err) return res.json({
-      //     isError: true,
-      //     data: err
-      //   });
-      //   res.json({
-      //     isError: false,
-      //     data: isRead
-      //   });
-      // });
+      // return mongoose.Types.ObjectId(aField);
+      return aField
+      console.log(aField);
+    })
+
 
     var bulk = messagesModel.collection.initializeUnorderedBulkOp();
 
@@ -133,28 +95,6 @@ const usersController = {
       _id = mongoose.Types.ObjectId(item)
         // var id = arrMsgID[index];
       bulk.find({ _id: _id }).updateOne({ $set: { isRead: true } });
-
-      // _id = mongoose.Types.ObjectId(item)
-      // messagesModel.findOneAndUpdate({
-      //   _id: _id
-      // }, {
-      //   $set: {
-      //     isRead: true
-      //   }
-      // }, (err, isRead) => {
-
-      //   if (err) return
-      //   res.json({
-      //     isError: true,
-      //     data: err
-      //   });
-      //   res.json({
-      //     isError: false,
-      //     data: isRead
-      //   });
-
-
-      // })
 
     })
     bulk.execute((err, messages) => {
@@ -193,6 +133,7 @@ const usersController = {
   },
   getUserInfo: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("decoded.email=>", decoded.email);
     usersModel.find({
       'email': decoded.email
     }, (err, users) => {
@@ -200,10 +141,16 @@ const usersController = {
         isError: true,
         data: err
       });
-      res.json({
-        isError: false,
-        data: users
-      });
+      console.log("users==>", users);
+      if (users) {
+        res.json({
+          isError: false,
+          data: users
+        });
+      } else {
+        res.redirect('/#/login');
+      }
+
     });
   },
 
@@ -274,9 +221,7 @@ const usersController = {
 
   addUserProfilePic: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-
     var imgURL = req.body.imgURL;
-
     usersModel.findOneAndUpdate({
       'email': decoded.email
     }, {
@@ -299,7 +244,6 @@ const usersController = {
   addMessage: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var sender = decoded.email;
-    console.log("in addmessage");
     var data = req.body;
     data.sender = sender;
     data.date = new Date();

@@ -48,32 +48,38 @@ var Profile = {};
 
     profileSettings: function() {
       var token = localStorage.getItem('token')
-      _core.getUserInfo(token, function(res) {
 
-        console.log("getUserInfor..", res);
-        if (!res.isError0) {
-          var userData = res.data[0];
-          $('#first_name').val(userData.first_name),
-            $('#last_name').val(userData.last_name),
-            $('#email').val(userData.email),
-            $('#phone_no').val(userData.phone_no)
-          if (!userData.imgURL) {
-            $('#img_upload_pic').attr('src', 'assets/app/media/img/users/Defaultuser.png')
-          } else {
-            $('#img_upload_pic').attr('src', userData.imgURL)
 
+      var isToken = GlobalEvent.checkIfToken(token)
+      if (isToken) {
+        _core.getUserInfo(token, function(res) {
+
+          console.log("getUserInfor..", res);
+          if (!res.isError0) {
+            var userData = res.data[0];
+            $('#first_name').val(userData.first_name),
+              $('#last_name').val(userData.last_name),
+              $('#email').val(userData.email),
+              $('#phone_no').val(userData.phone_no)
+            if (!userData.imgURL) {
+              $('#img_upload_pic').attr('src', 'assets/app/media/img/users/Defaultuser.png')
+            } else {
+              $('#img_upload_pic').attr('src', userData.imgURL)
+
+            }
+            // $('#img_upload_pic').attr('src', userData.imgURL)
+            // $('#email_verified').html('' + userData.verification.email_verified);
+            if (!userData.verification.email_verified) {
+              $('#set_up_email').removeClass('hidden')
+              $('#email_verified').html('<label style="color: red";>' + userData.verification.email_verified + '</label>')
+            } else {
+              $('#set_up_email').addClass('hidden')
+              $('#email_verified').html('<label style="color:green";>' + userData.verification.email_verified + '</label>');
+            }
           }
-          // $('#img_upload_pic').attr('src', userData.imgURL)
-          // $('#email_verified').html('' + userData.verification.email_verified);
-          if (!userData.verification.email_verified) {
-            $('#set_up_email').removeClass('hidden')
-            $('#email_verified').html('<label style="color: red";>' + userData.verification.email_verified + '</label>')
-          } else {
-            $('#set_up_email').addClass('hidden')
-            $('#email_verified').html('<label style="color:green";>' + userData.verification.email_verified + '</label>');
-          }
-        }
-      })
+        })
+
+      }
 
 
       $('#m_profile_set_up_email').click(function(e) {
@@ -82,39 +88,44 @@ var Profile = {};
         var btn = $(this);
         var form = $(this).closest('form');
         btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
-        _core.emailVerification(token, function(res) {
-          if (res) {
-            if (res.isError) {
 
-              setTimeout(function() {
-                _core.showErrorMsg(form, 'danger', 'Email is not verified. ');
+        var isToken = GlobalEvent.checkIfToken(token)
+        if (isToken) {
+          _core.emailVerification(token, function(res) {
+            if (res) {
+              if (res.isError) {
 
-              }, 2000)
+                setTimeout(function() {
+                  _core.showErrorMsg(form, 'danger', 'Email is not verified. ');
 
-            } else {
-              console.log("res=>>", res);
-              setTimeout(function() {
-                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                form.clearForm();
-                form.validate().resetForm();
+                }, 2000)
 
-                _core.showErrorMsg(form, 'success', 'Thank you. please check your Email');
-              }, 2000);
-              if (res.data == 'email_verified') {
+              } else {
+                console.log("res=>>", res);
                 setTimeout(function() {
                   btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                   form.clearForm();
                   form.validate().resetForm();
 
-                  _core.showErrorMsg(form, 'success', 'Thank you. Your Email is verified');
+                  _core.showErrorMsg(form, 'success', 'Thank you. please check your Email');
                 }, 2000);
-                $('.E_mail_Verified').empty()
-                $('.E_mail_Verified').html('<label style="color:green";>' + email_verified + '</label>')
+                if (res.data == 'email_verified') {
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    form.clearForm();
+                    form.validate().resetForm();
 
+                    _core.showErrorMsg(form, 'success', 'Thank you. Your Email is verified');
+                  }, 2000);
+                  $('.E_mail_Verified').empty()
+                  $('.E_mail_Verified').html('<label style="color:green";>' + email_verified + '</label>')
+
+                }
               }
             }
-          }
-        })
+          })
+
+        }
 
 
 

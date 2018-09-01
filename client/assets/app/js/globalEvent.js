@@ -1,4 +1,53 @@
-var GlobalEvent = {};
+var GlobalEvent = {
+  checkIfToken: function(token) {
+    console.log("GlobalFunction called", token);
+    if (token && token.length > 0) {
+      $.ajax({
+        url: "/getUserInfo",
+        type: "get",
+        headers: {
+          "authorization": token,
+        },
+        success: function(successData) {
+          if (!successData.isError) {
+            if (successData.data) {
+              var userData = successData.data[0];
+              console.log("successData.data getUserInfo=> ", successData.data);
+              if (userData) {
+                $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
+
+                  $('.m-card-user__email').html(userData.email)
+                  // $('#phone_no').val(userData.phone_no),
+                if (!userData.imgURL) {
+                  console.log("in img url not found");
+
+                  $('#m-card-user__img').attr('src', 'assets/app/media/img/users/Defaultuser.png')
+                    // $('#img_upload_pic').attr('src', 'assets/app/media/img/users/userProfile.png')
+                } else {
+                  $('#m-card-user__img').attr('src', userData.imgURL)
+
+                }
+              }
+            } else {
+
+              logOut(token);
+            }
+          }
+        },
+        error: function(err) {
+          console.log("getUserInfo err=>", err);
+        }
+      })
+      $('.loginOutUser').hide();
+      $('.loginUser').show();
+      return true;
+    }
+    window.location.replace("#");
+    $('.loginUser').hide();
+    $('.loginOutUser').show();
+    return false;
+  },
+};
 ((function() {
 
 
@@ -19,9 +68,8 @@ var GlobalEvent = {};
     // checkIfToken(token);
   getAllUnreadMessages();
   var friend = 'sablerupali358@gmail.com';
-  $('#logoutbtn').unbind().click(function() {
-    console.log("logout btn clicked");
-    console.log("token in logout=>", token);
+
+  function logOut(token) {
     $.ajax({
       url: "/logout",
       headers: {
@@ -35,7 +83,6 @@ var GlobalEvent = {};
           localStorage.removeItem("first_name");
           localStorage.removeItem("last_name");
           localStorage.removeItem('user_id');
-          // $('.olUserList').empty();
           socket.disconnect();
           window.location.reload("");
         }
@@ -46,6 +93,10 @@ var GlobalEvent = {};
       }
     })
 
+  }
+
+  $('#logoutbtn').unbind().click(function() {
+    logOut(token);
   })
 
   function acceptFriendRequest() {
@@ -234,47 +285,54 @@ var GlobalEvent = {};
 
   }
 
-  function checkIfToken(token) {
-    if (token && token.length > 0) {
-      $.ajax({
-        url: "/getUserInfo",
-        type: "get",
-        headers: {
-          "authorization": token,
-        },
-        success: function(successData) {
-          if (!successData.isError) {
-            var userData = successData.data[0];
-            // console.log(successData.data[0]);
+  // function checkIfToken(token) {
+  //   if (token && token.length > 0) {
+  //     $.ajax({
+  //       url: "/getUserInfo",
+  //       type: "get",
+  //       headers: {
+  //         "authorization": token,
+  //       },
+  //       success: function(successData) {
+  //         if (!successData.isError) {
+  //           if (successData.data.length > 0) {
+  //             var userData = successData.data[0];
+  //             console.log(successData.data);
+  //             if (userData.length > 0) {
+  //               $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
 
-            $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
+  //                 $('.m-card-user__email').html(userData.email)
+  //                 // $('#phone_no').val(userData.phone_no),
+  //               if (!userData.imgURL) {
+  //                 console.log("in img url not found");
 
-              $('.m-card-user__email').html(userData.email)
-              // $('#phone_no').val(userData.phone_no),
-            if (!userData.imgURL) {
-              console.log("in img url not found");
+  //                 $('#m-card-user__img').attr('src', 'assets/app/media/img/users/Defaultuser.png')
+  //                   // $('#img_upload_pic').attr('src', 'assets/app/media/img/users/userProfile.png')
+  //               } else {
+  //                 $('#m-card-user__img').attr('src', userData.imgURL)
 
-              $('#m-card-user__img').attr('src', 'assets/app/media/img/users/Defaultuser.png')
-                // $('#img_upload_pic').attr('src', 'assets/app/media/img/users/userProfile.png')
-            } else {
-              $('#m-card-user__img').attr('src', userData.imgURL)
+  //               }
+  //             }
+  //           } else {
 
-            }
-          }
+  //             logOut(token);
+  //           }
 
-        },
-        error: function(err) {
-          alert(err);
-        }
-      })
-      $('.loginOutUser').hide();
-      $('.loginUser').show();
-      return true;
-    }
-    $('.loginUser').hide();
-    $('.loginOutUser').show();
-    return false;
-  }
+  //         }
+
+  //       },
+  //       error: function(err) {
+  //         console.log("getUserInfo err=>", err);
+  //       }
+  //     })
+  //     $('.loginOutUser').hide();
+  //     $('.loginUser').show();
+  //     return true;
+  //   }
+  //   $('.loginUser').hide();
+  //   $('.loginOutUser').show();
+  //   return false;
+  // }
 
   function chatPopUP(data) {
     var toChatboxId = data.toChatboxId;
@@ -346,7 +404,8 @@ var GlobalEvent = {};
       senderName = '';
 
     var token = localStorage.getItem('token');
-    var isToken = checkIfToken(token)
+
+    var isToken = GlobalEvent.checkIfToken(token)
     if (isToken) {
       $.ajax({
         url: "/getAllUnreadMessages",
@@ -416,7 +475,7 @@ var GlobalEvent = {};
   function getAllMessageswithFriend(data, cb) {
     console.log("getAllMessageswithFriend request=>", data);
     // var token = localStorage.getItem('token');
-    var isToken = checkIfToken(token)
+    var isToken = GlobalEvent.checkIfToken(token)
     if (isToken) {
       $.ajax({
         url: "/getAllMessagesWithFriend",
@@ -898,3 +957,54 @@ var GlobalEvent = {};
 
 
 }).bind(GlobalEvent))()
+
+
+var GlobalFunction = {
+  checkIfToken: function(token) {
+    console.log("GlobalFunction called");
+    if (token && token.length > 0) {
+      $.ajax({
+        url: "/getUserInfo",
+        type: "get",
+        headers: {
+          "authorization": token,
+        },
+        success: function(successData) {
+          if (!successData.isError) {
+            if (successData.data.length > 0) {
+              var userData = successData.data[0];
+              console.log(successData.data);
+              if (userData.length > 0) {
+                $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
+
+                  $('.m-card-user__email').html(userData.email)
+                  // $('#phone_no').val(userData.phone_no),
+                if (!userData.imgURL) {
+                  console.log("in img url not found");
+
+                  $('#m-card-user__img').attr('src', 'assets/app/media/img/users/Defaultuser.png')
+                    // $('#img_upload_pic').attr('src', 'assets/app/media/img/users/userProfile.png')
+                } else {
+                  $('#m-card-user__img').attr('src', userData.imgURL)
+
+                }
+              }
+            } else {
+
+              logOut(token);
+            }
+          }
+        },
+        error: function(err) {
+          console.log("getUserInfo err=>", err);
+        }
+      })
+      $('.loginOutUser').hide();
+      $('.loginUser').show();
+      return true;
+    }
+    $('.loginUser').hide();
+    $('.loginOutUser').show();
+    return false;
+  },
+}

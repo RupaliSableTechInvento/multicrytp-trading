@@ -240,13 +240,13 @@ var tradeController = _defineProperty({
 
   getByCurrencyLoc: function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res, next) {
-      var request, perpage, page, skip, cryptoCurrency, location, tradeMethod, traderType;
+      var perpage, query, page, skip, cryptoCurrency, location, tradeMethod, traderType;
       return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              request = req.query.query;
               perpage = req.query.pagination.perpage;
+              query = {};
               page = req.query.pagination.page;
               skip = 0;
 
@@ -254,18 +254,35 @@ var tradeController = _defineProperty({
                 skip = perpage * (page - 1);
                 console.log("perpage page skip=>", perpage, page, skip);
               }
-              cryptoCurrency = req.query.query.cryptoCurrency;
-              location = req.query.query.location;
+              cryptoCurrency = req.query.query.subQuery.cryptoCurrency;
+              location = req.query.query.subQuery.location;
               tradeMethod = req.query.query.tradeMethod;
               traderType = req.query.query.traderType;
 
+              console.log(cryptoCurrency, location, tradeMethod, traderType);
+              if (location) {
+                query = {
+                  cryptoCurrency: cryptoCurrency,
+                  location: location,
+                  tradeMethod: tradeMethod,
+                  traderType: traderType
+                };
+              } else {
+                query = {
+                  cryptoCurrency: cryptoCurrency,
+                  tradeMethod: tradeMethod,
+                  traderType: traderType
+                };
+              }
 
-              _postatrade2.default.find({
-                cryptoCurrency: cryptoCurrency,
-                // location: location,
-                tradeMethod: tradeMethod,
-                traderType: traderType
-              }, function () {
+              _postatrade2.default.find(
+
+              //   cryptoCurrency: cryptoCurrency,
+              //   // location: location,
+              //   tradeMethod: tradeMethod,
+              //   traderType: traderType,
+              // }
+              query, function () {
                 var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(err, trade) {
                   return regeneratorRuntime.wrap(function _callee4$(_context4) {
                     while (1) {
@@ -336,7 +353,7 @@ var tradeController = _defineProperty({
                 };
               }()).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '');
 
-            case 10:
+            case 12:
             case 'end':
               return _context5.stop();
           }

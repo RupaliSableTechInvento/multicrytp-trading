@@ -68,50 +68,52 @@ module.exports = function(app, io) {
             pending = [];
             var tempImgURL = '';
             all_friends = [];
-            console.log("list==>", doc);
+            if (doc) {
 
-            var list = doc.friends.slice();
-            friends = [];
-            arrImgURL = [];
-            if (list.length > 0) {
-              console.log("List is not empty");
-              for (var i in list) {
-                if (list[i].status == "Friend") {
-                  friends.push(list[i]);
-                  users.forEach(item => {
-                    if (item.email && list[i].senderEmail == item.email) {
-                      io.to(item.socketId).emit('friend_Ol', curentUserEmail);
-                      io.emit('friend_all', curentUserEmail);
-                    }
-                  })
 
-                } else if (list[i].status == "Pending") {
-                  pending.push(list[i]);
-                } else {
-                  continue;
+              var list = doc.friends.slice();
+              friends = [];
+              arrImgURL = [];
+              if (list.length > 0) {
+                console.log("List is not empty");
+                for (var i in list) {
+                  if (list[i].status == "Friend") {
+                    friends.push(list[i]);
+                    users.forEach(item => {
+                      if (item.email && list[i].senderEmail == item.email) {
+                        io.to(item.socketId).emit('friend_Ol', curentUserEmail);
+                        io.emit('friend_all', curentUserEmail);
+                      }
+                    })
+
+                  } else if (list[i].status == "Pending") {
+                    pending.push(list[i]);
+                  } else {
+                    continue;
+                  }
                 }
-              }
 
 
-              var senderEmailList = friends.map(function(aField) {
-                return aField.senderEmail;
-              })
-              usersModel.find({ "email": { $in: senderEmailList } }, { imgURL: 1, email: 1, _id: 0 }).lean().exec(function(err, imgURL) {
-                if (err) {
+                var senderEmailList = friends.map(function(aField) {
+                  return aField.senderEmail;
+                })
+                usersModel.find({ "email": { $in: senderEmailList } }, { imgURL: 1, email: 1, _id: 0 }).lean().exec(function(err, imgURL) {
+                  if (err) {
 
-                } else {
-                  // console.log("friends ==>", curentUserEmail, friends);
-                  friendsData = {
-                    friends: friends,
-                    arrImgURL: imgURL
+                  } else {
+                    // console.log("friends ==>", curentUserEmail, friends);
+                    friendsData = {
+                      friends: friends,
+                      arrImgURL: imgURL
+                    }
+
+                    io.to(socket.id).emit('friend_list', friendsData);
+                    io.to(socket.id).emit('pending_list', pending);
                   }
 
-                  io.to(socket.id).emit('friend_list', friendsData);
-                  io.to(socket.id).emit('pending_list', pending);
-                }
+                });
 
-              });
-
+              }
             }
             // console.log("friendData=>", friendsData);
             //  io.emit('users', users);

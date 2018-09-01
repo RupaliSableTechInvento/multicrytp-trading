@@ -54,27 +54,33 @@ var ChangePassword = {};
               new_pasword: new_pasword,
               passwordcnfrm: passwordcnfrm,
             }
-            _core.changePassword(dataObj, token, function(res) {
-              console.log("res=>", res);
-              if (res && res.isError) {
-                setTimeout(function() {
-                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                  _core.showErrorMsg(form, 'danger', 'Unable to change password ');
 
-                }, 2000)
-                form.clearForm();
-              } else {
-                setTimeout(function() {
-                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+            var isToken = GlobalEvent.checkIfToken(token)
+            if (isToken) {
+              _core.changePassword(dataObj, token, function(res) {
+                console.log("res=>", res);
+                if (res && res.isError) {
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    _core.showErrorMsg(form, 'danger', 'Unable to change password ');
+
+                  }, 2000)
                   form.clearForm();
-                  form.validate().resetForm();
-                  _core.showErrorMsg(form, 'success', 'Your password changed sucessfully.');
-                }, 2000);
-                form.clearForm();
-                window.location.href = "#/profile";
+                } else {
+                  setTimeout(function() {
+                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                    form.clearForm();
+                    form.validate().resetForm();
+                    _core.showErrorMsg(form, 'success', 'Your password changed sucessfully.');
+                  }, 2000);
+                  form.clearForm();
+                  window.location.href = "#/profile";
 
-              }
-            })
+                }
+              })
+
+            }
 
           } else {
 

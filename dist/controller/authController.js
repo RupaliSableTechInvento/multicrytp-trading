@@ -43,14 +43,15 @@ var authController = {
   login: function login(req, res, next) {
     req.body.password = encode().value(req.body.password);
     var credential = req.body;
+    console.log("in login credential==>", credential);
     global.email = credential.email;
     _usersModel2.default.findOne({
       email: credential.email,
       password: credential.password
     }, function (err, user) {
       if (err) res.json(err);
-      if (user !== null) {
-        console.log("User=>", user);
+      if (user) {
+        console.log("User to get login=>", user);
         var d = new Date();
         var v = new Date();
         v.setMinutes(d.getMinutes() + 10);

@@ -88,68 +88,72 @@
             </div>
           </div>
           <div class="m-portlet__body row">
-            <div id="userNotTrusted" class="col-xl-5">
-              <a id="trustBtn" class="btn btn-warning m-btn m-btn--icon" style="align-items: center;
-            justify-content: center;
-            display: flex;
-            height: 100px;">
-                <div style=" color: white;                      
-      overflow: hidden;
-      text-overflow: ellipsis;
-              font-size: 20px;">
-                  <i class="la la-star-o" style="font-size:30px"></i>
-                  <span id="trustUser"></span>
-                </div>
-              </a>
+            <div class="row" id="divTrust" style="width:100%">
+              <div id="userNotTrusted" class="col-xl-8">
+                <a id="trustBtn" class="btn btn-warning m-btn m-btn--icon" style="align-items: center;
+             justify-content: center;
+             display: flex;
+             height: 100px;">
+                  <div style=" color: white;                      
+                  overflow: hidden;
+                   text-overflow: ellipsis;
+                  font-size: 20px;">
+                    <i class="la la-star-o" style="font-size:30px"></i>
+                    <span id="trustUser"></span>
+                  </div>
+                </a>
 
-            </div>
+              </div>
 
-            <div id="userTrusted" class="col-xl-6" style="display:none">
-              <a id="trustBtn1" class="btn btn-success m-btn m-btn--icon" style="align-items: center;
+              <div id="userTrusted" class="col-xl-8" style="display:none">
+                <a id="trustBtn1" class="btn btn-success m-btn m-btn--icon" style="align-items: center;
                 justify-content: center; 
                 display: flex;
                 height: 100px;">
-                <div style=" color: white;
+                  <div style=" color: white;
                   font-size: 20px; overflow: hidden;text-overflow: ellipsis;">
-                  <i class="la la-star-o" style="font-size:30px"></i>
-                  <span id="AlreadytrustUser"></span>
-                </div>
-              </a>
+                    <i class="la la-star-o" style="font-size:30px"></i>
+                    <span id="AlreadytrustUser"></span>
+                  </div>
+                </a>
+
+              </div>
+              <div class="col-xl-4" id="divRequest">
+
+                <button class="btn btn-metal m-btn m-btn--icon m-btn--wide" id="sendFriendReq" data-toggle="modal" data-target="#myModal">
+                  <span>
+                        <i class=" fa fa-user-plus"></i>
+                        <span>  Add Friend </span>
+                  </span>
+                </button>
+                <button class="btn btn-metal m-btn m-btn--icon m-btn--wide" id="friendReqAlreadySend" style="display:none" data-toggle="modal" data-target="#myModal">
+                  <span>
+                          <i class="fa fa-user-plus"></i>
+                          <span>Friend Request Send</span>
+                  </span>
+                </button>
+                <button class="btn btn-metal m-btn m-btn--icon m-btn--wide" id="sendUnFriendReq" style="display:none" data-toggle="modal" data-target="#myModal2">
+                  <span>
+                            <i class="fa fa-user-check"></i>
+                            <span>friend</span>
+                  </span>
+                </button>
+                <!-- <button type="button" id="sendFriendReq" data-toggle="modal" data-target="#myModal">
+                      Send Friend Request
+                    </button> -->
+                <!-- <button type="button" id="friendReqAlreadySend" style="display:none" data-toggle="modal" data-target="#myModal">
+                     Friend Request Send
+                    </button>
+                <button type="button" id="sendUnFriendReq" style="display:none" data-toggle="modal" data-target="#myModal2">
+                      Unfriend
+                    </button> -->
+
+              </div>
 
             </div>
+            <div class="row hidden" id="divLoginSignup">
 
-            <button type="button" id="sendFriendReq" data-toggle="modal" data-target="#myModal">
-              Send Friend Request
-            </button>
-            <button type="button" id="friendReqAlreadySend" style="display:none" data-toggle="modal" data-target="#myModal">
-             Friend Request Send
-            </button>
-            <button type="button" id="sendUnFriendReq" style="display:none" data-toggle="modal" data-target="#myModal2">
-              Unfriend
-            </button>
-
-            <!-- <div class="col-xl-6">
-              <div class="m-accordion m-accordion--default m-accordion--toggle-arrow" id="m_accordion_5" role="tablist">
-
-                <div class="m-accordion__item m-accordion__item--danger">
-                  <div class="m-accordion__item-head collapsed" srole="tab" id="m_accordion_5_item_1_head" data-toggle="collapse" href="#m_accordion_5_item_1_body" aria-expanded="false">
-                    <span class="m-accordion__item-title"></span>
-
-                    <span class="m-accordion__item-mode"></span>
-                  </div>
-
-                  <div class="m-accordion__item-body collapse" id="m_accordion_5_item_1_body" role="tabpanel" aria-labelledby="m_accordion_5_item_1_head" data-parent="#m_accordion_5" style="">
-                    <div class="m-accordion__item-content">
-                      <p>
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
+            </div>
           </div>
 
         </div>

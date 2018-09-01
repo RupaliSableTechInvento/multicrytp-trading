@@ -22,14 +22,14 @@ var UserProfile = {};
       console.log("hashes=>", hashes);
       for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
-        console.log("hash=>", hash);
+        // console.log("hash=>", hash);
 
         vars.push(hash[0]);
-        console.log("vars in loop=>", vars);
+        // console.log("vars in loop=>", vars);
 
         vars[hash[0]] = hash[1];
       }
-      console.log("vars=>", vars);
+      // console.log("vars=>", vars);
 
       return vars;
     },
@@ -65,10 +65,12 @@ var UserProfile = {};
           }
         })
       } else {
-        $("#sendFriendReq").attr('disabled', 'disabled');
-        console.log("TOken is not present");
-        $("#userNotTrusted").off("click");
 
+        // $("#sendFriendReq").attr('disabled', 'disabled');
+        // $("#divRequest").off("click");
+        console.log("TOken is not present");
+        $("#divTrust").off("click");
+        $('#divLoginSignup').removeClass('hidden');
         // $("#userNotTrusted").children().attr('disabled', 'disabled');
 
       }
@@ -86,6 +88,27 @@ var UserProfile = {};
         if (res) {
           if (!res.isError) {
             var Data = res.data;
+            var isToken = _core.checkIfToken(token);
+            if (!isToken) {
+              var htmlLoginSignup = '';
+              htmlLoginSignup = ` <p>
+              Please
+              <a class="login-link" id="login-link-ad" href="#/login">
+                  <i class="fa fa-user"></i>
+                  log in
+              </a>
+              or
+              <a id="register-link-ad" class="register-link" href="#/signup">
+                  <i class="fa fa-check-square-o "></i>
+                  sign up
+              </a>
+              to give your trust to <strong>` + Data.user.first_name + `</strong>.
+               </p>
+               </br>
+               <p>Signing up is free and takes only 30 seconds.</p>`;
+              $('#divLoginSignup').html(htmlLoginSignup);
+            }
+
             _bind.SetUserData(Data);
           }
         }
@@ -111,7 +134,7 @@ var UserProfile = {};
       $('#email').append(email_verified);
       $('#Phone_number').append(mobile_verified);
       // $('#trustUser').append('Trust    <br>' + firstName);
-      $('#trustUser').html('TrustNewUser <br>' + firstName);
+      $('#trustUser').html('Trust' + firstName);
       $('#AlreadytrustUser').html('Already Trusting  <br>' + firstName);
       $('#account_created').append(account_created);
       $('#last_seen').append(moment(userActiveTime).format('LLLL'));
@@ -149,20 +172,25 @@ var UserProfile = {};
         var dataObj = {
           To: Data.user.email,
         }
-        _core.friendReq(token, dataObj, function(res) {
-          if (res) {
-            console.log("friend Request response:", res);
-            var isFound = res.isFound;
-            if (isFound) {
-              console.log("Request already sent");
-              $('#allreadyFrndModal').modal('show');
 
-              $("#sendFriendReq").hide();
-              $("#sendUnFriendReq").hide();
-              $("#friendReqAlreadySend").show();
+        var isToken = GlobalEvent.checkIfToken(token)
+        if (isToken) {
+          _core.friendReq(token, dataObj, function(res) {
+            if (res) {
+              console.log("friend Request response:", res);
+              var isFound = res.isFound;
+              if (isFound) {
+                console.log("Request already sent");
+                $('#allreadyFrndModal').modal('show');
+
+                $("#sendFriendReq").hide();
+                $("#sendUnFriendReq").hide();
+                $("#friendReqAlreadySend").show();
+              }
             }
-          }
-        })
+          })
+        }
+
       })
 
 

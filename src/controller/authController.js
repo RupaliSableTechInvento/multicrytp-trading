@@ -15,14 +15,15 @@ const authController = {
   login: (req, res, next) => {
     req.body.password = encode().value(req.body.password);
     const credential = req.body;
+    console.log("in login credential==>", credential);
     global.email = credential.email;
     usersModel.findOne({
       email: credential.email,
       password: credential.password
     }, (err, user) => {
       if (err) res.json(err);
-      if (user !== null) {
-        console.log("User=>", user)
+      if (user) {
+        console.log("User to get login=>", user)
         var d = new Date();
         var v = new Date();
         v.setMinutes(d.getMinutes() + 10);
