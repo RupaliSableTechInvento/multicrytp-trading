@@ -157,13 +157,12 @@ var Profile = {};
     },
     verification: function() {
       var token = localStorage.getItem('token')
-      var dataObj = {
-        token: token
-      }
 
-      _core.verification(dataObj, function(res) {
+      _core.verification(token, function(res) {
 
-        if (res) {}
+        if (res) {
+          console.log("res=>verification", res);
+        }
       })
     }
   }

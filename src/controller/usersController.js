@@ -553,7 +553,9 @@ const usersController = {
 
 
   isVerified: (req, res, next) => {
-    var decoded = jwt.verify(req.query.token, env.App_key);
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("isVerified==>", decoded.email);
+
     usersModel.findOneAndUpdate({
       'email': decoded.email
     }, (err, user) => {

@@ -577,7 +577,9 @@ var usersController = {
   },
 
   isVerified: function isVerified(req, res, next) {
-    var decoded = _jsonwebtoken2.default.verify(req.query.token, _env2.default.App_key);
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("isVerified==>", decoded.email);
+
     _usersModel2.default.findOneAndUpdate({
       'email': decoded.email
     }, function (err, user) {

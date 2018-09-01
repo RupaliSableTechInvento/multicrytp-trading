@@ -281,10 +281,12 @@ var API = {
   },
 
 
-  verification: function(dataObj, cb) {
+  verification: function(token, cb) {
     $.ajax({
       url: "/isVerified",
-      data: dataObj,
+      headers: {
+        "authorization": token,
+      },
       type: "get",
       success: function(successData) {
         cb(successData)
