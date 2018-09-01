@@ -277,7 +277,7 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_sun', "End")
           endTimeValid = false;
           // $("#ad-opening_hours_sun_end li").val("-1");
@@ -321,7 +321,7 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_mon', "End")
           endTimeValid = false;
         } else {
@@ -354,7 +354,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           console.log(" end time start time ", endTime, startTime, endTimeValid);
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_tue', "End")
           endTimeValid = false;
         } else {
@@ -389,7 +389,7 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_wed', "End")
           endTimeValid = false;
         } else {
@@ -424,7 +424,7 @@ var PostATrade = {};
         var endTime = $(this).attr('value');
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_thu', "End")
           endTimeValid = false;
         } else {
@@ -460,7 +460,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           console.log(" end time start time ", endTime, startTime, endTimeValid);
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_fri', "End")
           endTimeValid = false;
         } else {
@@ -498,7 +498,7 @@ var PostATrade = {};
         if (endTime > 0 && startTime >= endTime) {
           endTimeValid = false;
           console.log(" end time start time ", endTime, startTime, endTimeValid);
-          alert(" select time according to 24 hrs");
+          alert("select end time again.  ")
           _core.setValueDropDwn('#title_EndTime_sat', "End")
           endTimeValid = false;
         } else {
@@ -672,7 +672,7 @@ var PostATrade = {};
                     _core.showErrorMsg(form, 'danger', ' select time according to 24 hrs.');
 
                   }, 2000)
-                  alert(" select time according to 24 hrs");
+                   alert("select end time again.  ")
                    $(this).find(".end_time li").val("-1");
                 } else if (endTime != '' && endTime != undefined && !isNaN(endTime)) {
                   if (startTime >= endTime) {

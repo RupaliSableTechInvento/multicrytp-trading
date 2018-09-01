@@ -120,7 +120,7 @@ var GlobalEvent = {
           $('#' + reqAccepted).removeClass('hidden')
         },
         error: function(err) {
-          alert("Accept friend request ", err);
+          console.log("Accept friend request ", err);
         }
       })
 
@@ -495,7 +495,7 @@ var GlobalEvent = {
 
         },
         error: function(err) {
-          alert(err);
+          console.log("getAllMessageswithFriend ", err);
         }
       })
     }
@@ -722,7 +722,7 @@ var GlobalEvent = {
         }
       },
       error: function(err) {
-        alert(err);
+        console.log("setMsgRead ", err);
       }
     })
   }

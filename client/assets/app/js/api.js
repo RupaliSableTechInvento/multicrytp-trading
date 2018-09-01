@@ -10,7 +10,7 @@ var API = {
           resolve(successData)
         },
         error: function(err) {
-          alert(err);
+          console.log("tradeByCurrencyLoc api =>", err);
         }
       })
     });
@@ -26,7 +26,7 @@ var API = {
           resolve(successData)
         },
         error: function(err) {
-          alert(err);
+          console.log("addUserInfo api =>", err);
         }
       })
     });
@@ -44,7 +44,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("acceptFriendRequest api =>", err);
       }
     })
   },
@@ -81,7 +81,7 @@ var API = {
           resolve(successData)
         },
         error: function(err) {
-          alert(err);
+          console.log("getCryptoCurrencyPriceEquation api =>", err);
         }
       })
     });
@@ -102,7 +102,7 @@ var API = {
           resolve(successData)
         },
         error: function(err) {
-          alert(err);
+          console.log("getPriceEquation api =>", err);
         }
       })
     });
@@ -122,7 +122,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("changePassword api =>", err);
       }
     })
   },
@@ -154,7 +154,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("emailVerification api =>", err);
       }
     })
 
@@ -189,7 +189,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        // alert(err);
         console.log("getActiveUser==>error", err);
 
       }
@@ -207,7 +207,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("getCurrencySellerBuyerInfo api =>", err);
       }
     })
 
@@ -223,7 +223,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("userProfile api =>", err);
       }
     })
 
@@ -239,7 +239,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("getFriendsList api =>", err);
       }
     })
 
@@ -256,7 +256,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("addMessage api =>", err);
       }
     })
   },
@@ -273,7 +273,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("friendReq api =>", err);
       }
     })
 
@@ -290,7 +290,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("verification api =>", err);
       }
     })
 
@@ -310,7 +310,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("sendMessage api =>", err);
       }
     })
   },
@@ -344,7 +344,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("addUserProfilePic api =>", err);
       }
     })
   },
@@ -377,7 +377,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        // alert(err);
         console.log("getAllMessages==>error", err);
 
       }
@@ -395,7 +395,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        alert(err);
+        console.log("Post trade api =>", err);
       }
     })
   },

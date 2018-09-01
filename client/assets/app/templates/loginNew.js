@@ -71,8 +71,7 @@ var Login = {};
 
           type: "POST",
           success: function(successData) {
-            if (successData.isError) {
-            } else {
+            if (successData.isError) {} else {
               console.log("sucessdata=>", successData);
               var first_name = successData.user.first_name;
               var last_name = successData.user.last_name;
@@ -82,60 +81,7 @@ var Login = {};
               localStorage.setItem("last_name", last_name);
               localStorage.setItem('email', dataObj.email);
               localStorage.setItem('user_id', successData.user.id);
-              // var socket = io.connect('http://localhost:9004');
 
-              // socket.on('connect', function() {
-              //   socket.emit('setUser', 'hello world');
-              // });
-
-              // socket.emit('get friends', function(data) {
-              //   console.log("data get freinds", data)
-              // });
-
-              // socket.on('users', function(data) {
-              //   console.log("users using soket io ", data);
-              // });
-
-              // socket.on('friend_list', function(data) {
-              //   var friendList = '';
-              //   $(".olUserList").empty();
-              //   console.log("users friend_list using soket io", data);
-              //   for (let index = 0; index < data.length; index++) {
-              //     console.log("Friend list==>", data[index].senderFirstName);
-              //     friendList += "<li data-email=" + data[index].senderEmail + ">" + data[index].senderFirstName + "</li>";
-
-              //   }
-
-              //   $(".olUserList").append(friendList);
-
-              // });
-
-              // socket.on('pending_list', function(data) {
-              //   console.log("users pending_list using soket io", data);
-              //   var requestCount = data.length;
-              //   console.log("Request count==>", requestCount);
-              //   var friend_req_list = '';
-
-              //   $('.friend_req_count').html(requestCount + "  New")
-              //   if (requestCount > 0) {
-              //     $('.friend_req_list').empty();
-              //     for (let index = 0; index < data.length; index++) {
-              //       friend_req_list += `<div class="m-list-timeline__item">
-              //                                     <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-              //                                     <span class="m-list-timeline__text">` +
-              //         data[index].senderFirstName + `</span>
-              //                                     <span class="m-list-timeline__time ">
-
-              //                                   <button type="button" data-user="` + data[index].senderEmail + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent  btnAcceptReq">Accept</button>
-
-              //                                     </span>
-              //                                   </div>`;
-
-              //     }
-              //     $('.friend_req_list').append(friend_req_list);
-              //   }
-
-              // });
 
               $('.m-dropdown__inner ').css('display', 'block');
               window.location.replace("/");
@@ -152,7 +98,7 @@ var Login = {};
             }, 2000);
           },
           error: function(err) {
-            alert(err);
+            alert("login error=>", err);
           }
         });
       });

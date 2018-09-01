@@ -119,7 +119,7 @@ var SnippetLogin = function() {
           }, 2000);
         },
         error: function(err) {
-          alert(err);
+          console.log("login error=>", err);
         }
       });
     });
@@ -185,7 +185,7 @@ var SnippetLogin = function() {
 
         },
         error: function(err) {
-          console.log("not registerd", err);
+          console.log(" register", err);
         }
 
       });
