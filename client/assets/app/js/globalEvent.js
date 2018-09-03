@@ -762,6 +762,30 @@ var GlobalEvent = {
     $('.chatTimeStamp').html(chatTimeStamp);
   }
 
+  function unfriend(params) {
+    $('#liunfriend').unbind().click(function() {
+      var isToken = GlobalEvent.checkIfToken(token)
+      if (isToken) {
+        $.ajax({
+          url: "/unfriend",
+          type: "post",
+          data: params,
+          headers: {
+            "authorization": token,
+          },
+          success: function(successData) {
+            cb(successData)
+          },
+          error: function(err) {
+            console.log("unfriend error =>", err);
+          }
+        })
+
+      }
+    })
+
+  }
+
   function userList() {
     console.log("userList  function call");
     $(".olUserList li").unbind().click(function() {
