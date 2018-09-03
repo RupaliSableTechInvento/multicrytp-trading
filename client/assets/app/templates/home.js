@@ -36,8 +36,7 @@ var Home = {};
       var activeUSer = [];
       var currentTime = [];
       var currentTimeSys = new Date();
-      var payment_method, country, currency, amount;
-      var quickTraderType;
+      var payment_method, country, currency, amount, quickCurrency;
       var cryptoCurrencyCode = 'BTC';
       before = new Date();
       before.setMinutes(before.getMinutes() - 15);
@@ -87,7 +86,7 @@ var Home = {};
       $('#select_ad-currency li').on('click', function() {
         var value = $(this).attr('name');
         _core.setValueDropDwn('#titile_currency', value)
-        currency = value;
+        quickCurrency = value;
       })
 
       htmlShowMore = '';
@@ -104,8 +103,8 @@ var Home = {};
         console.log("quickTraderType", quickTraderType);
 
         window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
-          '&payment_method=' + payment_method +
-          '&country=' + country + '&currency=' + currency + '&traderType=' + quickTraderType + '&location=india';
+          '&payment_method=' + payment_method + '&cryptoCurrencyCode=' + cryptoCurrencyCode +
+          '&country=' + country + '&currency=' + quickCurrency + '&traderType=' + quickTraderType;
       })
 
       await _core.getActiveUser(function(res) {
@@ -239,7 +238,7 @@ var Home = {};
               var _ref$payment_method = _ref.payment_method;
               _ref$payment_method = _ref$payment_method === undefined ? '' : _ref$payment_method;
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? '' : _ref$location;
+              _ref$location = _ref$location === undefined ? '' : _ref$location.replace(/_/g, ' ');
 
               return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
@@ -295,7 +294,7 @@ var Home = {};
             template: function(row) {
 
               return '<a href="./#/sellBuyCurrency?id=' + row._id + '&code=' + cryptoCurrencyCode + ' ">' +
-                '<input type="button" class="btn btn-info  " name="Buy" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
+                '<input type="button" class="btn btn-info " name="Buy" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
             }
           }
@@ -370,7 +369,7 @@ var Home = {};
             field: "",
             template: function(_ref) {
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? '' : _ref$location;
+              _ref$location = _ref$location === undefined ? '' : _ref$location.replace(/_/g, ' ');;
 
               return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
@@ -507,7 +506,7 @@ var Home = {};
               var _ref$payment_method = _ref.payment_method;
               _ref$payment_method = _ref$payment_method === undefined ? {} : _ref$payment_method;
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? {} : _ref$location;
+              _ref$location = _ref$location === undefined ? {} : _ref$location.replace(/_/g, ' ');;
 
               return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
@@ -643,7 +642,7 @@ var Home = {};
             field: "",
             template: function(_ref) {
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? {} : _ref$location;
+              _ref$location = _ref$location === undefined ? {} : _ref$location.replace(/_/g, ' ');;
 
               return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },

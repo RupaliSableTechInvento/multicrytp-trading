@@ -111,7 +111,7 @@ var tradeController = _defineProperty({
                 skip = perpage * (page - 1);
                 console.log("perpage page skip=>", perpage, page, skip);
               }
-              amount = req.query.query.amount;
+              amount = parseInt(req.query.query.amount);
               cryptoCurrency = req.query.query.cryptoCurrency;
               location = req.query.query.location;
               tradeMethod = req.query.query.tradeMethod;
@@ -120,7 +120,7 @@ var tradeController = _defineProperty({
               currency = req.query.query.currency;
               // 'more_information.currency': currency,
 
-              console.log("trader type   amount=>>", traderType, amount);
+              console.log("getQuickByCryptocurrency=>>", req.query.query);
 
               _postatrade2.default.find({
                 cryptoCurrency: cryptoCurrency,

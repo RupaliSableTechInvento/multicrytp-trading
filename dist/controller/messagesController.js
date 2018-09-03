@@ -82,7 +82,6 @@ module.exports = function (app, io) {
             var tempImgURL = '';
             all_friends = [];
             if (doc) {
-
               var list = doc.friends.slice();
               friends = [];
               arrImgURL = [];

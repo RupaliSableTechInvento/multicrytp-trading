@@ -297,7 +297,9 @@ var usersController = {
       }
     });
   },
-  unfriend: function unfriend(req, res, next) {},
+  unfriend: function unfriend(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+  },
 
   getAll: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {

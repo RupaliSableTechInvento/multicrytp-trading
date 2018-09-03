@@ -63,7 +63,7 @@ const tradeController = {
       skip = perpage * (page - 1);
       console.log("perpage page skip=>", perpage, page, skip);
     }
-    var amount = req.query.query.amount;
+    var amount = parseInt(req.query.query.amount);
     var cryptoCurrency = req.query.query.cryptoCurrency;
     var location = req.query.query.location;
     var tradeMethod = req.query.query.tradeMethod;
@@ -71,7 +71,7 @@ const tradeController = {
     var payment_method = req.query.query.payment_method;
     var currency = req.query.query.currency;
     // 'more_information.currency': currency,
-    console.log("trader type   amount=>>", traderType, amount);
+    console.log("getQuickByCryptocurrency=>>", req.query.query);
 
     postatrade.find({
       cryptoCurrency: cryptoCurrency,

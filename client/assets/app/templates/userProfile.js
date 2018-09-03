@@ -122,6 +122,7 @@ var UserProfile = {};
       var mobile_verified = Data.user.verification.mobile_verified;
       var account_created = moment(Data.user.account_created).format('MMMM Do YYYY');
       var userActiveTime = Data.tokenData.userActiveTime;
+      userActiveTime = userActiveTime === undefined ? '' : userActiveTime;
       var htmlUserName = '';
       htmlUserName += '<label>' + firstName + '</label>' +
         '<span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';

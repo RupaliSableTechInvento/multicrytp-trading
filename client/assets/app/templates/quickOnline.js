@@ -71,8 +71,9 @@ var QuickOnline = {};
       console.log("url params=>", urlParams);
       // currencyUrl = urlParams.currency;
       var currency = urlParams.currency;
+      var cryptoCurrencyCode = urlParams.cryptoCurrencyCode;
       var cryptoCurrency = urlParams.cryptoCurrency;
-      var location = urlParams.country.toLowerCase();
+      var location = urlParams.country;
       var payment_method = urlParams.payment_method;
       payment_method = decodeURI(payment_method);
       var amount = urlParams.amount;
@@ -176,8 +177,13 @@ var QuickOnline = {};
           },
           {
             field: "",
-            template: function(field, type, row) {
-              return field.online_selling.payment_details + ' ' + field.location;
+            template: function(_ref) {
+              var _ref$payment_method = _ref.payment_method;
+              _ref$payment_method = _ref$payment_method === undefined ? '' : _ref$payment_method;
+              var _ref$location = _ref.location;
+              _ref$location = _ref$location === undefined ? '' : _ref$location.replace(/_/g, ' ');
+
+              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
             title: "Payment Method",
             width: 250,
@@ -187,31 +193,35 @@ var QuickOnline = {};
           },
           {
             field: "more_information.price_equation",
-            template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.more_information.price_equation = '';
-              }
 
-              return field.more_information.price_equation;
+            template: function(_ref) {
+              var _ref$more_information = _ref.more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
+              console.log("more_information OB==>", _ref, _ref$more_information);
+              var price_equation = _ref$more_information.price_equation;
+              price_equation = parseFloat(price_equation);
+              var currency = _ref$more_information.currency;
+              return `<div>` + (price_equation.toFixed(2) || 0) + `</div>
+              <div>` + (currency || '') + `</div>
+               `;
+
             },
 
-            //add cryptoCurrencyCode
-            title: "price/BTC",
+            title: 'Price/' + cryptoCurrencyCode,
             sortable: false,
             width: 80,
             textAlign: 'center'
           },
           {
             field: "more_information.max_trans_limit",
-            template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
-                field.more_information.min_trans_limit = '';
-              }
-              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
-                field.more_information.max_trans_limit = '';
-              }
-
-              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            template: function(field) {
+              console.log("more_information field=>", field);
+              var _ref$more_information = field.more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
+              console.log("more_information1==>", _ref$more_information);
+              var min_trans_limit = _ref$more_information.min_trans_limit;
+              var max_trans_limit = _ref$more_information.max_trans_limit;
+              return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
             },
             title: "Limits",
             width: 80,

@@ -301,6 +301,7 @@ const usersController = {
     })
   },
   unfriend: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
 
   },
 
