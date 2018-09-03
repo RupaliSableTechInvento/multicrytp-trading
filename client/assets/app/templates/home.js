@@ -237,9 +237,9 @@ var Home = {};
 
             template: function(_ref) {
               var _ref$payment_method = _ref.payment_method;
-              _ref$payment_method = _ref$payment_method === undefined ? {} : _ref$payment_method;
+              _ref$payment_method = _ref$payment_method === undefined ? '' : _ref$payment_method;
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? {} : _ref$location;
+              _ref$location = _ref$location === undefined ? '' : _ref$location;
 
               return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
@@ -255,7 +255,7 @@ var Home = {};
 
             template: function(_ref) {
               var _ref$more_information = _ref.more_information;
-              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
               console.log("more_information OB==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
@@ -276,7 +276,7 @@ var Home = {};
             template: function(field) {
               console.log("more_information field=>", field);
               var _ref$more_information = field.more_information;
-              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
               console.log("more_information1==>", _ref$more_information);
               var min_trans_limit = _ref$more_information.min_trans_limit;
               var max_trans_limit = _ref$more_information.max_trans_limit;
@@ -370,7 +370,7 @@ var Home = {};
             field: "",
             template: function(_ref) {
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? {} : _ref$location;
+              _ref$location = _ref$location === undefined ? '' : _ref$location;
 
               return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
             },
@@ -386,7 +386,7 @@ var Home = {};
             field: "more_information.price_equation",
             template: function(_ref) {
               var _ref$more_information = _ref.more_information;
-              _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
               console.log("more_information LB==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
