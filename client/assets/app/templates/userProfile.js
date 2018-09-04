@@ -64,7 +64,10 @@ var UserProfile = {};
 
 
         console.log("TOken is not present");
-        $("#divTrust").off("click");
+        $('#trustBtn').attr('disabled', true)
+
+        $('#sendFriendReq').attr('disabled', true)
+          // $("#divTrust").off("click");
         $('#divLoginSignup').removeClass('hidden');
         // $("#userNotTrusted").children().attr('disabled', 'disabled');
 
@@ -109,7 +112,7 @@ var UserProfile = {};
         }
       })
 
-      $('#userNotTrusted').unbind().click(function() {
+      $('#trustBtn').unbind().click(function() {
         $(this).hide();
 
         var isToken = GlobalEvent.checkIfToken(token)
@@ -122,7 +125,7 @@ var UserProfile = {};
           })
 
         }
-        $('#userTrusted').show();
+        $('#userTrustedBtn').show();
       })
 
     },
@@ -148,10 +151,10 @@ var UserProfile = {};
       $('#userName').html(htmlUserName);
       $('#email').append(email_verified);
       $('#Phone_number').append(mobile_verified);
-      $('#trustUser').html('Trust' + firstName);
-      $('#AlreadytrustUser').html('Already Trusting  <br>' + firstName);
+      $('#trustBtn').html('Trust  ' + firstName);
+      $('#userTrustedBtn').html('Already Trusting ' + firstName);
       $('#account_created').append(account_created);
-      $('#userNotTrusted').attr('trustUserTo', Data.user.email);
+      $('#trustBtn').attr('trustUserTo', Data.user.email);
       $('#frndReqModalTitle').html("Are you sure you want to connect to" + firstName);
 
       var isToken = GlobalEvent.checkIfToken(token)
@@ -160,20 +163,21 @@ var UserProfile = {};
           for (let index = 0; index < trustBy.length; index++) {
             console.log("Friendlist==>", trustBy[index], Data.user.email);
             if (trustBy[index].senderEmail.trim() == localStorage.getItem('email')) {
-              $('#userNotTrusted').hide();
 
-              $('#userTrusted').show();
+              $('#trustBtn').hide();
+              $('#userTrustedBtn').show();
               console.log("Friends True ==>>");
             } else {
-              $('#userNotTrusted').show();
+              $('#trustBtn').show();
             }
           }
 
         }
       } else {
-        $("#divTrust").off("click");
-        $("#divRequest").off("click");
-        // $('#userNotTrusted').hide();
+        $('#trustBtn').attr('disabled', true)
+        $('#sendFriendReq').attr('disabled', true)
+          // $("#divRequest").off("click");
+          // $('#userNotTrusted').hide();
       }
 
       if (friendsList.length > 0) {

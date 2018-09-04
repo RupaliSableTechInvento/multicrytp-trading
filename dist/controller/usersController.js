@@ -96,18 +96,21 @@ var usersController = {
   turstUser: function turstUser(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
 
-    var turstUserTo = req.body.turstUserTo;
+    var trustUserTo = req.body.trustUserTo;
+    console.log("turstUser==>", req.body);
+
     var dataObj = {
       senderEmail: decoded.email,
       senderFirstName: decoded.first_name,
       status: 'trust'
     };
-    console.log("turstUser==>", turstUserTo, dataObj);
+    console.log("turstUser==>", trustUserTo, dataObj);
 
-    _usersModel2.default.find({ 'email': turstUserTo }, function (errParent, resultParent) {
+    _usersModel2.default.find({ 'email': trustUserTo }, function (errParent, resultParent) {
+
       if (!errParent) {
         var turstByList = resultParent[0].turstBy || [];
-        console.log("turstByList==>", turstByList);
+        console.log("turstByList==> resultParent", turstByList);
         var isFound = turstByList.find(function (item) {
           return item.senderEmail == decoded.email;
         });
@@ -121,8 +124,8 @@ var usersController = {
         if (!isFound || turstByList.length === 0) {
           console.log("not found");
           _usersModel2.default.findOneAndUpdate({
-            'email': turstUserTo
-          }, { $push: { turstBy: dataObj } }, {
+            'email': trustUserTo
+          }, { $push: { 'turstBy': dataObj } }, {
             upsert: true
           }, function (err, users) {
             if (err) return res.json({
@@ -155,34 +158,37 @@ var usersController = {
       if (!err) {
         console.log("friends list", result);
         var friendsList = result[0].friends;
-        friendsList.forEach(function (item, index) {
-          if (item.senderEmail == blockUserTo) {
-            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
-              $set: _defineProperty({}, 'friends.' + index + '.status', 'Blocked')
-            }, function (errBlock, resultFriend) {
+        if (friendsList) {
 
-              if (errBlock) return res.json({
-                isError: true,
-                data: err
-              });
+          friendsList.forEach(function (item, index) {
+            if (item.senderEmail == blockUserTo) {
+              _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+                $set: _defineProperty({}, 'friends.' + index + '.status', 'Blocked')
+              }, function (errBlock, resultFriend) {
 
-              _usersModel2.default.findOneAndUpdate({
-                'email': blockUserTo
-              }, { $push: { blockBy: dataObj } }, {
-                upsert: true
-              }, function (err, users) {
-                if (err) return res.json({
+                if (errBlock) return res.json({
                   isError: true,
                   data: err
                 });
-                res.json({
-                  isError: false,
-                  data: result
+
+                _usersModel2.default.findOneAndUpdate({
+                  'email': blockUserTo
+                }, { $push: { blockBy: dataObj } }, {
+                  upsert: true
+                }, function (err, users) {
+                  if (err) return res.json({
+                    isError: true,
+                    data: err
+                  });
+                  res.json({
+                    isError: false,
+                    data: result
+                  });
                 });
               });
-            });
-          }
-        });
+            }
+          });
+        }
       }
     });
   },
@@ -269,7 +275,7 @@ var usersController = {
         var friendsList = result[0].friends;
         friendsList.forEach(function (item, index) {
           if (item.senderEmail == senderEmail) {
-            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', senderEmail), {
               $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
             }, function (errFriend, resultFriend) {
 

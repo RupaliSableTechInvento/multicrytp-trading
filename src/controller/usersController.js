@@ -80,18 +80,21 @@ const usersController = {
   turstUser: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
 
-    var turstUserTo = req.body.turstUserTo
+    var trustUserTo = req.body.trustUserTo
+    console.log("turstUser==>", req.body);
+
     var dataObj = {
       senderEmail: decoded.email,
       senderFirstName: decoded.first_name,
       status: 'trust'
     }
-    console.log("turstUser==>", turstUserTo, dataObj);
+    console.log("turstUser==>", trustUserTo, dataObj);
 
-    usersModel.find({ 'email': turstUserTo }, (errParent, resultParent) => {
+    usersModel.find({ 'email': trustUserTo }, (errParent, resultParent) => {
+
       if (!errParent) {
         var turstByList = resultParent[0].turstBy || [];
-        console.log("turstByList==>", turstByList);
+        console.log("turstByList==> resultParent", turstByList);
         var isFound = turstByList.find((item) => item.senderEmail == decoded.email);
         if (isFound) {
           res.json({
@@ -103,8 +106,8 @@ const usersController = {
         if (!isFound || turstByList.length === 0) {
           console.log("not found");
           usersModel.findOneAndUpdate({
-            'email': turstUserTo
-          }, { $push: { turstBy: dataObj } }, {
+            'email': trustUserTo
+          }, { $push: { 'turstBy': dataObj } }, {
             upsert: true
           }, (err, users) => {
             if (err) return res.json({
@@ -137,42 +140,45 @@ const usersController = {
       if (!err) {
         console.log("friends list", result);
         var friendsList = result[0].friends;
-        friendsList.forEach((item, index) => {
-          if (item.senderEmail == blockUserTo) {
-            usersModel.findOneAndUpdate({
-              [`friends.${index}.senderEmail`]: item.senderEmail
-            }, {
-              $set: {
-                [`friends.${index}.status`]: 'Blocked'
-              }
-            }, (errBlock, resultFriend) => {
-
-              if (errBlock) return res.json({
-                isError: true,
-                data: err
-              });
+        if (friendsList) {
 
 
+          friendsList.forEach((item, index) => {
+            if (item.senderEmail == blockUserTo) {
               usersModel.findOneAndUpdate({
-                'email': blockUserTo
-              }, { $push: { blockBy: dataObj } }, {
-                upsert: true
-              }, (err, users) => {
-                if (err) return res.json({
+                [`friends.${index}.senderEmail`]: item.senderEmail
+              }, {
+                $set: {
+                  [`friends.${index}.status`]: 'Blocked'
+                }
+              }, (errBlock, resultFriend) => {
+
+                if (errBlock) return res.json({
                   isError: true,
                   data: err
                 });
-                res.json({
-                  isError: false,
-                  data: result
+
+
+                usersModel.findOneAndUpdate({
+                  'email': blockUserTo
+                }, { $push: { blockBy: dataObj } }, {
+                  upsert: true
+                }, (err, users) => {
+                  if (err) return res.json({
+                    isError: true,
+                    data: err
+                  });
+                  res.json({
+                    isError: false,
+                    data: result
+                  });
                 });
-              });
 
 
-            })
-          }
-        })
-
+              })
+            }
+          })
+        }
 
       }
     })
@@ -274,7 +280,7 @@ const usersController = {
         friendsList.forEach((item, index) => {
           if (item.senderEmail == senderEmail) {
             usersModel.findOneAndUpdate({
-              [`friends.${index}.senderEmail`]: item.senderEmail
+              [`friends.${index}.senderEmail`]: senderEmail
             }, {
               $set: {
                 [`friends.${index}.status`]: 'Friend'
