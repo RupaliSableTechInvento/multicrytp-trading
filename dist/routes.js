@@ -102,6 +102,10 @@ var routes = function routes(route) {
 
   route.route('/getTrade').get(_tradeController2.default.getTrade);
 
+  route.route('/unfriend').post(_usersController2.default.unfriend);
+
+  route.route('/blockUser').post(_usersController2.default.blockUser);
+  route.route('/turstUser').post(_usersController2.default.turstUser);
   route.route('/getQuickByCryptocurrency').get(_tradeController2.default.getQuickByCryptocurrency);
 
   route.route('/recoverPassword').post(_usersController2.default.recoverPassword);

@@ -228,6 +228,39 @@ var API = {
     })
 
   },
+
+  blockUser: function(token, blockUserTo, cb) {
+    $.ajax({
+      url: "/blockUser",
+      type: "post",
+      data: { blockUserTo: blockUserTo },
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("blockUser api =>", err);
+      }
+    })
+  },
+  turstUser: function(token, trustUserTo, cb) {
+    $.ajax({
+      url: "/turstUser",
+      type: "post",
+      data: { trustUserTo: trustUserTo },
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("turstUser api =>", err);
+      }
+    })
+  },
   getFriendsList: function(token, cb) {
     $.ajax({
       url: "/getFriendsList",

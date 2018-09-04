@@ -149,7 +149,7 @@ const tradeController = {
     var location = req.query.query.subQuery.location;
     var tradeMethod = req.query.query.tradeMethod;
     var traderType = req.query.query.traderType;
-    console.log(cryptoCurrency, location, tradeMethod, traderType);
+    // console.log(cryptoCurrency, location, tradeMethod, traderType);
     if (location) {
       query = {
         cryptoCurrency: cryptoCurrency,

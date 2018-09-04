@@ -46,7 +46,12 @@ var usersSchema = new _mongoose2.default.Schema({
   },
   friends: {
     type: Array
-
+  },
+  trustBy: {
+    type: Array
+  },
+  blockBy: {
+    type: Array
   },
   email: {
     type: String,

@@ -114,7 +114,14 @@ const routes = (route) => {
     .get(tradeController.getTrade);
 
 
+  route.route('/unfriend')
+    .post(usersController.unfriend);
 
+
+  route.route('/blockUser')
+    .post(usersController.blockUser);
+  route.route('/turstUser')
+    .post(usersController.turstUser);
   route.route('/getQuickByCryptocurrency')
     .get(tradeController.getQuickByCryptocurrency);
 

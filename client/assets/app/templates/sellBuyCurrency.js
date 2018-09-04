@@ -74,7 +74,7 @@ var SellBuyCurrency = {};
       $(".Opening_hours").append(htmlTradeHeader);
     },
 
-    setPrice: function(price, code) {
+    setPrice: function(price, currency, cryptoCurrencyCode) {
       var price = _core.chkNullValue(price);
 
       if (price == undefined || '') {
@@ -85,7 +85,7 @@ var SellBuyCurrency = {};
       }
       var htmlTradeHeader = '';
       htmlTradeHeader += ' <a href="#" class="m-widget2__link">' +
-        price + ' INR /' + code +
+        price + currency + ' /' + cryptoCurrencyCode +
         '</a>';
       /*  htmlTradeHeader += '<div class="col-md-4">' +
          ' <h4>Price:</h4>' +
@@ -106,14 +106,14 @@ var SellBuyCurrency = {};
         '</p>'
       $(".payment_method").append(htmlTradeHeader);
     },
-    setUser: function(user, user_id, currency) {
+    setUser: function(user, user_id, cryptoCurrency) {
       var htmlTradeHeader = '';
 
       // $('#userPopUP').popover({ html: true });
 
       htmlTradeHeader +=
         '<p>' +
-        '<a href="#/userProfile?id=' + user_id + '&currency=' + currency + '">' + user + '</a>' +
+        '<a href="#/userProfile?id=' + user_id + '&currency=' + cryptoCurrency + '">' + user + '</a>' +
         '</p>';
 
       /*  htmlTradeHeader += '<i class="fa fa-user">' + '</i>' +
@@ -125,76 +125,72 @@ var SellBuyCurrency = {};
       $(".username").append(htmlTradeHeader);
 
     },
-    setTradeLimits: function(max_trans_limit, min_trans_limit) {
-      var max_trans_limit = _core.chkNullValue(max_trans_limit);
-      var min_trans_limit = _core.chkNullValue(min_trans_limit);
+    setTradeLimits: function(max_trans_limit, min_trans_limit, currency) {
+      var _ref$max_trans_limit = max_trans_limit;
+      var _ref$min_trans_limit = min_trans_limit;
+      _ref$max_trans_limit = _ref$max_trans_limit === undefined || '' ? 0 : _ref$max_trans_limit;
+      _ref$min_trans_limit = _ref$min_trans_limit === undefined || '' ? 0 : _ref$min_trans_limit;
+      // = max_trans_limit = max_trans_limit === undefined || '' ? 0 : max_trans_limit;
+      // var min_trans_limit = min_trans_limit = min_trans_limit === undefined || '' ? 0 : min_trans_limit;
 
       var htmlTradeHeader = '';
-      htmlTradeHeader += '<p>' + min_trans_limit +
+      htmlTradeHeader += '<p>' + _ref$min_trans_limit +
         '-' +
-        max_trans_limit +
-        ' INR</p>';
+        _ref$max_trans_limit + ' ' +
+        currency + '</p>';
       $(".trade_limits").append(htmlTradeHeader);
 
       htmlTradeHeader = '';
-      htmlTradeHeader += ' The biggest amount you can sell to this ad is  ' + max_trans_limit + ' INR.';
+      htmlTradeHeader += ' The biggest amount you can sell to this ad is  ' + _ref$max_trans_limit + ' INR.';
       $("#under_min_error").append(htmlTradeHeader);
 
       htmlTradeHeader = '';
-      htmlTradeHeader += 'The smallest amount you can sell to this ad is  ' + min_trans_limit + '    INR.';
+      htmlTradeHeader += 'The smallest amount you can sell to this ad is  ' + _ref$min_trans_limit + '    INR.';
       $("#over_max_error").append(htmlTradeHeader);
     },
-    setLocation: function(location) {
+    setLocation: function(location, cryptoCurrency, cryptoCurrencyCode) {
       console.log("location", location)
       var htmlTradeHeader = '';
-      htmlTradeHeader += '<p>' +
-        '<a href="/country/GB">' + location + '</a>' +
-        '</p>'
+      htmlTradeHeader += `<p>` +
+        `<a href=./#/?cryptoCurrency=` + cryptoCurrency + `&code=` + cryptoCurrencyCode + `&location=` + location + `> ` + location + `</a></p>`;
       $(".location").append(htmlTradeHeader);
     },
-    verifyTrader: function(currency, traderType, location, payment_details, user, tradeMethod, code) {
-      var currency = _core.chkNullValue(currency);
+    verifyTrader: function(cryptoCurrency, traderType, location, payment_details, user, tradeMethod, code) {
+      var cryptoCurrency = _core.chkNullValue(cryptoCurrency);
       var location = _core.chkNullValue(location);
       var payment_details = _core.chkNullValue(payment_details);
       var tradeMethod = _core.chkNullValue(tradeMethod);
       var user = _core.chkNullValue(user);
 
-      console.log("To set Header currency, location, payment_details, tradeMethod, user==>", currency, location, payment_details, tradeMethod, user);
-      /*  tradeMethod: 'LOCAL',
-       traderType: 'SELL' */
+      console.log("To set Header currency, location, payment_details, tradeMethod, user==>", cryptoCurrency, location, payment_details, tradeMethod, user);
+
       var htmlTradeHeader = '';
       if (tradeMethod == 'ONLINE') {
+
+        $('.paymentWindow').removeClass('hidden');
         $('.paymentWindow').show();
         if (traderType == 'SELL') {
-          // $('.Opening_hours_main').show();
           htmlTradeHeader +=
             '<h3 class="m-portlet__head-text">' + ' ' +
-            'Buy ' + currency + ' using' + ' ' + payment_details + ' ' + location + ' ' + '  with Indian Rupee (INR)' +
+            'Buy ' + cryptoCurrency + ' using' + ' ' + payment_details + ' ' + location + ' ' + '  with Indian Rupee (INR)' +
             '</h3> ';
-          // 'LocalBitcoins.com' + ' user' + ' <i>' +
-          // user + '  ' +
-          // '</i>' + ' wishes to buy bitcoins from you.';
+
         } else {
-          // $('.Opening_hours_main').hide();
+
 
           htmlTradeHeader +=
             '<h3 class="m-portlet__head-text ">' + ' ' +
-            'Buy' + ' ' + currency + ' using' + ' ' + payment_details + '  Transfer   ' + location + ' ' + '  with Indian Rupee (INR)' +
+            'Buy' + ' ' + cryptoCurrency + ' using' + ' ' + payment_details + '  Transfer   ' + location + ' ' + '  with Indian Rupee (INR)' +
             '</h3>';
-          //   '<p class="ad-description">' +
-          //   'LocalBitcoins.com' + ' user' + ' <i>' +
-          //   user + '  ' +
-          //   '</i>' + ' wishes to sell bitcoins to you.'
-          // '</p>';
+
         }
 
       } else {
         if (traderType == 'SELL') {
-          // $('.Opening_hours_main').hide();
 
           htmlTradeHeader +=
             '<h3  class="m-portlet__head-text ">' + ' ' +
-            'Sell your ' + currency + '  ' + '  with cash' +
+            'Sell your ' + cryptoCurrency + '  ' + '  with cash' +
             '</h3> ';
           //   '<p class="ad-description">' +
           //   'LocalBitcoins.com' + ' user' + ' <i>' +
@@ -204,13 +200,9 @@ var SellBuyCurrency = {};
         } else {
           // $('.Opening_hours_main').show();
           htmlTradeHeader += '<h3 class="m-portlet__head-text ">' + ' ' +
-            'Buy' + ' ' + currency + '  with cash ' +
+            'Buy' + ' ' + cryptoCurrency + '  with cash ' +
             '</h3> ';
-          //   '<p class="ad-description">' +
-          //   'LocalBitcoins.com' + ' user' + ' <i>' +
-          //   user + '  ' +
-          //   '</i>' + ' wishes to sell bitcoins to you.'
-          // '</p>';
+
         }
       }
       $(".headTitle").append(htmlTradeHeader);
@@ -262,12 +254,15 @@ var SellBuyCurrency = {};
         }
         var token = localStorage.getItem('token');
 
-        _core.getCurrencySellerBuyerInfo(message, token, function(res) {
-          if (res) {
-            console.log("response when msg send");
-          }
+        var isToken = GlobalEvent.checkIfToken(token)
+        if (isToken) {
+          _core.getCurrencySellerBuyerInfo(message, token, function(res) {
+            if (res) {
+              console.log("response when msg send");
+            }
+          })
+        }
 
-        })
 
       })
 
@@ -280,9 +275,11 @@ var SellBuyCurrency = {};
       })
       var urlParams = _core.getUrlVars();
       var id = urlParams.id;
-      var code = urlParams.code;
 
-      console.log("User id=>", id, code);
+      var cryptoCurrencyCode = urlParams.cryptoCurrencyCode;
+      var currency = urlParams.currency;
+
+      console.log("User id=>", id, cryptoCurrencyCode);
       _core.getCurrencySellerBuyerInfo(id, function(res) {
         if (res) {
           console.log("response from getCurrencySellerBuyerInfo", res);
@@ -291,9 +288,9 @@ var SellBuyCurrency = {};
             console.log("response from getCurrencySellerBuyerInfo", res.isError);
           }
           var data = res.data;
-          var currency = data.cryptoCurrency.toLowerCase();
-          var traderType = data.traderType.toLowerCase();
-          var location = data.location.toLowerCase();
+          var cryptoCurrency = data.cryptoCurrency;
+          var traderType = data.traderType;
+          var location = data.location;
           var payment_details = data.payment_method;
           var user_id = data.user;
           var user = data.firstName;
@@ -305,14 +302,21 @@ var SellBuyCurrency = {};
           var terms_of_trade = data.more_information.terms_of_trade;
           var opening_hours = data.more_information.opening_hours;
           $('#ad_paymentMethod').append(payment_details);
+          if (data.payment_window) {
+            var payment_window = data.payment_window;
+            var hours = Math.floor(parseInt(payment_window) / 60);
+            var minutes = parseInt(payment_window) % 60;
+            $('#paymentWindow').html(hours + ' hour and ' + minutes + ' minutes.');
+          }
 
-          _core.verifyTrader(currency, traderType, location, payment_details, user, tradeMethod);
-          _core.setPrice(price, code);
-          _core.setLocation(location);
+          _core.verifyTrader(cryptoCurrency, traderType, location, payment_details, user, tradeMethod);
+          _core.setPrice(price, currency, cryptoCurrencyCode);
+          _core.setLocation(location, cryptoCurrency, cryptoCurrencyCode);
           _core.setOpeninghours(opening_hours);
-          _core.setUser(user, user_id, currency);
+          _core.setUser(user, user_id, cryptoCurrency);
           _core.setTerms(terms_of_trade, user);
-          _core.setTradeLimits(max_trans_limit, min_trans_limit);
+          _core.setTradeLimits(max_trans_limit, min_trans_limit, currency);
+
         }
       })
 

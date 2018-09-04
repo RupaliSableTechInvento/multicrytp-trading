@@ -521,6 +521,8 @@ var PostATrade = {};
       $('#btn_publish_advertisement').unbind().click(function() {
         btn = $(this);
         form = $(this).closest('form');
+        console.log("payment window=>", $("#ad-payment_window_minutes").val());
+
         btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
         var more_information = {};
         var terms_of_trade = CKEDITOR.instances.editor1.getData();
@@ -575,21 +577,19 @@ var PostATrade = {};
               "more_information.opening_hours.saturday.end": sat_end,
               "online_selling.payment_details": $("#ad-account_info").val(),
               "online_selling.minimum_volume": $("#ad-require_trade_volume").val(),
-
               "online_selling.minimum_feedback": $("#ad-require_feedback_score").val(),
-
               "online_selling.new_buyer_limit": $("#ad-first_time_limit_btc").val(),
               "online_selling.transaction_volume_coefficient": $("#ad-volume_coefficient_btc").val(),
               "online_selling.display_reference": $("#id_ad-display_reference").is(':checked'),
               "online_selling.reference_type": reference_type,
-              " payment_window": $("#ad-payment_window_minutes").val(),
+              "payment_window": $("#ad-payment_window_minutes").val(),
               "liquidity_options.track_liquidity": $("#ad-track_max_amount").is(':checked'),
               "security_options.identified_people_only": $("#ad-require_identification ").is(':checked'),
               "security_options.identify_user_before": $("#ad-require_p2p_identification").is(':checked'),
               "security_options.real_name_required": $("#ad-real_name_required").is(':checked'),
               "security_options.sms_verification_required": $("#ad-sms_verification_required").is(':checked'),
               "security_options.trusted_people_only": $("#ad-require_trusted_by_advertiser ").is(':checked'),
-              "user": localStorage.getItem('user_id') || null
+              "user": localStorage.getItem('user_id') || null,
             }
             var token = localStorage.getItem('token');
 

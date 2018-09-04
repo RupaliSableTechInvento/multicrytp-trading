@@ -65,35 +65,38 @@ var RecoverPassword = {};
         var token = temp.split('=')[1];
         console.log("token", token);
 
+        var isToken = GlobalEvent.checkIfToken(token)
+        if (isToken) {
+          _core.recoverPassword($('#password').val(), token, function(res) {
 
-        _core.recoverPassword($('#password').val(), token, function(res) {
+            if (res) {
 
-          if (res) {
+              if (res.isError) {
+                setTimeout(function() {
+                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                  _core.showErrorMsg(form, 'danger', 'Unable to reset your password."' + res.data + '" ');
 
-            if (res.isError) {
-              setTimeout(function() {
-                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                _core.showErrorMsg(form, 'danger', 'Unable to reset your password."' + res.data + '" ');
+                }, 2000)
 
-              }, 2000)
+              } else {
+                setTimeout(function() {
+                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                  form.clearForm();
+                  form.validate().resetForm();
+                  _core.showErrorMsg(form, 'success', 'Your password reset sucessfully. please login');
+                }, 2000);
 
-            } else {
-              setTimeout(function() {
-                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                form.clearForm();
-                form.validate().resetForm();
-                _core.showErrorMsg(form, 'success', 'Your password reset sucessfully. please login');
-              }, 2000);
+                window.location.href = "#/login";
+                console.log("res", res);
 
-              window.location.href = "#/login";
-              console.log("res", res);
+              }
+
 
             }
 
+          })
 
-          }
-
-        })
+        }
 
 
 

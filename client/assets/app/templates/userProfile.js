@@ -14,6 +14,7 @@ var UserProfile = {};
     userProfile: API.userProfile,
     friendReq: API.friendReq,
     getFriendsList: API.getFriendsList,
+    turstUser: API.turstUser,
 
     getUrlVars: function() {
       var vars = [],
@@ -61,8 +62,7 @@ var UserProfile = {};
         })
       } else {
 
-        // $("#sendFriendReq").attr('disabled', 'disabled');
-        // $("#divRequest").off("click");
+
         console.log("TOken is not present");
         $("#divTrust").off("click");
         $('#divLoginSignup').removeClass('hidden');
@@ -111,17 +111,36 @@ var UserProfile = {};
 
       $('#userNotTrusted').unbind().click(function() {
         $(this).hide();
+
+        var isToken = GlobalEvent.checkIfToken(token)
+        if (isToken) {
+          var trustUserTo = $(this).attr('trustUserTo');
+          _core.turstUser(token, trustUserTo, function(res) {
+            if (res) {
+              console.log("turstUser res==>", res);
+            }
+          })
+
+        }
         $('#userTrusted').show();
       })
 
     },
     SetUserData: function(Data) {
+      var userActiveTime = '';
       var firstName = Data.user.first_name;
       var last_name = Data.user.last_name;
+      var trustBy = Data.user.trustBy;
       var email_verified = Data.user.verification.email_verified;
       var mobile_verified = Data.user.verification.mobile_verified;
       var account_created = moment(Data.user.account_created).format('MMMM Do YYYY');
-      var userActiveTime = Data.tokenData.userActiveTime;
+      if (Data.tokenData) {
+        userActiveTime = Data.tokenData.userActiveTime;
+        $('#last_seen').html(moment(userActiveTime).format('LLLL'));
+
+      } else {
+        $('#last_seen').html('  ')
+      }
       userActiveTime = userActiveTime === undefined ? '' : userActiveTime;
       var htmlUserName = '';
       htmlUserName += '<label>' + firstName + '</label>' +
@@ -129,12 +148,25 @@ var UserProfile = {};
       $('#userName').html(htmlUserName);
       $('#email').append(email_verified);
       $('#Phone_number').append(mobile_verified);
-      // $('#trustUser').append('Trust    <br>' + firstName);
       $('#trustUser').html('Trust' + firstName);
       $('#AlreadytrustUser').html('Already Trusting  <br>' + firstName);
       $('#account_created').append(account_created);
-      $('#last_seen').append(moment(userActiveTime).format('LLLL'));
+      $('#userNotTrusted').attr('trustUserTo', Data.user.email);
       $('#frndReqModalTitle').html("Are you sure you want to connect to" + firstName);
+      if (trustBy.length > 0) {
+        for (let index = 0; index < trustBy.length; index++) {
+          console.log("Friendlist==>", trustBy[index], Data.user.email);
+          if (trustBy[index].senderEmail.trim() == localStorage.getItem('email')) {
+            $('#userNotTrusted').hide();
+
+            $('#userTrusted').show();
+            console.log("Friends True ==>>");
+          } else {
+            $('#userNotTrusted').show();
+          }
+        }
+
+      }
       if (friendsList.length > 0) {
         for (let index = 0; index < friendsList.length; index++) {
           console.log("Friendlist==>", friendsList[index], Data.user.email);
@@ -178,7 +210,6 @@ var UserProfile = {};
               if (isFound) {
                 console.log("Request already sent");
                 $('#allreadyFrndModal').modal('show');
-
                 $("#sendFriendReq").hide();
                 $("#sendUnFriendReq").hide();
                 $("#friendReqAlreadySend").show();
@@ -226,31 +257,13 @@ var UserProfile = {};
           height: 380,
           footer: false
         },
-        /*  sortable: true,
-         filterable: false,
-         pagination: true, */
+
         columns: [{
             field: "firstName",
             template: function(field, type, row) {
-              //   for (let index = 0; index < activeUSer.length; index++) {
-              //     // console.log("field.firstName", field.firstName, index, activeUSer[index].name);
-              //     if (Date(activeUSer[index].userActiveTime) <= before) {
-              //       // console.log("time matched", Date(activeUSer[index].userActiveTime), before);
-              //     }
-              //     if (activeUSer[index].name == field.firstName) {
-              //       // console.log("activeUSer[index].name in if", activeUSer[index].name);
-              //       return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
-              //     }
-              //   }
+
               return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
             },
-            /*   template: function(field, type, row) {
-                    if (field.firstName === ({ $in: activeUSer })) {
-                      return field.firstName + '  active';
-    
-                    }
-                    return field.firstName + '  inactive';
-                  }, */
             title: "Seller",
             sortable: false,
             width: 100,
@@ -258,16 +271,15 @@ var UserProfile = {};
           },
           {
             field: "",
-            template: function(field, type, row) {
-              if (field.payment_method == undefined || '') {
-                field.payment_method = '';
-              }
-              if (field.location == undefined || '') {
-                field.location = '';
-              }
 
-              return field.payment_method + ' :' + field.location;
+            template: function(_ref) {
+              var _ref$payment_method = _ref.payment_method;
+              _ref$payment_method = _ref$payment_method === undefined ? '' : _ref$payment_method;
+              var _ref$location = _ref.location;
+              _ref$location = _ref$location === undefined ? '' : _ref$location.replace(/_/g, ' ');
+              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + _ref.cryptoCurrency + '&location=' + _ref.location + '> ' + _ref$location + '</a>';
             },
+
             title: "Payment Method",
             sortable: false,
             width: 250,
@@ -278,33 +290,35 @@ var UserProfile = {};
           {
             field: "more_information.price_equation",
 
-            template: function(field, type, row) {
-              if (field.more_information.price_equation == undefined || '' || isNaN(field.more_information.price_equation)) {
-                field.more_information.price_equation = '';
-              } else {
-                var priceTemp = field.more_information.price_equation;
-                var price = Number(priceTemp).toFixed(2);
-                return price;
-              }
+
+            template: function(_ref) {
+              var _ref$more_information = _ref.more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
+              console.log("more_information OB==>", _ref, _ref$more_information);
+              var price_equation = _ref$more_information.price_equation;
+              price_equation = parseFloat(price_equation);
+              var currency = _ref$more_information.currency;
+              return `<div>` + (price_equation.toFixed(2) || 0) + `</div>
+              <div>` + (currency || '') + `</div>
+               `;
 
             },
 
-            title: 'Price/' + "",
+            title: 'Price',
             sortable: false,
             width: 100,
             textAlign: 'center'
           },
           {
             field: "more_information.max_trans_limit",
-            template: function(field, type, row) {
-              if (field.more_information.min_trans_limit == undefined || '' || isNaN(field.more_information.min_trans_limit)) {
-                field.more_information.min_trans_limit = 0;
-              }
-              if (field.more_information.max_trans_limit == undefined || '' || isNaN(field.more_information.max_trans_limit)) {
-                field.more_information.max_trans_limit = 0;
-              }
-
-              return field.more_information.min_trans_limit + '-' + field.more_information.max_trans_limit;
+            template: function(field) {
+              console.log("more_information field=>", field);
+              var _ref$more_information = field.more_information;
+              _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
+              console.log("more_information1==>", _ref$more_information);
+              var min_trans_limit = _ref$more_information.min_trans_limit;
+              var max_trans_limit = _ref$more_information.max_trans_limit;
+              return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
             },
             title: "Limits",
             sortable: false,

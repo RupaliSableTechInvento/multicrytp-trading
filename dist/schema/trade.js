@@ -163,7 +163,8 @@ var postTradeSchema = new _mongoose2.default.Schema({
     }
   },
   payment_window: {
-    type: String
+    type: String,
+    default: '90'
   },
   liquidity_options: {
     track_liquidity: {

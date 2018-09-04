@@ -309,6 +309,7 @@ const postTradeSchema = new mongoose.Schema({
   },
   payment_window: {
     type: String,
+    default: '90',
   },
   liquidity_options: {
     track_liquidity: {

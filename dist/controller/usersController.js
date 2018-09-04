@@ -92,6 +92,100 @@ var usersController = {
       });
     });
   },
+
+  turstUser: function turstUser(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+
+    var turstUserTo = req.body.turstUserTo;
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'trust'
+    };
+    console.log("turstUser==>", turstUserTo, dataObj);
+
+    _usersModel2.default.find({ 'email': turstUserTo }, function (errParent, resultParent) {
+      if (!errParent) {
+        var turstByList = resultParent[0].turstBy || [];
+        console.log("turstByList==>", turstByList);
+        var isFound = turstByList.find(function (item) {
+          return item.senderEmail == decoded.email;
+        });
+        if (isFound) {
+          res.json({
+            isError: false,
+            isFound: true
+          });
+        }
+        console.log("isfound==>", isFound);
+        if (!isFound || turstByList.length === 0) {
+          console.log("not found");
+          _usersModel2.default.findOneAndUpdate({
+            'email': turstUserTo
+          }, { $push: { turstBy: dataObj } }, {
+            upsert: true
+          }, function (err, users) {
+            if (err) return res.json({
+              isError: true,
+              data: err
+            });
+            res.json({
+              isError: false,
+              data: users
+            });
+          });
+        }
+      }
+    });
+  },
+  blockUser: function blockUser(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var blockUserTo = req.body.blockUserTo;
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'blocked'
+    };
+    console.log("blockUser=>", decoded.email, dataObj);
+
+    var query = {
+      'email': decoded.email
+    };
+    _usersModel2.default.find(query, function (err, result) {
+      if (!err) {
+        console.log("friends list", result);
+        var friendsList = result[0].friends;
+        friendsList.forEach(function (item, index) {
+          if (item.senderEmail == blockUserTo) {
+            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+              $set: _defineProperty({}, 'friends.' + index + '.status', 'Blocked')
+            }, function (errBlock, resultFriend) {
+
+              if (errBlock) return res.json({
+                isError: true,
+                data: err
+              });
+
+              _usersModel2.default.findOneAndUpdate({
+                'email': blockUserTo
+              }, { $push: { blockBy: dataObj } }, {
+                upsert: true
+              }, function (err, users) {
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });
+                res.json({
+                  isError: false,
+                  data: result
+                });
+              });
+            });
+          }
+        });
+      }
+    });
+  },
   setMsgRead: function setMsgRead(req, res, next) {
     // console.log("setMsgRead ==>", req.body, req.query);
     var arrMsgID = [];
@@ -183,10 +277,6 @@ var usersController = {
                 isError: true,
                 data: err
               });
-              // res.json({
-              //   isError: false,
-              //   data: resultFriend
-              // });
 
               var dataObj = {
                 senderEmail: decoded.email,
@@ -299,6 +389,30 @@ var usersController = {
   },
   unfriend: function unfriend(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var unfriendTo = req.body.unfriendTo;
+    var query = {
+      'email': decoded.email
+    };
+    console.log("unfriend==>", query, req.body);
+
+    _usersModel2.default.find(query, function (err, result) {
+      if (!err) {
+        var friendsList = result[0].friends;
+        friendsList.forEach(function (item, index) {
+          if (item.senderEmail == unfriendTo) {
+            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+              $set: _defineProperty({}, 'friends.' + index + '.status', 'unFriend')
+            }, function (errFriend, resultFriend) {
+
+              if (errFriend) return res.json({
+                isError: true,
+                data: err
+              });
+            });
+          }
+        });
+      }
+    });
   },
 
   getAll: function () {

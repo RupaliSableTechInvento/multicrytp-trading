@@ -50,7 +50,8 @@ var GlobalEvent = {
 ((function() {
 
 
-  var friends = []; //Get Friend list 
+  var friends = [];
+  var blockUserList = []; //Get Friend list 
   var arrImgURL = []; //Get friends ImgArray
   var arrNotificationMsgId = []; //Notification msg IDs
 
@@ -220,6 +221,7 @@ var GlobalEvent = {
       });
       socket.on('friend_list', async function(friendListData) {
         friends = [];
+        blockUserList = [];
         arrImgURL = [];
         var userProfile = '',
           friendList = '';
@@ -230,7 +232,10 @@ var GlobalEvent = {
           for (var i = 0; i < friends.length; i++) {
             for (var j = 0; j < arrImgURL.length; j++) {
               if (arrImgURL[j].email === friends[i].senderEmail) {
-                console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
+                // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
+                if (friends[i].status == 'Blocked') {
+                  blockUserList.push(friends[i].senderEmail)
+                }
                 friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
                 <div style="display:inline-flex">
                   <span class="_1gyw" style="height:5px;width:5px"></span>
@@ -290,39 +295,44 @@ var GlobalEvent = {
 
   }
 
-  function blockUser(params) {
-    $('#liBlockUser').unbind().click(function() {
-      var isToken = GlobalEvent.checkIfToken(token)
-      if (isToken) {
-        $.ajax({
-          url: "/blockUser",
-          type: "post",
-          data: params,
-          headers: {
-            "authorization": token,
-          },
-          success: function(successData) {
-            cb(successData)
-          },
-          error: function(err) {
-            console.log("blockUser error =>", err);
-          }
-        })
+  // function blockUser(params) {
+  //   $('#liBlockUser').unbind().click(function() {
+  //     var isToken = GlobalEvent.checkIfToken(token)
+  //     if (isToken) {
+  //       $.ajax({
+  //         url: "/blockUser",
+  //         type: "post",
+  //         data: params,
+  //         headers: {
+  //           "authorization": token,
+  //         },
+  //         success: function(successData) {
+  //           cb(successData)
+  //         },
+  //         error: function(err) {
+  //           console.log("blockUser error =>", err);
+  //         }
+  //       })
 
-      }
-    })
+  //     }
+  //   })
 
-  }
+  // }
 
   function chatPopUP(data) {
     if (totalUnReadMsgsCount <= 0) {
       $('#m_topbar_msgNotification_icon').hide();
     }
+
+    if (blockUser.length > 0) {
+      blockUser.includes(data.data_FrndEmail)
+    }
     var toChatboxId = data.toChatboxId;
     var olUserName = data.olUserName;
     var data_FrndEmail = data.data_FrndEmail;
     var data_userProfile = data.data_userProfile;
-    var newChatHtml = `<div class="popup-box chat-popup popup-box-on qnimate" data-FrndEmail=` + data_FrndEmail + ` id="` + toChatboxId + `">
+    var newChatHtml = `
+    <div class="popup-box chat-popup popup-box-on qnimate" data-FrndEmail=` + data_FrndEmail + ` id="` + toChatboxId + `">
     <div class="popup-head">
       <div class="popup-head-left pull-left">
       <img src=` + data_userProfile + ` width="32"  height="32"alt="iamgurdeeposahan">
@@ -331,11 +341,12 @@ var GlobalEvent = {
         <div class="btn-group">
           <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
           <i class="flaticon-cogwheel-2"></i></i> </button>
-          <ul role="menu" class="dropdown-menu pull-right">
+          <ul role="menu" class="dropdown-menu pull-right" data-FrndEmail=` + data_FrndEmail + `>
             <li><a href="#">Media</a></li>
-            <li id="liBlockUser"><a href="#">Block</a></li>
+            <li class="blockUser"><a href="#">Block</a></li>
+            <li class="unblockUser hidden"><a href="#">Unblock</a></li>
             <li><a href="#">Clear Chat</a></li>
-            <li id="liunfriend"><a href="#">Unfriend</a></li>
+            <li class="unfriendTo" ><a href="#">Unfriend</a></li>
           </ul>
         </div>
         <button data-widget="remove" class="closePopUp chat-header-button pull-right la la-close" type="button"><i class="glyphicon glyphicon-off"></i></button>
@@ -365,6 +376,7 @@ var GlobalEvent = {
         <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
         <button class="bg_none pull-right"><i class="m-nav__link-icon	flaticon-like"></i> </button>
       </div>
+    </div>
     </div>
     </div>`;
     return newChatHtml;
@@ -762,14 +774,51 @@ var GlobalEvent = {
     $('.chatTimeStamp').html(chatTimeStamp);
   }
 
-  function unfriend(params) {
-    $('#liunfriend').unbind().click(function() {
+  function blockUser() {
+    $('.blockUser').unbind().click(function() {
+
       var isToken = GlobalEvent.checkIfToken(token)
+      var blockUserTo = $(this).parents('div .qnimate').attr('data-FrndEmail');
+
+      if (isToken) {
+        $.ajax({
+          url: "/blockUser",
+          type: "post",
+          data: { blockUserTo: blockUserTo },
+          headers: {
+            "authorization": token,
+          },
+          success: function(successData) {
+            console.log("blockUser=>", successData);
+            $(this).children('a').text('Unblock');
+            $(this).addClass('hidden');
+            $('unblockUser').removeClass('hidden')
+
+
+          },
+          error: function(err) {
+            console.log("blockUser error =>", err);
+          }
+        })
+
+      }
+    })
+
+  }
+
+  function unfriend() {
+    $('.unfriendTo').unbind().click(function() {
+
+      var isToken = GlobalEvent.checkIfToken(token)
+      var unfriendTo = $(this).parents('div .qnimate').attr('data-FrndEmail');
+      // var unfriendTo = $(this).attr('data-FrndEmail');
+      console.log("unfriend call==>", token, unfriendTo);
+
       if (isToken) {
         $.ajax({
           url: "/unfriend",
           type: "post",
-          data: params,
+          data: { unfriendTo: unfriendTo },
           headers: {
             "authorization": token,
           },
@@ -861,7 +910,24 @@ var GlobalEvent = {
           data_userProfile: data_userProfile
         };
         newChatHtml = chatPopUP(dataChatPopUp)
+
+
+        if (blockUserList.length > 0) {
+          console.log("blockuser list==>", blockUserList, dataChatPopUp.data_FrndEmail);
+          if (blockUserList.includes(dataChatPopUp.data_FrndEmail)) {
+            console.log("block user found", toChatboxId);
+            $('#' + toChatboxId.trim()).find('.blockUser').addClass('hidden');
+            $('#' + toChatboxId.trim()).find('.unblockUser').removeClass('hidden');
+
+
+          }
+        } else {
+          console.log("blockuser list IS EMPTY==>", blockUserList);
+        }
         $("#chatboxblocks").append(newChatHtml);
+        unfriend();
+        blockUser();
+
       }
       closePopUp(toChatboxId);
       sendMessage(toEmail, toChatboxId);
@@ -942,6 +1008,9 @@ var GlobalEvent = {
         };
         newChatHtml = chatPopUP(dataChatPopUp)
         $("#chatboxblocks").append(newChatHtml);
+        unfriend();
+        blockUser();
+
       }
       closePopUp(toChatboxId);
       $(this).find('.m-list-timeline__time').text('0');

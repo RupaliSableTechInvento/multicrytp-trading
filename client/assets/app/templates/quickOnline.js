@@ -233,7 +233,7 @@ var QuickOnline = {};
             title: "traderType",
 
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '&code=' + cryptoCurrencyCode + '">' +
                 '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                 '</a>';
             }

@@ -75,7 +75,7 @@ module.exports = function(app, io) {
               if (list.length > 0) {
                 console.log("List is not empty");
                 for (var i in list) {
-                  if (list[i].status == "Friend") {
+                  if (list[i].status == "Friend" || list[i].status == "Blocked") {
                     friends.push(list[i]);
                     users.forEach(item => {
                       if (item.email && list[i].senderEmail == item.email) {

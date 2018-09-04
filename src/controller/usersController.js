@@ -76,6 +76,109 @@ const usersController = {
       });
     });
   },
+
+  turstUser: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+
+    var turstUserTo = req.body.turstUserTo
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'trust'
+    }
+    console.log("turstUser==>", turstUserTo, dataObj);
+
+    usersModel.find({ 'email': turstUserTo }, (errParent, resultParent) => {
+      if (!errParent) {
+        var turstByList = resultParent[0].turstBy || [];
+        console.log("turstByList==>", turstByList);
+        var isFound = turstByList.find((item) => item.senderEmail == decoded.email);
+        if (isFound) {
+          res.json({
+            isError: false,
+            isFound: true
+          });
+        }
+        console.log("isfound==>", isFound);
+        if (!isFound || turstByList.length === 0) {
+          console.log("not found");
+          usersModel.findOneAndUpdate({
+            'email': turstUserTo
+          }, { $push: { turstBy: dataObj } }, {
+            upsert: true
+          }, (err, users) => {
+            if (err) return res.json({
+              isError: true,
+              data: err
+            });
+            res.json({
+              isError: false,
+              data: users
+            });
+          });
+        }
+      }
+    })
+  },
+  blockUser: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var blockUserTo = req.body.blockUserTo
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'blocked'
+    }
+    console.log("blockUser=>", decoded.email, dataObj);
+
+    var query = {
+      'email': decoded.email
+    }
+    usersModel.find(query, (err, result) => {
+      if (!err) {
+        console.log("friends list", result);
+        var friendsList = result[0].friends;
+        friendsList.forEach((item, index) => {
+          if (item.senderEmail == blockUserTo) {
+            usersModel.findOneAndUpdate({
+              [`friends.${index}.senderEmail`]: item.senderEmail
+            }, {
+              $set: {
+                [`friends.${index}.status`]: 'Blocked'
+              }
+            }, (errBlock, resultFriend) => {
+
+              if (errBlock) return res.json({
+                isError: true,
+                data: err
+              });
+
+
+              usersModel.findOneAndUpdate({
+                'email': blockUserTo
+              }, { $push: { blockBy: dataObj } }, {
+                upsert: true
+              }, (err, users) => {
+                if (err) return res.json({
+                  isError: true,
+                  data: err
+                });
+                res.json({
+                  isError: false,
+                  data: result
+                });
+              });
+
+
+            })
+          }
+        })
+
+
+      }
+    })
+
+
+  },
   setMsgRead: (req, res, next) => {
     // console.log("setMsgRead ==>", req.body, req.query);
     var arrMsgID = [];
@@ -182,10 +285,6 @@ const usersController = {
                 isError: true,
                 data: err
               });
-              // res.json({
-              //   isError: false,
-              //   data: resultFriend
-              // });
 
               var dataObj = {
                 senderEmail: decoded.email,
@@ -302,6 +401,36 @@ const usersController = {
   },
   unfriend: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var unfriendTo = req.body.unfriendTo;
+    var query = {
+      'email': decoded.email
+    }
+    console.log("unfriend==>", query, req.body);
+
+    usersModel.find(query, (err, result) => {
+      if (!err) {
+        var friendsList = result[0].friends;
+        friendsList.forEach((item, index) => {
+          if (item.senderEmail == unfriendTo) {
+            usersModel.findOneAndUpdate({
+              [`friends.${index}.senderEmail`]: item.senderEmail
+            }, {
+              $set: {
+                [`friends.${index}.status`]: 'unFriend'
+              }
+            }, (errFriend, resultFriend) => {
+
+              if (errFriend) return res.json({
+                isError: true,
+                data: err
+              });
+            })
+          }
+        })
+
+
+      }
+    })
 
   },
 

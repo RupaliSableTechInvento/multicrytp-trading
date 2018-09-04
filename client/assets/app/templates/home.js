@@ -48,7 +48,7 @@ var Home = {};
         $(this).addClass('  m-menu__item--active')
         cryptoCurrencyCode = $(this).attr('data-code');
 
-        console.log("Selected Currency code=>", cryptoCurrencyCode, value);
+        // console.log("Selected Currency code=>", cryptoCurrencyCode, value);
         _core.setValueDropDwn('#title_crytpocurrency', value)
 
       });
@@ -100,7 +100,7 @@ var Home = {};
       $('.search_btn').unbind().click(function() {
         amount = $('#txt_amt').val();
         var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
-        console.log("quickTraderType", quickTraderType);
+        // console.log("quickTraderType", quickTraderType);
 
         window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
           '&payment_method=' + payment_method + '&cryptoCurrencyCode=' + cryptoCurrencyCode +
@@ -219,13 +219,7 @@ var Home = {};
               }
               return field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--metal"> </span>';
             },
-            /*   template: function(field, type, row) {
-                if (field.firstName === ({ $in: activeUSer })) {
-                  return field.firstName + '  active';
 
-                }
-                return field.firstName + '  inactive';
-              }, */
             title: "Seller",
             sortable: false,
             width: 100,
@@ -238,9 +232,9 @@ var Home = {};
               var _ref$payment_method = _ref.payment_method;
               _ref$payment_method = _ref$payment_method === undefined ? '' : _ref$payment_method;
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? '' : _ref$location.replace(/_/g, ' ');
-
-              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
+              _ref$location = _ref$location === undefined ? '' : _ref$location;
+              var location = _ref$location.replace(/_/g, ' ')
+              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + location + '</a>';
             },
             title: "Payment Method",
             sortable: false,
@@ -255,7 +249,7 @@ var Home = {};
             template: function(_ref) {
               var _ref$more_information = _ref.more_information;
               _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
-              console.log("more_information OB==>", _ref, _ref$more_information);
+              // console.log("more_information OB==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
               var currency = _ref$more_information.currency;
@@ -273,10 +267,9 @@ var Home = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field) {
-              console.log("more_information field=>", field);
+              // console.log("more_information field=>", field);
               var _ref$more_information = field.more_information;
               _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
-              console.log("more_information1==>", _ref$more_information);
               var min_trans_limit = _ref$more_information.min_trans_limit;
               var max_trans_limit = _ref$more_information.max_trans_limit;
               return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
@@ -292,8 +285,8 @@ var Home = {};
             title: "Trader Type",
             sortable: false,
             template: function(row) {
-
-              return '<a href="./#/sellBuyCurrency?id=' + row._id + '&code=' + cryptoCurrencyCode + ' ">' +
+              var rowCurrency = row.more_information.currency;
+              return '<a href="./#/sellBuyCurrency?id=' + row._id + '&cryptoCurrencyCode=' + cryptoCurrencyCode + '&currency=' + rowCurrency + '">' +
                 '<input type="button" class="btn btn-info " name="Buy" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
             }
@@ -369,9 +362,9 @@ var Home = {};
             field: "",
             template: function(_ref) {
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? '' : _ref$location.replace(/_/g, ' ');;
-
-              return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
+              _ref$location = _ref$location === undefined ? '' : _ref$location;
+              var location = _ref$location.replace(/_/g, ' ')
+              return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + location + '</a>';
             },
 
             title: "Location",
@@ -386,7 +379,7 @@ var Home = {};
             template: function(_ref) {
               var _ref$more_information = _ref.more_information;
               _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
-              console.log("more_information LB==>", _ref, _ref$more_information);
+              // console.log("more_information LB==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
 
@@ -404,10 +397,9 @@ var Home = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field) {
-              console.log("more_information field=>", field);
+              // console.log("more_information field=>", field);
               var _ref$more_information = field.more_information;
               _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
-              console.log("more_information1==>", _ref$more_information);
               var min_trans_limit = _ref$more_information.min_trans_limit;
               var max_trans_limit = _ref$more_information.max_trans_limit;
               return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
@@ -423,7 +415,8 @@ var Home = {};
             sortable: false,
             title: "Trader Type",
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+              var rowCurrency = row.more_information.currency;
+              return '<a href="./#/sellBuyCurrency?id=' + row._id + '&cryptoCurrencyCode=' + cryptoCurrencyCode + '&currency=' + rowCurrency + '">' +
                 '<input type="button" class="btn btn-info  " name="Buy" id="traderType" value="Buy" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
 
@@ -504,11 +497,11 @@ var Home = {};
             field: "",
             template: function(_ref) {
               var _ref$payment_method = _ref.payment_method;
-              _ref$payment_method = _ref$payment_method === undefined ? {} : _ref$payment_method;
+              _ref$payment_method = _ref$payment_method === undefined ? '' : _ref$payment_method;
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? {} : _ref$location.replace(/_/g, ' ');;
-
-              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
+              _ref$location = _ref$location === undefined ? '' : _ref$location;
+              var location = _ref$location.replace(/_/g, ' ')
+              return _ref$payment_method + ' :<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + location + '> ' + location + '</a>';
             },
             title: "Payment Method",
             sortable: false,
@@ -524,7 +517,7 @@ var Home = {};
 
               var _ref$more_information = _ref.more_information;
               _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
-              console.log("more_information OS==>", _ref, _ref$more_information);
+              // console.log("more_information OS==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
 
@@ -542,10 +535,9 @@ var Home = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field) {
-              console.log("more_information field=>", field);
+              // console.log("more_information field=>", field);
               var _ref$more_information = field.more_information;
               _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
-              console.log("more_information1==>", _ref$more_information);
               var min_trans_limit = _ref$more_information.min_trans_limit;
               var max_trans_limit = _ref$more_information.max_trans_limit;
               return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
@@ -561,7 +553,11 @@ var Home = {};
             sortable: false,
             title: "Trader Type",
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?id=' + row._id + ' ">' +
+
+
+              var rowCurrency = row.more_information.currency;
+              return '<a href="./#/sellBuyCurrency?id=' + row._id + '&cryptoCurrencyCode=' + cryptoCurrencyCode + '&currency=' + rowCurrency + '">' +
+                // return ' <a href="./#/sellBuyCurrency?id=' + row._id + ' ">' +
 
                 '<input type="button" class="btn btn-info  " name="Sell" id="traderType" value="Sell" style="color: white;  width: 70px; cursor:pointer;">' +
                 '</a>';
@@ -620,7 +616,7 @@ var Home = {};
                   // console.log("time matched", Date(activeUSer[index].userActiveTime), before);
                 }
                 if (activeUSer[index].name == field.firstName) {
-                  console.log("activeUSer[index].name in if", activeUSer[index].name);
+                  // console.log("activeUSer[index].name in if", activeUSer[index].name);
                   return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
                 }
               }
@@ -642,9 +638,9 @@ var Home = {};
             field: "",
             template: function(_ref) {
               var _ref$location = _ref.location;
-              _ref$location = _ref$location === undefined ? {} : _ref$location.replace(/_/g, ' ');;
-
-              return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + _ref$location + '</a>';
+              _ref$location = _ref$location === undefined ? {} : _ref$location;
+              var location = _ref$location.replace(/_/g, ' ')
+              return '<a href=./#/?cryptoCurrency=' + cryptoCurrency + '&code=' + cryptoCurrencyCode + '&location=' + _ref$location + '> ' + location + '</a>';
             },
             title: "Location",
             sortable: false,
@@ -659,7 +655,7 @@ var Home = {};
 
               var _ref$more_information = _ref.more_information;
               _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
-              console.log("more_information LS==>", _ref, _ref$more_information);
+              // console.log("more_information LS==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
 
@@ -678,10 +674,8 @@ var Home = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field) {
-              console.log("more_information field=>", field);
               var _ref$more_information = field.more_information;
               _ref$more_information = _ref$more_information === undefined ? {} : _ref$more_information;
-              console.log("more_information1==>", _ref$more_information);
               var min_trans_limit = _ref$more_information.min_trans_limit;
               var max_trans_limit = _ref$more_information.max_trans_limit;
               return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);
@@ -698,7 +692,10 @@ var Home = {};
             sortable: false,
 
             template: function(row) {
-              return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
+
+              var rowCurrency = row.more_information.currency;
+              return '<a href="./#/sellBuyCurrency?id=' + row._id + '&cryptoCurrencyCode=' + cryptoCurrencyCode + '&currency=' + rowCurrency + '">' +
+                // return ' <a href="./#/sellBuyCurrency?id=' + row._id + '">' +
                 /*   '<input type="button" name="' + row.traderType + '" id="traderType" value="' + row.traderType + '" style="border-radius: 4px;color: white; background: #22b9ff;border: 1px solid #DEDEDE;padding: 7px; width: 70px; cursor:pointer;">' +
                   '</a>';
                 */
@@ -721,7 +718,7 @@ var Home = {};
       //var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1);
       for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
-        console.log("hash=>", hash);
+        // console.log("hash=>", hash);
         vars.push(hash[0]);
         vars[hash[0]] = hash[1];
       }

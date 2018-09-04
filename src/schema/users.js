@@ -30,7 +30,12 @@ const usersSchema = new mongoose.Schema({
   },
   friends: {
     type: Array,
-
+  },
+  trustBy: {
+    type: Array,
+  },
+  blockBy: {
+    type: Array,
   },
   email: {
     type: String,

@@ -258,8 +258,8 @@ var tradeController = _defineProperty({
               location = req.query.query.subQuery.location;
               tradeMethod = req.query.query.tradeMethod;
               traderType = req.query.query.traderType;
+              // console.log(cryptoCurrency, location, tradeMethod, traderType);
 
-              console.log(cryptoCurrency, location, tradeMethod, traderType);
               if (location) {
                 query = {
                   cryptoCurrency: cryptoCurrency,
@@ -353,7 +353,7 @@ var tradeController = _defineProperty({
                 };
               }()).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '');
 
-            case 12:
+            case 11:
             case 'end':
               return _context5.stop();
           }
