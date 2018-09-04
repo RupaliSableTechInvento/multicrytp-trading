@@ -169,11 +169,11 @@ var UserProfile = {};
             }
           }
 
-        } else {
-          $("#divTrust").off("click");
-          $("#divRequest").off("click");
-          // $('#userNotTrusted').hide();
         }
+      } else {
+        $("#divTrust").off("click");
+        $("#divRequest").off("click");
+        // $('#userNotTrusted').hide();
       }
 
       if (friendsList.length > 0) {
