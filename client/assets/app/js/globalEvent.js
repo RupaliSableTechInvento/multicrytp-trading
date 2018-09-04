@@ -120,6 +120,7 @@ var GlobalEvent = {
           "authorization": token,
         },
         success: function(successData) {
+          console.log("Request accepted now friend");
           $('#' + strid).addClass('hidden')
           $('#' + reqAccepted).removeClass('hidden')
         },
