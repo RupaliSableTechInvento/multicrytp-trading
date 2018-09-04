@@ -153,20 +153,29 @@ var UserProfile = {};
       $('#account_created').append(account_created);
       $('#userNotTrusted').attr('trustUserTo', Data.user.email);
       $('#frndReqModalTitle').html("Are you sure you want to connect to" + firstName);
-      if (trustBy.length > 0) {
-        for (let index = 0; index < trustBy.length; index++) {
-          console.log("Friendlist==>", trustBy[index], Data.user.email);
-          if (trustBy[index].senderEmail.trim() == localStorage.getItem('email')) {
-            $('#userNotTrusted').hide();
 
-            $('#userTrusted').show();
-            console.log("Friends True ==>>");
-          } else {
-            $('#userNotTrusted').show();
+      var isToken = GlobalEvent.checkIfToken(token)
+      if (isToken) {
+        if (trustBy.length > 0) {
+          for (let index = 0; index < trustBy.length; index++) {
+            console.log("Friendlist==>", trustBy[index], Data.user.email);
+            if (trustBy[index].senderEmail.trim() == localStorage.getItem('email')) {
+              $('#userNotTrusted').hide();
+
+              $('#userTrusted').show();
+              console.log("Friends True ==>>");
+            } else {
+              $('#userNotTrusted').show();
+            }
           }
-        }
 
+        } else {
+          $("#divTrust").off("click");
+          $("#divRequest").off("click");
+          // $('#userNotTrusted').hide();
+        }
       }
+
       if (friendsList.length > 0) {
         for (let index = 0; index < friendsList.length; index++) {
           console.log("Friendlist==>", friendsList[index], Data.user.email);
