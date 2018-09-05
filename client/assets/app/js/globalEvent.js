@@ -81,7 +81,8 @@ var GlobalEvent = {
   var blockUserList = []; //Get Friend list 
   var arrImgURL = []; //Get friends ImgArray
   var arrNotificationMsgId = []; //Notification msg IDs
-
+  var temparray = [];
+  var tempobj = {};
   // var NotificationMSG = '';
   var tempArray = [];
   var tempNotifArray = [];
@@ -213,6 +214,8 @@ var GlobalEvent = {
       });
       socket.on('friend_list', async function(friendListData) {
         friends = [];
+        tempobj = {}
+        temparray = [];
         blockUserList = [];
         arrImgURL = [];
         var userProfile = '',
@@ -221,27 +224,81 @@ var GlobalEvent = {
         friends = friendListData.friends;
         arrImgURL = friendListData.arrImgURL;
         if (friendListData) {
-          for (var i = 0; i < friends.length; i++) {
+          for (var index = 0; index < friends.length; index++) {
+            if (!temparray.includes(friends[index].senderEmail)) {
+              tempobj[friends[index].senderEmail] = { senderFirstName: friends[index].senderFirstName, status: friends[index].status }
+              temparray.push(friends[index]);
+            }
+          }
+          // for (var index = 0; index < friends.length; index++) {
+          //   for (var variable in tempobj) {
+          //     if (tempobj.hasOwnProperty(variable)) {
+          //       if (Data[index].sender == variable) {
+          //         tempObj[variable].message.push(Data[index].message);
+          //         tempObj[variable].senderName = Data[index].senderName;
+          //         tempObj[variable].count++;
+          //       }
+
+          //     }
+          //   }
+          // }
+          console.log("tempObj==>", tempobj, temparray);
+          for (var variable in tempobj) {
+
+
             for (var j = 0; j < arrImgURL.length; j++) {
-              if (arrImgURL[j].email === friends[i].senderEmail) {
+              if (arrImgURL[j].email === variable) {
                 // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
-                if (friends[i].status == 'Blocked') {
+                if (tempobj[variable].status == 'Blocked') {
                   blockUserList.push(friends[i].senderEmail)
-                  console.log("blockUserList=>", friends[i].senderEmail);
+                  console.log("blockUserList=>", variable);
                 }
-                friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
+                friendList += `<li data-email=` + variable + ` style="cursor:pointer">
                 <div style="display:inline-flex">
                   <span class="_1gyw" style="height:5px;width:5px"></span>
                   <div class="_1gyw" style="margin-right:10px">
                     <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
                   </div>
-                  <div class="friendName">` + friends[i].senderFirstName + `</div>
+                  <div class="friendName">` + tempobj[variable].senderFirstName + `</div>
                 </div>
                 </li>`;
               }
 
             }
+
+
+
+            // if (tempobj.hasOwnProperty(variable)) {
+            //   var senderName = status;
+            //   console.log("Variable GetAllUnreadMsg==>", variable);
+            //   msgListCountHTML += renderUnreadMsgData(variable, senderName, tempobj[variable].count);
+            // }
           }
+
+
+
+
+          // for (var i = 0; i < friends.length; i++) {
+          //   for (var j = 0; j < arrImgURL.length; j++) {
+          //     if (arrImgURL[j].email === friends[i].senderEmail) {
+          //       // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
+          //       if (friends[i].status == 'Blocked') {
+          //         blockUserList.push(friends[i].senderEmail)
+          //         console.log("blockUserList=>", friends[i].senderEmail);
+          //       }
+          //       friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
+          //       <div style="display:inline-flex">
+          //         <span class="_1gyw" style="height:5px;width:5px"></span>
+          //         <div class="_1gyw" style="margin-right:10px">
+          //           <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
+          //         </div>
+          //         <div class="friendName">` + friends[i].senderFirstName + `</div>
+          //       </div>
+          //       </li>`;
+          //     }
+
+          //   }
+          // }
         } else {
           friendList += ' <label> Your friend list is empty</label>'
         }
@@ -389,7 +446,6 @@ var GlobalEvent = {
               $('#msgNotification_count').html(unReadMsgsCount + '  New')
 
               for (var index = 0; index < Data.length; index++) {
-                // console.log(" msgListCountHTML==>", Data[index])
                 if (!tempArray.includes(Data[index].sender)) {
                   tempObj[Data[index].sender] = { senderName: senderName, count: 0, message: [] }
                   tempArray.push(Data[index].sender);
