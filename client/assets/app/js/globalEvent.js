@@ -14,14 +14,9 @@ var GlobalEvent = {
               console.log("successData.data getUserInfo=> ", successData.data);
               if (userData) {
                 $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
-
                   $('.m-card-user__email').html(userData.email)
-                  // $('#phone_no').val(userData.phone_no),
                 if (!userData.imgURL) {
-                  console.log("in img url not found");
-
                   $('#m-card-user__img').attr('src', 'assets/app/media/img/users/Defaultuser.png')
-                    // $('#img_upload_pic').attr('src', 'assets/app/media/img/users/userProfile.png')
                 } else {
                   $('#m-card-user__img').attr('src', userData.imgURL)
 
@@ -30,7 +25,6 @@ var GlobalEvent = {
             } else {
 
               GlobalEvent.logOut(token);
-              // window.location("");
 
             }
           }
@@ -243,6 +237,7 @@ var GlobalEvent = {
                 // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
                 if (friends[i].status == 'Blocked') {
                   blockUserList.push(friends[i].senderEmail)
+                  console.log("blockUserList=>", friends[i].senderEmail);
                 }
                 friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
                 <div style="display:inline-flex">
@@ -303,29 +298,6 @@ var GlobalEvent = {
 
   }
 
-  // function blockUser(params) {
-  //   $('#liBlockUser').unbind().click(function() {
-  //     var isToken = GlobalEvent.checkIfToken(token)
-  //     if (isToken) {
-  //       $.ajax({
-  //         url: "/blockUser",
-  //         type: "post",
-  //         data: params,
-  //         headers: {
-  //           "authorization": token,
-  //         },
-  //         success: function(successData) {
-  //           cb(successData)
-  //         },
-  //         error: function(err) {
-  //           console.log("blockUser error =>", err);
-  //         }
-  //       })
-
-  //     }
-  //   })
-
-  // }
 
   function chatPopUP(data) {
     if (totalUnReadMsgsCount <= 0) {
@@ -800,12 +772,45 @@ var GlobalEvent = {
             console.log("blockUser=>", successData);
             $(this).children('a').text('Unblock');
             $(this).addClass('hidden');
-            $('unblockUser').removeClass('hidden')
+            $('.unblockUser').removeClass('hidden')
 
 
           },
           error: function(err) {
             console.log("blockUser error =>", err);
+          }
+        })
+
+      }
+    })
+
+  }
+
+  function unblockUser() {
+    $('.unblockUser').unbind().click(function() {
+
+      var isToken = GlobalEvent.checkIfToken(token)
+      var unblockUserTo = $(this).parents('div .qnimate').attr('data-FrndEmail');
+
+      if (isToken) {
+        $.ajax({
+          url: "/unblockUser",
+          type: "post",
+          data: { unblockUserTo: unblockUserTo },
+          headers: {
+            "authorization": token,
+          },
+          success: function(successData) {
+            console.log("unblockUser=>", successData);
+            // $(this).children('a').text('b');
+            $(this).addClass('hidden');
+            $(this).hide();
+            $('.blockUser').removeClass('hidden')
+
+
+          },
+          error: function(err) {
+            console.log("unblockUser error =>", err);
           }
         })
 
@@ -920,6 +925,12 @@ var GlobalEvent = {
         newChatHtml = chatPopUP(dataChatPopUp)
 
 
+
+        $("#chatboxblocks").append(newChatHtml);
+
+        unfriend();
+        blockUser();
+        unblockUser();
         if (blockUserList.length > 0) {
           console.log("blockuser list==>", blockUserList, dataChatPopUp.data_FrndEmail);
           if (blockUserList.includes(dataChatPopUp.data_FrndEmail)) {
@@ -927,14 +938,10 @@ var GlobalEvent = {
             $('#' + toChatboxId.trim()).find('.blockUser').addClass('hidden');
             $('#' + toChatboxId.trim()).find('.unblockUser').removeClass('hidden');
 
-
           }
         } else {
           console.log("blockuser list IS EMPTY==>", blockUserList);
         }
-        $("#chatboxblocks").append(newChatHtml);
-        unfriend();
-        blockUser();
 
       }
       closePopUp(toChatboxId);
@@ -943,7 +950,8 @@ var GlobalEvent = {
 
     });
 
-    $('.UnreadMsgData div').unbind().click(function() {
+    // $('.UnreadMsgData div').unbind().click(function() {
+    $(document).on('click', '.UnreadMsgData div', function() {
       console.log("id==>", $(this).attr('data-email'));
       var toEmail = $(this).attr('data-email');
       var olUserName = $(this).find('.m-list-timeline__text').text();
@@ -1018,6 +1026,7 @@ var GlobalEvent = {
         $("#chatboxblocks").append(newChatHtml);
         unfriend();
         blockUser();
+        unblockUser();
 
       }
       closePopUp(toChatboxId);

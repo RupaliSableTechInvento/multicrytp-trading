@@ -24,16 +24,11 @@ var QuickOnline = {};
 
 
     verifyTrader: function(cryptoCurrency, traderType, location, tradeMethod) {
-      /*  tradeMethod: 'LOCAL',
-       traderType: 'SELL' */
+
       var htmlTradeHeader = '';
       if (tradeMethod == 'ONLINE') {
 
         if (traderType == 'SELL') {
-
-          /*  htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
-                'Sell ' + currency + ' using' + ' ' + payment_details + ' ' + location + ' ' + '  with Indian Rupee (INR)' +
-               '</h3>'; */
 
           htmlTradeHeader += '<h3  class="m-portlet__head-text ">' + ' ' +
             'Sell ' + cryptoCurrency + ' ' + ' Online  Transfer   in ' + location + ' ' + '  with Indian Rupee (INR)' +
@@ -67,9 +62,6 @@ var QuickOnline = {};
 
       var urlParams = _core.getUrlVars();
       var activeUSer = [];
-
-      console.log("url params=>", urlParams);
-      // currencyUrl = urlParams.currency;
       var currency = urlParams.currency;
       var cryptoCurrencyCode = urlParams.cryptoCurrencyCode;
       var cryptoCurrency = urlParams.cryptoCurrency;
@@ -78,7 +70,6 @@ var QuickOnline = {};
       payment_method = decodeURI(payment_method);
       var amount = urlParams.amount;
       amount = parseInt(amount);
-      console.log("AMOUNT in quickonline.js=>>", amount);
       var tradeMethod = 'ONLINE';
       var traderType = urlParams.traderType;
       var title = 'Buyer';

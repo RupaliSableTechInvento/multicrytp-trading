@@ -118,6 +118,9 @@ const routes = (route) => {
     .post(usersController.unfriend);
 
 
+  route.route('/unblockUser')
+    .post(usersController.unblockUser);
+
   route.route('/blockUser')
     .post(usersController.blockUser);
   route.route('/turstUser')

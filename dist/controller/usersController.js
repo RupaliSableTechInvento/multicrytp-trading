@@ -141,6 +141,58 @@ var usersController = {
       }
     });
   },
+
+  unblockUser: function unblockUser(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var unblockUserTo = req.body.unblockUserTo;
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'Unblocked'
+    };
+    console.log("unblockUser=>", decoded.email, dataObj);
+
+    var query = {
+      'email': decoded.email
+    };
+    _usersModel2.default.find(query, function (err, result) {
+      if (!err) {
+        console.log("friends list", result);
+        var friendsList = result[0].friends;
+        if (friendsList) {
+
+          friendsList.forEach(function (item, index) {
+            if (item.senderEmail == unblockUserTo) {
+              _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+                $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
+              }, function (errBlock, resultFriend) {
+
+                if (errBlock) return res.json({
+                  isError: true,
+                  data: err
+                });
+
+                _usersModel2.default.findOneAndUpdate({
+                  'email': unblockUserTo
+                }, { $push: { blockBy: dataObj } }, {
+                  upsert: true
+                }, function (err, users) {
+                  if (err) return res.json({
+                    isError: true,
+                    data: err
+                  });
+                  res.json({
+                    isError: false,
+                    data: result
+                  });
+                });
+              });
+            }
+          });
+        }
+      }
+    });
+  },
   blockUser: function blockUser(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var blockUserTo = req.body.blockUserTo;
@@ -504,12 +556,14 @@ var usersController = {
       } else {
         var email = user.email;
         console.log("Email==>", email);
-        _tokenModel2.default.findOne({ 'email': email }, function (err, tokenData) {
-          res.json({
-            isError: false,
-            data: { user: user, tokenData: tokenData }
-          });
-        }).sort({ _id: -1 }).limit(1);
+        if (user) {
+          _tokenModel2.default.findOne({ 'email': email }, function (err, tokenData) {
+            res.json({
+              isError: false,
+              data: { user: user, tokenData: tokenData }
+            });
+          }).sort({ _id: -1 }).limit(1);
+        }
       }
     });
   },
@@ -757,17 +811,7 @@ var usersController = {
               html: 'Please<a id ="varified"href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>'
             };
             transporter.sendMail(mailOptions, function (error, info) {
-              // mail_responseModel.create({
-              //   'email': decoded.email,
-              //   'error': error,
-              //   'info': info
-              // }, function(err, mail_response) {
-              //   if (err) {
-              //     console.log("mail_responseModel error=>", err);
-              //   } else {
-              //     console.log("mail_responseModel ", mail_response);
-              //   }
-              // })
+
               if (error) {
                 res.json({
                   isError: true,
@@ -775,6 +819,17 @@ var usersController = {
                 });
                 return console.log("error--11--", error);
               } else {
+                _mail_responseModel2.default.create({
+                  'email': decoded.email,
+                  'error': error,
+                  'info': info
+                }, function (err, mail_response) {
+                  if (err) {
+                    console.log("mail_responseModel error=>", err);
+                  } else {
+                    console.log("mail_responseModel ", mail_response);
+                  }
+                });
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 res.json({

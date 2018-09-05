@@ -123,6 +123,69 @@ const usersController = {
       }
     })
   },
+
+  unblockUser: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var unblockUserTo = req.body.unblockUserTo
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'Unblocked'
+    }
+    console.log("unblockUser=>", decoded.email, dataObj);
+
+    var query = {
+      'email': decoded.email
+    }
+    usersModel.find(query, (err, result) => {
+      if (!err) {
+        console.log("friends list", result);
+        var friendsList = result[0].friends;
+        if (friendsList) {
+
+
+          friendsList.forEach((item, index) => {
+            if (item.senderEmail == unblockUserTo) {
+              usersModel.findOneAndUpdate({
+                [`friends.${index}.senderEmail`]: item.senderEmail
+              }, {
+                $set: {
+                  [`friends.${index}.status`]: 'Friend'
+                }
+              }, (errBlock, resultFriend) => {
+
+                if (errBlock) return res.json({
+                  isError: true,
+                  data: err
+                });
+
+
+                usersModel.findOneAndUpdate({
+                  'email': unblockUserTo
+                }, { $push: { blockBy: dataObj } }, {
+                  upsert: true
+                }, (err, users) => {
+                  if (err) return res.json({
+                    isError: true,
+                    data: err
+                  });
+                  res.json({
+                    isError: false,
+                    data: result
+                  });
+                });
+
+
+              })
+            }
+          })
+        }
+
+      }
+    })
+
+
+  },
   blockUser: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var blockUserTo = req.body.blockUserTo
@@ -489,12 +552,15 @@ const usersController = {
       } else {
         var email = user.email;
         console.log("Email==>", email);
-        tokenModel.findOne({ 'email': email }, (err, tokenData) => {
-          res.json({
-            isError: false,
-            data: { user: user, tokenData: tokenData }
-          });
-        }).sort({ _id: -1 }).limit(1)
+        if (user) {
+          tokenModel.findOne({ 'email': email }, (err, tokenData) => {
+            res.json({
+              isError: false,
+              data: { user: user, tokenData: tokenData }
+            });
+          }).sort({ _id: -1 }).limit(1)
+        }
+
 
       }
     });
@@ -749,17 +815,7 @@ const usersController = {
               html: 'Please<a id ="varified"href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>',
             };
             transporter.sendMail(mailOptions, (error, info) => {
-              // mail_responseModel.create({
-              //   'email': decoded.email,
-              //   'error': error,
-              //   'info': info
-              // }, function(err, mail_response) {
-              //   if (err) {
-              //     console.log("mail_responseModel error=>", err);
-              //   } else {
-              //     console.log("mail_responseModel ", mail_response);
-              //   }
-              // })
+
               if (error) {
                 res.json({
                   isError: true,
@@ -767,6 +823,17 @@ const usersController = {
                 });
                 return console.log("error--11--", error);
               } else {
+                mail_responseModel.create({
+                  'email': decoded.email,
+                  'error': error,
+                  'info': info
+                }, function(err, mail_response) {
+                  if (err) {
+                    console.log("mail_responseModel error=>", err);
+                  } else {
+                    console.log("mail_responseModel ", mail_response);
+                  }
+                })
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 res.json({
