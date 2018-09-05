@@ -197,7 +197,7 @@ var QuickOnline = {};
             template: function(_ref) {
               var _ref$more_information = _ref.more_information;
               _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
-              console.log("more_information OB==>", _ref, _ref$more_information);
+              // console.log("more_information OB==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
               var currency = _ref$more_information.currency;
