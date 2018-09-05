@@ -32,10 +32,8 @@ var Home = {};
       $('.m-datatable__pager-info').css('display', 'none');
       $('.m-datatable--paging-loaded').css('display', 'none');
       var subQuery = {};
-      var htmlShowMore = '';
       var activeUSer = [];
-      var currentTime = [];
-      var currentTimeSys = new Date();
+
       var payment_method, country, currency, amount, quickCurrency;
       var cryptoCurrencyCode = 'BTC';
       before = new Date();
