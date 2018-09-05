@@ -105,7 +105,8 @@ var GlobalEvent = {
   })
 
   function acceptFriendRequest() {
-    $('.btnAcceptReq').unbind().click(function() {
+    $(document).on('click', '.btnAcceptReq', function() {
+
       var senderEmail = $(this).attr('data-user');
       console.log("senderEmail==>", senderEmail);
       var token = localStorage.getItem('token');
@@ -214,9 +215,8 @@ var GlobalEvent = {
         console.log("friend_Ol", olUserEmail);
         $(".olUserList li").each(function() {
           if ($(this).attr('data-email') == olUserEmail) {
+            console.log("Friend ol==>", olUserEmail);
             $(this).find("span").addClass("online")
-
-          } else {
 
           }
         });
@@ -755,7 +755,7 @@ var GlobalEvent = {
   }
 
   function blockUser() {
-    $('.blockUser').unbind().click(function() {
+    $(document).on('click', '.blockUser', function() {
 
       var isToken = GlobalEvent.checkIfToken(token)
       var blockUserTo = $(this).parents('div .qnimate').attr('data-FrndEmail');
@@ -787,7 +787,7 @@ var GlobalEvent = {
   }
 
   function unblockUser() {
-    $('.unblockUser').unbind().click(function() {
+    $(document).on('click', '.unblockUser', function() {
 
       var isToken = GlobalEvent.checkIfToken(token)
       var unblockUserTo = $(this).parents('div .qnimate').attr('data-FrndEmail');
@@ -820,7 +820,8 @@ var GlobalEvent = {
   }
 
   function unfriend() {
-    $('.unfriendTo').unbind().click(function() {
+    $(document).on('click', '.unfriendTo', function() {
+
 
       var isToken = GlobalEvent.checkIfToken(token)
       var unfriendTo = $(this).parents('div .qnimate').attr('data-FrndEmail');
