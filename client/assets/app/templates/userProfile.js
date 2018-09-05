@@ -6,7 +6,7 @@ var UserProfile = {};
   var friendsList = [];
   var pending = [];
   this.init = function() {
-    console.log("USer profie js==>");
+    // console.log("USer profie js==>");
     _render.content();
   }
 
@@ -20,17 +20,17 @@ var UserProfile = {};
       var vars = [],
         hash;
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-      console.log("hashes=>", hashes);
+      // console.log("hashes=>", hashes);
       for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
-        // console.log("hash=>", hash);
+        //// console.log("hash=>", hash);
 
         vars.push(hash[0]);
-        // console.log("vars in loop=>", vars);
+        //// console.log("vars in loop=>", vars);
 
         vars[hash[0]] = hash[1];
       }
-      // console.log("vars=>", vars);
+      //// console.log("vars=>", vars);
 
       return vars;
     },
@@ -44,18 +44,20 @@ var UserProfile = {};
       if (isToken) {
         _core.getFriendsList(token, function(res) {
           if (!res.isError) {
-            var friendsReqList = res.data[0].friends;
+            if (res.data[0].friends.length > 0) {
+              var friendsReqList = res.data[0].friends;
+              for (let index = 0; index < friendsReqList.length; index++) {
+                if (friendsReqList[index].status == "Friend") {
+                  friendsList.push(friendsReqList[index].senderEmail)
+                } else if (friendsReqList[index].status == "Pending") {
+                  pending.push(friendsReqList[index].senderEmail);
+                } else {
+                  continue;
+                }
 
-            for (let index = 0; index < friendsReqList.length; index++) {
-              if (friendsReqList[index].status == "Friend") {
-                friendsList.push(friendsReqList[index].senderEmail)
-              } else if (friendsReqList[index].status == "Pending") {
-                pending.push(friendsReqList[index].senderEmail);
-              } else {
-                continue;
               }
-
             }
+
 
 
           }
@@ -63,7 +65,7 @@ var UserProfile = {};
       } else {
 
 
-        console.log("TOken is not present");
+        // console.log("TOken is not present");
         $('#trustBtn').attr('disabled', true)
 
         $('#sendFriendReq').attr('disabled', true)
@@ -82,7 +84,7 @@ var UserProfile = {};
       _bind.getFriendsList();
 
       _core.userProfile(id, function(res) {
-        console.log("user profiles response==>", res);
+        // console.log("user profiles response==>", res);
         if (res) {
           if (!res.isError) {
             var Data = res.data;
@@ -120,9 +122,9 @@ var UserProfile = {};
           var trustUserTo = $(this).attr('trustUserTo');
           _core.turstUser(token, trustUserTo, function(res) {
             if (res) {
-              console.log("turstUser res==>", res);
+              // console.log("turstUser res==>", res);
               if (!res.isError) {
-                console.log("turstUser sucess==>", res);
+                // console.log("turstUser sucess==>", res);
 
                 $('#userTrustedBtn').show();
               }
@@ -166,12 +168,12 @@ var UserProfile = {};
       if (isToken) {
         if (trustBy.length > 0) {
           for (let index = 0; index < trustBy.length; index++) {
-            console.log("Friendlist==>", trustBy[index], Data.user.email);
+            // console.log("Friendlist==>", trustBy[index], Data.user.email);
             if (trustBy[index].senderEmail.trim() == localStorage.getItem('email')) {
 
               $('#trustBtn').hide();
               $('#userTrustedBtn').show();
-              console.log("Friends True ==>>");
+              // console.log("Friends True ==>>");
             } else {
               $('#trustBtn').show();
             }
@@ -187,12 +189,12 @@ var UserProfile = {};
 
       if (friendsList.length > 0) {
         for (let index = 0; index < friendsList.length; index++) {
-          console.log("Friendlist==>", friendsList[index], Data.user.email);
+          // console.log("Friendlist==>", friendsList[index], Data.user.email);
           if (friendsList[index].trim() == Data.user.email.trim()) {
             $("#sendFriendReq").hide();
             $("#friendReqAlreadySend").hide();
             $("#sendUnFriendReq").show();
-            console.log("Friends True ==>>");
+            // console.log("Friends True ==>>");
           }
         }
 
@@ -200,12 +202,12 @@ var UserProfile = {};
 
       if (pending.length > 0) {
         for (let index = 0; index < pending.length; index++) {
-          console.log("Pending List==>", pending[index], Data.user.email);
+          // console.log("Pending List==>", pending[index], Data.user.email);
           if (pending[index].trim() == Data.user.email.trim()) {
             $("#sendFriendReq").hide();
             $("#sendUnFriendReq").hide();
             $("#friendReqAlreadySend").show();
-            console.log("Friends True ==>>");
+            // console.log("Friends True ==>>");
           }
         }
 
@@ -223,10 +225,10 @@ var UserProfile = {};
         if (isToken) {
           _core.friendReq(token, dataObj, function(res) {
             if (res) {
-              console.log("friend Request response:", res);
+              // console.log("friend Request response:", res);
               var isFound = res.isFound;
               if (isFound) {
-                console.log("Request already sent");
+                // console.log("Request already sent");
                 $('#allreadyFrndModal').modal('show');
                 $("#sendFriendReq").hide();
                 $("#sendUnFriendReq").hide();
@@ -312,7 +314,7 @@ var UserProfile = {};
             template: function(_ref) {
               var _ref$more_information = _ref.more_information;
               _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
-              console.log("more_information OB==>", _ref, _ref$more_information);
+              // console.log("more_information OB==>", _ref, _ref$more_information);
               var price_equation = _ref$more_information.price_equation;
               price_equation = parseFloat(price_equation);
               var currency = _ref$more_information.currency;
@@ -330,10 +332,10 @@ var UserProfile = {};
           {
             field: "more_information.max_trans_limit",
             template: function(field) {
-              console.log("more_information field=>", field);
+              // console.log("more_information field=>", field);
               var _ref$more_information = field.more_information;
               _ref$more_information = _ref$more_information === undefined ? '' : _ref$more_information;
-              console.log("more_information1==>", _ref$more_information);
+              // console.log("more_information1==>", _ref$more_information);
               var min_trans_limit = _ref$more_information.min_trans_limit;
               var max_trans_limit = _ref$more_information.max_trans_limit;
               return (min_trans_limit || 0) + '-' + (max_trans_limit || 0);

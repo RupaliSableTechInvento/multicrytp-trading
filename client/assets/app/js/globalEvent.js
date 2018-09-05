@@ -30,6 +30,8 @@ var GlobalEvent = {
             } else {
 
               GlobalEvent.logOut(token);
+              // window.location("");
+
             }
           }
         },
@@ -63,7 +65,9 @@ var GlobalEvent = {
           localStorage.removeItem("first_name");
           localStorage.removeItem("last_name");
           localStorage.removeItem('user_id');
-          socket.disconnect();
+          // socket.disconnect();
+          $('.loginUser').hide();
+          $('.loginOutUser').show();
           window.location.reload("");
         }
 
