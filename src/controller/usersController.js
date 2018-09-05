@@ -342,10 +342,10 @@ const usersController = {
         var friendsList = result[0].friends;
         friendsList.forEach((item, index) => {
           if (item.senderEmail == senderEmail) {
-            console.log("req found==>", item.senderEmail);
+            console.log("req found==>", item.senderEmail, index, item);
 
             usersModel.findOneAndUpdate({
-              [`friends.${index}.senderEmail`]: item.senderEmail
+              [`friends.${index}.senderEmail`]: senderEmail
             }, {
               $set: {
                 [`friends.${index}.status`]: 'Friend'
@@ -356,27 +356,30 @@ const usersController = {
                 isError: true,
                 data: err
               });
+              console.log("resultFriend", resultFriend);
+              if (resultFriend.nModified) {
+                var dataObj = {
+                  senderEmail: decoded.email,
+                  senderFirstName: decoded.first_name,
+                  status: 'Friend'
+                }
 
-              var dataObj = {
-                senderEmail: decoded.email,
-                senderFirstName: decoded.first_name,
-                status: 'Friend'
+                usersModel.findOneAndUpdate({
+                  'email': senderEmail
+                }, { $push: { friends: dataObj } }, {
+                  upsert: true
+                }, (err, users) => {
+                  if (err) return res.json({
+                    isError: true,
+                    data: err
+                  });
+                  res.json({
+                    isError: false,
+                    data: users
+                  });
+                });
               }
 
-              usersModel.findOneAndUpdate({
-                'email': senderEmail
-              }, { $push: { friends: dataObj } }, {
-                upsert: true
-              }, (err, users) => {
-                if (err) return res.json({
-                  isError: true,
-                  data: err
-                });
-                res.json({
-                  isError: false,
-                  data: users
-                });
-              });
 
 
             })

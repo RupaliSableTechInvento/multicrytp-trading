@@ -327,9 +327,9 @@ var usersController = {
         var friendsList = result[0].friends;
         friendsList.forEach(function (item, index) {
           if (item.senderEmail == senderEmail) {
-            console.log("req found==>", item.senderEmail);
+            console.log("req found==>", item.senderEmail, index, item);
 
-            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
+            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', senderEmail), {
               $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
             }, function (errFriend, resultFriend) {
 
@@ -337,27 +337,29 @@ var usersController = {
                 isError: true,
                 data: err
               });
+              console.log("resultFriend", resultFriend);
+              if (resultFriend.nModified) {
+                var dataObj = {
+                  senderEmail: decoded.email,
+                  senderFirstName: decoded.first_name,
+                  status: 'Friend'
+                };
 
-              var dataObj = {
-                senderEmail: decoded.email,
-                senderFirstName: decoded.first_name,
-                status: 'Friend'
-              };
-
-              _usersModel2.default.findOneAndUpdate({
-                'email': senderEmail
-              }, { $push: { friends: dataObj } }, {
-                upsert: true
-              }, function (err, users) {
-                if (err) return res.json({
-                  isError: true,
-                  data: err
+                _usersModel2.default.findOneAndUpdate({
+                  'email': senderEmail
+                }, { $push: { friends: dataObj } }, {
+                  upsert: true
+                }, function (err, users) {
+                  if (err) return res.json({
+                    isError: true,
+                    data: err
+                  });
+                  res.json({
+                    isError: false,
+                    data: users
+                  });
                 });
-                res.json({
-                  isError: false,
-                  data: users
-                });
-              });
+              }
             });
           }
         });
