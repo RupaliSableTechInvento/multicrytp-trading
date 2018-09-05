@@ -345,7 +345,7 @@ const usersController = {
             console.log("req found==>", item.senderEmail);
 
             usersModel.findOneAndUpdate({
-              [`friends.${index}.senderEmail`]: senderEmail
+              [`friends.${index}.senderEmail`]: item.senderEmail
             }, {
               $set: {
                 [`friends.${index}.status`]: 'Friend'
