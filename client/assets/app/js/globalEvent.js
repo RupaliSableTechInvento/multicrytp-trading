@@ -29,7 +29,7 @@ var GlobalEvent = {
               }
             } else {
 
-              logOut(token);
+              GlobalEvent.logOut(token);
             }
           }
         },
@@ -46,30 +46,10 @@ var GlobalEvent = {
     $('.loginOutUser').show();
     return false;
   },
-};
-((function() {
 
 
-  var friends = [];
-  var blockUserList = []; //Get Friend list 
-  var arrImgURL = []; //Get friends ImgArray
-  var arrNotificationMsgId = []; //Notification msg IDs
 
-  // var NotificationMSG = '';
-  var tempArray = [];
-  var tempNotifArray = [];
-  var tempObj = {};
-  var tempNotifObj = {};
-  var unReadMsgsCount = '', //count of  Unread Msg
-    totalUnReadMsgsCount = ''; //count of All unread Msgs
-  var toChatboxId;
-  var socket = null;
-  var token = localStorage.getItem('token')
-    // checkIfToken(token);
-  getAllUnreadMessages();
-  var friend = 'sablerupali358@gmail.com';
-
-  function logOut(token) {
+  logOut: function(token) {
     $.ajax({
       url: "/logout",
       headers: {
@@ -95,8 +75,31 @@ var GlobalEvent = {
 
   }
 
+};
+((function() {
+
+
+  var friends = [];
+  var blockUserList = []; //Get Friend list 
+  var arrImgURL = []; //Get friends ImgArray
+  var arrNotificationMsgId = []; //Notification msg IDs
+
+  // var NotificationMSG = '';
+  var tempArray = [];
+  var tempNotifArray = [];
+  var tempObj = {};
+  var tempNotifObj = {};
+  var unReadMsgsCount = '', //count of  Unread Msg
+    totalUnReadMsgsCount = ''; //count of All unread Msgs
+  var toChatboxId;
+  var socket = null;
+  var token = localStorage.getItem('token')
+    // checkIfToken(token);
+  getAllUnreadMessages();
+  var friend = 'sablerupali358@gmail.com';
+
   $('#logoutbtn').unbind().click(function() {
-    logOut(token);
+    GlobalEvent.logOut(token);
   })
   $('#m_topbar_messages_icon').unbind().click(function() {
     $('#m_topbar_msgNotification_icon').removeClass('m-animate-blink');
