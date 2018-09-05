@@ -131,16 +131,6 @@ var GlobalEvent = {
         }
       })
 
-
-      // _core.acceptFriendRequest(token, senderEmail, function(res) {
-      //   if (res.success) {
-      //     $(this).removeClass('m-btn--gradient-from-success')
-      //     $(this).addClass('m-btn--gradient-from-primary')
-      //     $(this).text('friends')
-
-      //   }
-      // })
-
     })
   }
 

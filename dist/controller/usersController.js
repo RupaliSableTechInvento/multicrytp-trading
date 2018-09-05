@@ -327,6 +327,8 @@ var usersController = {
         var friendsList = result[0].friends;
         friendsList.forEach(function (item, index) {
           if (item.senderEmail == senderEmail) {
+            console.log("req found==>", item.senderEmail);
+
             _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', senderEmail), {
               $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
             }, function (errFriend, resultFriend) {
