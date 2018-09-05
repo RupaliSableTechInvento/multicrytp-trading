@@ -121,11 +121,16 @@ var UserProfile = {};
           _core.turstUser(token, trustUserTo, function(res) {
             if (res) {
               console.log("turstUser res==>", res);
+              if (!res.isError) {
+                console.log("turstUser sucess==>", res);
+
+                $('#userTrustedBtn').show();
+              }
             }
           })
 
         }
-        $('#userTrustedBtn').show();
+
       })
 
     },
