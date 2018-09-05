@@ -26,7 +26,7 @@ const authController = {
         console.log("User to get login=>", user)
         var d = new Date();
         var v = new Date();
-        v.setMinutes(d.getMinutes() + 10);
+        v.setMinutes(d.getMinutes() + 5);
         const token1 = jwt.sign({
           email: user.email,
           first_name: user.first_name,

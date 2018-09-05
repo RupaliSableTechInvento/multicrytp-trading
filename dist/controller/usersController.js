@@ -109,7 +109,7 @@ var usersController = {
     _usersModel2.default.find({ 'email': trustUserTo }, function (errParent, resultParent) {
 
       if (!errParent) {
-        var turstByList = resultParent[0].turstBy || [];
+        var turstByList = resultParent[0].trustBy || [];
         console.log("turstByList==> resultParent", turstByList);
         var isFound = turstByList.find(function (item) {
           return item.senderEmail == decoded.email;
@@ -125,7 +125,7 @@ var usersController = {
           console.log("not found");
           _usersModel2.default.findOneAndUpdate({
             'email': trustUserTo
-          }, { $push: { 'turstBy': dataObj } }, {
+          }, { $push: { 'trustBy': dataObj } }, {
             upsert: true
           }, function (err, users) {
             if (err) return res.json({

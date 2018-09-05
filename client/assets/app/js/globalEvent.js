@@ -9,7 +9,7 @@ var GlobalEvent = {
         },
         success: function(successData) {
           if (!successData.isError) {
-            if (successData.data) {
+            if (successData.data.length > 0) {
               var userData = successData.data[0];
               console.log("successData.data getUserInfo=> ", successData.data);
               if (userData) {
