@@ -45,12 +45,12 @@ var SignUp = {};
             },
             password: {
               required: true,
-              minlength: 7
+              minlength: 6,
 
             },
             rpassword: {
               required: true,
-              minlength: 7,
+              minlength: 6,
               equalTo: "#password"
 
             },

@@ -165,7 +165,7 @@ var authController = {
   register: function register(req, res, next) {
     console.log("req.body for register", req.body);
     var account_created = new Date();
-    if (req.body.password != "" && req.body.password.length > 6) {
+    if (req.body.password != "" && req.body.password.length > 5) {
       req.body.password = encode().value(req.body.password);
       var user = new _usersModel2.default(req.body);
       req.body.account_created = account_created;
