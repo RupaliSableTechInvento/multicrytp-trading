@@ -255,7 +255,7 @@ const usersController = {
     console.log("arrMsgID", arrMsgID);
     var _id = '';
     var arrMsgIDList = arrMsgID.map(function(aField) {
-      // return mongoose.Types.ObjectId(aField);
+
       return aField
       console.log(aField);
     })
@@ -328,69 +328,61 @@ const usersController = {
 
 
   acceptFriendRequest: (req, res, next) => {
-
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    var senderEmail = req.body.senderEmail;
-    console.log("acceptFriendRequest senderEmail==>", senderEmail);
-
-    var query = {
-      'email': decoded.email
+    var senderEmail = req.body.senderEmail
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'Friend'
     }
-    usersModel.find(query, (err, result) => {
-      if (!err) {
-        console.log("friends list", result);
-        var friendsList = result[0].friends;
-        friendsList.forEach((item, index) => {
-          if (item.senderEmail == senderEmail) {
-            console.log("req found==>", item.senderEmail, index, item);
 
+    usersModel.update({
+        $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': senderEmail } } }]
+
+      }, { $set: { "friends.$.status": 'Friend' } }, function(err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+          if (result.nModified) {
             usersModel.findOneAndUpdate({
-              [`friends.${index}.senderEmail`]: senderEmail
-            }, {
-              $set: {
-                [`friends.${index}.status`]: 'Friend'
-              }
-            }, (errFriend, resultFriend) => {
-
-              if (errFriend) return res.json({
+              'email': senderEmail
+            }, { $push: { friends: dataObj } }, {
+              upsert: true
+            }, (err, users) => {
+              if (err) return res.json({
                 isError: true,
                 data: err
               });
-              console.log("resultFriend", resultFriend);
-              if (resultFriend.nModified) {
-                var dataObj = {
-                  senderEmail: decoded.email,
-                  senderFirstName: decoded.first_name,
-                  status: 'Friend'
-                }
-
-                usersModel.findOneAndUpdate({
-                  'email': senderEmail
-                }, { $push: { friends: dataObj } }, {
-                  upsert: true
-                }, (err, users) => {
-                  if (err) return res.json({
-                    isError: true,
-                    data: err
-                  });
-                  res.json({
-                    isError: false,
-                    data: users
-                  });
-                });
-              }
-
-
-
-            })
+              res.json({
+                isError: false,
+                data: result
+              });
+            });
           }
-        })
 
 
-      }
-    })
+        }
+      })
+      // usersModel.find(query, (err, result) => {
+      //   if (!err) {
+      //     console.log("friends list", result);
+      //     var friendsList = result[0].friends;
+      //     var arrfriendsList = friendsList.map(function(aField) {
+      //       console.log("aField==>", aField);
 
+    //       return aField
+    //     })
+
+
+
+
+    //   }
+
+    // })
   },
+
+
 
   addUserProfilePic: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);

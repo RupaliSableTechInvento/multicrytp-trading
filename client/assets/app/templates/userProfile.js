@@ -20,17 +20,15 @@ var UserProfile = {};
       var vars = [],
         hash;
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-      // console.log("hashes=>", hashes);
+
       for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
-        //// console.log("hash=>", hash);
 
         vars.push(hash[0]);
-        //// console.log("vars in loop=>", vars);
 
         vars[hash[0]] = hash[1];
       }
-      //// console.log("vars=>", vars);
+
 
       return vars;
     },
@@ -63,15 +61,11 @@ var UserProfile = {};
           }
         })
       } else {
-
-
-        // console.log("TOken is not present");
         $('#trustBtn').attr('disabled', true)
 
         $('#sendFriendReq').attr('disabled', true)
-          // $("#divTrust").off("click");
+
         $('#divLoginSignup').removeClass('hidden');
-        // $("#userNotTrusted").children().attr('disabled', 'disabled');
 
       }
 
@@ -82,7 +76,6 @@ var UserProfile = {};
       var urlParams = _core.getUrlVars();
       id = urlParams.id;
       _bind.getFriendsList();
-
       _core.userProfile(id, function(res) {
         // console.log("user profiles response==>", res);
         if (res) {
@@ -156,6 +149,7 @@ var UserProfile = {};
       htmlUserName += '<label>' + firstName + '</label>' +
         '<span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
       $('#userName').html(htmlUserName);
+      $('#sendFriendReq').attr('reqTo', Data.user.email)
       $('#email').append(email_verified);
       $('#Phone_number').append(mobile_verified);
       $('#trustBtn').html('Trust  ' + firstName);
@@ -216,29 +210,33 @@ var UserProfile = {};
 
 
 
-      $("#btn_Confirm").unbind().click(function() {
-        var dataObj = {
-          To: Data.user.email,
-        }
+      // $("#btn_Confirm").unbind().click(function() {
+      //   var dataObj = {
+      //     To: Data.user.email,
+      //   }
+      //   var isToken = GlobalEvent.checkIfToken(token)
+      //   if (isToken) {
+      //     _core.friendReq(token, dataObj, function(res) {
+      //       if (res) {
+      //         var isFound = res.isFound;
+      //         if (isFound) {
+      //           var Data = {};
+      //           Data = {
+      //             token: token,
+      //             to: Data.user.email,
+      //           }
+      //           GlobalEvent.socket.emit('friendReq', Data)
+      //             // console.log("Request already sent");
+      //           $('#allreadyFrndModal').modal('show');
+      //           $("#sendFriendReq").hide();
+      //           $("#sendUnFriendReq").hide();
+      //           $("#friendReqAlreadySend").show();
+      //         }
+      //       }
+      //     })
+      //   }
 
-        var isToken = GlobalEvent.checkIfToken(token)
-        if (isToken) {
-          _core.friendReq(token, dataObj, function(res) {
-            if (res) {
-              // console.log("friend Request response:", res);
-              var isFound = res.isFound;
-              if (isFound) {
-                // console.log("Request already sent");
-                $('#allreadyFrndModal').modal('show');
-                $("#sendFriendReq").hide();
-                $("#sendUnFriendReq").hide();
-                $("#friendReqAlreadySend").show();
-              }
-            }
-          })
-        }
-
-      })
+      // })
 
 
 

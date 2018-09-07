@@ -251,7 +251,7 @@ var usersController = {
     console.log("arrMsgID", arrMsgID);
     var _id = '';
     var arrMsgIDList = arrMsgID.map(function (aField) {
-      // return mongoose.Types.ObjectId(aField);
+
       return aField;
       console.log(aField);
     });
@@ -313,58 +313,54 @@ var usersController = {
   },
 
   acceptFriendRequest: function acceptFriendRequest(req, res, next) {
-
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var senderEmail = req.body.senderEmail;
-    console.log("acceptFriendRequest senderEmail==>", senderEmail);
-
-    var query = {
-      'email': decoded.email
+    var dataObj = {
+      senderEmail: decoded.email,
+      senderFirstName: decoded.first_name,
+      status: 'Friend'
     };
-    _usersModel2.default.find(query, function (err, result) {
-      if (!err) {
-        console.log("friends list", result);
-        var friendsList = result[0].friends;
-        friendsList.forEach(function (item, index) {
-          if (item.senderEmail == senderEmail) {
-            console.log("req found==>", item.senderEmail, index, item);
 
-            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', senderEmail), {
-              $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
-            }, function (errFriend, resultFriend) {
+    _usersModel2.default.update({
+      $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': senderEmail } } }]
 
-              if (errFriend) return res.json({
-                isError: true,
-                data: err
-              });
-              console.log("resultFriend", resultFriend);
-              if (resultFriend.nModified) {
-                var dataObj = {
-                  senderEmail: decoded.email,
-                  senderFirstName: decoded.first_name,
-                  status: 'Friend'
-                };
-
-                _usersModel2.default.findOneAndUpdate({
-                  'email': senderEmail
-                }, { $push: { friends: dataObj } }, {
-                  upsert: true
-                }, function (err, users) {
-                  if (err) return res.json({
-                    isError: true,
-                    data: err
-                  });
-                  res.json({
-                    isError: false,
-                    data: users
-                  });
-                });
-              }
+    }, { $set: { "friends.$.status": 'Friend' } }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        if (result.nModified) {
+          _usersModel2.default.findOneAndUpdate({
+            'email': senderEmail
+          }, { $push: { friends: dataObj } }, {
+            upsert: true
+          }, function (err, users) {
+            if (err) return res.json({
+              isError: true,
+              data: err
             });
-          }
-        });
+            res.json({
+              isError: false,
+              data: result
+            });
+          });
+        }
       }
     });
+    // usersModel.find(query, (err, result) => {
+    //   if (!err) {
+    //     console.log("friends list", result);
+    //     var friendsList = result[0].friends;
+    //     var arrfriendsList = friendsList.map(function(aField) {
+    //       console.log("aField==>", aField);
+
+    //       return aField
+    //     })
+
+
+    //   }
+
+    // })
   },
 
   addUserProfilePic: function addUserProfilePic(req, res, next) {

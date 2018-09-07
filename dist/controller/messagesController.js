@@ -126,7 +126,25 @@ module.exports = function (app, io) {
         });
       }
     });
+    socket.on('friendReq', function (friendReq) {
+      console.log("friendReq==>in soket on", friendReq);
+      var decoded = _jsonwebtoken2.default.verify(friendReq.token, _env2.default.App_key);
+      var email = decoded.email;
+      var name = decoded.first_name;
+      var ReqList = [];
+      var reqFrom = {
+        senderEmail: email,
+        senderFirstName: name
+      };
+      ReqList.push(reqFrom);
+      console.log("ReqList", ReqList);
 
+      users.forEach(function (item) {
+        if (item.email && friendReq.To == item.email) {
+          io.to(item.socketId).emit('friendReqRecieve', ReqList);
+        }
+      });
+    });
     socket.on('private_message', function (msgObj) {
       var decoded = _jsonwebtoken2.default.verify(msgObj.token, _env2.default.App_key);
       var sender = decoded.email;
