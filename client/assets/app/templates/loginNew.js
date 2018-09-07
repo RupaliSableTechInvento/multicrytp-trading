@@ -71,7 +71,13 @@ var Login = {};
 
           type: "POST",
           success: function(successData) {
-            if (successData.isError) {} else {
+            if (successData.isError) {
+              setTimeout(function() {
+                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                _core.showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
+              }, 2000);
+
+            } else {
               console.log("sucessdata=>", successData);
               var first_name = successData.user.first_name;
               var last_name = successData.user.last_name;
@@ -81,8 +87,6 @@ var Login = {};
               localStorage.setItem("last_name", last_name);
               localStorage.setItem('email', dataObj.email);
               localStorage.setItem('user_id', successData.user.id);
-
-
               $('.m-dropdown__inner ').css('display', 'block');
               window.location.replace("/");
               // window.location = 'updateProductById/' + sku;
@@ -92,10 +96,7 @@ var Login = {};
             }
 
             // similate 2s delay
-            setTimeout(function() {
-              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-              _core.showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
-            }, 2000);
+
           },
           error: function(err) {
             alert("login error=>", err);
