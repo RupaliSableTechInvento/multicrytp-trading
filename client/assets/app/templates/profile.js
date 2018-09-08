@@ -94,11 +94,29 @@ var Profile = {};
           _core.emailVerification(token, function(res) {
             if (res) {
               if (res.isError) {
+                console.log(res.data);
+                var errorRes = res.data;
+                if (responseCode = 534) {
+                  //user email is not valid
+                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                  form.clearForm();
+                  form.validate().resetForm();
+                  setTimeout(function() {
+                    _core.showErrorMsg(form, 'danger', 'Email is not valid. ');
 
-                setTimeout(function() {
-                  _core.showErrorMsg(form, 'danger', 'Email is not verified. ');
+                  }, 2000)
+                }
+                if (responseCode = 535) {
+                  //server Authentication error..
+                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                  form.clearForm();
+                  form.validate().resetForm();
+                  setTimeout(function() {
+                    _core.showErrorMsg(form, 'danger', 'Server is busy please try again. ');
 
-                }, 2000)
+                  }, 2000)
+                }
+
 
               } else {
                 console.log("res=>>", res);
@@ -133,17 +151,53 @@ var Profile = {};
 
 
       $('#save-changes').unbind().click(function() {
-        var dataObj = {
-          first_name: $('#first_name').val(),
-          last_name: $('#last_name').val(),
-          email: $('#email').val(),
-          phone_no: $('#phone_no').val()
-        }
-        _core.addUserInfo(dataObj, function(res) {
-          if (res.success) {
-            console.log("Sucess..", res);
+        var phone_no = $('#phone_no').val();
+        var btn = $(this);
+        var form = $(this).closest('form');
+        var isToken = GlobalEvent.checkIfToken(token)
+        if (isToken) {
+          var isFormValid = false;
+          if (phone_no.length == 10) {
+            isFormValid = true
+          } else {
+            console.log("in valid phone no length", phone_no.length);
+
+            btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+            // form.clearForm();
+            // form.validate().resetForm();
+            setTimeout(function() {
+              _core.showErrorMsg(form, 'danger', 'Enter valid phone no. ');
+
+            }, 2000)
           }
-        })
+          if (isFormValid) {
+            btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+            var dataObj = {
+              first_name: $('#first_name').val(),
+              last_name: $('#last_name').val(),
+              email: $('#email').val(),
+              phone_no: $('#phone_no').val()
+            }
+            _core.addUserInfo(token, dataObj, function(res) {
+              console.log(res);
+              if (res.success) {
+                setTimeout(function() {
+                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                  form.clearForm();
+                  form.validate().resetForm();
+
+                  _core.showErrorMsg(form, 'success', 'Thank you. Your Email is verified');
+                }, 2000);
+                console.log("Sucess..", res);
+              } else {
+                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                console.log("cant update profile==>", res.data);
+              }
+            })
+          }
+        }
+
+
       })
       $("#imgupload").change(function() {
         _core.readURL(this);
@@ -158,12 +212,12 @@ var Profile = {};
     verification: function() {
       var token = localStorage.getItem('token')
 
-      _core.verification(token, function(res) {
+      // _core.verification(token, function(res) {
 
-        if (res) {
-          console.log("res=>verification", res);
-        }
-      })
+      //   if (res) {
+      //     console.log("res=>verification", res);
+      //   }
+      // })
     }
   }
   var _render = {

@@ -276,7 +276,7 @@ var usersController = {
   },
   getFriendsList: function getFriendsList(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("addUserInfo", decoded.email);
+    console.log("getFriendsList=>", decoded.email);
     _usersModel2.default.find({
       'email': decoded.email
     }, { "friends": 1, "_id": 0 }, function (err, users) {
@@ -502,43 +502,34 @@ var usersController = {
       return _ref.apply(this, arguments);
     };
   }(),
-  addUserInfo: function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res, next) {
-      var decoded;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+  addUserInfo: function addUserInfo(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    console.log("addUserInfo ==>", decoded.email, req.body, req.query);
 
-              _usersModel2.default.findOneAndUpdate({
-
-                'email': decoded.email
-              }, req.body, {
-                new: true
-              }, function (err, user) {
-                if (err) return res.json({
-                  success: false,
-                  data: err
-                });
-                res.json({
-                  success: true,
-                  data: user
-                });
-              });
-
-            case 2:
-            case 'end':
-              return _context2.stop();
-          }
-        }
-      }, _callee2, undefined);
-    }));
-
-    return function addUserInfo(_x4, _x5, _x6) {
-      return _ref2.apply(this, arguments);
+    var updateQuery = {
+      first_name: first_name,
+      last_name: last_name,
+      phone_no: phone_no,
+      email: email
     };
-  }(),
+    _usersModel2.default.findOneAndUpdate({
+
+      'email': decoded.email
+    }, {
+      $set: updateQuery
+    }, {
+      new: true
+    }, function (err, user) {
+      if (err) return res.json({
+        success: false,
+        data: err
+      });
+      res.json({
+        success: true,
+        data: user
+      });
+    });
+  },
   userProfile: function userProfile(req, res, next) {
     // var _id = Number(req.query.id);
 
@@ -811,6 +802,17 @@ var usersController = {
               html: 'Please<a id ="varified"href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>'
             };
             transporter.sendMail(mailOptions, function (error, info) {
+              _mail_responseModel2.default.create({
+                'email': decoded.email,
+                'error': error,
+                'info': info
+              }, function (err, mail_response) {
+                if (err) {
+                  console.log("mail_responseModel error=>", err);
+                } else {
+                  console.log("mail_responseModel ", mail_response);
+                }
+              });
 
               if (error) {
                 res.json({
@@ -819,17 +821,7 @@ var usersController = {
                 });
                 return console.log("error--11--", error);
               } else {
-                _mail_responseModel2.default.create({
-                  'email': decoded.email,
-                  'error': error,
-                  'info': info
-                }, function (err, mail_response) {
-                  if (err) {
-                    console.log("mail_responseModel error=>", err);
-                  } else {
-                    console.log("mail_responseModel ", mail_response);
-                  }
-                });
+
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 res.json({

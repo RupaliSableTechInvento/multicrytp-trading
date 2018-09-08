@@ -15,21 +15,26 @@ var API = {
       })
     });
   },
-  addUserInfo: function(dataObj) {
-    return new Promise(resolve => {
-      // console.log("dataobject in api.js=>", dataObj);
-      $.ajax({
-        url: "/users/addUserInfo",
-        type: "post",
-        data: dataObj,
-        success: function(successData) {
-          resolve(successData)
-        },
-        error: function(err) {
-          console.log("addUserInfo api =>", err);
-        }
-      })
-    });
+  addUserInfo: function(token, dataObj, cb) {
+
+    // console.log("dataobject in api.js=>", dataObj);
+    $.ajax({
+      url: "/users/addUserInfo",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: dataObj,
+      success: function(successData) {
+        // console.log(successData);
+
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("addUserInfo api =>", err);
+      }
+    })
+
   },
   acceptFriendRequest: function(token, senderEmail, cb) {
     console.log("acceptFriendRequest==>");

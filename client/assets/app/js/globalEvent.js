@@ -448,7 +448,7 @@ var GlobalEvent = {
     <div class="popup-box chat-popup popup-box-on qnimate" data-FrndEmail=` + data_FrndEmail + ` id="` + toChatboxId + `">
     <div class="popup-head">
       <div class="popup-head-left pull-left">
-      <img src=` + data_userProfile + ` width="32"  height="32"alt="iamgurdeeposahan">
+      <img src=` + data_userProfile + ` width="32"  height="32"alt="assets/app/media/img/users/Defaultuser.png">
       <label class="olUserName" >` + olUserName + `</label></div>
       <div class="popup-head-right pull-right">
         <div class="btn-group">
@@ -1101,7 +1101,6 @@ var GlobalEvent = {
         for (let index = 0; index < arrImgURL.length; index++) {
           if (arrImgURL[index].email == toEmail) {
             data_userProfile = arrImgURL[index].imgURL;
-            console.log("img found..", data_userProfile);
           }
         }
       }

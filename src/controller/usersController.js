@@ -289,7 +289,7 @@ const usersController = {
   },
   getFriendsList: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("addUserInfo", decoded.email)
+    console.log("getFriendsList=>", decoded.email)
     usersModel.find({
       'email': decoded.email
     }, { "friends": 1, "_id": 0 }, (err, users) => {
@@ -513,12 +513,22 @@ const usersController = {
     });
 
   },
-  addUserInfo: async(req, res, next) => {
+  addUserInfo: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("addUserInfo ==>", decoded.email, req.body, req.query);
+
+    var updateQuery = {
+      first_name: first_name,
+      last_name: last_name,
+      phone_no: phone_no,
+      email: email,
+    }
     usersModel.findOneAndUpdate({
 
       'email': decoded.email
-    }, req.body, {
+    }, {
+      $set: updateQuery
+    }, {
       new: true
     }, (err, user) => {
       if (err) return res.json({
@@ -812,6 +822,17 @@ const usersController = {
               html: 'Please<a id ="varified"href=http://' + host + '/ev/' + token + '>Click Here to processed email verification</a>',
             };
             transporter.sendMail(mailOptions, (error, info) => {
+              mail_responseModel.create({
+                'email': decoded.email,
+                'error': error,
+                'info': info
+              }, function(err, mail_response) {
+                if (err) {
+                  console.log("mail_responseModel error=>", err);
+                } else {
+                  console.log("mail_responseModel ", mail_response);
+                }
+              })
 
               if (error) {
                 res.json({
@@ -820,17 +841,7 @@ const usersController = {
                 });
                 return console.log("error--11--", error);
               } else {
-                mail_responseModel.create({
-                  'email': decoded.email,
-                  'error': error,
-                  'info': info
-                }, function(err, mail_response) {
-                  if (err) {
-                    console.log("mail_responseModel error=>", err);
-                  } else {
-                    console.log("mail_responseModel ", mail_response);
-                  }
-                })
+
                 console.log('Message sent: %s', info.messageId);
                 console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 res.json({
