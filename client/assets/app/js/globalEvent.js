@@ -839,14 +839,15 @@ var GlobalEvent = {
         //emit friend as typing..
       })
       // var token = localStorage.getItem('token')
-    var today = new Date();
+
     $('.status_message' + toChatboxId).keydown(function() {
+      var today = new Date();
       var chatTime = (moment(today).format('LTS'));
       var htmlChatMSg = '';
 
       var message = $(this).val();
 
-      if ($(this).val() != "" && $(this).val() != undefined && $(this).val() != null && (event.keyCode == 13 && $(this).val().length > 0)) {
+      if ($(this).val() && (event.keyCode == 13 && $(this).val().length > 0)) {
 
         var first_name = localStorage.getItem('first_name');
         var last_name = localStorage.getItem('last_name');

@@ -13,7 +13,7 @@ var encode = require('hashcode').hashCode;
 const usersController = {
   getAllUnreadMessages: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("getAllMessages reqest from==>", decoded.email)
+    //console.log("getAllMessages reqest from==>", decoded.email)
     messagesModel.find({
       'reciever': decoded.email,
       'isRead': false,
@@ -34,7 +34,7 @@ const usersController = {
   getAllMessagesWithFriend: (req, res, next) => {
 
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    // console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
+    // //console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
     var friend = req.query.data.friend;
     var date = req.query.data.date;
     var temp = req.query.data.limit;
@@ -78,61 +78,29 @@ const usersController = {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
 
     var trustUserTo = req.body.trustUserTo
-    console.log("turstUser==>", req.body);
+      //console.log("turstUser==>", req.body);
 
     var dataObj = {
-      senderEmail: decoded.email,
-      senderFirstName: decoded.first_name,
-      status: 'trust'
-    }
-    console.log("turstUser==>", trustUserTo, dataObj);
-
-    // usersModel.find({ 'email': trustUserTo }, (errParent, resultParent) => {
-
-    //   if (!errParent) {
-    //     var turstByList = resultParent[0].trustBy || [];
-    //     console.log("turstByList==> resultParent", turstByList);
-    //     var isFound = turstByList.find((item) => item.senderEmail == decoded.email);
-    //     if (isFound) {
-    //       res.json({
-    //         isError: false,
-    //         isFound: true
-    //       });
-    //     }
-    //     if (!isFound || turstByList.length === 0) {
-    //       console.log("not found");
-    //       usersModel.findOneAndUpdate({
-    //         'email': trustUserTo
-    //       }, { $push: { 'trustBy': dataObj } }, {
-    //         upsert: true
-    //       }, (err, users) => {
-    //         if (err) return res.json({
-    //           isError: true,
-    //           data: err
-    //         });
-    //         res.json({
-    //           isError: false,
-    //           data: users
-    //         });
-    //       });
-    //     }
-    //   }
-    // })
-
-
-
-
+        senderEmail: decoded.email,
+        senderFirstName: decoded.first_name,
+        status: 'trust'
+      }
+      //console.log("turstUser==>", trustUserTo, dataObj);
 
     usersModel.update({
-      $and: [{ email: trustUserTo }, { turstByList: { $elemMatch: { 'senderEmail': decoded.email } } }]
+      $and: [{ email: trustUserTo }, { turstByList: { $not: { $elemMatch: { 'senderEmail': decoded.email } } } }]
 
     }, { $push: { 'trustBy': dataObj } }, {
       upsert: true
     }, function(err, result) {
       if (err) {
-        console.log(err);
+        res.json({
+          isError: true,
+          data: result
+        });
+        //console.log(err);
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           res.json({
             isError: false,
@@ -169,20 +137,20 @@ const usersController = {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var unblockUserTo = req.body.unblockUserTo
     var dataObj = {
-      senderEmail: decoded.email,
-      senderFirstName: decoded.first_name,
-      status: 'Unblocked'
-    }
-    console.log("unblockUser=>", decoded.email, dataObj);
+        senderEmail: decoded.email,
+        senderFirstName: decoded.first_name,
+        status: 'Unblocked'
+      }
+      //console.log("unblockUser=>", decoded.email, dataObj);
 
     usersModel.update({
       $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': unblockUserTo } } }]
 
     }, { $set: { "friends.$.status": 'Friend' } }, function(err, result) {
       if (err) {
-        console.log(err);
+        //console.log(err);
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           usersModel.findOneAndUpdate({
             'email': blockUserTo
@@ -218,9 +186,9 @@ const usersController = {
 
     }, { $set: { "friends.$.status": 'Blocked' } }, function(err, result) {
       if (err) {
-        console.log(err);
+        //console.log(err);
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           usersModel.findOneAndUpdate({
             'email': blockUserTo
@@ -243,15 +211,15 @@ const usersController = {
 
   },
   setMsgRead: (req, res, next) => {
-    // console.log("setMsgRead ==>", req.body, req.query);
+    // //console.log("setMsgRead ==>", req.body, req.query);
     var arrMsgID = [];
     arrMsgID = req.body.data;
-    console.log("arrMsgID", arrMsgID);
+    //console.log("arrMsgID", arrMsgID);
     var _id = '';
     var arrMsgIDList = arrMsgID.map(function(aField) {
 
       return aField
-      console.log(aField);
+        //console.log(aField);
     })
 
 
@@ -283,7 +251,7 @@ const usersController = {
   },
   getFriendsList: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("getFriendsList=>", decoded.email)
+    //console.log("getFriendsList=>", decoded.email)
     usersModel.find({
       'email': decoded.email
     }, { "friends": 1, "_id": 0 }, (err, users) => {
@@ -299,7 +267,7 @@ const usersController = {
   },
   getUserInfo: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("decoded.email=>", decoded.email);
+    //console.log("decoded.email=>", decoded.email);
     usersModel.find({
       'email': decoded.email
     }, (err, users) => {
@@ -307,7 +275,7 @@ const usersController = {
         isError: true,
         data: err
       });
-      console.log("users==>", users);
+      //console.log("users==>", users);
       if (users) {
         res.json({
           isError: false,
@@ -335,9 +303,12 @@ const usersController = {
 
     }, { $set: { "friends.$.status": 'Friend' } }, function(err, result) {
       if (err) {
-        console.log(err);
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           usersModel.findOneAndUpdate({
             'email': senderEmail
@@ -389,9 +360,12 @@ const usersController = {
     var data = req.body;
     data.sender = sender;
     data.date = new Date();
-    console.log("Data for message==>", data);
+    //console.log("Data for message==>", data);
     messagesModel.create(data, function(err, message) {
-      if (err) return res.json(err);
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
       res.json({
         isError: false,
         data: message,
@@ -402,18 +376,18 @@ const usersController = {
   friendReq: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var to = req.body.To;
-    console.log("To  Details=>", to);
+    //console.log("To  Details=>", to);
 
     var dataObj = {
-      senderEmail: decoded.email,
-      senderFirstName: decoded.first_name,
-      status: 'Pending'
-    }
-    console.log("Senders Details=>", dataObj);
+        senderEmail: decoded.email,
+        senderFirstName: decoded.first_name,
+        status: 'Pending'
+      }
+      //console.log("Senders Details=>", dataObj);
     usersModel.find({ 'email': to }, (errParent, resultParent) => {
       if (!errParent) {
         var friendsList = resultParent[0].friends || [];
-        console.log("friendList==>", friendsList);
+        //console.log("friendList==>", friendsList);
         var isFound = friendsList.find((item) => item.senderEmail == decoded.email);
         if (isFound) {
           res.json({
@@ -421,9 +395,9 @@ const usersController = {
             isFound: true
           });
         }
-        console.log("isfound==>", isFound);
+        //console.log("isfound==>", isFound);
         if (!isFound || friendsList.length === 0) {
-          console.log("not found");
+          //console.log("not found");
           usersModel.findOneAndUpdate({
             'email': to
           }, { $push: { friends: dataObj } }, {
@@ -446,7 +420,7 @@ const usersController = {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     var unfriendTo = req.body.unfriendTo;
 
-    console.log("unfriend==>", query, req.body);
+    //console.log("unfriend==>", query, req.body);
 
 
     usersModel.update({
@@ -454,9 +428,12 @@ const usersController = {
 
     }, { $set: { "friends.$.status": 'unFriend' } }, function(err, result) {
       if (err) {
-        console.log(err);
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           usersModel.findOneAndUpdate({
             'email': blockUserTo
@@ -497,7 +474,7 @@ const usersController = {
   },
   addUserInfo: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("addUserInfo ==>", decoded.email, req.body, req.query);
+    //console.log("addUserInfo ==>", decoded.email, req.body, req.query);
 
     var updateQuery = {
       first_name: first_name,
@@ -528,7 +505,7 @@ const usersController = {
     // var _id = Number(req.query.id);
 
     var _id = mongoose.Types.ObjectId(req.query.id);
-    console.log("id=>", _id);
+    //console.log("id=>", _id);
     usersModel.findOne({
       _id: _id
     }, (err, user) => {
@@ -540,7 +517,7 @@ const usersController = {
         });
       } else {
         var email = user.email;
-        console.log("Email==>", email);
+        //console.log("Email==>", email);
         if (user) {
           tokenModel.findOne({ 'email': email }, (err, tokenData) => {
             res.json({
@@ -557,7 +534,7 @@ const usersController = {
 
 
   getOne: (req, res, next) => {
-    // console.log("------------",next);
+    // //console.log("------------",next);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     usersModel.findOne({
       'email': decoded.email
@@ -647,7 +624,7 @@ const usersController = {
             exp: Math.floor(v),
             email: req.body.email,
           }, env.App_key);
-          console.log(result);
+          //console.log(result);
           nodemailer.createTestAccount((err, account) => {
             // create reusable transporter object using the default SMTP transport
             var transporter = nodemailer.createTransport({
@@ -668,28 +645,30 @@ const usersController = {
 
               // html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body
             };
-            console.log("Mailoptions", mailOptions);
+            //console.log("Mailoptions", mailOptions);
 
             // send mail with defined transport object
             transporter.sendMail(mailOptions, (error, info) => {
               var information = JSON.stringify(info);
 
-              console.log('Transporter', err, information);
+              //console.log('Transporter', err, information);
               mail_responseModel.create({
                 'email': email,
                 'error': error,
                 'info': information
               }, function(err, mail_response) {
                 if (err) {
+                  res.json({
+                    isError: true,
+                    data: err
+                  });
                   console.log("mail_responseModel error=>", err);
-                } else {
-                  console.log("mail_responseModel No error", mail_response);
                 }
               })
 
 
               if (error) {
-                return console.log("error--11--", error);
+                return //console.log("error--11--", error);
                 res.json({
                   isError: true,
                   data: error
@@ -747,7 +726,7 @@ const usersController = {
 
   isVerified: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("isVerified==>", decoded.email);
+    //console.log("isVerified==>", decoded.email);
 
     usersModel.findOneAndUpdate({
       'email': decoded.email
@@ -767,7 +746,7 @@ const usersController = {
   emailVerification: (req, res, next) => {
     var host = req.headers.host;
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("Emailverification==>", decoded.email);
+    //console.log("Emailverification==>", decoded.email);
     usersModel.find({
       'email': decoded.email
     }, function(err, result) {
@@ -785,7 +764,7 @@ const usersController = {
             exp: Math.floor(v),
             email: decoded.email,
           }, env.App_key);
-          console.log(result);
+          //console.log(result);
           nodemailer.createTestAccount((err, account) => {
             // create reusable transporter object using the default SMTP transport
             var transporter = nodemailer.createTransport({
@@ -821,11 +800,11 @@ const usersController = {
                   isError: true,
                   data: error
                 });
-                return console.log("error--11--", error);
+                return //console.log("error--11--", error);
               } else {
 
-                console.log('Message sent: %s', info.messageId);
-                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                //console.log('Message sent: %s', info.messageId);
+                //console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 res.json({
                   isError: false,
                   data: 'Please check your email'
@@ -848,7 +827,7 @@ const usersController = {
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
     if (dt < checkDate) {
-      console.log("----------");
+      //console.log("----------");
       usersModel.findOneAndUpdate({
         "email": decoded.email
       }, {
@@ -874,12 +853,12 @@ const usersController = {
   },
 
   varifyToken: (req, res, next) => {
-    console.log("in verify Token=>");
+    //console.log("in verify Token=>");
     var decoded = jwt.verify(req.params.token, env.App_key);
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
     if (dt < checkDate) {
-      console.log("----");
+      //console.log("----");
       var d = new Date();
       var v = new Date();
       v.setMinutes(d.getMinutes() + 60);
@@ -896,7 +875,7 @@ const usersController = {
     }
   },
   changePassword: (req, res, next) => {
-    // console.log("req.headers--->", req.headers['authorization'], req.body);
+    // //console.log("req.headers--->", req.headers['authorization'], req.body);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     req.body.password = encode().value(req.body.password);
     req.body.new_pasword = encode().value(req.body.new_pasword);
@@ -919,17 +898,17 @@ const usersController = {
         isError: false,
         data: user
       });
-      console.log("user=>", user);
+      //console.log("user=>", user);
     })
   },
   recoverPassword: (req, res, next) => {
-    console.log("req in recover password api=>", req.body, req.query, req.params);
+    //console.log("req in recover password api=>", req.body, req.query, req.params);
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
       var checkDate = new Date(decoded.exp);
       var dt = new Date();
-      console.log(dt, "------", checkDate);
+      //console.log(dt, "------", checkDate);
       if (dt < checkDate) {
         usersModel.findOneAndUpdate({
           "email": decoded.email

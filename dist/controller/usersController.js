@@ -42,7 +42,7 @@ var encode = require('hashcode').hashCode;
 var usersController = {
   getAllUnreadMessages: function getAllUnreadMessages(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("getAllMessages reqest from==>", decoded.email);
+    //console.log("getAllMessages reqest from==>", decoded.email)
     _messagesModel2.default.find({
       'reciever': decoded.email,
       'isRead': false
@@ -61,7 +61,7 @@ var usersController = {
   getAllMessagesWithFriend: function getAllMessagesWithFriend(req, res, next) {
 
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    // console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
+    // //console.log("getAllMessagesWithFriend reqest from==>", decoded.email, req.query.data)
     var friend = req.query.data.friend;
     var date = req.query.data.date;
     var temp = req.query.data.limit;
@@ -94,58 +94,28 @@ var usersController = {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
 
     var trustUserTo = req.body.trustUserTo;
-    console.log("turstUser==>", req.body);
+    //console.log("turstUser==>", req.body);
 
     var dataObj = {
       senderEmail: decoded.email,
       senderFirstName: decoded.first_name,
       status: 'trust'
-    };
-    console.log("turstUser==>", trustUserTo, dataObj);
+      //console.log("turstUser==>", trustUserTo, dataObj);
 
-    // usersModel.find({ 'email': trustUserTo }, (errParent, resultParent) => {
-
-    //   if (!errParent) {
-    //     var turstByList = resultParent[0].trustBy || [];
-    //     console.log("turstByList==> resultParent", turstByList);
-    //     var isFound = turstByList.find((item) => item.senderEmail == decoded.email);
-    //     if (isFound) {
-    //       res.json({
-    //         isError: false,
-    //         isFound: true
-    //       });
-    //     }
-    //     if (!isFound || turstByList.length === 0) {
-    //       console.log("not found");
-    //       usersModel.findOneAndUpdate({
-    //         'email': trustUserTo
-    //       }, { $push: { 'trustBy': dataObj } }, {
-    //         upsert: true
-    //       }, (err, users) => {
-    //         if (err) return res.json({
-    //           isError: true,
-    //           data: err
-    //         });
-    //         res.json({
-    //           isError: false,
-    //           data: users
-    //         });
-    //       });
-    //     }
-    //   }
-    // })
-
-
-    _usersModel2.default.update({
-      $and: [{ email: trustUserTo }, { turstByList: { $elemMatch: { 'senderEmail': decoded.email } } }]
+    };_usersModel2.default.update({
+      $and: [{ email: trustUserTo }, { turstByList: { $not: { $elemMatch: { 'senderEmail': decoded.email } } } }]
 
     }, { $push: { 'trustBy': dataObj } }, {
       upsert: true
     }, function (err, result) {
       if (err) {
-        console.log(err);
+        res.json({
+          isError: true,
+          data: result
+        });
+        //console.log(err);
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           res.json({
             isError: false,
@@ -182,17 +152,16 @@ var usersController = {
       senderEmail: decoded.email,
       senderFirstName: decoded.first_name,
       status: 'Unblocked'
-    };
-    console.log("unblockUser=>", decoded.email, dataObj);
+      //console.log("unblockUser=>", decoded.email, dataObj);
 
-    _usersModel2.default.update({
+    };_usersModel2.default.update({
       $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': unblockUserTo } } }]
 
     }, { $set: { "friends.$.status": 'Friend' } }, function (err, result) {
       if (err) {
-        console.log(err);
+        //console.log(err);
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           _usersModel2.default.findOneAndUpdate({
             'email': blockUserTo
@@ -225,9 +194,9 @@ var usersController = {
 
     }, { $set: { "friends.$.status": 'Blocked' } }, function (err, result) {
       if (err) {
-        console.log(err);
+        //console.log(err);
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           _usersModel2.default.findOneAndUpdate({
             'email': blockUserTo
@@ -248,15 +217,15 @@ var usersController = {
     });
   },
   setMsgRead: function setMsgRead(req, res, next) {
-    // console.log("setMsgRead ==>", req.body, req.query);
+    // //console.log("setMsgRead ==>", req.body, req.query);
     var arrMsgID = [];
     arrMsgID = req.body.data;
-    console.log("arrMsgID", arrMsgID);
+    //console.log("arrMsgID", arrMsgID);
     var _id = '';
     var arrMsgIDList = arrMsgID.map(function (aField) {
 
       return aField;
-      console.log(aField);
+      //console.log(aField);
     });
 
     var bulk = _messagesModel2.default.collection.initializeUnorderedBulkOp();
@@ -279,7 +248,7 @@ var usersController = {
   },
   getFriendsList: function getFriendsList(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("getFriendsList=>", decoded.email);
+    //console.log("getFriendsList=>", decoded.email)
     _usersModel2.default.find({
       'email': decoded.email
     }, { "friends": 1, "_id": 0 }, function (err, users) {
@@ -295,7 +264,7 @@ var usersController = {
   },
   getUserInfo: function getUserInfo(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("decoded.email=>", decoded.email);
+    //console.log("decoded.email=>", decoded.email);
     _usersModel2.default.find({
       'email': decoded.email
     }, function (err, users) {
@@ -303,7 +272,7 @@ var usersController = {
         isError: true,
         data: err
       });
-      console.log("users==>", users);
+      //console.log("users==>", users);
       if (users) {
         res.json({
           isError: false,
@@ -329,9 +298,12 @@ var usersController = {
 
     }, { $set: { "friends.$.status": 'Friend' } }, function (err, result) {
       if (err) {
-        console.log(err);
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           _usersModel2.default.findOneAndUpdate({
             'email': senderEmail
@@ -379,9 +351,12 @@ var usersController = {
     var data = req.body;
     data.sender = sender;
     data.date = new Date();
-    console.log("Data for message==>", data);
+    //console.log("Data for message==>", data);
     _messagesModel2.default.create(data, function (err, message) {
-      if (err) return res.json(err);
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
       res.json({
         isError: false,
         data: message
@@ -392,18 +367,17 @@ var usersController = {
   friendReq: function friendReq(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var to = req.body.To;
-    console.log("To  Details=>", to);
+    //console.log("To  Details=>", to);
 
     var dataObj = {
       senderEmail: decoded.email,
       senderFirstName: decoded.first_name,
       status: 'Pending'
-    };
-    console.log("Senders Details=>", dataObj);
-    _usersModel2.default.find({ 'email': to }, function (errParent, resultParent) {
+      //console.log("Senders Details=>", dataObj);
+    };_usersModel2.default.find({ 'email': to }, function (errParent, resultParent) {
       if (!errParent) {
         var friendsList = resultParent[0].friends || [];
-        console.log("friendList==>", friendsList);
+        //console.log("friendList==>", friendsList);
         var isFound = friendsList.find(function (item) {
           return item.senderEmail == decoded.email;
         });
@@ -413,9 +387,9 @@ var usersController = {
             isFound: true
           });
         }
-        console.log("isfound==>", isFound);
+        //console.log("isfound==>", isFound);
         if (!isFound || friendsList.length === 0) {
-          console.log("not found");
+          //console.log("not found");
           _usersModel2.default.findOneAndUpdate({
             'email': to
           }, { $push: { friends: dataObj } }, {
@@ -438,16 +412,20 @@ var usersController = {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var unfriendTo = req.body.unfriendTo;
 
-    console.log("unfriend==>", query, req.body);
+    //console.log("unfriend==>", query, req.body);
+
 
     _usersModel2.default.update({
       $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': unfriendTo } } }]
 
     }, { $set: { "friends.$.status": 'unFriend' } }, function (err, result) {
       if (err) {
-        console.log(err);
+        res.json({
+          isError: true,
+          data: err
+        });
       } else {
-        console.log(result);
+        //console.log(result);
         if (result.nModified) {
           _usersModel2.default.findOneAndUpdate({
             'email': blockUserTo
@@ -499,7 +477,7 @@ var usersController = {
   }(),
   addUserInfo: function addUserInfo(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("addUserInfo ==>", decoded.email, req.body, req.query);
+    //console.log("addUserInfo ==>", decoded.email, req.body, req.query);
 
     var updateQuery = {
       first_name: first_name,
@@ -529,7 +507,7 @@ var usersController = {
     // var _id = Number(req.query.id);
 
     var _id = mongoose.Types.ObjectId(req.query.id);
-    console.log("id=>", _id);
+    //console.log("id=>", _id);
     _usersModel2.default.findOne({
       _id: _id
     }, function (err, user) {
@@ -541,7 +519,7 @@ var usersController = {
         });
       } else {
         var email = user.email;
-        console.log("Email==>", email);
+        //console.log("Email==>", email);
         if (user) {
           _tokenModel2.default.findOne({ 'email': email }, function (err, tokenData) {
             res.json({
@@ -555,7 +533,7 @@ var usersController = {
   },
 
   getOne: function getOne(req, res, next) {
-    // console.log("------------",next);
+    // //console.log("------------",next);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     _usersModel2.default.findOne({
       'email': decoded.email
@@ -644,7 +622,7 @@ var usersController = {
             exp: Math.floor(v),
             email: req.body.email
           }, _env2.default.App_key);
-          console.log(result);
+          //console.log(result);
           nodemailer.createTestAccount(function (err, account) {
             // create reusable transporter object using the default SMTP transport
             var transporter = nodemailer.createTransport({
@@ -665,27 +643,29 @@ var usersController = {
 
               // html: '<a href=http://localhost:3000/recover?accessToken=' + token + '>Click to recover password</a>' // html body
             };
-            console.log("Mailoptions", mailOptions);
+            //console.log("Mailoptions", mailOptions);
 
             // send mail with defined transport object
             transporter.sendMail(mailOptions, function (error, info) {
               var information = JSON.stringify(info);
 
-              console.log('Transporter', err, information);
+              //console.log('Transporter', err, information);
               _mail_responseModel2.default.create({
                 'email': email,
                 'error': error,
                 'info': information
               }, function (err, mail_response) {
                 if (err) {
+                  res.json({
+                    isError: true,
+                    data: err
+                  });
                   console.log("mail_responseModel error=>", err);
-                } else {
-                  console.log("mail_responseModel No error", mail_response);
                 }
               });
 
               if (error) {
-                return console.log("error--11--", error);
+                return; //console.log("error--11--", error);
                 res.json({
                   isError: true,
                   data: error
@@ -741,7 +721,7 @@ var usersController = {
 
   isVerified: function isVerified(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("isVerified==>", decoded.email);
+    //console.log("isVerified==>", decoded.email);
 
     _usersModel2.default.findOneAndUpdate({
       'email': decoded.email
@@ -760,7 +740,7 @@ var usersController = {
   emailVerification: function emailVerification(req, res, next) {
     var host = req.headers.host;
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("Emailverification==>", decoded.email);
+    //console.log("Emailverification==>", decoded.email);
     _usersModel2.default.find({
       'email': decoded.email
     }, function (err, result) {
@@ -778,7 +758,7 @@ var usersController = {
             exp: Math.floor(v),
             email: decoded.email
           }, _env2.default.App_key);
-          console.log(result);
+          //console.log(result);
           nodemailer.createTestAccount(function (err, account) {
             // create reusable transporter object using the default SMTP transport
             var transporter = nodemailer.createTransport({
@@ -814,11 +794,11 @@ var usersController = {
                   isError: true,
                   data: error
                 });
-                return console.log("error--11--", error);
+                return; //console.log("error--11--", error);
               } else {
 
-                console.log('Message sent: %s', info.messageId);
-                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                //console.log('Message sent: %s', info.messageId);
+                //console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                 res.json({
                   isError: false,
                   data: 'Please check your email'
@@ -841,7 +821,7 @@ var usersController = {
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
     if (dt < checkDate) {
-      console.log("----------");
+      //console.log("----------");
       _usersModel2.default.findOneAndUpdate({
         "email": decoded.email
       }, {
@@ -866,12 +846,12 @@ var usersController = {
   },
 
   varifyToken: function varifyToken(req, res, next) {
-    console.log("in verify Token=>");
+    //console.log("in verify Token=>");
     var decoded = _jsonwebtoken2.default.verify(req.params.token, _env2.default.App_key);
     var dt = new Date();
     var checkDate = new Date(decoded.exp);
     if (dt < checkDate) {
-      console.log("----");
+      //console.log("----");
       var d = new Date();
       var v = new Date();
       v.setMinutes(d.getMinutes() + 60);
@@ -888,7 +868,7 @@ var usersController = {
     }
   },
   changePassword: function changePassword(req, res, next) {
-    // console.log("req.headers--->", req.headers['authorization'], req.body);
+    // //console.log("req.headers--->", req.headers['authorization'], req.body);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     req.body.password = encode().value(req.body.password);
     req.body.new_pasword = encode().value(req.body.new_pasword);
@@ -911,17 +891,17 @@ var usersController = {
         isError: false,
         data: user
       });
-      console.log("user=>", user);
+      //console.log("user=>", user);
     });
   },
   recoverPassword: function recoverPassword(req, res, next) {
-    console.log("req in recover password api=>", req.body, req.query, req.params);
+    //console.log("req in recover password api=>", req.body, req.query, req.params);
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     if (req.body.password != "" && req.body.password.length > 6) {
       req.body.password = encode().value(req.body.password);
       var checkDate = new Date(decoded.exp);
       var dt = new Date();
-      console.log(dt, "------", checkDate);
+      //console.log(dt, "------", checkDate);
       if (dt < checkDate) {
         _usersModel2.default.findOneAndUpdate({
           "email": decoded.email
