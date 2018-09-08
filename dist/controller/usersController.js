@@ -36,8 +36,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var encode = require('hashcode').hashCode;
@@ -80,7 +78,6 @@ var usersController = {
         $or: [{ $and: [{ sender: decoded.email }, { reciever: friend }] }, { $and: [{ sender: friend }, { reciever: decoded.email }] }]
       };
     }
-
     _messagesModel2.default.find(query).sort({ 'date': -1 }).limit(10).exec(function (err, messages) {
       if (err) return res.json({
         isError: true,
@@ -106,36 +103,72 @@ var usersController = {
     };
     console.log("turstUser==>", trustUserTo, dataObj);
 
-    _usersModel2.default.find({ 'email': trustUserTo }, function (errParent, resultParent) {
+    // usersModel.find({ 'email': trustUserTo }, (errParent, resultParent) => {
 
-      if (!errParent) {
-        var turstByList = resultParent[0].trustBy || [];
-        console.log("turstByList==> resultParent", turstByList);
-        var isFound = turstByList.find(function (item) {
-          return item.senderEmail == decoded.email;
-        });
-        if (isFound) {
+    //   if (!errParent) {
+    //     var turstByList = resultParent[0].trustBy || [];
+    //     console.log("turstByList==> resultParent", turstByList);
+    //     var isFound = turstByList.find((item) => item.senderEmail == decoded.email);
+    //     if (isFound) {
+    //       res.json({
+    //         isError: false,
+    //         isFound: true
+    //       });
+    //     }
+    //     if (!isFound || turstByList.length === 0) {
+    //       console.log("not found");
+    //       usersModel.findOneAndUpdate({
+    //         'email': trustUserTo
+    //       }, { $push: { 'trustBy': dataObj } }, {
+    //         upsert: true
+    //       }, (err, users) => {
+    //         if (err) return res.json({
+    //           isError: true,
+    //           data: err
+    //         });
+    //         res.json({
+    //           isError: false,
+    //           data: users
+    //         });
+    //       });
+    //     }
+    //   }
+    // })
+
+
+    _usersModel2.default.update({
+      $and: [{ email: trustUserTo }, { turstByList: { $elemMatch: { 'senderEmail': decoded.email } } }]
+
+    }, { $push: { 'trustBy': dataObj } }, {
+      upsert: true
+    }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        if (result.nModified) {
           res.json({
             isError: false,
-            isFound: true
+            data: result
           });
-        }
-        console.log("isfound==>", isFound);
-        if (!isFound || turstByList.length === 0) {
-          console.log("not found");
-          _usersModel2.default.findOneAndUpdate({
-            'email': trustUserTo
-          }, { $push: { 'trustBy': dataObj } }, {
-            upsert: true
-          }, function (err, users) {
-            if (err) return res.json({
-              isError: true,
-              data: err
-            });
-            res.json({
-              isError: false,
-              data: users
-            });
+          // usersModel.findOneAndUpdate({
+          //   'email': blockUserTo
+          // }, { $push: { blockBy: dataObj } }, {
+          //   upsert: true
+          // }, (err, users) => {
+          //   if (err) return res.json({
+          //     isError: true,
+          //     data: err
+          //   });
+          //   res.json({
+          //     isError: false,
+          //     data: result
+          //   });
+          // });
+        } else {
+          res.json({
+            isError: true,
+            data: err
           });
         }
       }
@@ -152,42 +185,28 @@ var usersController = {
     };
     console.log("unblockUser=>", decoded.email, dataObj);
 
-    var query = {
-      'email': decoded.email
-    };
-    _usersModel2.default.find(query, function (err, result) {
-      if (!err) {
-        console.log("friends list", result);
-        var friendsList = result[0].friends;
-        if (friendsList) {
+    _usersModel2.default.update({
+      $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': unblockUserTo } } }]
 
-          friendsList.forEach(function (item, index) {
-            if (item.senderEmail == unblockUserTo) {
-              _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
-                $set: _defineProperty({}, 'friends.' + index + '.status', 'Friend')
-              }, function (errBlock, resultFriend) {
-
-                if (errBlock) return res.json({
-                  isError: true,
-                  data: err
-                });
-
-                _usersModel2.default.findOneAndUpdate({
-                  'email': unblockUserTo
-                }, { $push: { blockBy: dataObj } }, {
-                  upsert: true
-                }, function (err, users) {
-                  if (err) return res.json({
-                    isError: true,
-                    data: err
-                  });
-                  res.json({
-                    isError: false,
-                    data: result
-                  });
-                });
-              });
-            }
+    }, { $set: { "friends.$.status": 'Friend' } }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        if (result.nModified) {
+          _usersModel2.default.findOneAndUpdate({
+            'email': blockUserTo
+          }, { $push: { blockBy: dataObj } }, {
+            upsert: true
+          }, function (err, users) {
+            if (err) return res.json({
+              isError: true,
+              data: err
+            });
+            res.json({
+              isError: false,
+              data: result
+            });
           });
         }
       }
@@ -201,44 +220,28 @@ var usersController = {
       senderFirstName: decoded.first_name,
       status: 'blocked'
     };
-    console.log("blockUser=>", decoded.email, dataObj);
+    _usersModel2.default.update({
+      $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': blockUserTo } } }]
 
-    var query = {
-      'email': decoded.email
-    };
-    _usersModel2.default.find(query, function (err, result) {
-      if (!err) {
-        console.log("friends list", result);
-        var friendsList = result[0].friends;
-        if (friendsList) {
-
-          friendsList.forEach(function (item, index) {
-            if (item.senderEmail == blockUserTo) {
-              _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
-                $set: _defineProperty({}, 'friends.' + index + '.status', 'Blocked')
-              }, function (errBlock, resultFriend) {
-
-                if (errBlock) return res.json({
-                  isError: true,
-                  data: err
-                });
-
-                _usersModel2.default.findOneAndUpdate({
-                  'email': blockUserTo
-                }, { $push: { blockBy: dataObj } }, {
-                  upsert: true
-                }, function (err, users) {
-                  if (err) return res.json({
-                    isError: true,
-                    data: err
-                  });
-                  res.json({
-                    isError: false,
-                    data: result
-                  });
-                });
-              });
-            }
+    }, { $set: { "friends.$.status": 'Blocked' } }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        if (result.nModified) {
+          _usersModel2.default.findOneAndUpdate({
+            'email': blockUserTo
+          }, { $push: { friends: dataObj } }, {
+            upsert: true
+          }, function (err, users) {
+            if (err) return res.json({
+              isError: true,
+              data: err
+            });
+            res.json({
+              isError: false,
+              data: result
+            });
           });
         }
       }
@@ -347,20 +350,6 @@ var usersController = {
         }
       }
     });
-    // usersModel.find(query, (err, result) => {
-    //   if (!err) {
-    //     console.log("friends list", result);
-    //     var friendsList = result[0].friends;
-    //     var arrfriendsList = friendsList.map(function(aField) {
-    //       console.log("aField==>", aField);
-
-    //       return aField
-    //     })
-
-
-    //   }
-
-    // })
   },
 
   addUserProfilePic: function addUserProfilePic(req, res, next) {
@@ -448,27 +437,33 @@ var usersController = {
   unfriend: function unfriend(req, res, next) {
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
     var unfriendTo = req.body.unfriendTo;
-    var query = {
-      'email': decoded.email
-    };
+
     console.log("unfriend==>", query, req.body);
 
-    _usersModel2.default.find(query, function (err, result) {
-      if (!err) {
-        var friendsList = result[0].friends;
-        friendsList.forEach(function (item, index) {
-          if (item.senderEmail == unfriendTo) {
-            _usersModel2.default.findOneAndUpdate(_defineProperty({}, 'friends.' + index + '.senderEmail', item.senderEmail), {
-              $set: _defineProperty({}, 'friends.' + index + '.status', 'unFriend')
-            }, function (errFriend, resultFriend) {
+    _usersModel2.default.update({
+      $and: [{ email: decoded.email }, { friends: { $elemMatch: { 'senderEmail': unfriendTo } } }]
 
-              if (errFriend) return res.json({
-                isError: true,
-                data: err
-              });
+    }, { $set: { "friends.$.status": 'unFriend' } }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        if (result.nModified) {
+          _usersModel2.default.findOneAndUpdate({
+            'email': blockUserTo
+          }, { $push: { friends: dataObj } }, {
+            upsert: true
+          }, function (err, users) {
+            if (err) return res.json({
+              isError: true,
+              data: err
             });
-          }
-        });
+            res.json({
+              isError: false,
+              data: result
+            });
+          });
+        }
       }
     });
   },

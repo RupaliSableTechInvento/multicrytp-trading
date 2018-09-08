@@ -64,11 +64,7 @@ module.exports = function (app, io) {
             item.email = curentUserEmail;
             item.socketId = socket.id;
           }
-
-          // item.email = curentUserEmail,
-          //   item.socketId = socket.id
         });
-        // console.log("Email present=>", users, curentUserEmail);
       }
 
       if (curentUserEmail) {

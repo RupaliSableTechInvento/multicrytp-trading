@@ -44,16 +44,15 @@ module.exports = function(app, io) {
       } else {
 
         users.forEach(item => {
-            if (item.email == curentUserEmail) {
-              item.email = curentUserEmail;
-              item.socketId = socket.id;
+          if (item.email == curentUserEmail) {
+            item.email = curentUserEmail;
+            item.socketId = socket.id;
 
-            }
+          }
 
-            // item.email = curentUserEmail,
-            //   item.socketId = socket.id
-          })
-          // console.log("Email present=>", users, curentUserEmail);
+
+        })
+
       }
 
 
@@ -117,6 +116,10 @@ module.exports = function(app, io) {
             //  io.emit('users', users);
           }
         });
+
+
+
+
       }
 
 
