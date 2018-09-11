@@ -122,6 +122,37 @@ module.exports = function (app, io) {
         });
       }
     });
+
+    socket.on('frndReqAccepted', function (frndReqAccepted) {
+      console.log("frndReqAccepted==>in soket on", frndReqAccepted);
+      var decoded = _jsonwebtoken2.default.verify(frndReqAccepted.token, _env2.default.App_key);
+      var email = decoded.email;
+      var name = decoded.first_name;
+      var imgURL = '';
+      var frndDetails = [];
+
+      console.log("frndDetails", frndDetails);
+
+      users.forEach(function (item) {
+        if (item.email && frndReqAccepted.To == item.email) {
+          _usersModel2.default.find({ email: email }, { imgURL: 1, _id: 0 }, function (err, user) {
+            if (err) {
+              res.json(err);
+            } else {
+
+              imgURL = user[0].imgURL;
+              var reqFrom = {
+                senderEmail: email,
+                senderFirstName: name,
+                imgURL: imgURL
+              };
+              frndDetails.push(reqFrom);
+              io.to(item.socketId).emit('reqAcceptedByFrnd', frndDetails);
+            }
+          });
+        }
+      });
+    });
     socket.on('friendReq', function (friendReq) {
       console.log("friendReq==>in soket on", friendReq);
       var decoded = _jsonwebtoken2.default.verify(friendReq.token, _env2.default.App_key);

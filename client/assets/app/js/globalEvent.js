@@ -91,10 +91,9 @@ var GlobalEvent = {
   var tempNotifObj = {};
   var unReadMsgsCount = '', //count of  Unread Msg
     totalUnReadMsgsCount = ''; //count of All unread Msgs
-  var toChatboxId;
   // var socket = null;
   var token = localStorage.getItem('token')
-    // checkIfToken(token);
+
   getAllUnreadMessages();
   var friend = 'sablerupali358@gmail.com';
 
@@ -106,35 +105,36 @@ var GlobalEvent = {
     $('#msgNotification').removeClass('m-animate-shake');
   })
 
-  function acceptFriendRequest() {
-    $(document).on('click', '.btnAcceptReq', function() {
+  // function acceptFriendRequest() {
+  //   $(document).on('click', '.btnAcceptReq', function() {
 
-      var senderEmail = $(this).attr('data-user');
-      console.log("senderEmail==>", senderEmail);
-      var token = localStorage.getItem('token');
-      var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
-      var strid = str + 'btnAcceptReq';
-      var reqAccepted = str + 'reqAccepted';
+  //     var senderEmail = $(this).attr('data-user');
+  //     console.log("senderEmail==>", senderEmail);
+  //     var token = localStorage.getItem('token');
+  //     var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
+  //     var strid = str + 'btnAcceptReq';
+  //     var reqAccepted = str + 'reqAccepted';
 
-      $.ajax({
-        url: "/acceptFriendRequest",
-        type: "post",
-        data: { senderEmail: senderEmail },
-        headers: {
-          "authorization": token,
-        },
-        success: function(successData) {
-          console.log("Request accepted now friend");
-          $('#' + strid).addClass('hidden')
-          $('#' + reqAccepted).removeClass('hidden')
-        },
-        error: function(err) {
-          console.log("Accept friend request ", err);
-        }
-      })
+  //     $.ajax({
+  //       url: "/acceptFriendRequest",
+  //       type: "post",
+  //       data: { senderEmail: senderEmail },
+  //       headers: {
+  //         "authorization": token,
+  //       },
+  //       success: function(successData) {
+  //         GlobalEvent.socket.emit('frndReqAccepted', token)       
+  //           console.log("Request accepted now friend");
+  //         $('#' + strid).addClass('hidden')
+  //         $('#' + reqAccepted).removeClass('hidden')
+  //       },
+  //       error: function(err) {
+  //         console.log("Accept friend request ", err);
+  //       }
+  //     })
 
-    })
-  }
+  //   })
+  // }
 
 
   if (token && (token.length > 0)) {
@@ -187,8 +187,39 @@ var GlobalEvent = {
 
         }
 
-      })
+      });
+      $(document).on('click', '.btnAcceptReq', function() {
 
+        var senderEmail = $(this).attr('data-user');
+        console.log("senderEmail==>", senderEmail);
+        var token = localStorage.getItem('token');
+        var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
+        var strid = str + 'btnAcceptReq';
+        var reqAccepted = str + 'reqAccepted';
+
+        $.ajax({
+          url: "/acceptFriendRequest",
+          type: "post",
+          data: { senderEmail: senderEmail },
+          headers: {
+            "authorization": token,
+          },
+          success: function(successData) {
+            var dataObj = {
+              To: senderEmail,
+              token: token
+            }
+            GlobalEvent.socket.emit('frndReqAccepted', dataObj)
+            console.log("Request accepted now friend");
+            $('#' + strid).addClass('hidden')
+            $('#' + reqAccepted).removeClass('hidden')
+          },
+          error: function(err) {
+            console.log("Accept friend request ", err);
+          }
+        })
+
+      })
       GlobalEvent.socket.emit('getActiveList', token, function(data) {
         console.log("getActiveList Data", data);
       })
@@ -197,11 +228,12 @@ var GlobalEvent = {
         console.log("data get freinds", data)
       });
 
+      GlobalEvent.socket.on('reqAcceptedByFrnd', function(data) {
+        console.log("reqAcceptedByFrnd using soket io ", data);
+      });
       GlobalEvent.socket.on('friendReqRecieve', function(data) {
         console.log("friendReq using soket io ", data);
         friendReq(data);
-
-
       });
       GlobalEvent.socket.on('users', function(data) {
         console.log("users using soket io ", data);
@@ -427,7 +459,7 @@ var GlobalEvent = {
 
       }
       $('.friend_req_list').append(friend_req_list);
-      acceptFriendRequest();
+      // acceptFriendRequest();
     }
 
   }

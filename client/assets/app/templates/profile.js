@@ -48,8 +48,6 @@ var Profile = {};
 
     profileSettings: function() {
       var token = localStorage.getItem('token')
-
-
       var isToken = GlobalEvent.checkIfToken(token)
       if (isToken) {
         _core.getUserInfo(token, function(res) {
@@ -99,8 +97,8 @@ var Profile = {};
                 if (responseCode = 534) {
                   //user email is not valid
                   btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                  form.clearForm();
-                  form.validate().resetForm();
+                  // form.clearForm();
+                  // form.validate().resetForm();
                   setTimeout(function() {
                     _core.showErrorMsg(form, 'danger', 'Email is not valid. ');
 
@@ -109,8 +107,8 @@ var Profile = {};
                 if (responseCode = 535) {
                   //server Authentication error..
                   btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                  form.clearForm();
-                  form.validate().resetForm();
+                  // form.clearForm();
+                  // form.validate().resetForm();
                   setTimeout(function() {
                     _core.showErrorMsg(form, 'danger', 'Server is busy please try again. ');
 
@@ -130,9 +128,8 @@ var Profile = {};
                 if (res.data == 'email_verified') {
                   setTimeout(function() {
                     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                    form.clearForm();
-                    form.validate().resetForm();
-
+                    // form.clearForm();
+                    // form.validate().resetForm();
                     _core.showErrorMsg(form, 'success', 'Thank you. Your Email is verified');
                   }, 2000);
                   $('.E_mail_Verified').empty()
@@ -157,7 +154,11 @@ var Profile = {};
         var isToken = GlobalEvent.checkIfToken(token)
         if (isToken) {
           var isFormValid = false;
-          if (phone_no.length == 10) {
+          var first_name = $('#first_name').val()
+          var last_name = $('#last_name').val()
+          var email = $('#email').val()
+          var phone_no = $('#phone_no').val();
+          if (phone_no.length == 10 && first_name && last_name && email) {
             isFormValid = true
           } else {
             console.log("in valid phone no length", phone_no.length);
@@ -166,20 +167,20 @@ var Profile = {};
             // form.clearForm();
             // form.validate().resetForm();
             setTimeout(function() {
-              _core.showErrorMsg(form, 'danger', 'Enter valid phone no. ');
+              _core.showErrorMsg(form, 'danger', 'Enter valid form details.');
 
             }, 2000)
           }
           if (isFormValid) {
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
             var dataObj = {
-              first_name: $('#first_name').val(),
-              last_name: $('#last_name').val(),
-              email: $('#email').val(),
-              phone_no: $('#phone_no').val()
+              first_name: first_name,
+              last_name: last_name,
+              email: email,
+              phone_no: phone_no
             }
             _core.addUserInfo(token, dataObj, function(res) {
-              console.log(res);
+              console.log("addUserInfo after res", res);
               if (res.success) {
                 setTimeout(function() {
                   btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);

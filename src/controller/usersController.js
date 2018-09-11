@@ -474,13 +474,13 @@ const usersController = {
   },
   addUserInfo: (req, res, next) => {
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    //console.log("addUserInfo ==>", decoded.email, req.body, req.query);
+    console.log("addUserInfo ==>", decoded.email, req.body, req.query);
 
     var updateQuery = {
-      first_name: first_name,
-      last_name: last_name,
-      phone_no: phone_no,
-      email: email,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      phone_no: req.body.phone_no,
+      email: req.body.email,
     }
     usersModel.findOneAndUpdate({
 

@@ -17,16 +17,16 @@ var API = {
   },
   addUserInfo: function(token, dataObj, cb) {
 
-    // console.log("dataobject in api.js=>", dataObj);
+    console.log("addUserInfo in api.js=>", dataObj, token);
     $.ajax({
       url: "/users/addUserInfo",
       type: "post",
       headers: {
         "authorization": token,
       },
-      data: dataObj,
+      data: { dataObj: dataObj },
       success: function(successData) {
-        // console.log(successData);
+        console.log("addUserInfo", successData);
 
         cb(successData)
       },
