@@ -136,299 +136,301 @@ var GlobalEvent = {
   //   })
   // }
 
+  $(document).on('click', function() {
+    if (token && (token.length > 0)) {
 
-  if (token && (token.length > 0)) {
+      // $(".olUserList").empty();
+      // socket = io.connect('http://localhost:8080');
+      // socket = io();
+      GlobalEvent.socket = io();
 
-    // $(".olUserList").empty();
-    // socket = io.connect('http://localhost:8080');
-    // socket = io();
-    GlobalEvent.socket = io();
+      GlobalEvent.socket.on('connect', function() {
+        $(document).on('click', '#btn_Confirm', function() {
+          // $("#btn_Confirm").unbind().click(function() {
+          console.log("btn click..", $('#sendFriendReq').attr('reqTo'));
 
-    GlobalEvent.socket.on('connect', function() {
-      $(document).on('click', '#btn_Confirm', function() {
-        // $("#btn_Confirm").unbind().click(function() {
-        console.log("btn click..", $('#sendFriendReq').attr('reqTo'));
+          var dataObj = {
+            To: $('#sendFriendReq').attr('reqTo'),
+            token: token
+          }
 
-        var dataObj = {
-          To: $('#sendFriendReq').attr('reqTo'),
-          token: token
-        }
+          var isToken = GlobalEvent.checkIfToken(token)
+          if (isToken) {
+            GlobalEvent.socket.emit('friendReq', dataObj)
 
-        var isToken = GlobalEvent.checkIfToken(token)
-        if (isToken) {
-          GlobalEvent.socket.emit('friendReq', dataObj)
+            $.ajax({
+              url: "/friendReq",
+              type: "post",
+              headers: {
+                "authorization": token,
+              },
+              data: dataObj,
+              success: function(successData) {
+                var res = successData
+                if (res) {
+                  var isFound = res.isFound;
+                  if (isFound) {
+
+                    // console.log("Request already sent");
+                    $('#allreadyFrndModal').modal('show');
+                    $("#sendFriendReq").hide();
+                    $("#sendUnFriendReq").hide();
+                    $("#friendReqAlreadySend").show();
+                  }
+                }
+
+              },
+              error: function(err) {
+                console.log("friendReq api =>", err);
+              }
+            })
+
+          }
+
+        });
+        $(document).on('click', '.btnAcceptReq', function() {
+
+          var senderEmail = $(this).attr('data-user');
+          console.log("senderEmail==>", senderEmail);
+          var token = localStorage.getItem('token');
+          var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
+          var strid = str + 'btnAcceptReq';
+          var reqAccepted = str + 'reqAccepted';
 
           $.ajax({
-            url: "/friendReq",
+            url: "/acceptFriendRequest",
             type: "post",
+            data: { senderEmail: senderEmail },
             headers: {
               "authorization": token,
             },
-            data: dataObj,
             success: function(successData) {
-              var res = successData
-              if (res) {
-                var isFound = res.isFound;
-                if (isFound) {
-
-                  // console.log("Request already sent");
-                  $('#allreadyFrndModal').modal('show');
-                  $("#sendFriendReq").hide();
-                  $("#sendUnFriendReq").hide();
-                  $("#friendReqAlreadySend").show();
-                }
+              var dataObj = {
+                To: senderEmail,
+                token: token
               }
-
+              GlobalEvent.socket.emit('frndReqAccepted', dataObj)
+              console.log("Request accepted now friend");
+              $('#' + strid).addClass('hidden')
+              $('#' + reqAccepted).removeClass('hidden')
             },
             error: function(err) {
-              console.log("friendReq api =>", err);
+              console.log("Accept friend request ", err);
             }
           })
 
-        }
-
-      });
-      $(document).on('click', '.btnAcceptReq', function() {
-
-        var senderEmail = $(this).attr('data-user');
-        console.log("senderEmail==>", senderEmail);
-        var token = localStorage.getItem('token');
-        var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
-        var strid = str + 'btnAcceptReq';
-        var reqAccepted = str + 'reqAccepted';
-
-        $.ajax({
-          url: "/acceptFriendRequest",
-          type: "post",
-          data: { senderEmail: senderEmail },
-          headers: {
-            "authorization": token,
-          },
-          success: function(successData) {
-            var dataObj = {
-              To: senderEmail,
-              token: token
-            }
-            GlobalEvent.socket.emit('frndReqAccepted', dataObj)
-            console.log("Request accepted now friend");
-            $('#' + strid).addClass('hidden')
-            $('#' + reqAccepted).removeClass('hidden')
-          },
-          error: function(err) {
-            console.log("Accept friend request ", err);
-          }
+        })
+        GlobalEvent.socket.emit('getActiveList', token, function(data) {
+          console.log("getActiveList Data", data);
         })
 
-      })
-      GlobalEvent.socket.emit('getActiveList', token, function(data) {
-        console.log("getActiveList Data", data);
-      })
-
-      GlobalEvent.socket.emit('get friends', function(data) {
-        console.log("data get freinds", data)
-      });
-
-      GlobalEvent.socket.on('reqAcceptedByFrnd', function(data) {
-        console.log("reqAcceptedByFrnd using soket io ", data);
-      });
-      GlobalEvent.socket.on('friendReqRecieve', function(data) {
-        console.log("friendReq using soket io ", data);
-        friendReq(data);
-      });
-      GlobalEvent.socket.on('users', function(data) {
-        console.log("users using soket io ", data);
-      });
-      GlobalEvent.socket.emit('setUser', 'hello world');
-
-      GlobalEvent.socket.on('Notification_for_msg', function(dataMsg) {
-        console.log("Notification_for_msg => ", dataMsg);
-        if (!arrNotificationMsgId.includes(dataMsg._id)) {
-          arrNotificationMsgId.push(dataMsg._id)
-          var email = dataMsg.sender;
-          console.log("Email to spit in notification");
-          $('#m_topbar_msgNotification_icon').show();
-          $('#m_topbar_msgNotification_icon').addClass('m-animate-blink');
-          $('#msgNotification').addClass('m-animate-shake');
-          var str = email.replace(/[^A-Z0-9]/ig, "_");
-          // var toChatboxId = str[0];
-          var toChatboxId = str;
-          var htmlChatMSg = '';
-          if (arrImgURL) {
-            for (let index = 0; index < arrImgURL.length; index++) {
-              if (arrImgURL[index].email == dataMsg.sender) {
-                data_userProfile = arrImgURL[index].imgURL;
-                // console.log("img found..", data_userProfile);
-              }
-            }
-          }
-
-          var chatTime = (moment(dataMsg.date).format('LTS'));
-          var data = {
-            first_name: dataMsg.senderName,
-            message: dataMsg.message,
-            chatTime: chatTime,
-            data_User: email,
-            data_time: dataMsg.date,
-            data_userProfile: data_userProfile
-          };
-          htmlChatMSg = renderImgTextMsgReceive(data)
-          $('#' + toChatboxId + ' .chat-msg').append(htmlChatMSg);
-          Notifications(dataMsg);
-        }
-
-      });
-
-
-      GlobalEvent.socket.on('friend_all', function(data) {
-        console.log(" Online user  friend_all => ", data);
-      });
-      GlobalEvent.socket.on('greeting', function(data) {
-        console.log(" greeting => ", data);
-      });
-
-      GlobalEvent.socket.on('friend_Ol', function(olUserEmail) {
-        console.log("friend_Ol", olUserEmail);
-        $(".olUserList li").each(function() {
-          if ($(this).attr('data-email') == olUserEmail) {
-            console.log("Friend ol==>", olUserEmail);
-            $(this).find("span").addClass("online")
-
-          }
+        GlobalEvent.socket.emit('get friends', function(data) {
+          console.log("data get freinds", data)
         });
-      });
-      GlobalEvent.socket.on('friend_list', async function(friendListData) {
-        friends = [];
-        tempobj = {}
-        temparray = [];
-        blockUserList = [];
-        arrImgURL = [];
-        var userProfile = '',
-          friendList = '';
-        console.log("users friend_list using soket io", friendListData);
-        friends = friendListData.friends;
-        arrImgURL = friendListData.arrImgURL;
-        if (friendListData) {
-          for (var index = 0; index < friends.length; index++) {
-            if (!temparray.includes(friends[index].senderEmail)) {
-              tempobj[friends[index].senderEmail] = { senderFirstName: friends[index].senderFirstName, status: friends[index].status }
-              temparray.push(friends[index]);
-            }
-          }
-          // for (var index = 0; index < friends.length; index++) {
-          //   for (var variable in tempobj) {
-          //     if (tempobj.hasOwnProperty(variable)) {
-          //       if (Data[index].sender == variable) {
-          //         tempObj[variable].message.push(Data[index].message);
-          //         tempObj[variable].senderName = Data[index].senderName;
-          //         tempObj[variable].count++;
-          //       }
 
-          //     }
-          //   }
-          // }
-          console.log("tempObj==>", tempobj, temparray);
-          for (var variable in tempobj) {
+        GlobalEvent.socket.on('reqAcceptedByFrnd', function(data) {
+          console.log("reqAcceptedByFrnd using soket io ", data);
+        });
+        GlobalEvent.socket.on('friendReqRecieve', function(data) {
+          console.log("friendReq using soket io ", data);
+          friendReq(data);
+        });
+        GlobalEvent.socket.on('users', function(data) {
+          console.log("users using soket io ", data);
+        });
+        GlobalEvent.socket.emit('setUser', 'hello world');
 
-
-            for (var j = 0; j < arrImgURL.length; j++) {
-              if (arrImgURL[j].email === variable) {
-                // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
-                if (tempobj[variable].status == 'Blocked') {
-                  blockUserList.push(friends[i].senderEmail)
-                  console.log("blockUserList=>", variable);
+        GlobalEvent.socket.on('Notification_for_msg', function(dataMsg) {
+          console.log("Notification_for_msg => ", dataMsg);
+          if (!arrNotificationMsgId.includes(dataMsg._id)) {
+            arrNotificationMsgId.push(dataMsg._id)
+            var email = dataMsg.sender;
+            console.log("Email to spit in notification");
+            $('#m_topbar_msgNotification_icon').show();
+            $('#m_topbar_msgNotification_icon').addClass('m-animate-blink');
+            $('#msgNotification').addClass('m-animate-shake');
+            var str = email.replace(/[^A-Z0-9]/ig, "_");
+            // var toChatboxId = str[0];
+            var toChatboxId = str;
+            var htmlChatMSg = '';
+            if (arrImgURL) {
+              for (let index = 0; index < arrImgURL.length; index++) {
+                if (arrImgURL[index].email == dataMsg.sender) {
+                  data_userProfile = arrImgURL[index].imgURL;
+                  // console.log("img found..", data_userProfile);
                 }
-                friendList += `<li data-email=` + variable + ` style="cursor:pointer">
-                <div style="display:inline-flex">
-                  <span class="_1gyw" style="height:5px;width:5px"></span>
-                  <div class="_1gyw" style="margin-right:10px">
-                    <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
+              }
+            }
+
+            var chatTime = (moment(dataMsg.date).format('LTS'));
+            var data = {
+              first_name: dataMsg.senderName,
+              message: dataMsg.message,
+              chatTime: chatTime,
+              data_User: email,
+              data_time: dataMsg.date,
+              data_userProfile: data_userProfile
+            };
+            htmlChatMSg = renderImgTextMsgReceive(data)
+            $('#' + toChatboxId + ' .chat-msg').append(htmlChatMSg);
+            Notifications(dataMsg);
+          }
+
+        });
+
+
+        GlobalEvent.socket.on('friend_all', function(data) {
+          console.log(" Online user  friend_all => ", data);
+        });
+        GlobalEvent.socket.on('greeting', function(data) {
+          console.log(" greeting => ", data);
+        });
+
+        GlobalEvent.socket.on('friend_Ol', function(olUserEmail) {
+          console.log("friend_Ol", olUserEmail);
+          $(".olUserList li").each(function() {
+            if ($(this).attr('data-email') == olUserEmail) {
+              console.log("Friend ol==>", olUserEmail);
+              $(this).find("span").addClass("online")
+
+            }
+          });
+        });
+        GlobalEvent.socket.on('friend_list', async function(friendListData) {
+          friends = [];
+          tempobj = {}
+          temparray = [];
+          blockUserList = [];
+          arrImgURL = [];
+          var userProfile = '',
+            friendList = '';
+          console.log("users friend_list using soket io", friendListData);
+          friends = friendListData.friends;
+          arrImgURL = friendListData.arrImgURL;
+          if (friendListData) {
+            for (var index = 0; index < friends.length; index++) {
+              if (!temparray.includes(friends[index].senderEmail)) {
+                tempobj[friends[index].senderEmail] = { senderFirstName: friends[index].senderFirstName, status: friends[index].status }
+                temparray.push(friends[index]);
+              }
+            }
+            // for (var index = 0; index < friends.length; index++) {
+            //   for (var variable in tempobj) {
+            //     if (tempobj.hasOwnProperty(variable)) {
+            //       if (Data[index].sender == variable) {
+            //         tempObj[variable].message.push(Data[index].message);
+            //         tempObj[variable].senderName = Data[index].senderName;
+            //         tempObj[variable].count++;
+            //       }
+
+            //     }
+            //   }
+            // }
+            console.log("tempObj==>", tempobj, temparray);
+            for (var variable in tempobj) {
+
+
+              for (var j = 0; j < arrImgURL.length; j++) {
+                if (arrImgURL[j].email === variable) {
+                  // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
+                  if (tempobj[variable].status == 'Blocked') {
+                    blockUserList.push(friends[i].senderEmail)
+                    console.log("blockUserList=>", variable);
+                  }
+                  friendList += `<li data-email=` + variable + ` style="cursor:pointer">
+                  <div style="display:inline-flex">
+                    <span class="_1gyw" style="height:5px;width:5px"></span>
+                    <div class="_1gyw" style="margin-right:10px">
+                      <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
+                    </div>
+                    <div class="friendName">` + tempobj[variable].senderFirstName + `</div>
                   </div>
-                  <div class="friendName">` + tempobj[variable].senderFirstName + `</div>
-                </div>
-                </li>`;
+                  </li>`;
+                }
+
               }
 
+
+
+              // if (tempobj.hasOwnProperty(variable)) {
+              //   var senderName = status;
+              //   console.log("Variable GetAllUnreadMsg==>", variable);
+              //   msgListCountHTML += renderUnreadMsgData(variable, senderName, tempobj[variable].count);
+              // }
             }
 
 
 
-            // if (tempobj.hasOwnProperty(variable)) {
-            //   var senderName = status;
-            //   console.log("Variable GetAllUnreadMsg==>", variable);
-            //   msgListCountHTML += renderUnreadMsgData(variable, senderName, tempobj[variable].count);
+
+            // for (var i = 0; i < friends.length; i++) {
+            //   for (var j = 0; j < arrImgURL.length; j++) {
+            //     if (arrImgURL[j].email === friends[i].senderEmail) {
+            //       // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
+            //       if (friends[i].status == 'Blocked') {
+            //         blockUserList.push(friends[i].senderEmail)
+            //         console.log("blockUserList=>", friends[i].senderEmail);
+            //       }
+            //       friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
+            //       <div style="display:inline-flex">
+            //         <span class="_1gyw" style="height:5px;width:5px"></span>
+            //         <div class="_1gyw" style="margin-right:10px">
+            //           <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
+            //         </div>
+            //         <div class="friendName">` + friends[i].senderFirstName + `</div>
+            //       </div>
+            //       </li>`;
+            //     }
+
+            //   }
             // }
+          } else {
+            friendList += ' <label> Your friend list is empty</label>'
           }
 
+          $(".olUserList").html(friendList);
+          userList();
+        });
+        GlobalEvent.socket.on('pending_list', function(data) {
+          friendReq(data);
 
+          // var requestCount = data.length;
 
+          // var friend_req_list = '';
 
-          // for (var i = 0; i < friends.length; i++) {
-          //   for (var j = 0; j < arrImgURL.length; j++) {
-          //     if (arrImgURL[j].email === friends[i].senderEmail) {
-          //       // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
-          //       if (friends[i].status == 'Blocked') {
-          //         blockUserList.push(friends[i].senderEmail)
-          //         console.log("blockUserList=>", friends[i].senderEmail);
-          //       }
-          //       friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
-          //       <div style="display:inline-flex">
-          //         <span class="_1gyw" style="height:5px;width:5px"></span>
-          //         <div class="_1gyw" style="margin-right:10px">
-          //           <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
-          //         </div>
-          //         <div class="friendName">` + friends[i].senderFirstName + `</div>
-          //       </div>
-          //       </li>`;
-          //     }
+          // $('.friend_req_count').html(requestCount + "  New")
+          // if (requestCount > 0) {
+          //   $('.friend_req_list').empty();
+          //   for (let index = 0; index < data.length; index++) {
+          //     var email = data[index].senderEmail;
+          //     // tempNotifArray = [];
+          //     // tempNotifObj = {};
+          //     var str = email.replace(/[^A-Z0-9]/ig, "_");
+          //     var strid = str + 'btnAcceptReq';
+          //     var reqAccepted = str + 'reqAccepted';
+          //     friend_req_list += `<div class="m-list-timeline__item">
+          //                               <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+          //                               <span class="m-list-timeline__text">` +
+          //       data[index].senderFirstName + `</span>
+          //                               <span class="m-list-timeline__time acceptReq">
+          //                             <button type="button" data-user="` + data[index].senderEmail + `" id="` + strid + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btnAcceptReq">Accept</button>
+          //                             <a type="button" data-user="` + data[index].senderEmail + `" id="` + reqAccepted + `"class="btn m-btn m-btn--gradient-from-info m-btn--gradient-to-accent hidden  reqAccepted">Friend</a>
+
+          //                             </span>
+
+          //                             </div>`;
 
           //   }
+          //   $('.friend_req_list').append(friend_req_list);
+          //   acceptFriendRequest();
           // }
-        } else {
-          friendList += ' <label> Your friend list is empty</label>'
-        }
 
-        $(".olUserList").html(friendList);
-        userList();
-      });
-      GlobalEvent.socket.on('pending_list', function(data) {
-        friendReq(data);
-
-        // var requestCount = data.length;
-
-        // var friend_req_list = '';
-
-        // $('.friend_req_count').html(requestCount + "  New")
-        // if (requestCount > 0) {
-        //   $('.friend_req_list').empty();
-        //   for (let index = 0; index < data.length; index++) {
-        //     var email = data[index].senderEmail;
-        //     // tempNotifArray = [];
-        //     // tempNotifObj = {};
-        //     var str = email.replace(/[^A-Z0-9]/ig, "_");
-        //     var strid = str + 'btnAcceptReq';
-        //     var reqAccepted = str + 'reqAccepted';
-        //     friend_req_list += `<div class="m-list-timeline__item">
-        //                               <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-        //                               <span class="m-list-timeline__text">` +
-        //       data[index].senderFirstName + `</span>
-        //                               <span class="m-list-timeline__time acceptReq">
-        //                             <button type="button" data-user="` + data[index].senderEmail + `" id="` + strid + `"class="btn m-btn m-btn--gradient-from-success m-btn--gradient-to-accent btnAcceptReq">Accept</button>
-        //                             <a type="button" data-user="` + data[index].senderEmail + `" id="` + reqAccepted + `"class="btn m-btn m-btn--gradient-from-info m-btn--gradient-to-accent hidden  reqAccepted">Friend</a>
-
-        //                             </span>
-
-        //                             </div>`;
-
-        //   }
-        //   $('.friend_req_list').append(friend_req_list);
-        //   acceptFriendRequest();
-        // }
+        });
 
       });
 
-    });
+    }
 
-  }
+  })
 
   function friendReq(data) {
     var requestCount = data.length;

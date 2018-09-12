@@ -98,6 +98,7 @@ var Home = {};
       $('.search_btn').unbind().click(function() {
         amount = $('#txt_amt').val();
         var quickTraderType = $('#trade-tabs li.active').attr('data-traderType');
+        quickCurrency = $('#titile_currency').text();
         // console.log("quickTraderType", quickTraderType);
 
         window.location.href = '#/quickOnline?cryptoCurrency=' + cryptoCurrency + '&amount=' + amount +
