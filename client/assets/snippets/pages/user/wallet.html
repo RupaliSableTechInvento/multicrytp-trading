@@ -1,0 +1,408 @@
+<div class="">
+
+  <div class="m-portlet">
+    <div class="m-portlet__body">
+
+      <div class="row">
+        <ul class="nav nav-tabs nav-fill" id="mainTablist" role="tablist">
+          <!-- <li class="nav-item" style="margin-right: 20px"> -->
+          <li class="nav-item">
+            <a class="nav-link active" data-code="BTC" data-toggle="tab" href="#subContent">BitCoin</a>
+          </li>
+          <!-- <li class="nav-item" style="margin-right: 20px"> -->
+          <li class="nav-item">
+            <a class="nav-link " data-code="LTC" data-toggle="tab" href="#subContent">LiteCoin</a>
+          </li>
+          <li class="nav-item">
+            <!-- <li class="nav-item" style="margin-right: 20px"> -->
+            <a class="nav-link  " data-code="DOGE" data-toggle="tab" href="#subContent">DogeCoin</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="row tab-content" id="subContent">
+        <ul class="nav nav-pills" id="subTablist" role="tablist">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#m_tabs_3_1">Send BitCoins</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  " data-toggle="tab" href="#m_tabs_3_3">Receive BitCoins</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  " data-toggle="tab" href="#m_tabs_3_4">Transactions</a>
+          </li> -->
+        </ul>
+      </div>
+      <div class="row" i>
+        <div class="tab-content">
+          <div class="tab-pane active " id="m_tabs_3_1" role="tabpanel">
+            <div class="container">
+              <div class="m-portlet" id="divuserWalletData">
+                <div class="m-portlet-body">
+                  <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
+
+                    <div class="m-portlet__body" id="userWalletData">
+                      <!-- <div class="row">
+                        <div class="col-xs-6 col-md-8">In your wallet:</div>
+                        <div class="col-xs-6 col-md-4"><strong>0</strong> BTC</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-6 col-md-8">Transaction fee: </div>
+                        <div class="col-xs-6 col-md-4"><strong>0.00005</strong> BTC</div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-xs-6 col-md-8">You can send up to: </div>
+                        <div class="col-xs-6 col-md-4"><strong>0</strong> BTC</div>
+                      </div> -->
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="row">
+                <form class="m-form m-form--fit" id="walletForm">
+                  <div class="m-portlet__body m-portlet__body--no-padding">
+                    <div class="m-form__section m-form__section--first">
+
+                      <div class="form-group m-form__group row" style="display:flex">
+                        <div class="col-xl-12 col-lg-12">
+                          <label for="example_input_full_name">Recipient Address:</label>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12">
+                          <input type="text" name="address" id="receiverAddress" class="form-control m-input" placeholder="Enter Address">
+                          <!-- <input type="tel" name="address" class="form-control m-input" placeholder="Enter Address"> -->
+                          <!-- <span class="m-form__help">enter the address of recipient</span> -->
+                        </div>
+                      </div>
+                      <div class="form-group m-form__group row" style="display:flex">
+                        <div class="col-xl-12 col-lg-12">
+                          <label class="col-xl-4 col-lg-4 col-form-label" for="example_input_full_name">Amount :</label>
+
+                          <!-- <label for="example_input_full_name">Recipient Address:</label> -->
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12">
+                          <input type="text" name="Amount" id="txtamontCryptCurrency" class="form-control m-input" placeholder="0.0000">
+                          <span class="m-form__help">Enter the Amount in bitcoins</span>
+                          <span class="m-form__help hidden" id="amtErrorhint" style="color:brown">
+                              Ensure this value is greater than or equal to 0.0001.
+                          </span>
+                          <!-- <input type="tel" name="address" class="form-control m-input" placeholder="Enter Address"> -->
+                        </div>
+                        <!-- <label class="col-xl-4 col-lg-4 col-form-label" for="example_input_full_name">Amount :</label> -->
+                        <!-- 
+                        <div class="col-xl-8 col-lg-8">
+                          <input type="text" name="Amount" class="form-control m-input" placeholder="0.0000">
+                          <span class="m-form__help">enter the Amount in bitcoins</span>
+                        </div> -->
+                      </div>
+                      <!-- <div class="form-group m-form__group row">
+                        <label class="col-xl-4 col-lg-4 col-form-label">Cryptocurrency:</label>
+                        <div class="col-xl-8 col-lg-8">
+                          <select name="cryptocurrency" class="form-control m-input" aria-describedby="cryptoCurrency-error" aria-invalid="false">
+                              <option value="AED">BitCoins</option>
+                               <option value="AED">LiteCoin</option>
+                               <option value="AED">DogeCoin</option>
+                               
+                            </select>
+                        </div>
+                      </div> -->
+
+                    </div>
+
+                    <div class="m-separator m-separator--dashed m-separator--lg"></div>
+
+                    <div class="m-form__section">
+                      <div class="m-form__heading">
+                        <h3 class="m-form__heading-title">
+                          More Options
+                          <i data-toggle="m-tooltip" data-width="auto" class="m-form__heading-help-icon flaticon-info" title="" data-original-title="Some help text goes here"></i>
+                        </h3>
+                      </div>
+                      <div class="form-group m-form__group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Description:</label>
+                        <div class="col-xl-9 col-lg-9">
+                          <input type="text" name="description" class="form-control m-input" placeholder="" aria-describedby="address1-error" aria-invalid="false">
+                          <span class="m-form__help">Appears in the transaction list</span>
+                        </div>
+                      </div>
+                      <div class="form-group m-form__group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Amount:</label>
+                        <div class="col-xl-9 col-lg-9">
+                          <div id="divresultAmt">
+                            <input type="text" name="resultAmount" id="resultAmt" class="form-control m-input" placeholder="0.00">
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="form-group m-form__group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Currency:</label>
+                        <div class="col-xl-9 col-lg-9">
+                          <select name="currencyCode" id="currencyCode" class="form-control m-input" aria-describedby="country-error" aria-invalid="false">
+                                  <option id="currencyCodeOption" value="AED">AED</option>
+                                  <option value="AFN">AFN</option>
+                                  <option value="ALL">ALL</option>
+                                  <option value="AMD">AMD</option>
+                                  <option value="ANG">ANG</option>
+                                  <option value="AOA">AOA</option>
+                                  <option value="ARS">ARS</option>
+                                  <option value="AUD">AUD</option>
+                                  <option value="AWG">AWG</option>
+                                  <option value="AZN">AZN</option>
+                                  <option value="BAM">BAM</option>
+                                  <option value="BBD">BBD</option>
+                                  <option value="BDT">BDT</option>
+                                  <option value="BGN">BGN</option>
+                                  <option value="BHD">BHD</option>
+                                  <option value="BIF">BIF</option>
+                                  <option value="BMD">BMD</option>
+                                  <option value="BND">BND</option>
+                                  <option value="BOB">BOB</option>
+                                  <option value="BRL">BRL</option>
+                                  <option value="BSD">BSD</option>
+                                  <option value="BTN">BTN</option>
+                                  <option value="BWP">BWP</option>
+                                  <option value="BYN">BYN</option>
+                                  <option value="BYR">BYR</option>
+                                  <option value="BZD">BZD</option>
+                                  <option value="CAD">CAD</option>
+                                  <option value="CDF">CDF</option>
+                                  <option value="CHF">CHF</option>
+                                  <option value="CLF">CLF</option>
+                                  <option value="CLP">CLP</option>
+                                  <option value="CNH">CNH</option>
+                                  <option value="CNY">CNY</option>
+                                  <option value="COP">COP</option>
+                                  <option value="CRC">CRC</option>
+                                  <option value="CUC">CUC</option>
+                                  <option value="CUP">CUP</option>
+                                  <option value="CVE">CVE</option>
+                                  <option value="CZK">CZK</option>
+                                  <option value="DJF">DJF</option>
+                                  <option value="DKK">DKK</option>
+                                  <option value="DOP">DOP</option>
+                                  <option value="DZD">DZD</option>
+                                  <option value="EEK">EEK</option>
+                                  <option value="EGP">EGP</option>
+                                  <option value="ERN">ERN</option>
+                                  <option value="ETB">ETB</option>
+                                  <option value="EUR">EUR</option>
+                                  <option value="FJD">FJD</option>
+                                  <option value="FKP">FKP</option>
+                                  <option value="GBP">GBP</option>
+                                  <option value="GEL">GEL</option>
+                                  <option value="GGP">GGP</option>
+                                  <option value="GHS">GHS</option>
+                                  <option value="GIP">GIP</option>
+                                  <option value="GMD">GMD</option>
+                                  <option value="GNF">GNF</option>
+                                  <option value="GTQ">GTQ</option>
+                                  <option value="GYD">GYD</option>
+                                  <option value="HKD">HKD</option>
+                                  <option value="HNL">HNL</option>
+                                  <option value="HRK">HRK</option>
+                                  <option value="HTG">HTG</option>
+                                  <option value="HUF">HUF</option>
+                                  <option value="IDR">IDR</option>
+                                  <option value="ILS">ILS</option>
+                                  <option value="IMP">IMP</option>
+                                  <option value="INR">INR</option>
+                                  <option value="IQD">IQD</option>
+                                  <option value="IRR">IRR</option>
+                                  <option value="ISK">ISK</option>
+                                  <option value="JEP">JEP</option>
+                                  <option value="JMD">JMD</option>  
+                                  <option value="JOD">JOD</option>
+                                  <option value="JPY">JPY</option>
+                                  <option value="KES">KES</option>
+                                  <option value="KGS">KGS</option>
+                                  <option value="KHR">KHR</option>
+                                  <option value="KMF">KMF</option>
+                                  <option value="KPW">KPW</option>
+                                  <option value="KRW">KRW</option>
+                                  <option value="KWD">KWD</option>
+                                  <option value="KYD">KYD</option>
+                                  <option value="KZT">KZT</option>
+                                  <option value="LAK">LAK</option>
+                                  <option value="LBP">LBP</option>
+                                  <option value="LKR">LKR</option>
+                                  <option value="LRD">LRD</option>
+                                  <option value="LSL">LSL</option>
+                                  <option value="LTL">LTL</option>
+                                  <option value="LVL">LVL</option>
+                                  <option value="LYD">LYD</option>
+                                  <option value="MAD">MAD</option>
+                                  <option value="MDL">MDL</option>
+                                  <option value="MGA">MGA</option>
+                                  <option value="MKD">MKD</option>
+                                  <option value="MMK">MMK</option>
+                                  <option value="MNT">MNT</option>
+                                  <option value="MOP">MOP</option>
+                                  <option value="MRO">MRO</option>
+                                  <option value="MRU">MRU</option>
+                                  <option value="MTL">MTL</option>
+                                  <option value="MUR">MUR</option>
+                                  <option value="MVR">MVR</option>
+                                  <option value="MWK">MWK</option>
+                                  <option value="MXN">MXN</option>
+                                  <option value="MYR">MYR</option>
+                                  <option value="MZN">MZN</option>
+                                  <option value="NAD">NAD</option>
+                                  <option value="NGN">NGN</option>
+                                  <option value="NIO">NIO</option>
+                                  <option value="NOK">NOK</option>
+                                  <option value="NPR">NPR</option>
+                                  <option value="NZD">NZD</option>
+                                  <option value="OMR">OMR</option>
+                                  <option value="PAB">PAB</option>
+                                  <option value="PEN">PEN</option>
+                                  <option value="PGK">PGK</option>
+                                  <option value="PHP">PHP</option>
+                                  <option value="PKR">PKR</option>
+                                  <option value="PLN">PLN</option>
+                                  <option value="PYG">PYG</option>
+                                  <option value="QAR">QAR</option>
+                                  <option value="RON">RON</option>
+                                  <option value="RSD">RSD</option>
+                                  <option value="RUB">RUB</option>
+                                  <option value="RWF">RWF</option>
+                                  <option value="SAR">SAR</option>
+                                  <option value="SBD">SBD</option>
+                                  <option value="SCR">SCR</option>
+                                  <option value="SDG">SDG</option>
+                                  <option value="SEK">SEK</option>
+                                  <option value="SGD">SGD</option>
+                                  <option value="SHP">SHP</option>
+                                  <option value="SLL">SLL</option>
+                                  <option value="SOS">SOS</option>
+                                  <option value="SRD">SRD</option>
+                                  <option value="SSP">SSP</option>
+                                  <option value="STD">STD</option>
+                                  <option value="STN">STN</option>
+                                  <option value="SVC">SVC</option>
+                                  <option value="SYP">SYP</option>
+                                  <option value="SZL">SZL</option>
+                                  <option value="THB">THB</option>
+                                  <option value="TJS">TJS</option>
+                                  <option value="TMT">TMT</option>
+                                  <option value="TND">TND</option>
+                                  <option value="TOP">TOP</option>
+                                  <option value="TRY">TRY</option>
+                                  <option value="TTD">TTD</option>
+                                  <option value="TWD">TWD</option>
+                                  <option value="TZS">TZS</option>
+                                  <option value="UAH">UAH</option>
+                                  <option value="UGX">UGX</option>
+                                  <option value="USD">USD</option>
+                                  <option value="UYU">UYU</option>
+                                  <option value="UZS">UZS</option>
+                                  <option value="VES">VES</option>
+                                  <option value="VND">VND</option>
+                                  <option value="VUV">VUV</option>
+                                  <option value="WST">WST</option>
+                                  <option value="XAF">XAF</option>
+                                  <option value="XAG">XAG</option>
+                                  <option value="XAR">XAR</option>
+                                  <option value="XAU">XAU</option>
+                                  <option value="XCD">XCD</option>
+                                  <option value="XDR">XDR</option>
+                                  <option value="XOF">XOF</option>
+                                  <option value="XPD">XPD</option>
+                                  <option value="XPF">XPF</option>
+                                  <option value="XPT">XPT</option>
+                                  <option value="YER">YER</option>
+                                  <option value="ZAR">ZAR</option>
+                                  <option value="ZMK">ZMK</option>
+                                  <option value="ZMW">ZMW</option>
+                                  <option value="ZWL">ZWL</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class=" m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+                      <div class="m-form__actions">
+                        <button id="btn_sendCoins" style="cursor: pointer;" type="button" class="col-xl-2.5 col-lg-2.5 btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air ">Continue</button>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="m_tabs_3_3" role="tabpanel">
+            <div id="recieveCoinTitle">
+
+            </div>
+            <div id="walletAddress">
+
+            </div>
+            <div id="IEshowHint" style="display:none">
+              Press CTRL + C or ⌘ + C to copy the bitcoin address.
+            </div>
+
+
+          </div>
+          <div class="tab-pane" id="m_tabs_3_4" role="tabpanel">
+
+            <!--Begin::Section-->
+
+            <!--End::Section-->
+            <!--Begin::Section-->
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="m-portlet m-portlet--mobile ">
+                  <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                      <div class="m-portlet__head-title headTitle">
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-portlet__body">
+                    <!--begin: Datatable -->
+                    <div>
+                      <div class="m_datatable" id="m_datatable_Transaction" style="min-height:0">
+                      </div>
+                      <!-- 
+                      <div class=" pull-right">
+                        <a class="btn btn-success  m-btn--icon  li_showMore" style="color:white;" data-tradeMethod="ONLINE" data-traderType="SELL">
+                          <span>
+                                    <i class="fa flaticon-menu-button"></i>          
+                                        <span class="showMore">Show more</span>
+                          </span>
+                        </a>
+        
+                      </div> -->
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .m-datatable__pager {
+    display: block !important;
+  }
+</style>
