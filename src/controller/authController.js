@@ -2,6 +2,7 @@ import usersModel from './../models/usersModel';
 import tokenModel from './../models/tokenModel';
 import jwt from 'jsonwebtoken';
 import env from "../env";
+import walletController from './walletController';
 import tradeModel from '../models/postatrade';
 var encode = require('hashcode').hashCode;
 
@@ -28,6 +29,7 @@ const authController = {
         var v = new Date();
         v.setMinutes(d.getMinutes() + 5);
         const token1 = jwt.sign({
+          _id: user._id,
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
@@ -67,7 +69,7 @@ const authController = {
                 user: {
                   first_name: user.first_name,
                   last_name: user.last_name,
-                  id: user._id
+                  id: user._id,
                 }
               });
             })
@@ -124,14 +126,38 @@ const authController = {
     var account_created = new Date();
     if (req.body.password != "" && req.body.password.length > 5) {
       req.body.password = encode().value(req.body.password);
-      let user = new usersModel(req.body);
       req.body.account_created = account_created;
+      var name = req.body.email;
+      console.log("name==>", name);
+
+      req.body.wallets = {
+        BTC: {
+          isAddressCreated: false
+        },
+        LTC: {
+          isAddressCreated: false
+        },
+        DOGE: {
+          isAddressCreated: false
+        },
+      }
+      console.log("req.body Register==>", req.body);
+
+
+      let user = new usersModel(req.body);
+      user.save(req.body, function(err, user) {
+
+        if (err) return res.json(err);
+        else {
+
+          res.json(user)
+
+        }
+      })
+
 
       console.log("Account Created==>", account_created);
-      user.save(req.body, function(err, user) {
-        if (err) return res.json(err);
-        res.json(user)
-      })
+
     } else {
       res.json("Please provide valid password");
     }

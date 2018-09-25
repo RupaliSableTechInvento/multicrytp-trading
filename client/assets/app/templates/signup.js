@@ -119,6 +119,7 @@ var SignUp = {};
           },
           error: function(err) {
             setTimeout(function() {
+              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
               _core.showErrorMsg(form, 'danger', 'registration is not completed. ');
 
             }, 2000)
@@ -132,6 +133,11 @@ var SignUp = {};
         window.location.replace("#/login");
 
       })
+      $('#m_login_signup_cancel').click(function(e) {
+        $('#m_login_signup_submit').removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+
+      })
+
 
     }
   }

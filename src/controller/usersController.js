@@ -224,8 +224,8 @@ const usersController = {
 
 
     var bulk = messagesModel.collection.initializeUnorderedBulkOp();
-
-    arrMsgID.forEach((item, index) => {
+    //new updated... previously arrMsgID.forEach(18/9)
+    arrMsgIDList.forEach((item, index) => {
       _id = mongoose.Types.ObjectId(item)
         // var id = arrMsgID[index];
       bulk.find({ _id: _id }).updateOne({ $set: { isRead: true } });

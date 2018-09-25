@@ -51,13 +51,7 @@ var ForgetPassword = {};
             setTimeout(function() {
               btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove 
               form.clearForm(); // clear form
-              form.validate().resetForm(); // reset validation states
-              // display signup form
-              // displaySignInFormdisplaySignInForm();
-              //  var signInForm = login.find('.m-login__signin form');
-              //signInForm.clearForm();
-              // signInForm.validate().resetForm();
-
+              form.validate().resetForm(); // reset validation states        
               _core.showErrorMsg(form, 'success', 'Cool! Password recovery instruction has been sent to your email.');
             }, 2000);
           },
@@ -68,8 +62,6 @@ var ForgetPassword = {};
 
             }, 2000)
             form.clearForm();
-
-            console.log("forgetpassword error =>", err);
             window.location.replace("#/");
           }
 
@@ -91,4 +83,3 @@ var ForgetPassword = {};
     }
   }
 }).bind(ForgetPassword))()
-//ForgetPassword.init();

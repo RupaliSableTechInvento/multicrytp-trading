@@ -14,6 +14,12 @@ var GlobalEvent = {
               var userData = successData.data[0];
               console.log("successData.data getUserInfo=> ", successData.data);
               if (userData) {
+                var BTC_isAddressCreated = userData.wallets['BTC'].isAddressCreated;
+                var LTC_isAddressCreated = userData.wallets['LTC'].isAddressCreated;
+                var DOGE_isAddressCreated = userData.wallets['DOGE'].isAddressCreated;
+                localStorage.setItem('BTC_isAddressCreated', BTC_isAddressCreated)
+                localStorage.setItem('LTC_isAddressCreated', LTC_isAddressCreated)
+                localStorage.setItem('DOGE_isAddressCreated', DOGE_isAddressCreated)
                 $('.m-card-user__name').html(userData.first_name + ' ' + userData.last_name),
                   $('.m-card-user__email').html(userData.email)
                 if (!userData.imgURL) {
@@ -60,7 +66,10 @@ var GlobalEvent = {
           localStorage.removeItem("first_name");
           localStorage.removeItem("last_name");
           localStorage.removeItem('user_id');
-          // socket.disconnect();
+          localStorage.removeItem('BTC_isAddressCreated')
+          localStorage.removeItem('LTC_isAddressCreated')
+          localStorage.removeItem('DOGE_isAddressCreated')
+            // socket.disconnect();
           $('.loginUser').hide();
           $('.loginOutUser').show();
           window.location.reload("");
@@ -104,39 +113,16 @@ var GlobalEvent = {
     $('#m_topbar_msgNotification_icon').removeClass('m-animate-blink');
     $('#msgNotification').removeClass('m-animate-shake');
   })
+  $(window).on('hashchange', function(e) {
+    // console.log("document hashchange called..");
 
-  // function acceptFriendRequest() {
-  //   $(document).on('click', '.btnAcceptReq', function() {
+    getUrlVars();
 
-  //     var senderEmail = $(this).attr('data-user');
-  //     console.log("senderEmail==>", senderEmail);
-  //     var token = localStorage.getItem('token');
-  //     var str = senderEmail.replace(/[^A-Z0-9]/ig, "_");
-  //     var strid = str + 'btnAcceptReq';
-  //     var reqAccepted = str + 'reqAccepted';
-
-  //     $.ajax({
-  //       url: "/acceptFriendRequest",
-  //       type: "post",
-  //       data: { senderEmail: senderEmail },
-  //       headers: {
-  //         "authorization": token,
-  //       },
-  //       success: function(successData) {
-  //         GlobalEvent.socket.emit('frndReqAccepted', token)       
-  //           console.log("Request accepted now friend");
-  //         $('#' + strid).addClass('hidden')
-  //         $('#' + reqAccepted).removeClass('hidden')
-  //       },
-  //       error: function(err) {
-  //         console.log("Accept friend request ", err);
-  //       }
-  //     })
-
-  //   })
-  // }
+  })
 
   $(document).on('click', function() {
+
+
     if (token && (token.length > 0)) {
 
       // $(".olUserList").empty();
@@ -210,12 +196,12 @@ var GlobalEvent = {
                 token: token
               }
               GlobalEvent.socket.emit('frndReqAccepted', dataObj)
-              console.log("Request accepted now friend");
+                // console.log("Request accepted now friend");
               $('#' + strid).addClass('hidden')
               $('#' + reqAccepted).removeClass('hidden')
             },
             error: function(err) {
-              console.log("Accept friend request ", err);
+              // console.log("Accept friend request ", err);
             }
           })
 
@@ -335,7 +321,7 @@ var GlobalEvent = {
                   // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
                   if (tempobj[variable].status == 'Blocked') {
                     blockUserList.push(friends[i].senderEmail)
-                    console.log("blockUserList=>", variable);
+                      // console.log("blockUserList=>", variable);
                   }
                   friendList += `<li data-email=` + variable + ` style="cursor:pointer">
                   <div style="display:inline-flex">
@@ -360,29 +346,6 @@ var GlobalEvent = {
             }
 
 
-
-
-            // for (var i = 0; i < friends.length; i++) {
-            //   for (var j = 0; j < arrImgURL.length; j++) {
-            //     if (arrImgURL[j].email === friends[i].senderEmail) {
-            //       // console.log(" array when matched...==>", arrImgURL[j].email, friends[i].senderEmail);
-            //       if (friends[i].status == 'Blocked') {
-            //         blockUserList.push(friends[i].senderEmail)
-            //         console.log("blockUserList=>", friends[i].senderEmail);
-            //       }
-            //       friendList += `<li data-email=` + friends[i].senderEmail + ` style="cursor:pointer">
-            //       <div style="display:inline-flex">
-            //         <span class="_1gyw" style="height:5px;width:5px"></span>
-            //         <div class="_1gyw" style="margin-right:10px">
-            //           <img src="` + arrImgURL[j].imgURL + `" width="32" height="32" alt="" class="img">
-            //         </div>
-            //         <div class="friendName">` + friends[i].senderFirstName + `</div>
-            //       </div>
-            //       </li>`;
-            //     }
-
-            //   }
-            // }
           } else {
             friendList += ' <label> Your friend list is empty</label>'
           }
@@ -431,6 +394,18 @@ var GlobalEvent = {
     }
 
   })
+
+
+  function getUrlVars() {
+    console.log("getUrlVars function called..");
+    var hashes = window.location.href.slice(window.location.href.indexOf('#') + 2).split('/');
+    console.log(hashes);
+    if (hashes.includes('wallet')) {
+      $('#ulHomeCrytpoCurrency').addClass('hidden');
+    } else {
+      $('#ulHomeCrytpoCurrency').removeClass('hidden');
+    }
+  }
 
   function friendReq(data) {
     var requestCount = data.length;
@@ -1016,7 +991,7 @@ var GlobalEvent = {
   }
 
   function userList() {
-    console.log("userList  function call");
+    // console.log("userList  function call");
     $(".olUserList li").unbind().click(function() {
       var toEmail = $(this).attr('data-email');
       var olUserName = $(this).text();
@@ -1107,7 +1082,7 @@ var GlobalEvent = {
 
           }
         } else {
-          console.log("blockuser list IS EMPTY==>", blockUserList);
+          // console.log("blockuser list IS EMPTY==>", blockUserList);
         }
 
       }

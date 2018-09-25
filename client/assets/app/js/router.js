@@ -14,6 +14,14 @@
 
       });
 
+      this.get('#/accounts/wallet', function(context) {
+
+        if (!checkIfToken()) {
+          Home.init();
+          return;
+        }
+        Wallet.init();
+      });
       this.get('#/login', function(context) {
         if (checkIfToken()) {
           Home.init();
@@ -132,12 +140,15 @@
 
     function checkIfToken() {
       var isToken = localStorage.getItem('token')
+      console.log("Token==>", isToken);
+
       if (isToken && isToken.length > 0) {
 
         return true;
-      }
+      } else {
+        return false;
 
-      return false;
+      }
     }
   });
 })();

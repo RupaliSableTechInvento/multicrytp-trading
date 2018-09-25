@@ -2,7 +2,6 @@ var UserProfile = {};
 ((function() {
   var id = '';
   var currency = '';
-  var token = localStorage.getItem('token');
   var friendsList = [];
   var pending = [];
   this.init = function() {
@@ -38,9 +37,9 @@ var UserProfile = {};
   var _bind = {
 
     getFriendsList: function() {
-      var isToken = GlobalEvent.checkIfToken(token)
+      var isToken = GlobalEvent.checkIfToken(headerElms.token)
       if (isToken) {
-        _core.getFriendsList(token, function(res) {
+        _core.getFriendsList(headerElms.token, function(res) {
           if (!res.isError) {
             if (res.data[0].friends.length > 0) {
               var friendsReqList = res.data[0].friends;
@@ -81,7 +80,7 @@ var UserProfile = {};
         if (res) {
           if (!res.isError) {
             var Data = res.data;
-            var isToken = GlobalEvent.checkIfToken(token)
+            var isToken = GlobalEvent.checkIfToken(headerElms.token)
             if (isToken) {
               var htmlLoginSignup = '';
               htmlLoginSignup = ` <p>
@@ -110,7 +109,7 @@ var UserProfile = {};
       $('#trustBtn').unbind().click(function() {
         $(this).hide();
 
-        var isToken = GlobalEvent.checkIfToken(token)
+        var isToken = GlobalEvent.checkIfToken(headerElms.token)
         if (isToken) {
           var trustUserTo = $(this).attr('trustUserTo');
           _core.turstUser(token, trustUserTo, function(res) {
@@ -158,7 +157,7 @@ var UserProfile = {};
       $('#trustBtn').attr('trustUserTo', Data.user.email);
       $('#frndReqModalTitle').html("Are you sure you want to connect to" + firstName);
 
-      var isToken = GlobalEvent.checkIfToken(token)
+      var isToken = GlobalEvent.checkIfToken(headerElms.token)
       if (isToken) {
         if (trustBy.length > 0) {
           for (let index = 0; index < trustBy.length; index++) {
@@ -207,38 +206,6 @@ var UserProfile = {};
 
 
       }
-
-
-
-      // $("#btn_Confirm").unbind().click(function() {
-      //   var dataObj = {
-      //     To: Data.user.email,
-      //   }
-      //   var isToken = GlobalEvent.checkIfToken(token)
-      //   if (isToken) {
-      //     _core.friendReq(token, dataObj, function(res) {
-      //       if (res) {
-      //         var isFound = res.isFound;
-      //         if (isFound) {
-      //           var Data = {};
-      //           Data = {
-      //             token: token,
-      //             to: Data.user.email,
-      //           }
-      //           GlobalEvent.socket.emit('friendReq', Data)
-      //             // console.log("Request already sent");
-      //           $('#allreadyFrndModal').modal('show');
-      //           $("#sendFriendReq").hide();
-      //           $("#sendUnFriendReq").hide();
-      //           $("#friendReqAlreadySend").show();
-      //         }
-      //       }
-      //     })
-      //   }
-
-      // })
-
-
 
       _bind.setDataTable();
 

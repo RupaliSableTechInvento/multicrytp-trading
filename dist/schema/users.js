@@ -35,7 +35,6 @@ var usersSchema = new _mongoose2.default.Schema({
   },
   imgURL: {
     type: Object
-    // default: "../../assets/app/media/img/users/userProfileNew.png"
   },
   account_created: {
     type: Date,
@@ -46,6 +45,9 @@ var usersSchema = new _mongoose2.default.Schema({
   },
   friends: {
     type: Array
+  },
+  wallets: {
+    type: Object
   },
   trustBy: {
     type: Array

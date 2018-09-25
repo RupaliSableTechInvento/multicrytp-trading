@@ -24,6 +24,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _walletController = require('./controller/walletController');
+
+var _walletController2 = _interopRequireDefault(_walletController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = function routes(route) {
@@ -121,6 +125,18 @@ var routes = function routes(route) {
   route.route('/getActiveUser').get(_authController2.default.getActiveUser);
 
   route.route('/logout').get(_authController2.default.logout);
+
+  //For Transaction
+  route.route('/createWalletWithAddress').post(_walletController2.default.createWalletWithAddress);
+
+  route.route('/getCoin_WalletData').get(_walletController2.default.getCoin_WalletData);
+
+  route.route('/getAddrBal').post(_walletController2.default.getAddrBal);
+
+  route.route('/newTransaction').post(_walletController2.default.newTransaction);
+  route.route('/getTX').post(_walletController2.default.getTX);
+  route.route('/validateAddress').get(_walletController2.default.validateAddress);
+  route.route('/getAddrFull').get(_walletController2.default.getAddrFull);
 };
 
 exports.default = routes;

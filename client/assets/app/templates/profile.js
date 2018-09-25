@@ -160,12 +160,11 @@ var Profile = {};
           var phone_no = $('#phone_no').val();
           if (phone_no.length == 10 && first_name && last_name && email) {
             isFormValid = true
+
           } else {
-            console.log("in valid phone no length", phone_no.length);
 
             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-            // form.clearForm();
-            // form.validate().resetForm();
+
             setTimeout(function() {
               _core.showErrorMsg(form, 'danger', 'Enter valid form details.');
 

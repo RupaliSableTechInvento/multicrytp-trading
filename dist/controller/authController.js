@@ -20,6 +20,10 @@ var _env = require('../env');
 
 var _env2 = _interopRequireDefault(_env);
 
+var _walletController = require('./walletController');
+
+var _walletController2 = _interopRequireDefault(_walletController);
+
 var _postatrade = require('../models/postatrade');
 
 var _postatrade2 = _interopRequireDefault(_postatrade);
@@ -56,6 +60,7 @@ var authController = {
         var v = new Date();
         v.setMinutes(d.getMinutes() + 5);
         var token1 = _jsonwebtoken2.default.sign({
+          _id: user._id,
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
@@ -167,14 +172,33 @@ var authController = {
     var account_created = new Date();
     if (req.body.password != "" && req.body.password.length > 5) {
       req.body.password = encode().value(req.body.password);
-      var user = new _usersModel2.default(req.body);
       req.body.account_created = account_created;
+      var name = req.body.email;
+      console.log("name==>", name);
+
+      req.body.wallets = {
+        BTC: {
+          isAddressCreated: false
+        },
+        LTC: {
+          isAddressCreated: false
+        },
+        DOGE: {
+          isAddressCreated: false
+        }
+      };
+      console.log("req.body Register==>", req.body);
+
+      var user = new _usersModel2.default(req.body);
+      user.save(req.body, function (err, user) {
+
+        if (err) return res.json(err);else {
+
+          res.json(user);
+        }
+      });
 
       console.log("Account Created==>", account_created);
-      user.save(req.body, function (err, user) {
-        if (err) return res.json(err);
-        res.json(user);
-      });
     } else {
       res.json("Please provide valid password");
     }

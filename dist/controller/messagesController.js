@@ -56,7 +56,6 @@ module.exports = function (app, io) {
           email: curentUserEmail,
           socketId: socket.id
         });
-        // console.log("Email Not present=>", users, curentUserEmail);
       } else {
 
         users.forEach(function (item) {

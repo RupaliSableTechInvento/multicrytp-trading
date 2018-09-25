@@ -53,7 +53,8 @@ var PostATrade = {};
     postTrade: async function() {
       var btn, form;
       var margin = $("#margin_ad-commission").val();
-      var cryptoCurrency, location;
+      var cryptoCurrency;
+      var location = '';
       var currency, price_equation;
       var USD = 'USD';
       var cryptoCurrency_in_usd;
@@ -71,38 +72,20 @@ var PostATrade = {};
         _core.setValueDropDwn('#title_cryptocurrency', cryptoCurrency)
         var htmlpriceEq = code + '_in_USD';
         $('#id_ad-price_equation').val(htmlpriceEq);
-        // $('.price-info').empty();
+
         var dataObjPriceEq = {
           from: code,
           to: USD,
         }
         const res = await _core.getCryptoCurrencyPriceEquation(dataObjPriceEq);
-        console.log(res);
-
-
         if (res.success) {
           cryptoCurrency_in_usd = res.ticker.price;
           var htmlPriceInfo = "   " + cryptoCurrency_in_usd + ' ' + 'USD / ' + ' ' + code;
-          $('.price-info').html(htmlPriceInfo)
+          $('.price-info').html(htmlPriceInfo);
+
 
         }
 
-        // var resultCount = res.query.count;
-        // if (parseInt(resultCount) > 0) {
-        //   console.log("price Equation=>>", res);
-
-
-        //   for (const key in res.results) {
-        //     if (res.results.hasOwnProperty(key)) {
-        //       cryptoCurrency_in_usd = res.results[key].val
-        //       console.log("cryptoCurrency_in_usd==>", cryptoCurrency_in_usd);
-        //     }
-        //   }
-        //   var htmlPriceInfo = "   " + cryptoCurrency_in_usd + ' ' + 'USD / ' + ' ' + code;
-        //   $('.price-info').append(htmlPriceInfo)
-        // } else {
-        //   console.log("", res.query);
-        // }
       });
       $('#select_ad-online_provide li').on('click', function() {
         var value = $(this).attr('name');
@@ -192,8 +175,9 @@ var PostATrade = {};
       $('#select_ad-location li').on('click', async function() {
           if (code) {
             var value = $(this).attr('name');
-            _core.setValueDropDwn('#title_location', value)
+            location = value;
 
+            _core.setValueDropDwn('#title_location', value)
             var country_code = $(this).attr('data-country-code');
             console.log("country code=>", country_code, this);
             currency = country_code;
@@ -225,21 +209,15 @@ var PostATrade = {};
               var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
               $('.price-info').html(htmlPriceInfo)
             } else {
-              // console.log("", res.error);
               if (res.query.count == 0) {
-                // console.log("matched..", error);
                 setTimeout(function() {
-                  // btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
+                  btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                   _core.showErrorMsg(form, 'danger', 'Pair not found."' + dataObjPriceEq.from + ' to  ' + dataObjPriceEq.to);
 
                 }, 2000);
               }
 
             }
-
-
-
 
             $('#select_ad-currency li').each(function() {
               var temp = $(this).attr('name');
@@ -248,7 +226,6 @@ var PostATrade = {};
               }
             })
 
-            location = value;
 
           } else {
             alert("Select CryptoCurrency first.")
@@ -480,15 +457,12 @@ var PostATrade = {};
       })
 
       $('#ad-opening_hours_sat_start li').on('click', function() {
-
         var value = $(this).attr('name');
         $(this).attr('selected', 'selected');
         $(this).addClass('selected');
 
         _core.setValueDropDwn('#title_StartTime_sat', value)
         sat_start = value;
-
-
       })
       $('#ad-opening_hours_sat_end li').on('click', function() {
         var value = $(this).attr('name');
@@ -514,13 +488,13 @@ var PostATrade = {};
           _core.setValueDropDwn('#title_EndTime_sat', value)
           mon_end = value;
         }
-
       })
-
-
       $('#btn_publish_advertisement').unbind().click(function() {
         btn = $(this);
         form = $(this).closest('form');
+        var countryName = $('#title_location').text()
+        console.log("countryName==>", countryName);
+
         console.log("payment window=>", $("#ad-payment_window_minutes").val());
 
         btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
@@ -533,7 +507,7 @@ var PostATrade = {};
         more_information.min_trans_limit = $("#ad-min_amount").val();
         more_information.max_trans_limit = $("#ad-max_amount").val();
         more_information.bank_name = $("#ad-bank_name").val();
-        if ($('.add-adform-radio').is(':checked') && location && cryptoCurrency) {
+        if ($('.add-adform-radio').is(':checked') && countryName && cryptoCurrency) {
           var tradeMethod = $(".add-adform-radio:checked").attr("data-trade-type")
           var isValidForm = false;
           if (tradeMethod == 'ONLINE') {
@@ -554,7 +528,7 @@ var PostATrade = {};
               "tradeMethod": tradeMethod,
               "traderType": $(".add-adform-radio:checked").val(),
               "cryptoCurrency": cryptoCurrency,
-              "location": location,
+              "location": countryName,
               "payment_method": payment_method,
               more_information: more_information,
               "more_information.opening_hours.sunday.start": sun_start,
@@ -639,79 +613,36 @@ var PostATrade = {};
             _core.showErrorMsg(form, 'danger', 'Trade Type all fields are mandatory');
 
           }, 2000);
-          // if (!location) {
-          //   setTimeout(function() {
-          //     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-          //     _core.showErrorMsg(form, 'danger', 'please select Country');
-
-          //   }, 2000);
-          // } else {
-          //   alert("it's unchecked")
-          //   setTimeout(function() {
-          //     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-          //     _core.showErrorMsg(form, 'danger', 'please select What kind of trade advertisement do you wish to create ');
-          //   }, 2000);
-          // }
 
         }
 
       })
       $(".trade_type input").unbind().click(function() {
-          if ($(this).attr("data-trade-type") == "ONLINE") {
-            $('.ad-online_provider').show();
-            $('.ad-bank_name').show();
-            if ($(this).attr("value") == "SELL") {
-              console.log("online sell");
-              $('.online_Buying').hide();
-              $('.online_Selling').show();
-              $('.sell_online_options').show();
-
-            } else {
-              console.log("online buy");
-              $('.online_Selling').hide();
-              $('.online_Buying').show();
-              $('.sell_online_options').hide();
-            }
-          }
-          if ($(this).attr("data-trade-type") == "LOCAL") {
+        if ($(this).attr("data-trade-type") == "ONLINE") {
+          $('.ad-online_provider').show();
+          $('.ad-bank_name').show();
+          if ($(this).attr("value") == "SELL") {
+            console.log("online sell");
             $('.online_Buying').hide();
-            $('.online_Selling').hide();
-            $('.ad-online_provider').hide();
-            $('.ad-bank_name').hide();
+            $('.online_Selling').show();
+            $('.sell_online_options').show();
 
+          } else {
+            console.log("online buy");
+            $('.online_Selling').hide();
+            $('.online_Buying').show();
             $('.sell_online_options').hide();
           }
-        })
-        /* 
-              $('.opening_hours_row >.end_timeday').unbind().click(async function() {
-                console.log("end time clicked===");
-                var startTime = await parseInt($(this).parent().find(".start_time li.selected").attr('value'));
-                console.log('start time=>>', startTime);
-                var endTime = parseInt($(this).find(".end_time li.selected").attr('value'));
-                console.log('End time=>', endTime);
-                if (endTime > 0 && startTime >= endTime) {
-                  endTimeValid = false;
-                  console.log("endtime valid=>  end time start time", endTimeValid, endTime, startTime);
-                  setTimeout(function() {
-                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+        }
+        if ($(this).attr("data-trade-type") == "LOCAL") {
+          $('.online_Buying').hide();
+          $('.online_Selling').hide();
+          $('.ad-online_provider').hide();
+          $('.ad-bank_name').hide();
 
-                    _core.showErrorMsg(form, 'danger', ' select time according to 24 hrs.');
-
-                  }, 2000)
-                   alert("select end time again.  ")
-                   $(this).find(".end_time li").val("-1");
-                } else if (endTime != '' && endTime != undefined && !isNaN(endTime)) {
-                  if (startTime >= endTime) {
-                    endTimeValid = false;
-
-                  } else {
-                    endTimeValid = true;
-                  }
-                  console.log("endtime valid=>", endTimeValid);
-                }
-              }) */
-
+          $('.sell_online_options').hide();
+        }
+      })
 
     },
 

@@ -81,6 +81,14 @@ var Login = {};
               console.log("sucessdata=>", successData);
               var first_name = successData.user.first_name;
               var last_name = successData.user.last_name;
+              // var BTC_isAddressCreated = successData.user.wallets['BTC'].isAddressCreated;
+              // var LTC_isAddressCreated = successData.user.wallets['LTC'].isAddressCreated;
+              // var DOGE_isAddressCreated = successData.user.wallets['DOGE'].isAddressCreated;
+
+
+              // localStorage.setItem('BTC_isAddressCreated', BTC_isAddressCreated)
+              // localStorage.setItem('LTC_isAddressCreated', LTC_isAddressCreated)
+              // localStorage.setItem('DOGE_isAddressCreated', DOGE_isAddressCreated)
               localStorage.setItem("token", successData.data);
               localStorage.setItem('email', dataObj.email);
               localStorage.setItem("first_name", first_name);
@@ -89,16 +97,16 @@ var Login = {};
               localStorage.setItem('user_id', successData.user.id);
               $('.m-dropdown__inner ').css('display', 'block');
               window.location.replace("/");
-              // window.location = 'updateProductById/' + sku;
-
-
 
             }
 
-            // similate 2s delay
 
           },
           error: function(err) {
+            setTimeout(function() {
+              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+              showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
+            }, 2000);
             alert("login error=>", err);
           }
         });

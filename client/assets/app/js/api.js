@@ -15,6 +15,119 @@ var API = {
       })
     });
   },
+  createWalletWithAddress: function(token, dataObj, cb) {
+    console.log("createWalletWithAddress==>", dataObj);
+
+    $.ajax({
+      url: "/createWalletWithAddress",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: { dataObj: dataObj },
+      success: function(successData) {
+        console.log("createWalletWithAddress", successData);
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("createWalletWithAddress api =>", err);
+      }
+    })
+
+  },
+  getCoin_WalletData: function(token, cb) {
+    $.ajax({
+      url: "/getCoin_WalletData",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        console.log("getCoin_WalletData", successData);
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("getCoin_WalletData api =>", err);
+      }
+    })
+  },
+
+  getAddrFull: function(token, dataObj, cb) {
+    $.ajax({
+      url: "/getAddrFull",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      data: { dataObj: dataObj },
+      success: function(successData) {
+        console.log("getAddr", successData);
+
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("getAddr api =>", err);
+      }
+    })
+
+  },
+  getAddrBal: function(token, dataObj, cb) {
+    $.ajax({
+      url: "/getAddrBal",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: { dataObj: dataObj },
+      success: function(successData) {
+        console.log("getAddrBal", successData);
+
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("getAddrBal api =>", err);
+      }
+    })
+
+  },
+  getTX: function(token, dataObj, cb) {
+    $.ajax({
+      url: "/getTX",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: { dataObj: dataObj },
+      success: function(successData) {
+        console.log("getTX", successData);
+
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("getTX api =>", err);
+      }
+    })
+
+  },
+  newTransaction: function(token, dataObj, cb) {
+    $.ajax({
+      url: "/newTransaction",
+      type: "post",
+      headers: {
+        "authorization": token,
+      },
+      data: { dataObj: dataObj },
+      success: function(successData) {
+        console.log("newTransaction", successData);
+
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("newTransaction api =>", err);
+      }
+    })
+
+  },
   addUserInfo: function(token, dataObj, cb) {
 
     console.log("addUserInfo in api.js=>", dataObj, token);
@@ -53,32 +166,81 @@ var API = {
       }
     })
   },
+  getCryptoCurrencyPriceEqNew: function(param, cb) {
+    var result = [];
+    var crytoCurrencyCode = param.crytoCurrencyCode;
+    var currencyCode = param.currencyCode;
+    var crytoCurrencyID = '';
+    $.ajax({
+
+
+      // method: 'GET',
+      // uri: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+      // qs: {
+      //   start: 1,
+      //   limit: 5000,
+      //   convert: 'USD'
+      // },
+      // headers: {
+      //   'X-CMC_PRO_API_KEY': '0887ae9d-06d1-4814-8f12-cbbfbe713a94'
+      // },
+
+      // json: true,
 
 
 
-  /*   getPriceEquation: function(dataObj) {
-      return new Promise(resolve => {
-        // console.log("dataobject in api.js=>", dataObj);
-        $.ajax({
-          url: "/getPriceEquation",
-          type: "get",
-          data: dataObj,
-          success: function(successData) {
-            console.log("sucesss data in price equation=> ", successData);
-            resolve(successData)
-          },
-          error: function(err) {
-            alert(err);
-          }
+
+
+      url: 'https://api.coinmarketcap.com/v2/listings/',
+
+      type: "get",
+
+      success: function(successData) {
+        console.log("sucesss data getCryptoCurrencyPriceEqNew main=> ", successData);
+        result = successData.data
+        var arrCryptoCurrencyList = result.map(function(aField) {
+          return aField
         })
-      });
-    }, */
+
+        arrCryptoCurrencyList.forEach((item, index) => {
+          if (item.symbol === crytoCurrencyCode) {
+            crytoCurrencyID = item.id;
+          }
+
+        })
+        if (crytoCurrencyID) {
+          console.log('crytoCurrencyID==>', crytoCurrencyID);
+
+
+          $.ajax({
+            url: ' https://api.coinmarketcap.com/v2/ticker/' + crytoCurrencyID + '/?convert=' + currencyCode,
+            type: "get",
+            success: function(successData) {
+              console.log("sucesss data in getCryptoCurrencyPriceEqNew sub=> ", successData);
+              cb(successData.data.quotes)
+            },
+            error: function(err) {
+              console.log("getCryptoCurrencyPriceEqNew api =>", err);
+            }
+          })
+
+        }
+
+
+        // cb(successData)
+      },
+      error: function(err) {
+        console.log("getCryptoCurrencyPriceEquation api =>", err);
+      }
+    })
+  },
 
   getCryptoCurrencyPriceEquation: function(params) {
     return new Promise(resolve => {
       $.ajax({
         // url: 'http://free.currencyconverterapi.com/api/v5/convert?q=' + dataObj.from + '_' + dataObj.to,
         url: 'https://api.cryptonator.com/api/ticker/' + params.from + '-' + params.to,
+        // https://api.cryptonator.com/api/ticker/btc-usd
         type: "get",
 
         success: function(successData) {
@@ -233,7 +395,6 @@ var API = {
     })
 
   },
-
   blockUser: function(token, blockUserTo, cb) {
     $.ajax({
       url: "/blockUser",
@@ -317,8 +478,6 @@ var API = {
 
 
   },
-
-
   verification: function(token, cb) {
     $.ajax({
       url: "/isVerified",
@@ -335,9 +494,6 @@ var API = {
     })
 
   },
-
-
-
   sendMessage: function(dataObj, token, cb) {
     $.ajax({
       url: "/sendMessage",
@@ -439,4 +595,20 @@ var API = {
       }
     })
   },
+  validateAddress: function(dataObj) {
+    return new Promise(resolve => {
+      $.ajax({
+        url: "/validateAddress",
+        data: dataObj,
+        type: "get",
+
+        success: function(successData) {
+          resolve(successData)
+        },
+        error: function(err) {
+          console.log("validateAddress api =>", err);
+        }
+      })
+    })
+  }
 }

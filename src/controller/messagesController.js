@@ -37,10 +37,9 @@ module.exports = function(app, io) {
       //console.log("isEmailFound in users", users, isEmailFound);
       if (!isEmailFound) {
         users.push({
-            email: curentUserEmail,
-            socketId: socket.id
-          })
-          // console.log("Email Not present=>", users, curentUserEmail);
+          email: curentUserEmail,
+          socketId: socket.id
+        })
       } else {
 
         users.forEach(item => {
@@ -54,7 +53,6 @@ module.exports = function(app, io) {
         })
 
       }
-
 
       if (curentUserEmail) {
         usersModel.findOneAndUpdate({ "email": curentUserEmail }, { $set: { isActive: "active" } }, { friends: 1, _id: 0 }, function(err, doc) {
@@ -116,10 +114,6 @@ module.exports = function(app, io) {
             //  io.emit('users', users);
           }
         });
-
-
-
-
       }
 
 

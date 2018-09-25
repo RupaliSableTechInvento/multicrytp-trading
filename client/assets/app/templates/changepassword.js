@@ -63,7 +63,7 @@ var ChangePassword = {};
                 if (res && res.isError) {
                   setTimeout(function() {
                     btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                    _core.showErrorMsg(form, 'danger', 'Unable to change password ');
+                    _core.showErrorMsg(form, 'danger', 'Unable to change password.');
 
                   }, 2000)
                   form.clearForm();

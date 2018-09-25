@@ -3,6 +3,7 @@ import tradeController from './controller/tradeController';
 import authController from './controller/authController';
 import messagesController from './controller/messagesController';
 import path from 'path';
+import walletController from './controller/walletController';
 const routes = (route) => {
 
   route.get('/', (req, res) => {
@@ -121,6 +122,7 @@ const routes = (route) => {
   route.route('/unblockUser')
     .post(usersController.unblockUser);
 
+
   route.route('/blockUser')
     .post(usersController.blockUser);
   route.route('/turstUser')
@@ -147,7 +149,27 @@ const routes = (route) => {
     .get(authController.getActiveUser);
 
   route.route('/logout')
-    .get(authController.logout)
+    .get(authController.logout);
+
+  //For Transaction
+  route.route('/createWalletWithAddress')
+    .post(walletController.createWalletWithAddress);
+
+  route.route('/getCoin_WalletData')
+    .get(walletController.getCoin_WalletData);
+
+  route.route('/getAddrBal')
+    .post(walletController.getAddrBal);
+
+  route.route('/newTransaction')
+    .post(walletController.newTransaction);
+  route.route('/getTX')
+    .post(walletController.getTX);
+  route.route('/validateAddress')
+    .get(walletController.validateAddress);
+  route.route('/getAddrFull')
+    .get(walletController.getAddrFull);
+
 
 
 };

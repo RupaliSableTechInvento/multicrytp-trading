@@ -96,29 +96,41 @@ var SnippetLogin = function() {
         success: function(successData) {
           if (successData.isError) {
             console.log("sucessdata=>", successData);
+            setTimeout(function() {
+              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+              showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
+            }, 2000);
           } else {
             console.log("sucessdata=>", successData);
+
             var first_name = successData.user.first_name;
             var last_name = successData.user.last_name;
+            var BTC_isAddressCreated = successData.user.wallets[BTC].isAddressCreated;
+            var LTC_isAddressCreated = successData.user.wallets[LTC].isAddressCreated;
+            var DOGE_isAddressCreated = successData.user.wallets[DOGE].isAddressCreated;
+            console.log("Result for login", successData.user.wallets);
+
+            localStorage.setItem('BTC_isAddressCreated', BTC_isAddressCreated)
+            localStorage.setItem('LTC_isAddressCreated', LTC_isAddressCreated)
+            localStorage.setItem('DOGE_isAddressCreated', DOGE_isAddressCreated)
             localStorage.setItem("token", successData.data);
             localStorage.setItem('email', dataObj.email);
             localStorage.setItem("first_name", first_name);
             localStorage.setItem("last_name", last_name);
             localStorage.setItem('email', dataObj.email);
             localStorage.setItem('user_id', successData.user.id);
-
-
             window.location.replace("/");
             // window.location = 'updateProductById/' + sku;
           }
 
           // similate 2s delay
+
+        },
+        error: function(err) {
           setTimeout(function() {
             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
             showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
           }, 2000);
-        },
-        error: function(err) {
           console.log("login error=>", err);
         }
       });

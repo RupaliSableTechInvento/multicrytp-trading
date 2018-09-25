@@ -43,24 +43,21 @@ var Home = {};
 
       $('#select_ad-cryptocurrency li').on('click', async function() {
         var value = $(this).attr('name');
-        $(this).addClass('  m-menu__item--active')
+        $('#select_ad-cryptocurrency li').removeClass('m-menu__item--active')
+        $(this).addClass(' m-menu__item--active')
         cryptoCurrencyCode = $(this).attr('data-code');
-
-        // console.log("Selected Currency code=>", cryptoCurrencyCode, value);
         _core.setValueDropDwn('#title_crytpocurrency', value)
 
       });
 
       $('#trade-tabs li').on('click', function() {
-
+        //remove active class from other li
         $('#trade-tabs li').removeClass('active')
+
         $(this).addClass('active')
       })
 
-      $('#trade-tabs li').on('click', function() {
-        $('#trade-tabs li').removeClass('active')
-        $(this).addClass('active')
-      })
+
 
       $('#select_ad-online_provide li').on('click', function() {
         var value = $(this).attr('name');
@@ -91,7 +88,6 @@ var Home = {};
       $('.li_showMore').unbind().click(function() {
         var traderType = $(this).attr("data-traderType")
         var tradeMethod = $(this).attr("data-tradeMethod")
-          // console.log("trade type and trade method=>", tradeMethod, traderType);
         window.location.href = '#/showMoreDetail?cryptoCurrency=' + cryptoCurrency + '&tradeMethod=' + tradeMethod + '&code=' + cryptoCurrencyCode + '&traderType=' + traderType + '&location=india';
       })
 
@@ -110,7 +106,6 @@ var Home = {};
         var friendList = '';
         activeUSerData = res;
         if (res) {
-
           for (let index = 0; index < res.tokenModel.length; index++) {
             for (let j = 0; j < res.user.length; j++) {
               friendList = "<li>" + res.user[j]["first_name"] + "</li>";
@@ -123,10 +118,7 @@ var Home = {};
               }
 
             }
-
-
           }
-
         }
       })
 
@@ -714,14 +706,13 @@ var Home = {};
       var vars = [],
         hash;
       var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-      //var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1);
       for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
-        // console.log("hash=>", hash);
+
         vars.push(hash[0]);
         vars[hash[0]] = hash[1];
       }
-      // console.log("vars=>", vars);
+
       return vars;
     },
 
