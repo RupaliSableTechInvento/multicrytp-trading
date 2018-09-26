@@ -184,8 +184,8 @@
                     </span>
                   </div>
                   <div class="col m--align-right">
-                    <span class="m-widget1__number m--font-brand">
-                      4
+                    <span id="buyPostTrade" class="m-widget1__number m--font-brand">
+                      0
                     </span>
                   </div>
                 </div>
@@ -202,7 +202,7 @@
 
                   </div>
                   <div class="col m--align-right">
-                    <span class="m-widget1__number m--font-danger">
+                    <span id="sellPostTrade" class="m-widget1__number m--font-danger">
                       0
                     </span>
                   </div>
@@ -219,8 +219,8 @@
                     </span>
                   </div>
                   <div class="col m--align-right">
-                    <span class="m-widget1__number m--font-success">
-                      -27,49%
+                    <span id="TotalPostTrade" class="m-widget1__number m--font-success">
+                      0
                     </span>
                   </div>
                 </div>
@@ -415,43 +415,34 @@
                     <label for="example-text-input" class="col-2 col-form-label">
                       E-mail verified:
                     </label>
-                    <div class="col-7 E_mail_Verified" id="email_verified">
-
+                    <div class=" col-1 E_mail_Verified" id="email_verified">
                     </div>
-
+                    <button id="set_up_email" class="btn btn-focus m-btn m-btn--pill hidden m-btn--custom m-btn--air"> Set Up Email</button>
                   </div>
-                  <div class="form-group m-form__group row  hidden" id="set_up_email" style="margin-left :20px;display:inline-flex">
+                  <!-- <div class="form-group m-form__group row  hidden" id="set_up_email" style="margin-left :20px;display:inline-flex">
 
-                    <button id="m_profile_set_up_email" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air"> Set Up Email</button>
-                    <div class="col-7">
-                    </div>
-                  </div>
+                  
+                  </div> -->
 
                   <div class="form-group m-form__group row" style="display:none">
                     <label for="example-text-input" class="col-2 col-form-label">
                       Phone number verified:
                     </label>
-                    <div class="col-7">
+                    <div class="col-2">
                       <label class="phone_no_Verified"></label>
+                    </div>
+                    <button id="set_up_phone" class="btn btn-focus m-btn m-btn--pill hidden m-btn--custom m-btn--air"> Set Up Phone No</button>
 
-                    </div>
                   </div>
-                  <div class="form-group m-form__group row set_up_phoneNo" style="display:none">
-                    <label for="example-text-input" class="col-2 col-form-label">
-                      Set up Phone number
-                    </label>
-                    <div class="col-7">
-                    </div>
-                  </div>
+
 
                   <div class="form-group m-form__group row" style="display:block">
                     <label for="example-text-input" class="col-2 col-form-label">
                       Change your password
                     </label>
-                    <div class="col-7">
-                      <label class="phone_no_Verified"></label>
+                    <a href="#/changepassword" id="m_profile_set_up_email" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+                      Set your new password</a>
 
-                    </div>
                   </div>
                   <div class="form-group m-form__group row set_up_phoneNo" style="display:block">
                     <!--  <label for="example-text-input" class="col-2 col-form-label">
@@ -459,8 +450,7 @@
                            </label>
  -->
 
-                    <a href="#/changepassword" id="m_profile_set_up_email" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
-                      Set your new password</a>
+
 
                     <div class="col-7">
                     </div>

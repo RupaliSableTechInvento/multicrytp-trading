@@ -4,6 +4,9 @@ import usersModel from '../models/usersModel'
 import async from 'async'
 var moment = require('moment');
 var mongoose = require('mongoose');
+import jwt from 'jsonwebtoken';
+import env from "../env";
+
 // var request = require('request');
 
 const tradeController = {
@@ -20,6 +23,23 @@ const tradeController = {
       });
     });
   },
+
+  getPostTrade_ByUser: (req, res, next) => {
+    var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    var _id = decoded._id;
+
+    postatrade.find({ "user": _id }, (err, trade) => {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: trade
+      });
+    });
+  },
+
   getPriceEquation: (req, res, next) => {
     // console.log("Req for getPriceEquation=>", req.query);
     // var dataObj = req.query.dataObj;

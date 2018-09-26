@@ -20,6 +20,14 @@ var _async = require('async');
 
 var _async2 = _interopRequireDefault(_async);
 
+var _jsonwebtoken = require('jsonwebtoken');
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+var _env = require('../env');
+
+var _env2 = _interopRequireDefault(_env);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -28,6 +36,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var moment = require('moment');
 var mongoose = require('mongoose');
+
+
 // var request = require('request');
 
 var tradeController = _defineProperty({
@@ -61,6 +71,23 @@ var tradeController = _defineProperty({
       return _ref.apply(this, arguments);
     };
   }(),
+
+  getPostTrade_ByUser: function getPostTrade_ByUser(req, res, next) {
+    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
+    var _id = decoded._id;
+
+    _postatrade2.default.find({ "user": _id }, function (err, trade) {
+      if (err) return res.json({
+        isError: true,
+        data: err
+      });
+      res.json({
+        isError: false,
+        data: trade
+      });
+    });
+  },
+
   getPriceEquation: function getPriceEquation(req, res, next) {
     // console.log("Req for getPriceEquation=>", req.query);
     // var dataObj = req.query.dataObj;

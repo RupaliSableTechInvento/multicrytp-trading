@@ -105,6 +105,7 @@ var routes = function routes(route) {
   route.route('/tradeByCurrencyLoc').get(_tradeController2.default.getByCurrencyLoc);
 
   route.route('/getTrade').get(_tradeController2.default.getTrade);
+  route.route('/getPostTrade_ByUser').get(_tradeController2.default.getPostTrade_ByUser);
 
   route.route('/unfriend').post(_usersController2.default.unfriend);
 

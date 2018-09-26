@@ -579,6 +579,22 @@ var API = {
       }
     })
   },
+
+  getPostTrade_ByUser: function(token, cb) {
+    $.ajax({
+      url: "/getPostTrade_ByUser",
+      type: "get",
+      headers: {
+        "authorization": token,
+      },
+      success: function(successData) {
+        cb(successData)
+      },
+      error: function(err) {
+        console.log("getPostTrade_ByUser api =>", err);
+      }
+    })
+  },
   postTrade: function(dataObj, token, cb) {
     $.ajax({
       url: "/trade",

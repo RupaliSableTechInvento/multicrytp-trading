@@ -11,6 +11,7 @@ var Profile = {};
     emailVerification: API.emailVerification,
     addUserInfo: API.addUserInfo,
     addUserProfilePic: API.addUserProfilePic,
+    getPostTrade_ByUser: API.getPostTrade_ByUser,
     readURL: function(imgInput) {
       if (imgInput.files && imgInput.files[0]) {
         var reader = new FileReader();
@@ -89,10 +90,32 @@ var Profile = {};
           }
         })
 
+        _core.getPostTrade_ByUser(token, function(res) {
+          console.log("getPostTrade_ByUser==>", res);
+          var tradeArray = res.data;
+          var Counter_Buy = 0;
+          var Counter_sell = 0;
+          for (let index = 0; index < tradeArray.length; index++) {
+            if (tradeArray[index].traderType === 'BUY') {
+              Counter_Buy++;
+            } else {
+              Counter_sell++;
+            }
+
+          }
+          $('#TotalPostTrade').html(tradeArray.length);
+          $('#sellPostTrade').html(Counter_sell);
+          $('#buyPostTrade').html(Counter_Buy)
+
+        })
+
+
+
+
       }
 
 
-      $('#m_profile_set_up_email').click(function(e) {
+      $('#set_up_email').click(function(e) {
         e.preventDefault()
         var token = localStorage.getItem('token')
         var btn = $(this);
@@ -155,6 +178,10 @@ var Profile = {};
         }
 
 
+
+      })
+      $('#changepassword').unbind().click(function() {
+        window.location.href = '#/changepassword'
 
       })
 

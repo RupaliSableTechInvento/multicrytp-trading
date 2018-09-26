@@ -113,7 +113,8 @@ const routes = (route) => {
 
   route.route('/getTrade')
     .get(tradeController.getTrade);
-
+  route.route('/getPostTrade_ByUser')
+    .get(tradeController.getPostTrade_ByUser);
 
   route.route('/unfriend')
     .post(usersController.unfriend);
@@ -169,6 +170,7 @@ const routes = (route) => {
     .get(walletController.validateAddress);
   route.route('/getAddrFull')
     .get(walletController.getAddrFull);
+
 
 
 
