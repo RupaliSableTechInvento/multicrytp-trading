@@ -528,7 +528,7 @@ var API = {
     })
   },
   addUserProfilePic: function(imgURL, token, cb) {
-    console.log(" addUserProfilePic ==>", imgURL);
+    console.log("addUserProfilePic in API.js ==>", imgURL);
     $.ajax({
       url: "/addUserProfilePic",
       type: "POST",
@@ -540,7 +540,7 @@ var API = {
         cb(successData)
       },
       error: function(err) {
-        console.log("addUserProfilePic api =>", err);
+        console.log("addUserProfilePic api.js Error=>", err);
       }
     })
   },

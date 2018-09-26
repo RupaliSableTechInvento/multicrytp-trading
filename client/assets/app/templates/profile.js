@@ -18,12 +18,26 @@ var Profile = {};
           console.log("img changed");
           $("#img_upload_pic").attr('src', e.target.result);
           // make ajax call and save base64 in database
-          var token = localStorage.getItem('token')
           var imgURL = e.target.result;
           console.log("imgURl", imgURL);
-          _core.addUserProfilePic(imgURL, token, function(res) {
 
-            console.log("Profile Pic Upload status==>", res);
+          // alert(this.files[0].size);
+
+
+
+
+          _core.addUserProfilePic(imgURL, headerElms.token, function(res) {
+            if (res) {
+              $('#img_upload_pic').removeClass('m-loader m-loader--info')
+              console.log("Profile Pic Upload status==>", res);
+              if (!res.isError) {
+
+                alert("profile img uploaded successfully", res)
+              } else {
+                console.log("profile imag unable to upload ==>", res.err);
+              }
+            }
+
           })
         }
         reader.readAsDataURL(imgInput.files[0]);
@@ -63,10 +77,8 @@ var Profile = {};
               $('#img_upload_pic').attr('src', 'assets/app/media/img/users/Defaultuser.png')
             } else {
               $('#img_upload_pic').attr('src', userData.imgURL)
-
             }
-            // $('#img_upload_pic').attr('src', userData.imgURL)
-            // $('#email_verified').html('' + userData.verification.email_verified);
+
             if (!userData.verification.email_verified) {
               $('#set_up_email').removeClass('hidden')
               $('#email_verified').html('<label style="color: red";>' + userData.verification.email_verified + '</label>')
@@ -186,7 +198,7 @@ var Profile = {};
                   form.clearForm();
                   form.validate().resetForm();
 
-                  _core.showErrorMsg(form, 'success', 'Thank you. Your Email is verified');
+                  _core.showErrorMsg(form, 'success', 'Thank you. Your profile updated sucessfully..');
                 }, 2000);
                 console.log("Sucess..", res);
               } else {
@@ -200,8 +212,36 @@ var Profile = {};
 
       })
       $("#imgupload").change(function() {
-        _core.readURL(this);
-        console.log("img accepting");
+        // alert(this.files[0].size);
+        var iSize = ($("#imgupload")[0].files[0].size / 1024);
+        if (iSize / 1024 > 1) {
+          $('#imghint').removeClass('hidden')
+          alert("Please reselect Image its too large")
+            // if (((iSize / 1024) / 1024) > 1) {
+            //   iSize = (Math.round(((iSize / 1024) / 1024) * 100) / 100);
+            //   console.log(iSize + "Gb");
+            // } else {
+            //   iSize = (Math.round((iSize / 1024) * 100) / 100)
+            //   console.log(iSize + "Mb");
+            // }
+        } else {
+          iSize = (Math.round(iSize * 100) / 100)
+          if (iSize > 70) {
+            $('#imghint').removeClass('hidden')
+
+            alert("Please Reselect Image its too large")
+          } else {
+            $('#imghint').addClass('hidden')
+
+            $('#img_upload_pic').addClass('m-loader m-loader--info')
+            _core.readURL(this);
+
+          }
+          console.log(iSize + "kb");
+        }
+
+        // _core.readURL(this);
+
 
       });
       $("#userProfilePic").click(function(e) {

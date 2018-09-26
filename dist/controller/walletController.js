@@ -126,16 +126,29 @@ var walletController = {
     });
   },
   getAddrFull: function getAddrFull(req, res) {
-    var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("getAddr ==>", decoded._id, req.query);
-
+    // var decoded = jwt.verify(req.headers['authorization'], env.App_key);
+    console.log("getAddrFull ==>", req.query);
+    // var perpage = req.query.pagination.perpage;
+    // var page = req.query.pagination.page;
     var CoinCode = req.query.dataObj.coin;
     var address = req.query.dataObj.address;
     var item = coin[CoinCode];
     console.log("Coin==>getAddr item coinCode", item, CoinCode);
 
     item.getAddrFull(address, {}, function (err, body) {
-      console.log("getAddr==>0", body);
+      console.log("getAddr==> result", body);
+
+      // res.json({
+      //   isError: false,
+      //   meta: {
+      //     page: req.query.pagination.page,
+
+      //     perpage: req.query.pagination.perpage,
+      //     total: body.n_tx,
+
+      //   },
+      //   data: { body: body.txs },
+      // }, )
 
       res.json(body);
     });

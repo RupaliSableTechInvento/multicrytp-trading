@@ -168,7 +168,7 @@ var balance = '';
             {
               var cryptoCurrency = $('#mainTablist li a.active').text();
               var cryptoCurrencyCode = $('#mainTablist li a.active').attr('data-code');
-
+              $('#DataTableTransaction').addClass('')
 
               _core.getCoin_WalletData(headerElms.token, function(res) {
                 if (!res.isError) {
@@ -178,12 +178,23 @@ var balance = '';
                     if (key.toString() == activeTabCode.toString()) {
 
                       var dataObj = {
-                        coin: cryptoCurrencyCode,
-                        address: dataRes[key].address,
-                      }
+                          coin: cryptoCurrencyCode,
+                          address: dataRes[key].address,
+                        }
+                        // _bind.renderCoinDataTransaction(dataObj)
+
                       _core.getAddrFull(headerElms.token, dataObj, function(res) {
                         if (res) {
+                          var htmlTblBody = '';
+                          var htmlTblBodyReceived = '';
+                          var htmlTblBodySend = '';
                           console.log("getAddrFull==> for Transaction", res);
+                          var transactionArray = [];
+                          var tempInputsArray = [];
+                          var tempOutputsArray = [];
+                          var Transaction_confirmed = ''
+
+                          transactionArray = res.txs;
                           var varenderCoinDataTransaction = {};
                           varenderCoinDataTransaction = {
                             n_tx: res.n_tx,
@@ -191,7 +202,64 @@ var balance = '';
                             total_sent: res.total_sent,
                             txs: res.txs
                           }
-                          _bind.renderCoinDataTransaction(varenderCoinDataTransaction)
+
+
+                          if (transactionArray.length > 0) {
+                            for (let index = 0; index < transactionArray.length; index++) {
+                              tempInputsArray = [];
+                              tempOutputsArray = [];
+                              console.log("jQuery.unique( divs );", jQuery.unique(transactionArray));
+                              if (transactionArray[index].confirmations > 0) {
+                                tempInputsArray = transactionArray[index].inputs;
+                                tempOutputsArray = transactionArray[index].outputs;
+                                for (let index = 0; index < tempInputsArray.length; index++) {
+                                  if (tempInputsArray[index].addresses.includes(dataObj.address)) {
+                                    console.log("U send===>", tempOutputsArray[0].value);
+                                    htmlTblBodySend = tempOutputsArray[0].value;
+
+                                  } else {
+                                    console.log("U Received===>", tempOutputsArray[0].value);
+                                    htmlTblBodyReceived = tempOutputsArray[0].value;
+
+                                  }
+
+                                }
+                                Transaction_confirmed = moment(transactionArray[index].confirmed).format('MMMM Do YYYY');
+                                console.log(" Transaction_confirmed,htmlTblBodyReceived,htmlTblBodySend=>", Transaction_confirmed, typeof htmlTblBodyReceived, typeof htmlTblBodySend);
+
+                                htmlTblBodyReceived = htmlTblBodyReceived === '' ? 0 : htmlTblBodyReceived;
+                                htmlTblBodySend = htmlTblBodySend === '' || '' ? 0 : htmlTblBodySend;
+
+
+                                htmlTblBody = htmlTblBody + `<tr><td>` + Transaction_confirmed + `</td>
+                                <td>` + htmlTblBodyReceived + cryptoCurrencyCode + `</td>
+                                <td>` + htmlTblBodySend + cryptoCurrencyCode + `</td>
+                                <td></td>
+                                <td data-field=""  id="btn_Tx_details"class="m-datatable__cell"><span style="overflow: visible; position: relative; width: 110px;">	
+                                    <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="View">					
+                                    <i class="la 	la-clone"></i>						
+                                    </a></td>
+                              
+                                </tr>`;
+
+
+                              } else {
+                                continue;
+                              }
+                            }
+                          }
+
+
+                          $('#DataTableTransactionBody').html(htmlTblBody);
+                          $('#DataTableTransaction').mDatatable({});
+                          $(document).on('click', '#btn_Tx_details', function(params) {
+
+                          })
+                          $('#btn_Tx_details')
+
+
+
+                          // _bind.renderCoinDataTransaction(varenderCoinDataTransaction)
                         }
                       })
 
@@ -463,21 +531,39 @@ var balance = '';
       _core.copyText();
 
     },
-    renderCoinDataTransaction: function(args) {
+    renderCoinDataTransaction: async function(args) {
       var confirmations = '';
       console.log("renderCoinDataTransaction==:>", args);
       var txsArray = [];
       txsArray = args.txs
-      console.log(txsArray);
 
+      await $('#m_datatable_Transaction').mDatatable({
+        data: {
+          type: 'remote',
+          source: {
+            read: {
+              url: '/getAddrFull',
+              method: 'GET',
+              processing: true,
+              serverSide: true,
+              params: {
+                query: {
+                  token: headerElms.token,
+                  dataObj: args,
+                },
+              }
 
-      $('#m_datatable_Transaction').mDatatable({
-        data: txsArray,
-        // serverPaging: true,
-        // serverFiltering: false,
-        // serverSorting: false,
-        // pagination: true,
-
+            }
+          },
+          saveState: {
+            cookie: true,
+            webstorage: true
+          },
+          serverPaging: true,
+          serverFiltering: false,
+          serverSorting: false,
+          pagination: true,
+        },
 
         layout: {
           theme: 'default',
@@ -490,29 +576,79 @@ var balance = '';
         filterable: false,
 
         columns: [{
-
-            field: "total",
-            template: function(field, type, row) {
-              console.log("rendring Total==>", total, field);
-
-              // for (let index = 0; index < activeUSer.length; index++) {
-              //   console.log("field.firstName", field.firstName, index, activeUSer[index].name);
-              //   if (activeUSer[index].name == field.firstName) {
-              //     console.log("activeUSer[index].name in if", activeUSer[index].name);
-              //     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
-              //   }
-              // }
-              return total;
-            },
-            title: 'tiitle',
+            // data: 'total',
+            // defaultContent: '000',
+            field: 'total',
+            // template: function(field, row) {
+            //   console.log(" field", field, row);
+            //   for (let index = 0; index < field.length; index++) {
+            //     return field[index].total;
+            //   }
+            // },
+            title: 'Total',
             sortable: false,
             width: 100,
             textAlign: 'center'
           },
 
-
-        ]
+        ],
+        // columnDefs: [{
+        //   targets: [0, 1, 2],
+        //   className: 'mdl-data-table__cell--non-numeric',
+        //   // targets: "total",
+        //   data: 'total',
+        //   render: function(data, type, full, option) {
+        //     console.log("data, type, full, option==>", data, type, full, option);
+        //     return "asdf";
+        //   }
+        // }],
       })
+
+      // $('#m_datatable_Transaction').mDatatable({
+      //   data: txsArray,
+      //   // serverPaging: true,
+      //   // serverFiltering: false,
+      //   // serverSorting: false,
+      //   // pagination: true,
+
+
+      //   layout: {
+      //     theme: 'default',
+      //     class: '',
+      //     scroll: true,
+      //     height: 380,
+      //     footer: false
+      //   },
+      //   sortable: false,
+      //   filterable: false,
+
+      //   columns: [{
+      //       "data": "total",
+      //       // field: "total",
+
+      //       // template: function(field, type, row) {
+      //       //   console.log("Template==>", field, data, type, row);
+
+      //       //   // console.log("rendring Total==>", total, field);
+
+      //       //   // for (let index = 0; index < activeUSer.length; index++) {
+      //       //   //   console.log("field.firstName", field.firstName, index, activeUSer[index].name);
+      //       //   //   if (activeUSer[index].name == field.firstName) {
+      //       //   //     console.log("activeUSer[index].name in if", activeUSer[index].name);
+      //       //   //     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
+      //       //   //   }
+      //       //   // }
+      //       //   return field.total;
+      //       // },
+      //       title: 'title',
+      //       // sortable: false,
+      //       // width: 100,
+      //       // textAlign: 'center'
+      //     },
+
+
+      //   ]
+      // })
 
 
 
