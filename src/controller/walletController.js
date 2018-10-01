@@ -27,7 +27,7 @@ const walletController = {
     var name = decoded._id;
     var item = coin[req.body.dataObj.coin];
     var data = { name: name.toString(), addresses: [] }
-    console.log("Coin==>item coinCode", item, CoinCode);
+      // console.log("Coin==>item coinCode", item, CoinCode);
     item.createWallet(data, function(err, wallets) {
       if (err) {
         return
@@ -111,45 +111,45 @@ const walletController = {
   },
   getAddrFull: (req, res) => {
     // var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("getAddrFull ==>", req.query);
+    // console.log("getAddrFull Data table query... ==>", req.query);
     // var perpage = req.query.pagination.perpage;
     // var page = req.query.pagination.page;
-    var CoinCode = req.query.dataObj.coin;
-    var address = req.query.dataObj.address;
+    var CoinCode = req.query.query.dataObj.coin;
+    var address = req.query.query.dataObj.address;
     var item = coin[CoinCode];
     console.log("Coin==>getAddr item coinCode", item, CoinCode);
 
     item.getAddrFull(address, {}, function(err, body) {
-      console.log("getAddr==> result", body);
+      // console.log("getAddr full Data table result", body, typeof body.txs);
 
-      // res.json({
-      //   isError: false,
-      //   meta: {
-      //     page: req.query.pagination.page,
+      res.json({
+        isError: false,
+        meta: {
+          page: req.query.pagination.page,
 
-      //     perpage: req.query.pagination.perpage,
-      //     total: body.n_tx,
+          perpage: req.query.pagination.perpage,
+          total: body.n_tx,
 
-      //   },
-      //   data: { body: body.txs },
-      // }, )
+        },
+        data: body.txs,
+      }, )
 
-      res.json(body);
+      // res.json(body);
     })
 
   },
   getAddrBal: (req, res) => {
 
     var decoded = jwt.verify(req.headers['authorization'], env.App_key);
-    console.log("getAddrBal ==>", decoded._id, req.body.dataObj);
+    // console.log("getAddrBal ==>", decoded._id, req.body.dataObj);
 
     var CoinCode = req.body.dataObj.coin;
     var address = req.body.dataObj.address;
     var item = coin[req.body.dataObj.coin];
     // var data = { name: name.toString(), addresses: [] }
-    console.log("Coin==>getAddrBal item coinCode", item, CoinCode);
+    // console.log("Coin==>getAddrBal item coinCode", item, CoinCode);
     item.getAddrFull(address, {}, function(err, body) {
-      console.log("getAddrFull==>0", body);
+      // console.log("getAddrFull==>0", body);
 
       res.json(body);
     })
@@ -181,13 +181,13 @@ const walletController = {
           var senderAddress = '';
 
           var dataRes = users[0].wallets;
-          console.log("newTransaction user data==>", users, dataRes);
+          // console.log("newTransaction user data==>", users, dataRes);
 
           for (var key in dataRes) {
             if (key.toString() == CoinCode.toString()) {
 
               var wallet_namesData = dataRes[key]
-              console.log("newTransaction key matched.==>", wallet_namesData.private);
+                // console.log("newTransaction key matched.==>", wallet_namesData.private);
               privateKey = wallet_namesData.private
               senderAddress = wallet_namesData.address
             }
@@ -266,7 +266,7 @@ const walletController = {
   getTX: (req, res) => {
     var hash = req.body.dataObj.hash;
     var CoinCode = req.body.dataObj.coin;
-    var item = coin[req.body.dataObj.coin];
+    var item = coin[CoinCode];
     // item.getTXConf(hash, function(err, body) {
     //   console.log("getTXConf==>0", body);
 
@@ -293,7 +293,7 @@ const walletController = {
         // console.log("error in item");
 
       } else {
-        console.log('listWallets==>', wallets);
+        // console.log('listWallets==>', wallets);
         wallets.wallet_names.forEach(element => {
 
 

@@ -316,7 +316,7 @@ var tradeController = _defineProperty({
                       switch (_context4.prev = _context4.next) {
                         case 0:
                           if (!err) {
-                            _context4.next = 2;
+                            _context4.next = 4;
                             break;
                           }
 
@@ -325,10 +325,10 @@ var tradeController = _defineProperty({
                             data: err
                           }));
 
-                        case 2:
+                        case 4:
                           _context4.t0 = res;
                           _context4.t1 = req.query.pagination.page;
-                          _context4.next = 6;
+                          _context4.next = 8;
                           return _postatrade2.default.find({
                             cryptoCurrency: cryptoCurrency,
                             location: location,
@@ -336,11 +336,11 @@ var tradeController = _defineProperty({
                             traderType: traderType
                           }).count();
 
-                        case 6:
+                        case 8:
                           _context4.t2 = _context4.sent;
                           _context4.t3 = _context4.t2 / 10;
                           _context4.t4 = req.query.pagination.perpage;
-                          _context4.next = 11;
+                          _context4.next = 13;
                           return _postatrade2.default.find({
                             cryptoCurrency: cryptoCurrency,
                             location: location,
@@ -348,7 +348,7 @@ var tradeController = _defineProperty({
                             traderType: traderType
                           }).count();
 
-                        case 11:
+                        case 13:
                           _context4.t5 = _context4.sent;
                           _context4.t6 = {
                             page: _context4.t1,
@@ -367,7 +367,7 @@ var tradeController = _defineProperty({
 
                           _context4.t0.json.call(_context4.t0, _context4.t8);
 
-                        case 16:
+                        case 18:
                         case 'end':
                           return _context4.stop();
                       }

@@ -184,6 +184,19 @@ var Home = {};
           serverFiltering: true,
           serverSorting: true
         },
+        pages: {
+          desktop: {
+            layout: 'default',
+            pagesNumber: 6,
+          },
+          tablet: {
+            layout: 'default',
+            pagesNumber: 3,
+          },
+          mobile: {
+            layout: 'compact',
+          },
+        },
 
         layout: {
           theme: 'default',
@@ -311,6 +324,20 @@ var Home = {};
           serverFiltering: true,
           serverSorting: true
         },
+        pages: {
+          desktop: {
+            layout: 'default',
+            pagesNumber: 6,
+          },
+          tablet: {
+            layout: 'default',
+            pagesNumber: 3,
+          },
+          mobile: {
+            layout: 'compact',
+          },
+        },
+
 
         layout: {
           theme: 'default',
@@ -445,6 +472,19 @@ var Home = {};
           serverPaging: true,
           serverFiltering: true,
           serverSorting: true
+        },
+        pages: {
+          desktop: {
+            layout: 'default',
+            pagesNumber: 6,
+          },
+          tablet: {
+            layout: 'default',
+            pagesNumber: 3,
+          },
+          mobile: {
+            layout: 'compact',
+          },
         },
 
         layout: {
@@ -586,6 +626,19 @@ var Home = {};
           serverFiltering: false,
           serverSorting: false
 
+        },
+        pages: {
+          desktop: {
+            layout: 'default',
+            pagesNumber: 6,
+          },
+          tablet: {
+            layout: 'default',
+            pagesNumber: 3,
+          },
+          mobile: {
+            layout: 'compact',
+          },
         },
 
         layout: {

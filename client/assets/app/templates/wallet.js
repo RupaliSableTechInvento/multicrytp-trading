@@ -47,30 +47,35 @@ var balance = '';
   }
   var _bind = {
     Wallet: function() {
-      ////console.log("Wallet,js wallet()");
+      //////console.log("Wallet,js wallet()");
+      $('#m_datatable_Transaction').mDatatable({
+        destroy: true
+      })
       var form = $('#walletForm');
 
       var isToken = GlobalEvent.checkIfToken(headerElms.token)
       if (isToken) {
-        var dataObj = {
-          coin: 'BTC',
-          hash: '71553a9b79226e8700af047b7992b2cec451f7e64609ca03b586acd5bf33e4c9'
-        }
-        _core.getTX(headerElms.token, dataObj, function(res) {
-          //console.log("getTX response==>", res);
 
-        })
         _bind.checkDefaultSetting();
         _bind.attachEvent();
         _bind.sendRequest();
-        //console.log(headerElms.BTC_isAddressCreated, headerElms.LTC_isAddressCreated, headerElms.DOGE_isAddressCreated);
+        ////console.log(headerElms.BTC_isAddressCreated, headerElms.LTC_isAddressCreated, headerElms.DOGE_isAddressCreated);
         $('#mainTablist li a').unbind().click(function() {
           form.clearForm();
+
+
           // _bind.checkDefaultSetting()
           var cryptoCurrency = $(this).text();
           // $('#currencyCodeOption').attr('selected', true)
           $("#currencyCode").val('AED').find("option[value='AED']").attr('selected', true)
           activeTabCode = $(this).attr('data-code');
+          var dataObj = {
+              coin: activeTabCode,
+              hash: '71553a9b79226e8700af047b7992b2cec451f7e64609ca03b586acd5bf33e4c9'
+            }
+            // _core.getTX(headerElms.token, dataObj, function(res) {
+            //   console.log("getTX get chain response==>", res);
+            // })
           var address = '';
           var varRenderCoinDataSend = '';
           var paramsObj = {};
@@ -82,11 +87,12 @@ var balance = '';
           var check_isAddressCreated = localStorage.getItem('' + str)
 
           if (check_isAddressCreated === 'false') {
-
+            //console.log("mainTab list clicked..", check_isAddressCreated, params);
             _bind.createWalletWithAddress(params)
 
 
           } else if (check_isAddressCreated === 'true') {
+            //console.log("mainTab list clicked..", check_isAddressCreated);
             _bind.getCoin_WalletData(params)
 
           }
@@ -104,7 +110,7 @@ var balance = '';
             _bind.computeAmont(amtCrytocurrency)
           } else {
             $('#amtErrorhint').removeClass('hidden')
-              //console.log("balance is 0");
+              ////console.log("balance is 0");
             $('#resultAmt').empty();
             $('#resultAmt').val('0.000')
 
@@ -143,7 +149,7 @@ var balance = '';
 
               _core.getCoin_WalletData(headerElms.token, function(res) {
                 if (!res.isError) {
-                  //console.log("getCoin_WalletData response==>", res);
+                  ////console.log("getCoin_WalletData response==>", res);
                   var dataRes = res.data[0].wallets;
                   for (var key in dataRes) {
                     if (key.toString() == activeTabCode.toString()) {
@@ -168,101 +174,31 @@ var balance = '';
             {
               var cryptoCurrency = $('#mainTablist li a.active').text();
               var cryptoCurrencyCode = $('#mainTablist li a.active').attr('data-code');
-              $('#DataTableTransaction').addClass('')
+              // $('#DataTableTransaction').addClass('');
+
+              $('#m_datatable_Transaction').mDatatable().destroy()
+
 
               _core.getCoin_WalletData(headerElms.token, function(res) {
                 if (!res.isError) {
-                  //console.log("getCoin_WalletData response==>", res);
+                  ////console.log("getCoin_WalletData response==>", res);
                   var dataRes = res.data[0].wallets;
+                  //console.log("dataRes==>", dataRes);
                   for (var key in dataRes) {
-                    if (key.toString() == activeTabCode.toString()) {
+                    if (key.toString() == cryptoCurrencyCode.toString()) {
+                      //console.log("key and cryptocurrency code==>", key, cryptoCurrencyCode);
 
-                      var dataObj = {
+                      if (dataRes[key].isAddressCreated) {
+                        var dataObj = {
                           coin: cryptoCurrencyCode,
                           address: dataRes[key].address,
                         }
-                        // _bind.renderCoinDataTransaction(dataObj)
-
-                      _core.getAddrFull(headerElms.token, dataObj, function(res) {
-                        if (res) {
-                          var htmlTblBody = '';
-                          var htmlTblBodyReceived = '';
-                          var htmlTblBodySend = '';
-                          console.log("getAddrFull==> for Transaction", res);
-                          var transactionArray = [];
-                          var tempInputsArray = [];
-                          var tempOutputsArray = [];
-                          var Transaction_confirmed = ''
-
-                          transactionArray = res.txs;
-                          var varenderCoinDataTransaction = {};
-                          varenderCoinDataTransaction = {
-                            n_tx: res.n_tx,
-                            total_received: res.total_received,
-                            total_sent: res.total_sent,
-                            txs: res.txs
-                          }
+                        _bind.renderCoinDataTransaction(dataObj, cryptoCurrency)
 
 
-                          if (transactionArray.length > 0) {
-                            for (let index = 0; index < transactionArray.length; index++) {
-                              tempInputsArray = [];
-                              tempOutputsArray = [];
-                              console.log("jQuery.unique( divs );", jQuery.unique(transactionArray));
-                              if (transactionArray[index].confirmations > 0) {
-                                tempInputsArray = transactionArray[index].inputs;
-                                tempOutputsArray = transactionArray[index].outputs;
-                                for (let index = 0; index < tempInputsArray.length; index++) {
-                                  if (tempInputsArray[index].addresses.includes(dataObj.address)) {
-                                    console.log("U send===>", tempOutputsArray[0].value);
-                                    htmlTblBodySend = tempOutputsArray[0].value;
+                      } else {
 
-                                  } else {
-                                    console.log("U Received===>", tempOutputsArray[0].value);
-                                    htmlTblBodyReceived = tempOutputsArray[0].value;
-
-                                  }
-
-                                }
-                                Transaction_confirmed = moment(transactionArray[index].confirmed).format('MMMM Do YYYY');
-                                console.log(" Transaction_confirmed,htmlTblBodyReceived,htmlTblBodySend=>", Transaction_confirmed, typeof htmlTblBodyReceived, typeof htmlTblBodySend);
-
-                                htmlTblBodyReceived = htmlTblBodyReceived === '' ? 0 : htmlTblBodyReceived;
-                                htmlTblBodySend = htmlTblBodySend === '' || '' ? 0 : htmlTblBodySend;
-
-
-                                htmlTblBody = htmlTblBody + `<tr><td>` + Transaction_confirmed + `</td>
-                                <td>` + htmlTblBodyReceived + cryptoCurrencyCode + `</td>
-                                <td>` + htmlTblBodySend + cryptoCurrencyCode + `</td>
-                                <td></td>
-                                <td data-field=""  id="btn_Tx_details"class="m-datatable__cell"><span style="overflow: visible; position: relative; width: 110px;">	
-                                    <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="View">					
-                                    <i class="la 	la-clone"></i>						
-                                    </a></td>
-                              
-                                </tr>`;
-
-
-                              } else {
-                                continue;
-                              }
-                            }
-                          }
-
-
-                          $('#DataTableTransactionBody').html(htmlTblBody);
-                          $('#DataTableTransaction').mDatatable({});
-                          $(document).on('click', '#btn_Tx_details', function(params) {
-
-                          })
-                          $('#btn_Tx_details')
-
-
-
-                          // _bind.renderCoinDataTransaction(varenderCoinDataTransaction)
-                        }
-                      })
-
+                      }
                     }
                   }
 
@@ -270,19 +206,11 @@ var balance = '';
 
               });
 
-
-
-
-              // $('#divuserWalletData').addClass('m-loader m-loader--info')
-
-
               break;
             }
           case 'send':
             {
-              //console.log(params);
 
-              //console.log("renderCoinData function call from subTablist tab ", params);
               _bind.renderCoinDataSend(params);
 
             }
@@ -291,6 +219,8 @@ var balance = '';
       })
     },
     renderSubTablistData: function(params) {
+      //console.log("renderSubTablistData params==>", params);
+
       _bind.renderCoinDataSend(params);
     },
     sendRequest: function() {
@@ -308,10 +238,10 @@ var balance = '';
         isTXValid = (amount && receiverAddress) ? (amount > 0) ? true : false : false
 
         if (isBalanceValid) {
-          //console.log(" if isBalanceValid ", isBalanceValid);
+          ////console.log(" if isBalanceValid ", isBalanceValid);
           var validateAddressRes = await _bind.validateAddress(receiverAddress)
           if (validateAddressRes && isTXValid) {
-            //console.log("Transaction valid", isTXValid);
+            ////console.log("Transaction valid", isTXValid);
 
             var cryptoCurrencyCode = $('#mainTablist li a.active').attr('data-code');
             var dataObj = {
@@ -325,7 +255,7 @@ var balance = '';
 
 
                 $('#btn_sendCoins').removeClass('m-loader m-loader--info')
-                  //console.log("newTransaction==>", res);
+                  ////console.log("newTransaction==>", res);
 
                 if (res.isError) {
                   setTimeout(function() {
@@ -354,7 +284,7 @@ var balance = '';
 
 
         } else {
-          //console.log(" else isBalanceValid ", isBalanceValid);
+          ////console.log(" else isBalanceValid ", isBalanceValid);
           $('#btn_sendCoins').removeClass('m-loader m-loader--info')
 
           setTimeout(function() {
@@ -373,7 +303,7 @@ var balance = '';
       }
       const res = await _core.validateAddress(dataObj);
       // _core.validateAddress(dataObj, function(res) {
-      //console.log("validateAddress response", res);
+      ////console.log("validateAddress response", res);
 
       if (!res.isError) {
         return true;
@@ -385,14 +315,14 @@ var balance = '';
 
     },
     createWalletWithAddress: function(args) {
-      //console.log("createWalletWithAddress ", args);
-      var activeTabCode = args.activeTabCode
+      //console.log("createWalletWithAddress args==> ", args);
+      var coin = args.coin
       var paramsObj = {};
       var dataObj = {
-        coin: activeTabCode
+        coin: coin
       }
       _core.createWalletWithAddress(headerElms.token, dataObj, function(res) {
-        //console.log("createWalletWithAddress==>>", res);
+        ////console.log("createWalletWithAddress==>>", res);
         if (res.isError) {
           _bind.getCoin_WalletData(args)
 
@@ -408,7 +338,7 @@ var balance = '';
                   address: dataRes[key].address,
                   cryptoCurrencyCode: key,
                 }
-                //console.log("renderCoinData function call from   createWalletWithAddress", r);
+                ////console.log("renderCoinData function call from   createWalletWithAddress", r);
 
               params = paramsObj;
               _bind.renderSubTablistData(params)
@@ -421,15 +351,15 @@ var balance = '';
       })
     },
     getCoin_WalletData: function(args) {
-      //console.log("getCoin_WalletData args", args);
+      ////console.log("getCoin_WalletData args", args);
       var paramsObj = {};
       _core.getCoin_WalletData(headerElms.token, function(res) {
         if (!res.isError) {
-          //console.log("getCoin_WalletData response==>", res);
+          ////console.log("getCoin_WalletData response==>", res);
 
           var dataRes = res.data[0].wallets;
           for (var key in dataRes) {
-            if (key.toString() == activeTabCode.toString()) {
+            if (key.toString() == args.coin.toString()) {
 
               paramsObj = {
                 cryptoCurrency: args.cryptoCurrency,
@@ -450,11 +380,11 @@ var balance = '';
     checkDefaultSetting: function() {
       var address = '';
       var BTC_isAddressCreatedNew = localStorage.getItem('BTC_isAddressCreated')
-      activeTabCode = 'BTC';
+      coin = 'BTC';
       cryptoCurrency = 'BitCoin'
       $('#divuserWalletData').addClass('m-loader m-loader--info')
       params = {
-        activeTabCode: activeTabCode,
+        coin: coin,
         cryptoCurrency: cryptoCurrency
       }
       if (BTC_isAddressCreatedNew === 'false') {
@@ -469,7 +399,9 @@ var balance = '';
     },
     renderCoinDataSend: function(args) {
       $('#userWalletData').empty();
-      //console.log("renderCoinDataSend params==>", params);
+      $('.tab-pane').removeClass('active')
+      $('#m_tabs_3_1').addClass('active show')
+      console.log("renderCoinDataSend params==>", args);
       var dataObj = {
         coin: args.cryptoCurrencyCode,
         address: args.address
@@ -479,7 +411,7 @@ var balance = '';
 
       _core.getAddrBal(headerElms.token, dataObj, function(res) {
         if (res) {
-          console.log("getAddrBal==>", res);
+          //console.log("getAddrBal==>", res);
 
           $('#divuserWalletData').removeClass('m-loader m-loader--info')
           balance = res.balance;
@@ -518,6 +450,8 @@ var balance = '';
 </div>`;
         $('#userWalletData').html(htmlUserWalletData);
       }
+      // window.location.href = '#/accounts/wallet?cryptocurrencyCode=' + args.cryptoCurrencyCode;
+
     },
     renderCoinDataReceive: function(args) {
       //console.log('renderCoinDataReceive params', args);
@@ -531,12 +465,14 @@ var balance = '';
       _core.copyText();
 
     },
-    renderCoinDataTransaction: async function(args) {
+    renderCoinDataTransaction: async function(args, cryptoCurrency) {
       var confirmations = '';
-      console.log("renderCoinDataTransaction==:>", args);
+      console.log("renderCoinDataTransaction args==:>", args);
       var txsArray = [];
       txsArray = args.txs
-
+      $('#transaction_Title').html('Transaction Datails for ' + cryptoCurrency)
+        // $('#m_datatable_Transaction').empty();
+        // $('#m_datatable_Transaction').mDatatable()
       await $('#m_datatable_Transaction').mDatatable({
         data: {
           type: 'remote',
@@ -564,6 +500,19 @@ var balance = '';
           serverSorting: false,
           pagination: true,
         },
+        pages: {
+          desktop: {
+            layout: 'default',
+            pagesNumber: 6,
+          },
+          tablet: {
+            layout: 'default',
+            pagesNumber: 3,
+          },
+          mobile: {
+            layout: 'compact',
+          },
+        },
 
         layout: {
           theme: 'default',
@@ -576,86 +525,68 @@ var balance = '';
         filterable: false,
 
         columns: [{
-            // data: 'total',
-            // defaultContent: '000',
-            field: 'total',
-            // template: function(field, row) {
-            //   console.log(" field", field, row);
-            //   for (let index = 0; index < field.length; index++) {
-            //     return field[index].total;
-            //   }
-            // },
-            title: 'Total',
+            field: "confirmed",
+            template: function(field, row) {
+              console.log("field, row for confirmed", field, typeof field, row);
+              if (field.confirmations > 0) {
+                var confirmed_temp = field.confirmed;
+                var confirmed_date = (moment(confirmed_temp).format('LLLL'))
+
+                return confirmed_date;
+              }
+              // return (moment(field.confirmed).format('LLLL'));
+            },
+            title: 'Date',
+            sortable: false,
+            width: 100,
+            textAlign: 'center'
+          },
+          {
+            field: "Send",
+            template: function(field, row) {
+              console.log("field, row for send", field, typeof field, row);
+              var tempInputsArray = field.inputs;
+              if (field.confirmations > 0) {
+                if (tempInputsArray[0].addresses[0] === (args.address)) {
+                  return field.outputs[0].value;
+                } else {
+                  return 0;
+                }
+              }
+            },
+            title: 'Send',
+            sortable: false,
+            width: 100,
+            textAlign: 'center'
+          }, {
+            field: "Received",
+            template: function(field, row) {
+              console.log("field, row received", field, typeof field, row);
+              var tempInputsArray = field.inputs;
+              if (field.confirmations > 0) {
+                if (tempInputsArray[0].addresses[0] === (args.address)) {
+                  return 0;
+                } else {
+                  return field.outputs[0].value;
+                }
+              }
+            },
+            title: 'Received',
             sortable: false,
             width: 100,
             textAlign: 'center'
           },
 
+
         ],
-        // columnDefs: [{
-        //   targets: [0, 1, 2],
-        //   className: 'mdl-data-table__cell--non-numeric',
-        //   // targets: "total",
-        //   data: 'total',
-        //   render: function(data, type, full, option) {
-        //     console.log("data, type, full, option==>", data, type, full, option);
-        //     return "asdf";
-        //   }
-        // }],
+
       })
-
-      // $('#m_datatable_Transaction').mDatatable({
-      //   data: txsArray,
-      //   // serverPaging: true,
-      //   // serverFiltering: false,
-      //   // serverSorting: false,
-      //   // pagination: true,
-
-
-      //   layout: {
-      //     theme: 'default',
-      //     class: '',
-      //     scroll: true,
-      //     height: 380,
-      //     footer: false
-      //   },
-      //   sortable: false,
-      //   filterable: false,
-
-      //   columns: [{
-      //       "data": "total",
-      //       // field: "total",
-
-      //       // template: function(field, type, row) {
-      //       //   console.log("Template==>", field, data, type, row);
-
-      //       //   // console.log("rendring Total==>", total, field);
-
-      //       //   // for (let index = 0; index < activeUSer.length; index++) {
-      //       //   //   console.log("field.firstName", field.firstName, index, activeUSer[index].name);
-      //       //   //   if (activeUSer[index].name == field.firstName) {
-      //       //   //     console.log("activeUSer[index].name in if", activeUSer[index].name);
-      //       //   //     return '<label>' + field.firstName + '</label><span style=" margin-left:5px;min-height: 10px; min-width: 10px;height: 4px;width: 4px; vertical-align: super;" class="m-badge m-badge--success"> </span>';
-      //       //   //   }
-      //       //   // }
-      //       //   return field.total;
-      //       // },
-      //       title: 'title',
-      //       // sortable: false,
-      //       // width: 100,
-      //       // textAlign: 'center'
-      //     },
-
-
-      //   ]
-      // })
-
 
 
     },
 
     computeAmont: function(amt) {
-      //console.log(amt);
+      ////console.log(amt);
       var resultPrice = '';
       var cryptoCurrency = '';
       $('#resultAmt').empty();
@@ -677,13 +608,13 @@ var balance = '';
 
           for (var key in dataRes) {
             if (key.toString() == currencyCode.toString()) {
-              //console.log("Matched==>", dataRes[key]);
+              ////console.log("Matched==>", dataRes[key]);
               price = dataRes[key].price;
-              //console.log(price);
+              ////console.log(price);
               $('#resultAmt').val(price);
 
               var params = {
-                activeTabCode: cryptoCurrencyCode,
+                coin: cryptoCurrencyCode,
                 cryptoCurrency: cryptoCurrency
               }
               _bind.getCoin_WalletData(params)

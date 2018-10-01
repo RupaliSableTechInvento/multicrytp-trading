@@ -71,6 +71,7 @@ var API = {
     })
 
   },
+
   getAddrBal: function(token, dataObj, cb) {
     $.ajax({
       url: "/getAddrBal",

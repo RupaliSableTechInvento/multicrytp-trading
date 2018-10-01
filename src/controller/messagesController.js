@@ -58,7 +58,7 @@ module.exports = function(app, io) {
         usersModel.findOneAndUpdate({ "email": curentUserEmail }, { $set: { isActive: "active" } }, { friends: 1, _id: 0 }, function(err, doc) {
           if (err) {
             console.log("error in io connection.=>", err);
-            res.json(err);
+            // res.json(err);
 
           } else {
 

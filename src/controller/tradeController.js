@@ -197,28 +197,33 @@ const tradeController = {
           isError: true,
           data: err
         });
-        res.json({
-          isError: false,
-          meta: {
-            page: req.query.pagination.page,
-            pages: (await postatrade.find({
-              cryptoCurrency: cryptoCurrency,
-              location: location,
-              tradeMethod: tradeMethod,
-              traderType: traderType,
-            }).count() / (10)),
-            perpage: req.query.pagination.perpage,
-            total: await postatrade.find({
-              cryptoCurrency: cryptoCurrency,
-              location: location,
-              tradeMethod: tradeMethod,
-              traderType: traderType,
-            }).count(),
-            sort: "asc",
-            field: "_id",
-          },
-          data: trade,
-        }, )
+        else {
+          // console.log("tradeByCurrencyLoc is called in server and data is==>", trade, typeof trade);
+
+          res.json({
+            isError: false,
+            meta: {
+              page: req.query.pagination.page,
+              pages: (await postatrade.find({
+                cryptoCurrency: cryptoCurrency,
+                location: location,
+                tradeMethod: tradeMethod,
+                traderType: traderType,
+              }).count() / (10)),
+              perpage: req.query.pagination.perpage,
+              total: await postatrade.find({
+                cryptoCurrency: cryptoCurrency,
+                location: location,
+                tradeMethod: tradeMethod,
+                traderType: traderType,
+              }).count(),
+              sort: "asc",
+              field: "_id",
+            },
+            data: trade,
+          }, )
+        }
+
 
       }).limit(parseInt(req.query.pagination.perpage) || 10).skip(skip || '')
   },
