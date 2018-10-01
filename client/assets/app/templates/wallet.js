@@ -73,9 +73,9 @@ var balance = '';
               coin: activeTabCode,
               hash: '71553a9b79226e8700af047b7992b2cec451f7e64609ca03b586acd5bf33e4c9'
             }
-            // _core.getTX(headerElms.token, dataObj, function(res) {
-            //   console.log("getTX get chain response==>", res);
-            // })
+            _core.getTX(headerElms.token, dataObj, function(res) {
+              console.log("getTX get chain response==>", res);
+            })
           var address = '';
           var varRenderCoinDataSend = '';
           var paramsObj = {};

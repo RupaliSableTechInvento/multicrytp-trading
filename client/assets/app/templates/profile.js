@@ -21,12 +21,6 @@ var Profile = {};
           // make ajax call and save base64 in database
           var imgURL = e.target.result;
           console.log("imgURl", imgURL);
-
-          // alert(this.files[0].size);
-
-
-
-
           _core.addUserProfilePic(imgURL, headerElms.token, function(res) {
             if (res) {
               $('#img_upload_pic').removeClass('m-loader m-loader--info')
@@ -55,9 +49,6 @@ var Profile = {};
       alert.animateClass('fadeIn animated');
       alert.find('span').html(msg);
     }
-
-
-
   }
   var _bind = {
 
@@ -108,13 +99,7 @@ var Profile = {};
           $('#buyPostTrade').html(Counter_Buy)
 
         })
-
-
-
-
       }
-
-
       $('#set_up_email').click(function(e) {
         e.preventDefault()
         var token = localStorage.getItem('token')
@@ -276,22 +261,13 @@ var Profile = {};
 
       })
     },
-    verification: function() {
-      var token = localStorage.getItem('token')
-
-      // _core.verification(token, function(res) {
-
-      //   if (res) {
-      //     console.log("res=>verification", res);
-      //   }
-      // })
-    }
+    
   }
   var _render = {
     content: function() {
       renderMainFrame('assets/snippets/pages/user/profile.html', 'profile', function() {
         console.log("render in profile.js");
-        _bind.verification();
+        // _bind.verification();
         _bind.profileSettings();
         // _bind.addUserInfo();
 

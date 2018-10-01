@@ -95,6 +95,8 @@ var PostATrade = {};
       await $('#select_ad-currency li').on('click', async function() {
         if (code) {
           $('.price-info').empty();
+
+          $('.price-info').addClass('m-loader m-loader--brand')
           var value = $(this).attr('name');
           form = $(this).closest('form');
           // console.log("form in ad-currency==>", form);
@@ -112,9 +114,10 @@ var PostATrade = {};
           const res = await _core.getPriceEquation(dataObjPriceEq);
           console.log("price Equation=>>", res);
           var resultCount = res.query.count;
-
+          $('.price-info').removeClass('m-loader m-loader--brand')
 
           if (parseInt(resultCount) > 0) {
+            price_equation='';
             // USD_in_currency = res.results.val;
             if (margin == '' || undefined) {
               margin = 0;
@@ -130,10 +133,13 @@ var PostATrade = {};
             var htmlPriceInfo = price_equation + ' ' + 'USD / ' + ' ' + code;
             $('.price-info').html(htmlPriceInfo)
           } else {
+            price_equation='';
             // console.log("", res.error);
             if (res.query.count == 0) {
               // console.log("matched..", error);
               setTimeout(function() {
+                $('.price-info').html('0.00')
+                // btn.attr('disable',true)
                 // btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
 
                 _core.showErrorMsg(form, 'danger', 'Pair not found."' + dataObjPriceEq.from + ' to  ' + dataObjPriceEq.to);
@@ -144,9 +150,7 @@ var PostATrade = {};
           }
         } else {
           alert("Select CryptoCurrency first.")
-
         }
-
       })
       await $("#margin_ad-commission").change(function() {
         $('.price-info').empty();
@@ -192,7 +196,7 @@ var PostATrade = {};
             const res = await _core.getPriceEquation(dataObjPriceEq);
             console.log("price Equation=>>", res);
             var resultCount = res.query.count;
-
+            $('.price-info').removeClass('m-loader m-loader--brand')
 
             if (parseInt(resultCount) > 0) {
               // USD_in_currency = res.results.val;
@@ -507,114 +511,124 @@ var PostATrade = {};
         more_information.min_trans_limit = $("#ad-min_amount").val();
         more_information.max_trans_limit = $("#ad-max_amount").val();
         more_information.bank_name = $("#ad-bank_name").val();
-        if ($('.add-adform-radio').is(':checked') && countryName && cryptoCurrency) {
-          var tradeMethod = $(".add-adform-radio:checked").attr("data-trade-type")
-          var isValidForm = false;
-          if (tradeMethod == 'ONLINE') {
-            if (payment_method) {
-              isValidForm = true;
+        if(price_equation&& price_equation>0){
+          console.log("Price equation==> greater than 0",price_equation, $('#title_currency').text())
+          if ($('.add-adform-radio').is(':checked') && countryName && cryptoCurrency) {
+            var tradeMethod = $(".add-adform-radio:checked").attr("data-trade-type")
+            var isValidForm = false;
+            if (tradeMethod == 'ONLINE') {
+              if (payment_method) {
+                isValidForm = true;
+              }
+  
+  
+            } else {
+              if (tradeMethod == 'LOCAL') {
+                isValidForm = true;
+  
+              }
             }
-
-
-          } else {
-            if (tradeMethod == 'LOCAL') {
-              isValidForm = true;
-
+  
+            if (isValidForm) {
+              var dataObj = {
+                "tradeMethod": tradeMethod,
+                "traderType": $(".add-adform-radio:checked").val(),
+                "cryptoCurrency": cryptoCurrency,
+                "location": countryName,
+                "payment_method": payment_method,
+                more_information: more_information,
+                "more_information.opening_hours.sunday.start": sun_start,
+                "more_information.opening_hours.sunday.end": sun_end,
+                "more_information.opening_hours.monday.start": mon_start,
+                "more_information.opening_hours.monday.end": mon_end,
+                "more_information.opening_hours.tuesday.start": tue_start,
+                "more_information.opening_hours.tuesday.end": tue_end,
+                "more_information.opening_hours.wednesday.start": wed_start,
+                "more_information.opening_hours.wednesday.end": wed_end,
+                "more_information.opening_hours.thursday.start": thu_start,
+                "more_information.opening_hours.thursday.end": thu_end,
+  
+                "more_information.opening_hours.friday.start": fri_start,
+  
+                "more_information.opening_hours.friday.end": fri_end,
+  
+                "more_information.opening_hours.saturday.start": sat_start,
+  
+                "more_information.opening_hours.saturday.end": sat_end,
+                "online_selling.payment_details": $("#ad-account_info").val(),
+                "online_selling.minimum_volume": $("#ad-require_trade_volume").val(),
+                "online_selling.minimum_feedback": $("#ad-require_feedback_score").val(),
+                "online_selling.new_buyer_limit": $("#ad-first_time_limit_btc").val(),
+                "online_selling.transaction_volume_coefficient": $("#ad-volume_coefficient_btc").val(),
+                "online_selling.display_reference": $("#id_ad-display_reference").is(':checked'),
+                "online_selling.reference_type": reference_type,
+                "payment_window": $("#ad-payment_window_minutes").val(),
+                "liquidity_options.track_liquidity": $("#ad-track_max_amount").is(':checked'),
+                "security_options.identified_people_only": $("#ad-require_identification ").is(':checked'),
+                "security_options.identify_user_before": $("#ad-require_p2p_identification").is(':checked'),
+                "security_options.real_name_required": $("#ad-real_name_required").is(':checked'),
+                "security_options.sms_verification_required": $("#ad-sms_verification_required").is(':checked'),
+                "security_options.trusted_people_only": $("#ad-require_trusted_by_advertiser ").is(':checked'),
+                "user": localStorage.getItem('user_id') || null,
+              }
+              var token = localStorage.getItem('token');
+  
+              var isToken = GlobalEvent.checkIfToken(token)
+              if (isToken) {
+                _core.postTrade(dataObj, token, function(res) {
+                  $(window).scrollTop(0);
+                  if (res) {
+                    console.log("res", res);
+                    setTimeout(function() {
+                      btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                      form.clearForm();
+                      form.validate().resetForm();
+  
+                      _core.showErrorMsg(form, 'success', 'Your trade request post sucessfully');
+                    }, 2000);
+  
+                  } else {
+  
+                    setTimeout(function() {
+                      btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+  
+                      _core.showErrorMsg(form, 'danger', 'Unable to post a trade."' + res.data + '" ');
+  
+                    }, 2000);
+                  }
+                })
+  
+              } else {
+                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+              }
+  
+            } else {
+              setTimeout(function() {
+                btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+  
+                _core.showErrorMsg(form, 'danger', 'please select Payment Method');
+  
+              }, 2000);
             }
           }
-
-          if (isValidForm) {
-            var dataObj = {
-              "tradeMethod": tradeMethod,
-              "traderType": $(".add-adform-radio:checked").val(),
-              "cryptoCurrency": cryptoCurrency,
-              "location": countryName,
-              "payment_method": payment_method,
-              more_information: more_information,
-              "more_information.opening_hours.sunday.start": sun_start,
-              "more_information.opening_hours.sunday.end": sun_end,
-              "more_information.opening_hours.monday.start": mon_start,
-              "more_information.opening_hours.monday.end": mon_end,
-              "more_information.opening_hours.tuesday.start": tue_start,
-              "more_information.opening_hours.tuesday.end": tue_end,
-              "more_information.opening_hours.wednesday.start": wed_start,
-              "more_information.opening_hours.wednesday.end": wed_end,
-              "more_information.opening_hours.thursday.start": thu_start,
-              "more_information.opening_hours.thursday.end": thu_end,
-
-              "more_information.opening_hours.friday.start": fri_start,
-
-              "more_information.opening_hours.friday.end": fri_end,
-
-              "more_information.opening_hours.saturday.start": sat_start,
-
-              "more_information.opening_hours.saturday.end": sat_end,
-              "online_selling.payment_details": $("#ad-account_info").val(),
-              "online_selling.minimum_volume": $("#ad-require_trade_volume").val(),
-              "online_selling.minimum_feedback": $("#ad-require_feedback_score").val(),
-              "online_selling.new_buyer_limit": $("#ad-first_time_limit_btc").val(),
-              "online_selling.transaction_volume_coefficient": $("#ad-volume_coefficient_btc").val(),
-              "online_selling.display_reference": $("#id_ad-display_reference").is(':checked'),
-              "online_selling.reference_type": reference_type,
-              "payment_window": $("#ad-payment_window_minutes").val(),
-              "liquidity_options.track_liquidity": $("#ad-track_max_amount").is(':checked'),
-              "security_options.identified_people_only": $("#ad-require_identification ").is(':checked'),
-              "security_options.identify_user_before": $("#ad-require_p2p_identification").is(':checked'),
-              "security_options.real_name_required": $("#ad-real_name_required").is(':checked'),
-              "security_options.sms_verification_required": $("#ad-sms_verification_required").is(':checked'),
-              "security_options.trusted_people_only": $("#ad-require_trusted_by_advertiser ").is(':checked'),
-              "user": localStorage.getItem('user_id') || null,
-            }
-            var token = localStorage.getItem('token');
-
-            var isToken = GlobalEvent.checkIfToken(token)
-            if (isToken) {
-              _core.postTrade(dataObj, token, function(res) {
-                $(window).scrollTop(0);
-                if (res) {
-                  console.log("res", res);
-                  setTimeout(function() {
-                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-                    form.clearForm();
-                    form.validate().resetForm();
-
-                    _core.showErrorMsg(form, 'success', 'Your trade request post sucessfully');
-                  }, 2000);
-
-                } else {
-
-                  setTimeout(function() {
-                    btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-                    _core.showErrorMsg(form, 'danger', 'Unable to post a trade."' + res.data + '" ');
-
-                  }, 2000);
-                }
-              })
-
-            } else {
-              btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-            }
-
-          } else {
+          //if Unchecked 
+          else {
             setTimeout(function() {
               btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-              _core.showErrorMsg(form, 'danger', 'please select Payment Method');
-
+              _core.showErrorMsg(form, 'danger', 'Trade Type all fields are mandatory');
             }, 2000);
+  
           }
+
         }
-        //if Unchecked 
-        else {
+        else{
           setTimeout(function() {
             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-
-            _core.showErrorMsg(form, 'danger', 'Trade Type all fields are mandatory');
-
+            _core.showErrorMsg(form, 'danger', 'Invalid Post');
           }, 2000);
 
         }
+      
 
       })
       $(".trade_type input").unbind().click(function() {

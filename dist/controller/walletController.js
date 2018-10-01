@@ -65,6 +65,8 @@ var walletController = {
                 data: err
               });
             } else {
+              console.log("Gen Addr wallet res==>", walletsData);
+
               var tempObj = {};
               tempObj[CoinCode] = walletsData;
               walletsData.isAddressCreated = true;
@@ -105,8 +107,20 @@ var walletController = {
     });
   },
   getCoin_WalletData: function getCoin_WalletData(req, res) {
+    var item = coin['BTC'];
+    item.genAddr({}, function (err, body) {
+      console.log("genAddr==> Response", body);
+    });
+
+    var data = {
+      "pubkeys": ["0259a80ac2bb8acc5d7ed1992da4585301ca0495be42c8d72b3236534c78f7ea37", "02295cd85df8d1fad00a311db5102a967f671b42ec10da2500bab7ad1962ebdd32", "023f0946898fb3b8dcb5d8c259696fe4ecc8765da62070a3006ab5479b7336673d"],
+      "script_type": "multisig-2-of-3"
+    };
+    item.genAddr(data, function (err, body) {
+      console.log("Response for multising addressing==>", body);
+    });
     var decoded = _jsonwebtoken2.default.verify(req.headers['authorization'], _env2.default.App_key);
-    console.log("getCoin_WalletData ==>", decoded._id);
+    // console.log("getCoin_WalletData ==>", decoded._id);
     _usersModel2.default.find({
       'email': decoded.email
     }, function (err, users) {
@@ -133,7 +147,7 @@ var walletController = {
     var CoinCode = req.query.query.dataObj.coin;
     var address = req.query.query.dataObj.address;
     var item = coin[CoinCode];
-    console.log("Coin==>getAddr item coinCode", item, CoinCode);
+    // console.log("Coin==>getAddr item coinCode", item, CoinCode);
 
     item.getAddrFull(address, {}, function (err, body) {
       // console.log("getAddr full Data table result", body, typeof body.txs);
@@ -213,6 +227,18 @@ var walletController = {
               inputs: [{ addresses: [senderAddress] }],
               outputs: [{ addresses: [receiverAddress], value: amount }]
             };
+            //for multisig addressing Transaction..
+            // var tx = {
+            //   "inputs": [{"addresses": [senderAddress]}],
+            //   "outputs": [{
+            //       "addresses"   : [ "0259a80ac2bb8acc5d7ed1992da4585301ca0495be42c8d72b3236534c78f7ea37",
+            //       "02295cd85df8d1fad00a311db5102a967f671b42ec10da2500bab7ad1962ebdd32",
+            //       "023f0946898fb3b8dcb5d8c259696fe4ecc8765da62070a3006ab5479b7336673d"],
+            //       "script_type" : "multisig-2-of-3",
+            //       "value"       : amount
+            //   }]
+            // }
+
 
             item.newTX(tx, function (err, newTXres) {
 
@@ -228,14 +254,21 @@ var walletController = {
                 });
                 item.sendTX(newTXres, function (err, result) {
                   if (err) {
-                    // console.log("sendTX error==>", err);
+                    console.log("sendTX error==>", err);
 
                     res.json({
                       isError: true,
                       data: result
                     });
                   } else {
-                    // console.log("sendTX==>", result);
+                    //multisig address balance info
+                    item.getAddrFull('2MuhLqAKvB5LESiNdVWg6BzkaetnArtQizw', {}, function (err, body) {
+                      console.log("getAddrFull==> multising address", body);
+
+                      // res.json(body);
+                    });
+
+                    console.log("sendTX==>", result);
                     res.json({
                       isError: false,
                       data: result
